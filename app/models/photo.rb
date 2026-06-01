@@ -2,6 +2,12 @@ class Photo < ApplicationRecord
   STATUSES = %w[pending processing processed failed].freeze
 
   belongs_to :tenant
+  belongs_to :venue, optional: true
+
+  has_many :photo_people, dependent: :destroy
+  has_many :people, through: :photo_people
+  has_many :versions, class_name: "PhotoVersion", dependent: :destroy
+
   has_one_attached :image
 
   validates :status, inclusion: { in: STATUSES }

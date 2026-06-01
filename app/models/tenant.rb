@@ -1,5 +1,7 @@
 class Tenant < ApplicationRecord
   has_many :photos, dependent: :destroy
+  has_many :venues, dependent: :destroy
+  has_many :people, dependent: :destroy
 
   validates :name, presence: true
   validates :subdomain, presence: true, uniqueness: true,
