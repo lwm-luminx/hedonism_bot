@@ -78,6 +78,7 @@
     <orderEntry type="library" scope="PROVIDED" name="graphiql-rails (v1.10.5, rbenv: 4.0.5) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="graphql (v2.6.3, rbenv: 4.0.5) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="haml (v7.2.0, rbenv: 4.0.5) [gem]" level="application" />
+    <orderEntry type="library" scope="PROVIDED" name="haml-rails (v3.0.0, rbenv: 4.0.5) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="hashdiff (v1.2.1, rbenv: 4.0.5) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="i18n (v1.14.8, rbenv: 4.0.5) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="image_processing (v1.14.0, rbenv: 4.0.5) [gem]" level="application" />
@@ -177,7 +178,7 @@
     <orderEntry type="library" scope="PROVIDED" name="useragent (v0.16.11, rbenv: 4.0.5) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="vite_rails (v3.11.0, rbenv: 4.0.5) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="vite_ruby (v3.10.2, rbenv: 4.0.5) [gem]" level="application" />
-    <orderEntry type="library" scope="TEST" name="web-console (v4.3.0, rbenv: 4.0.5) [gem]" level="application" />
+    <orderEntry type="library" scope="PROVIDED" name="web-console (v4.3.0, rbenv: 4.0.5) [gem]" level="application" />
     <orderEntry type="library" scope="TEST" name="webmock (v3.26.2, rbenv: 4.0.5) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="websocket-driver (v0.8.0, rbenv: 4.0.5) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="websocket-extensions (v0.1.5, rbenv: 4.0.5) [gem]" level="application" />

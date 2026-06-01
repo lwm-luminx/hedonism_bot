@@ -5,7 +5,7 @@ gem "rails", "~> 8.1.3"
 # Static Typing
 gem "rbs_rails", require: false
 # HAML over ERB
-gem "haml"
+gem 'haml-rails'
 # Use postgresql as the database for Active Record
 gem "pg", "~> 1.1"
 # Use the Puma web server [https://github.com/puma/puma]
@@ -85,4 +85,6 @@ end
 
 group :development do
   gem "web-console"
+
+  gem 'chrome_devtools_rails'
 end
