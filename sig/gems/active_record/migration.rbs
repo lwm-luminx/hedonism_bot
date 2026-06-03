@@ -1,0 +1,3 @@
+class ActiveRecord::Migration
+  def change: () -> void
+end
