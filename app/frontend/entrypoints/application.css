@@ -1,7 +1,10 @@
-@import "tailwindcss";
+@import "~/stylesheets/fonts.css";
+
+@import 'tailwindcss';
+@import 'tw-animate-css';
+
+@import '~/stylesheets/theme.css';
 
 @source "../../views/**/*.html.erb";
 @source "../../views/**/*.rb";
 @source "../../helpers/**/*.rb";
-
-

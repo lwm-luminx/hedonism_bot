@@ -1,54 +1,119 @@
 import React, { Component } from 'react';
 import Dropzone, { DropzoneState, FileRejection } from 'react-dropzone'
 
+import { PhotoUpload } from './PhotoUpload';
+import {Button} from "./Button";
+import {Container} from "@radix-ui/themes";
+import {Row} from "@radix-ui/themes/components/table";
+
+interface UploadPhoto {
+    id: string | null,
+    title: string,
+    rawPhoto: File
+    processedPhotos: File[]
+}
+
 interface UploadState {
-    acceptedFiles: File[];
+    acceptedFiles: Record<string, UploadPhoto>;
     rejectedFiles: FileRejection[];
 }
 
 interface MultiUploaderProps {
-    uploadPath?: string
+    rawUploadPath?: string
+    processedUploadPath?: string
+    completeUploadPath?: string
 }
+
+const RAW_FORMAT_EXTENSIONS = ['.arw'];
 
 export class MultiUploader extends Component<MultiUploaderProps, UploadState> {
     constructor(props: MultiUploaderProps) {
         super(props);
         this.state = {
-            acceptedFiles: [],
+            acceptedFiles: {},
             rejectedFiles: [],
         };
     }
 
     static defaultProps = {
-        uploadPath: '/upload'
+        rawUploadPath: '/upload',
+        processedUploadPath: '/upload',
+        completeUploadPath: '/upload/{id}/complete'
     };
+
+    static stripExtension(filename: string) {
+        return filename.substring(0, filename.lastIndexOf('.')) || filename;
+    }
+
+    static getExtension(filename: string) {
+        const extension = filename.substring(filename.lastIndexOf('.')) || filename;
+        return extension.toLowerCase();
+    }
 
     // 3. Define the type-safe handleDrop callback
     handleDrop = (acceptedFiles: File[], fileRejections: FileRejection[]) => {
+        const rawPhotos = acceptedFiles.filter(file => RAW_FORMAT_EXTENSIONS.includes(MultiUploader.getExtension(file.name)));
+        const processedPhotos = new Set(acceptedFiles).difference(new Set(rawPhotos));
+
+        const newAcceptedFiles = {...this.state.acceptedFiles};
+
+        for (const rawPhoto of rawPhotos) {
+            const basename = MultiUploader.stripExtension(rawPhoto.name);
+
+            newAcceptedFiles[basename] = {
+                id: null,
+                title: rawPhoto.name,
+                rawPhoto,
+                processedPhotos: [],
+            }
+        }
+
+        for (const processedPhoto of processedPhotos) {
+            const basename = MultiUploader.stripExtension(processedPhoto.name);
+
+            if (basename in newAcceptedFiles) {
+                newAcceptedFiles[basename].processedPhotos.push(processedPhoto);
+            }
+            else {
+                console.error(`Processed photo ${processedPhoto.name} does not have a corresponding raw photo (${processedPhoto.type})`);
+            }
+        }
+
         this.setState({
-            acceptedFiles: [...this.state.acceptedFiles, ...acceptedFiles],
+            acceptedFiles: newAcceptedFiles,
             rejectedFiles: [...this.state.rejectedFiles, ...fileRejections],
         });
     };
 
     upload = async() => {
-        const uploadPath = this.props.uploadPath ?? MultiUploader.defaultProps.uploadPath;
-        await Promise.all(this.state.acceptedFiles.map(async (file ) => {
-            const formData = new FormData();
-            formData.append('file', file);
+        const rawUploadPath = this.props.rawUploadPath ?? MultiUploader.defaultProps.rawUploadPath;
+        const processedUploadPath = this.props.processedUploadPath ?? MultiUploader.defaultProps.processedUploadPath;
 
-            await fetch(uploadPath, {
+        await Promise.all(Object.entries(this.state.acceptedFiles).map(async ([_name, file] ) => {
+            const rawFormData = new FormData();
+            rawFormData.append('file', file.rawPhoto);
+
+            await fetch(rawUploadPath, {
                 method: 'POST',
-                body: formData,
+                body: rawFormData,
             });
+
+            for (const processedPhoto of file.processedPhotos) {
+                const processedFormData = new FormData();
+                processedFormData.append('file', processedPhoto);
+
+                await fetch(processedUploadPath, {
+                    method: 'POST',
+                    body: processedFormData,
+                });
+            }
         }));
     }
 
     render() {
-        return (
-            <div className="container">
-                {/* 4. Use the Dropzone Render Prop Component */}
-                <Dropzone onDrop={this.handleDrop} accept={{ 'image/*': ['.png', '.jpg', '.jpeg', '.arw', '.hif'] }}>
+        if (Object.keys(this.state.acceptedFiles).length == 0) {
+            return <div className="container">
+                <Dropzone onDrop={this.handleDrop} accept={{ 'image/*': ['.arw'], 'image/heif': ['.heif', '.heic', '.hif'], 'image/png': ['.png'], 'image/jpeg': ['.jpg', '.jpeg']}}>
                     {({ getRootProps, getInputProps, isDragActive }: DropzoneState) => (
                         <div
                             {...getRootProps()}
@@ -65,41 +130,31 @@ export class MultiUploader extends Component<MultiUploaderProps, UploadState> {
                             {isDragActive ? (
                                 <p>Drop the files here ...</p>
                             ) : (
-                                <p>Drag 'n' drop some files here, or click to select files</p>
+                                <p>Drop some photos here</p>
                             )}
                         </div>
                     )}
                 </Dropzone>
-
-                {/* 5. Display List of Successfully Uploaded Files */}
-                {this.state.acceptedFiles.length > 0 && (
-                    <div>
-                        <h4>Accepted Files:</h4>
-                        <ul>
-                            {this.state.acceptedFiles.map((file) => (
-                                <li key={file.name}>
-                                    {file.name} - {file.size} bytes
-                                </li>
-                            ))}
-                        </ul>
-                    </div>
-                )}
-
-                {/* 6. Display List of Rejected Files */}
-                {this.state.rejectedFiles.length > 0 && (
-                    <div style={{ color: 'red' }}>
-                        <h4>Rejected Files:</h4>
-                        <ul>
-                            {this.state.rejectedFiles.map(({ file, errors }) => (
-                                <li key={file.name}>
-                                    {file.name} - {errors[0].message}
-                                </li>
-                            ))}
-                        </ul>
-                    </div>
-                )}
-                <button onClick={this.upload}>Upload</button>
             </div>
-        );
+        }
+
+        return <Container className="py-4">
+                <Row>
+                    {Object.entries(this.state.acceptedFiles).map(([name, file]) => (
+                        <PhotoUpload key={name} title={file.title} rawPhoto={file.rawPhoto} processedPhotos={file.processedPhotos}  />
+                    ))}
+                </Row>
+
+                <Row>
+                    <ul>
+                        {this.state.rejectedFiles.map(({ file, errors }) => (
+                            <li key={file.name}>
+                                {file.name} - {errors[0].message}
+                            </li>
+                        ))}
+                    </ul>
+                </Row>
+                <Button onClick={this.upload}>Upload</Button>
+            </Container>;
     }
 }

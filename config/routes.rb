@@ -6,8 +6,8 @@ Rails.application.routes.draw do
     mount GraphiQL::Rails::Engine, at: "/graphiql", graphql_path: "/graphql"
   end
 
-  get "upload" => "upload#index"
   post "upload" => "upload#upload"
+  get "upload" => "upload#index"
   get "cluster" => "upload#cluster"
 
   # Reveal health status on /up that returns 200 if the app boots with no exceptions, otherwise 500.

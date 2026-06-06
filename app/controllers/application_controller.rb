@@ -9,7 +9,7 @@ class ApplicationController < ActionController::Base
   end
 
   def default_tenant
-    Tenant.find_or_create_by(subdomain: 'localhost') do |t|
+    Tenant.find_or_create_by(subdomain: "localhost") do |t|
       t.name = "Local Development Tenant"
     end
   end

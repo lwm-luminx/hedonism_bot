@@ -1,5 +1,5 @@
-require 'mini_exiftool'
-require 'celery'
+require "mini_exiftool"
+require "celery"
 
 class PhotoMetadataJob < ApplicationJob
   include Rails.application.routes.url_helpers
@@ -14,6 +14,7 @@ class PhotoMetadataJob < ApplicationJob
     data = image.open do |file|
       MiniExiftool.new(file)
     end
+
     logger.info "Photo Metadata => #{data.to_hash}"
 
     photo.exif_metadata = data.to_hash
@@ -25,15 +26,17 @@ class PhotoMetadataJob < ApplicationJob
     face_image_url = rails_storage_proxy_url(face_image, expires_in: 1.minute, host: "localhost:5000")
 
 
-    Celery.enqueue 'hedonism.who_dis.worker.download_convert_and_extract_facial_data', face_image_url do |result|
+    Celery.enqueue "hedonism.who_dis.worker.download_convert_and_extract_facial_data", face_image_url do |result|
       photo.facial_metadata = result
       photo.photo_people.clear
 
-      result.each do |face_result|
-        photo.photo_people.create(arc_face_embedding: face_result['embedding'], bounding_box: face_result['facial_area'])
-      end
+      if result
+        result.each do |face_result|
+          photo.photo_people.create(arc_face_embedding: face_result["embedding"], bounding_box: face_result["facial_area"])
+        end
 
-      photo.save!
+        photo.save!
+      end
     end
   end
 end

@@ -1,7 +1,8 @@
 import React from 'react';
 import { createRoot } from 'react-dom/client';
 import { BrowserRouter } from 'react-router';
-import { App } from "../components/App";
+import {Theme} from "@radix-ui/themes";
+import App from "../components/App";
 
 // To see this message, add the following to the `<head>` section in your
 // views/layouts/application.html.haml
@@ -38,7 +39,13 @@ const root = createRoot(container!);
 root.render(
     <React.StrictMode>
         <BrowserRouter>
-            <App />
+            <Theme accentColor="bronze"
+                      grayColor="gray"
+                      panelBackground="solid"
+                      scaling="100%"
+                      radius="full">
+                <App />
+            </Theme>
         </BrowserRouter>
     </React.StrictMode>
 );

@@ -23,8 +23,8 @@ gem "stimulus-rails"
 # Vite makes running front ends easy [https://github.com/ElMassimo/vite_ruby]
 gem "vite_rails"
 # Redis is used to dispatch AI / ML tasks
-gem 'async'
-gem 'async-redis'
+gem "async"
+gem "async-redis"
 gem "redis"
 
 # Use Active Model has_secure_password [https://guides.rubyonrails.org/active_model_basics.html#securepassword]
@@ -52,7 +52,7 @@ gem "image_processing", "~> 1.2"
 
 gem "exifr"
 gem "exif"
-gem 'mini_exiftool'
+gem "mini_exiftool"
 
 gem "foreman", require: false
 

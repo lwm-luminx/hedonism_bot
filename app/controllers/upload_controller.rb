@@ -1,9 +1,10 @@
 # frozen_string_literal: true
-require 'celery'
+
+require "celery"
 
 class UploadController < ApplicationController
   def cluster
-    Celery.enqueue 'hedonism.who_dis.worker.cluster_faces', nil do |r|
+    Celery.enqueue "hedonism.who_dis.worker.cluster_faces", nil do |r|
       r.each_with_object(Hash.new { |h, k| h[k] = [] }) do |(key, value), hash|
         hash[key] << value
       end
@@ -17,6 +18,7 @@ class UploadController < ApplicationController
 
 
     head :ok
+    end
   end
 
   def index
@@ -39,10 +41,16 @@ class UploadController < ApplicationController
 
     logger.info "Performing Upload for Image #{basename} with configuration => #{configuration}"
 
+    content_type = configuration[:mime_type]
+
+    photo.images.each do |i|
+      i.delete if i.blob.content_type == content_type
+    end
+
     photo.images.attach(
       io: file,
       filename: filename,
-      content_type: configuration[:mime_type],
+      content_type: content_type,
       identify: false
     )
 
@@ -52,5 +60,4 @@ class UploadController < ApplicationController
 
     head :ok
   end
-  end
-  end
+end

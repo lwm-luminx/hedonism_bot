@@ -1,13 +1,13 @@
-require 'redis'
-require 'json'
-require 'securerandom'
-require 'async'
+require "redis"
+require "json"
+require "securerandom"
+require "async"
 
 
 module Celery
   def self.redis
     @redis ||= ConnectionPool::Wrapper.new do
-      Redis.new(host: 'localhost', port: 6379, reconnect_attempts: 3)
+      Redis.new(host: "localhost", port: 6379, reconnect_attempts: 3)
     end
   end
 
@@ -51,10 +51,10 @@ module Celery
     }
 
     # Push to the Celery queue in Redis
-    self.redis.lpush('celery', envelope.to_json)
+    self.redis.lpush("celery", envelope.to_json)
 
     if block_given?
-      return Async do
+      Async do
         result_key = "celery-task-meta-#{task_id}"
 
         result_data = nil
@@ -69,7 +69,7 @@ module Celery
         end
         redis.del(result_key)
 
-        block.call parsed_result['result']
+        block.call parsed_result["result"]
       end
     end
   end

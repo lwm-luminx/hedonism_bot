@@ -1,12 +1,23 @@
 class Photo < ApplicationRecord
   STATUSES = %w[pending processing processed failed hidden].freeze
 
+  RAW_FORMATS = {
+    arw: { mime_type: "image/x-sony-arw" }
+  }
+
+  PROCESSED_FORMATS = {
+    hif: { mime_type: "image/heif", variant: :heif },
+    jpg: { mime_type: "image/jpeg", variant: :jpeg },
+    jpeg: { mime_type: "image/jpeg", variant: :jpeg },
+    png: { mime_type: "image/png", variant: :png }
+  }
+
   CONFIGURATIONS = {
     arw: { mime_type: "image/x-sony-arw", variant: :raw, raw: true },
     hif: { mime_type: "image/heif", variant: :heif },
     jpg: { mime_type: "image/jpeg", variant: :jpeg },
     jpeg: { mime_type: "image/jpeg", variant: :jpeg },
-    png: { mime_type: "image/png", variant: :png },
+    png: { mime_type: "image/png", variant: :png }
   }
 
   belongs_to :tenant
@@ -15,6 +26,7 @@ class Photo < ApplicationRecord
   has_many :photo_people, dependent: :destroy
   has_many :people, through: :photo_people
 
+  has_one_attached :raw_image
   has_many_attached :images
 
   validates :status, inclusion: { in: STATUSES }
@@ -47,6 +59,7 @@ class Photo < ApplicationRecord
     update!(status: "failed", processing_error: error.to_s.first(500))
   end
 
+
   def self.configuration_for_extension(extension)
     CONFIGURATIONS[extension.downcase.to_sym].reverse_merge raw: false
   end
@@ -56,6 +69,6 @@ class Photo < ApplicationRecord
   end
 
   def composite_image
-    images.select { |i| i.blob.content_type == 'image/heif' }.first
+    images.select { |i| i.blob.content_type == "image/heif" }.first
   end
 end
