@@ -26,6 +26,8 @@ gem "vite_rails"
 gem "async"
 gem "async-redis"
 gem "redis"
+gem "pg_search"
+gem "clusterkit"
 
 # Use Active Model has_secure_password [https://guides.rubyonrails.org/active_model_basics.html#securepassword]
 gem "bcrypt", "~> 3.1.7"

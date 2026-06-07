@@ -1,0 +1,5 @@
+class FaceDetectionJob
+  def perform: (Photo) -> void
+  def self.perform_now: (Photo) -> void
+  def self.perform_later: (Photo) -> void
+end

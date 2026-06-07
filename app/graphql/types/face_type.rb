@@ -11,7 +11,7 @@ module Types
     end
 
     def thumbnail_url
-      @object.photo_people.first&.face_image.url
+      @object.photo_people.first&.face_image&.url
     end
   end
 end

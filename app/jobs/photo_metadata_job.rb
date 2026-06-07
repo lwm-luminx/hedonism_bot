@@ -5,9 +5,8 @@ class PhotoMetadataJob < ApplicationJob
   include Rails.application.routes.url_helpers
   queue_as :default
 
-  def perform(photo_id)
-    photo = Photo.find(photo_id)
-    image = photo.metadata_image
+  def perform(photo)
+    image = photo.raw_image
 
     return unless image
 
@@ -21,9 +20,5 @@ class PhotoMetadataJob < ApplicationJob
     photo.taken_at = data.date_time_original
     photo.folder_date = (photo.taken_at - 3.hours).to_date
     photo.save
-
-    if photo.has_format? "image/jpeg"
-      FaceDetectionJob.perform_later photo
-    end
   end
 end

@@ -1,4 +1,8 @@
 class Photo < ApplicationRecord
+  include PgSearch::Model
+
+  pg_search_scope :caption_search, against: [ :caption ], using: { tsearch: { prefix: true } }
+
   STATUSES = %w[pending processing processed failed hidden].freeze
 
   APPLE_FORMATS = %w[image/heic image/heif]
@@ -69,7 +73,7 @@ class Photo < ApplicationRecord
   end
 
   def metadata_image
-    images.select { |i| i.blob.content_type == self.content_type }.first
+    images.filter { |i| i.blob.content_type == self.content_type }.first
   end
 
   def composite_image
@@ -89,9 +93,9 @@ class Photo < ApplicationRecord
       if APPLE_FORMATS.include?(mime_type)
         mime_formats = APPLE_FORMATS
       else
-        mime_formats = [mime_type]
+        mime_formats = [ mime_type ]
       end
-      others = images.select { |image| mime_formats.include? image.blob.content_type  }
+      others = images.filter { |image| mime_formats.include? image.blob.content_type  }
       others.each { |image| image.purge_later }
     end
 
@@ -111,7 +115,10 @@ class Photo < ApplicationRecord
         confidence: face.face_confidence,
         bounding_box: face.facial_area
       )
-      FacePreviewExtractJob.perform_later person_photo
+      person = Person.nearest_neighbors(:arc_face_embedding, face.embedding, distance: "cosine", threshold: 0.1).first
+
+
+      FacePreviewExtractJob.perform_now person_photo
     end
     save!
   end

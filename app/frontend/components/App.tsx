@@ -14,11 +14,12 @@ import {PhotoViewerFragment$key} from "./__generated__/PhotoViewerFragment.graph
 import PhotoCollection from "./PhotoCollection";
 
 const BASE_QUERY = graphql`
-query BaseApplicationQuery {
+query BaseApplicationQuery($faceId: ID, $folderId: ID) {
     folders {
         nodes {
             id
             name
+            photoCount
         }
     }
     faces {
@@ -27,7 +28,7 @@ query BaseApplicationQuery {
             ...FaceFragment
         }
     }
-    photos {
+    photos(faceId: $faceId, folderId: $folderId) {
         id
         ...PhotoCollection_photos
         ...PhotoFragment
@@ -36,7 +37,7 @@ query BaseApplicationQuery {
 `
 
 export default function App() {
-    const data = useLazyLoadQuery<BaseApplicationQuery>(BASE_QUERY, {});
+
     const [selectedEventId, setSelectedEventId] = useState<string | null>(null);
     const [selectedFaceId, setSelectedFaceId] = useState<string | null>(null);
     const [searchQuery, setSearchQuery] = useState("");
@@ -44,6 +45,11 @@ export default function App() {
     const [sidebarOpen, setSidebarOpen] = useState(true);
     const [gridCols, setGridCols] = useState<3 | 4>(3);
     const [viewerPhoto, setViewerPhoto] = useState<PhotoViewerFragment$key | null>(null);
+
+    const data = useLazyLoadQuery<BaseApplicationQuery>(BASE_QUERY, {
+        faceId: selectedFaceId,
+        folderId: selectedEventId,
+    });
 
     return <div
             className="min-h-screen flex flex-col"
@@ -164,8 +170,8 @@ export default function App() {
                                                 className="text-xs"
                                                 style={{ color: "var(--muted-foreground)", fontFamily: "'DM Mono', monospace" }}
                                             >
-                        {event?.name}
-                      </span>
+                                            {event?.photoCount} photos
+                                          </span>
                                         </button> : null
                                     ))}
                                 </div>

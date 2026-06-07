@@ -3,6 +3,7 @@ module Types
     implements GraphQL::Types::Relay::Node
 
     field :name, String, null: false
+    field :caption, String, null: true, description: "Caption of the photo"
     field :content_type, String, null: false, description: "MIME type of the photo"
     field :filename, String, null: false, description: "Filename of the photo"
     field :byte_size, Integer

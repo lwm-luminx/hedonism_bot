@@ -96,39 +96,19 @@ export class MultiUploader extends Component<MultiUploaderProps, UploadState> {
 
         this.setState({ uploading: Object.fromEntries(Object.keys(this.state.acceptedFiles).map(k => [k, true])) });
 
-        await Promise.all(Object.entries(this.state.acceptedFiles).map(async ([name, file] ) => {
-            return new Promise<void>((resolve, reject) => {
-                const xhr = new XMLHttpRequest();
-                xhr.open('POST', uploadPath);
-                xhr.upload.onprogress = (event) => {
-                    if (event.lengthComputable) {
-                        const percentComplete = (event.loaded / event.total) * 100;
-                        this.setState(prevState => ({
-                            uploadProgress: {
-                                ...prevState.uploadProgress,
-                                [name]: percentComplete
-                            }
-                        }));
-                    }
-                };
-                xhr.onload = () => {
-                    if (xhr.status >= 200 && xhr.status < 300) {
-                        resolve();
-                    } else {
-                        reject(new Error(xhr.statusText));
-                    }
-                };
-                xhr.onerror = () => reject(new Error('Upload failed'));
-                const formData = new FormData();
-                formData.append('raw_image', file.rawPhoto);
-                for (const [index, processedPhoto] of file.processedPhotos.entries()) {
-                    formData.append('processed_image[]', processedPhoto);
-                }
-                xhr.send(formData);
-            });
-        }));
+        for (const [_name, file] of Object.entries(this.state.acceptedFiles)) {
 
-        this.setState({ uploading: {} });
+            const formData = new FormData();
+            formData.append('raw_image', file.rawPhoto);
+            for (const [index, processedPhoto] of file.processedPhotos.entries()) {
+                formData.append('processed_image[]', processedPhoto);
+            }
+
+            await fetch(uploadPath, {
+                method: 'POST',
+                body: formData
+            });
+        }
     }
 
     render() {

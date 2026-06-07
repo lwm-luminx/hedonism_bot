@@ -3,30 +3,23 @@
 require "celery"
 
 class UploadController < ApplicationController
+  def index
+  end
+
   def cluster
-    Celery.enqueue "hedonism.who_dis.worker.cluster_faces", nil do |r|
-      r.each do |cluster, person_photo_id|
-        next if person_photo_id.nil?
-        p = PhotoPerson.find(person_photo_id)
-        p.cluster_number = cluster
-        p.save
-      end
+    render json: Person.cluster
+  end
 
-      Person.delete_all
-      PhotoPerson.all.group_by(&:cluster_number).each do |cluster, person_photos|
-        person = Person.create(tenant: @tenant)
+  def infer
+    Photo.where(caption: nil).each do |p|
+      Celery.enqueue "hedonism.who_dis.worker.caption_image", p.id
+    end
 
-        person_photos.each do |p|
-          p.person = person
-          p.save
-        end
-      end
+    Photo.where(facial_metadata: nil).each do |p|
+      Celery.enqueue "hedonism.who_dis.worker.extract_facial_data", p.id
     end
 
     head :ok
-  end
-
-  def index
   end
 
   def upload
@@ -42,7 +35,8 @@ class UploadController < ApplicationController
     image_hash = Digest::SHA256.hexdigest(raw_image.read)
     photo = Photo.find_or_initialize_by(image_hash: image_hash, tenant: @tenant)
     photo.byte_size = raw_image.size
-    photo.raw_image.attach(raw_image)
+    photo.original_filename = filename
+    photo.raw_image.attach(raw_image) unless photo.raw_image.attached?
     photo.image_hash = image_hash
     photo.content_type = configuration[:mime_type]
 
@@ -55,13 +49,11 @@ class UploadController < ApplicationController
 
     photo.save!
 
-    PhotoMetadataJob.perform_later photo.id
-    unless photo.has_format? "image/jpeg"
-      PhotoToJpegJob.perform_later photo.id
-    end
-
+    PhotoMetadataJob.perform_now photo
     if photo.has_format? "image/jpeg"
-      FaceDetectionJob.perform_later photo
+      FaceDetectionJob.perform_now photo
+    else
+      PhotoToJpegJob.perform_now photo
     end
 
     head :ok

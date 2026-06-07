@@ -12,20 +12,31 @@ module Types
 
     field :faces, Types::FaceType.connection_type, null: false, description: "All faces for a particular tenant"
     def faces
-      self.tenant.people
+      tenant.people
     end
 
     field :folders, Types::FolderType.connection_type, null: false, description: "All groupings for a particular tenant"
     def folders
-      self.tenant.folders
+      tenant.folders
     end
 
-    field :photos, [Types::PhotoType], null: false, description: "All photos for a particular tenant"
-    def photos
-      self.tenant.photos
+    field :photos, [ Types::PhotoType ], null: false, description: "All photos for a particular tenant" do
+      argument :face_id, ID, required: false, description: "Filter photos by face ID"
+      argument :folder_id, ID, required: false, description: "Filter photos by folder ID"
+    end
+    def photos(face_id: nil, folder_id: nil)
+      if face_id
+        photos = HedonismBotSchema.object_from_id(face_id, context).photos
+      else
+        photos = tenant.photos.order(:folder_date)
+      end
+
+      photos = photos.where(folder_date: folder_id) if folder_id
+
+      photos
     end
 
-    field :photo, PhotoType do
+    field :photo, PhotoType, null: true do
       argument :id, ID, required: true, description: "ID of the photo"
     end
     def photo(id:)

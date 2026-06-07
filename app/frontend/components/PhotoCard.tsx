@@ -4,7 +4,7 @@ import { Download, ShoppingCart, ZoomIn } from "lucide-react";
 import {Badge} from "./Badge";
 import {ImageWithFallback} from "./ImageWithCallback";
 import {graphql, useFragment} from "react-relay";
-import {PhotoFragment$data, PhotoFragment$key} from "./__generated__/PhotoFragment.graphql";
+import { PhotoFragment$key } from "./__generated__/PhotoFragment.graphql";
 
 interface PhotoCardProps {
     photo: PhotoFragment$key;
@@ -19,6 +19,7 @@ export function PhotoCard({ photo, onSelect, onPurchase }: PhotoCardProps) {
             isPurchased
             previewUrl
             takenAt
+            caption
         }
     `, photo);
     const [hovered, setHovered] = useState(false);
@@ -47,8 +48,7 @@ export function PhotoCard({ photo, onSelect, onPurchase }: PhotoCardProps) {
                 {/* Purchased badge */}
                 {data?.isPurchased && (
                     <div className="absolute top-2 left-2">
-                        <Badge
-                            className="text-xs"
+                        <Badge className="text-xs"
                             style={{
                                 background: "var(--primary)",
                                 color: "var(--primary-foreground)",
@@ -73,7 +73,7 @@ export function PhotoCard({ photo, onSelect, onPurchase }: PhotoCardProps) {
                             "Event"
                         </p>
                         <p style={{ color: "var(--foreground)", fontFamily: "'Inter', sans-serif", fontSize: "0.8125rem" }}>
-                            Title
+                            {data?.caption}
                         </p>
                     </div>
                     <div className="flex gap-1.5 ml-2 shrink-0">
@@ -81,6 +81,7 @@ export function PhotoCard({ photo, onSelect, onPurchase }: PhotoCardProps) {
                             className="p-1.5 rounded transition-colors"
                             style={{ background: "rgba(15,15,15,0.8)", color: "var(--foreground)" }}
                             onClick={(e) => {
+                                onSelect?.(data.id)
                                 e.stopPropagation();
                             }}
                             title="View full size"
@@ -92,6 +93,7 @@ export function PhotoCard({ photo, onSelect, onPurchase }: PhotoCardProps) {
                                 className="p-1.5 rounded transition-colors"
                                 style={{ background: "var(--primary)", color: "var(--primary-foreground)" }}
                                 onClick={(e) => {
+                                    onPurchase?.(data.id)
                                     e.stopPropagation();
                                 }}
                                 title={`Purchase — $1`}
@@ -104,20 +106,13 @@ export function PhotoCard({ photo, onSelect, onPurchase }: PhotoCardProps) {
             </div>
             {/* Bottom label */}
             <div className="px-3 py-2 flex items-center justify-between">
-        <span
-            className="text-xs"
-            style={{ color: "var(--muted-foreground)", fontFamily: "'DM Mono', monospace" }}
-        >
-          {data?.takenAt}
-        </span>
+                <span className="text-xs" style={{ color: "var(--muted-foreground)", fontFamily: "'DM Mono', monospace" }}>
+                  {data?.takenAt}
+                </span>
                 {data?.isPurchased ? (
-                    <span className="text-xs" style={{ color: "var(--primary)", fontFamily: "'Inter', sans-serif" }}>
-            Download available
-          </span>
+                    <span className="text-xs" style={{ color: "var(--primary)", fontFamily: "'Inter', sans-serif" }}>Download available</span>
                 ) : (
-                    <span className="text-xs" style={{ color: "var(--muted-foreground)", fontFamily: "'Inter', sans-serif" }}>
-            $1
-          </span>
+                    <span className="text-xs" style={{ color: "var(--muted-foreground)", fontFamily: "'Inter', sans-serif" }}>$1</span>
                 )}
             </div>
         </div>

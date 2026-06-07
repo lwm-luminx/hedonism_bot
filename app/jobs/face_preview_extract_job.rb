@@ -7,10 +7,10 @@ class FacePreviewExtractJob < ApplicationJob
     face_image.open do |file|
       processed_file = ImageProcessing::Vips
                          .source(file.path)
-                         .crop(person_photo.bounding_box['x'],
-                               person_photo.bounding_box['y'],
-                               person_photo.bounding_box['w'],
-                               person_photo.bounding_box['h'])
+                         .crop(person_photo.bounding_box["x"],
+                               person_photo.bounding_box["y"],
+                               person_photo.bounding_box["w"],
+                               person_photo.bounding_box["h"])
                          .call
 
       person_photo.face_image.purge

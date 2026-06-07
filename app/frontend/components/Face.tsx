@@ -24,37 +24,34 @@ const faceGroupVariants = cva("w-8 h-8 rounded-full overflow-hidden shrink-0 rin
 
 interface FaceProps {
     face: FaceFragment$key;
+    selected: boolean;
     onSelect?: (faceId: string) => void;
 }
 
-export default function Face({face, onSelect}: FaceProps) {
+export default function Face({face, onSelect, selected}: FaceProps) {
     let data = useFragment(FACE_FRAGMENT, face);
-    let [selectedFaceId, setSelectedFaceId] = useState(null);
-    return  <button
-        className="flex items-center gap-2.5 px-2 py-1.5 rounded transition-colors text-left"
+    return <button className="flex items-center gap-2.5 px-2 py-1.5 rounded transition-colors text-left"
         style={{
-            background: selectedFaceId === data?.id ? "rgba(201,169,110,0.12)" : "transparent",
-            color: selectedFaceId === data?.id ? "var(--primary)" : "var(--foreground)",
+            background: selected ? "rgba(201,169,110,0.12)" : "transparent",
+            color: selected ? "var(--primary)" : "var(--foreground)",
             borderRadius: "var(--radius-sm)",
         }}
-        onClick={() => {if (onSelect) {onSelect(data?.id)}}}
-    >
-        <div
-            className={faceGroupVariants({ selected: selectedFaceId === data?.id })}
-        >
-            <ImageWithFallback
-                src={data?.thumbnailUrl}
-                className="w-full h-full object-cover object-top"
-            />
+        onClick={() => { if (onSelect) {onSelect(data?.id)}}}>
+        <div className={faceGroupVariants({ selected: selected })}>
+            {data.thumbnailUrl ?
+                <ImageWithFallback
+                    src={data.thumbnailUrl}
+                    className="w-full h-full object-cover object-top"
+                />
+                : null
+            }
         </div>
         <div className="min-w-0 flex-1">
             <p className="text-sm truncate" style={{ fontFamily: "'Inter', sans-serif" }}>
-            </p>
-            <p
-                className="text-xs"
-                style={{ color: "var(--muted-foreground)", fontFamily: "'DM Mono', monospace" }}
-            >
 
+            </p>
+            <p className="text-xs" style={{ color: "var(--muted-foreground)", fontFamily: "'DM Mono', monospace" }}>
+                {data.photoCount} photos
             </p>
         </div>
     </button>

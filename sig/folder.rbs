@@ -1,0 +1,5 @@
+class Folder
+  attr_accessor name: String
+
+  def to_gid_param: () -> String
+end

@@ -9,6 +9,6 @@ class Folder
   end
 
   def to_gid_param
-    self.name
+    @name
   end
 end

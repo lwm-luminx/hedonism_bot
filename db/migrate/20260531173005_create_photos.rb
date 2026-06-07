@@ -16,6 +16,7 @@ class CreatePhotos < ActiveRecord::Migration[8.1]
 
       t.jsonb :exif_metadata, null: false, default: {}
       t.jsonb :facial_metadata, null: true, default: nil
+      t.string :caption, null: true, default: nil
     end
 
     add_index :photos, [ :tenant_id, :folder_date ]

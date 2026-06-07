@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_05_31_173010) do
+ActiveRecord::Schema[8.1].define(version: 2026_06_07_101735) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
   enable_extension "postgis"
@@ -58,6 +58,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_05_31_173010) do
     t.uuid "tenant_id", null: false
     t.string "twitter_id"
     t.datetime "updated_at", null: false
+    t.index ["arc_face_embedding"], name: "index_people_on_arc_face_embedding", opclass: :vector_cosine_ops, using: :hnsw
     t.index ["tenant_id", "name"], name: "index_people_on_tenant_id_and_name"
     t.index ["tenant_id"], name: "index_people_on_tenant_id"
   end
@@ -65,12 +66,12 @@ ActiveRecord::Schema[8.1].define(version: 2026_05_31_173010) do
   create_table "photo_people", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.vector "arc_face_embedding", limit: 512
     t.jsonb "bounding_box", default: {}, null: false
-    t.integer "cluster_number"
     t.float "confidence"
     t.datetime "created_at", null: false
     t.uuid "person_id"
     t.uuid "photo_id", null: false
     t.datetime "updated_at", null: false
+    t.index ["arc_face_embedding"], name: "index_photo_people_on_arc_face_embedding", opclass: :vector_cosine_ops, using: :hnsw
     t.index ["person_id"], name: "index_photo_people_on_person_id"
     t.index ["photo_id", "person_id"], name: "index_photo_people_on_photo_id_and_person_id", unique: true
     t.index ["photo_id"], name: "index_photo_people_on_photo_id"
@@ -78,6 +79,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_05_31_173010) do
 
   create_table "photos", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.bigint "byte_size"
+    t.string "caption"
     t.string "content_type"
     t.datetime "created_at", null: false
     t.jsonb "exif_metadata", default: {}, null: false
@@ -125,7 +127,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_05_31_173010) do
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
   add_foreign_key "people", "tenants"
-  add_foreign_key "photo_people", "people"
+  add_foreign_key "photo_people", "people", on_delete: :nullify
   add_foreign_key "photo_people", "photos"
   add_foreign_key "photos", "tenants"
   add_foreign_key "photos", "venues"

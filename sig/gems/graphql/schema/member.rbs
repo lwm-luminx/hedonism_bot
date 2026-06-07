@@ -1,0 +1,7 @@
+module GraphQL
+  class Query
+    module Member
+      def argument: (*[untyped], **Hash[Symbol, untyped]) { () -> void } -> void
+    end
+  end
+end

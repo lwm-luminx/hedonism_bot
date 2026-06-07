@@ -1,0 +1,5 @@
+class FacePreviewExtractJob
+  def perform: (PhotoPerson) -> void
+  def self.perform_now: (PhotoPerson) -> void
+  def self.perform_later: (PhotoPerson) -> void
+end

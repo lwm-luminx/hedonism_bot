@@ -3,8 +3,7 @@ require "image_processing/vips"
 class PhotoToJpegJob < ApplicationJob
   queue_as :default
 
-  def perform(photo_id)
-    photo = Photo.find(photo_id)
+  def perform(photo)
     heif_image = photo.composite_image
 
     return unless heif_image
@@ -23,6 +22,6 @@ class PhotoToJpegJob < ApplicationJob
       photo.save
     end
 
-    FaceDetectionJob.perform_later photo
+    FaceDetectionJob.perform_now photo
   end
 end

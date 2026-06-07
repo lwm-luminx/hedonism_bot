@@ -6,5 +6,9 @@ class ApplicationController < ActionController::Base
 
   def populate_tenant
     @tenant ||= Tenant.default_tenant if Rails.env.development?
+
+    raise unless @tenant
+
+    @tenant
   end
 end

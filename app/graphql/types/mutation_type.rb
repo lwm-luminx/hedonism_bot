@@ -2,6 +2,7 @@
 
 module Types
   class MutationType < Types::BaseObject
+    field :photo_caption_update, mutation: Mutations::CaptionPhotoUpdate
     field :photo_face_update, mutation: Mutations::FacialRecognitionPhotoUpdate
   end
 end

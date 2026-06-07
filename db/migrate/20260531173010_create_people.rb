@@ -25,7 +25,7 @@ class CreatePeople < ActiveRecord::Migration[8.1]
       t.timestamps
 
       t.references :photo, type: :uuid, null: false, foreign_key: true
-      t.references :person, type: :uuid, null: true, foreign_key: true
+      t.references :person, type: :uuid, null: true, foreign_key: { on_delete: :nullify }
 
       t.float :confidence
       t.jsonb :bounding_box, null: false, default: {}
