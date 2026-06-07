@@ -1,4 +1,4 @@
-import { useState } from "react";
+import {Component, useState} from "react";
 import { Calendar, Camera, Filter, Grid3X3, LayoutList, Search, ShoppingBag, X } from "lucide-react";
 import { Badge } from "./Badge";
 import { Input } from "./Input";
@@ -11,6 +11,7 @@ import {Separator} from "./Separator";
 import { graphql, useLazyLoadQuery } from 'react-relay';
 import {BaseApplicationQuery} from "./__generated__/BaseApplicationQuery.graphql";
 import {PhotoViewerFragment$key} from "./__generated__/PhotoViewerFragment.graphql";
+import PhotoCollection from "./PhotoCollection";
 
 const BASE_QUERY = graphql`
 query BaseApplicationQuery {
@@ -23,14 +24,13 @@ query BaseApplicationQuery {
     faces {
         nodes {
             id
+            ...FaceFragment
         }
     }
     photos {
-        nodes {
-            id
-            ...PhotoFragment
-            ...PhotoViewerFragment
-        }
+        id
+        ...PhotoCollection_photos
+        ...PhotoFragment
     }
 }
 `
@@ -113,7 +113,6 @@ export default function App() {
                     >
                         <ShoppingBag className="w-3.5 h-3.5" />
                         <span className="text-xs" style={{ fontFamily: "'DM Mono', monospace" }}>
-              {data?.photos?.nodes?.length} owned
             </span>
                     </div>
                 </div>
@@ -149,8 +148,9 @@ export default function App() {
                                         <span className="text-sm">All events</span>
                                     </button>
                                     {data?.folders?.nodes?.map((event) => (
+                                        event ?
                                         <button
-                                            key={event?.id}
+                                            key={event.id}
                                             className="flex flex-col px-2 py-1.5 rounded text-left transition-colors"
                                             style={{
                                                 background: selectedEventId === event?.id ? "rgba(201,169,110,0.12)" : "transparent",
@@ -166,7 +166,7 @@ export default function App() {
                                             >
                         {event?.name}
                       </span>
-                                        </button>
+                                        </button> : null
                                     ))}
                                 </div>
                             </div>
@@ -258,43 +258,9 @@ export default function App() {
 
                     {/* Photo grid */}
                     <ScrollArea className="flex-1">
-                        {data?.photos?.nodes?.length === 0 ? (
-                            <div className="flex flex-col items-center justify-center h-64 gap-3">
-                                <Camera className="w-8 h-8" style={{ color: "var(--muted-foreground)" }} />
-                                <p
-                                    style={{
-                                        color: "var(--muted-foreground)",
-                                        fontFamily: "'Playfair Display', serif",
-                                        fontSize: "1rem",
-                                    }}
-                                >
-                                    No photos match your filters
-                                </p>
-                                <button
-                                    className="text-sm underline underline-offset-2 transition-opacity hover:opacity-70"
-                                    style={{ color: "var(--primary)", fontFamily: "'Inter', sans-serif" }}
-                                    onClick={() => {
-                                        setSelectedEventId(null);
-                                        setSelectedFaceId(null);
-                                        setSearchQuery("");
-                                    }}
-                                >
-                                    Clear all filters
-                                </button>
-                            </div>
-                        ) : (
-                            <div
-                                className="p-4 grid gap-3"
-                                style={{ gridTemplateColumns: `repeat(${gridCols}, minmax(0, 1fr))` }}
-                            >
-                                {data?.photos?.nodes?.map((photo) => (
-                                    <PhotoCard key={photo!.id}
-                                        photo={photo!}
-                                        onPurchase={(p) => setPurchasePhoto(p)}
-                                    />
-                                ))}
-                            </div>
-                        )}
+                        <PhotoCollection
+                            photos={data.photos}
+                        />
                     </ScrollArea>
                 </main>
             </div>

@@ -4,30 +4,7 @@ import { Download, ShoppingCart, ZoomIn } from "lucide-react";
 import {Badge} from "./Badge";
 import {ImageWithFallback} from "./ImageWithCallback";
 import {graphql, useFragment} from "react-relay";
-import {PhotoFragment$key} from "./__generated__/PhotoFragment.graphql";
-
-const PHOTO_FRAGMENT = graphql`
-fragment PhotoFragment on Photo {
-    id
-    isPurchased
-    previewUrl
-    takenAt
-}
-`
-
-export interface Photo {
-    id: string;
-    url: string;
-    thumbnail: string;
-    title: string;
-    date: string;
-    faceIds: string[];
-    price: number;
-    purchased: boolean;
-    width: number;
-    height: number;
-    event: string;
-}
+import {PhotoFragment$data, PhotoFragment$key} from "./__generated__/PhotoFragment.graphql";
 
 interface PhotoCardProps {
     photo: PhotoFragment$key;
@@ -36,7 +13,14 @@ interface PhotoCardProps {
 }
 
 export function PhotoCard({ photo, onSelect, onPurchase }: PhotoCardProps) {
-    let data = useFragment(PHOTO_FRAGMENT, photo);
+    let data = useFragment(graphql`
+        fragment PhotoFragment on Photo {
+            id
+            isPurchased
+            previewUrl
+            takenAt
+        }
+    `, photo);
     const [hovered, setHovered] = useState(false);
 
     return (
@@ -48,7 +32,7 @@ export function PhotoCard({ photo, onSelect, onPurchase }: PhotoCardProps) {
         >
             <div className="relative aspect-4/3 overflow-hidden">
                 <ImageWithFallback
-                    src={data.previewUrl!}
+                    src={data?.previewUrl ?? "https://source.unsplash.com/random"}
                     className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
                 />
                 {/* Gradient overlay */}
@@ -61,7 +45,7 @@ export function PhotoCard({ photo, onSelect, onPurchase }: PhotoCardProps) {
                     }}
                 />
                 {/* Purchased badge */}
-                {data.isPurchased && (
+                {data?.isPurchased && (
                     <div className="absolute top-2 left-2">
                         <Badge
                             className="text-xs"
@@ -103,7 +87,7 @@ export function PhotoCard({ photo, onSelect, onPurchase }: PhotoCardProps) {
                         >
                             <ZoomIn className="w-3.5 h-3.5" />
                         </button>
-                        {!data.isPurchased && (
+                        {!data?.isPurchased && (
                             <button
                                 className="p-1.5 rounded transition-colors"
                                 style={{ background: "var(--primary)", color: "var(--primary-foreground)" }}
@@ -124,9 +108,9 @@ export function PhotoCard({ photo, onSelect, onPurchase }: PhotoCardProps) {
             className="text-xs"
             style={{ color: "var(--muted-foreground)", fontFamily: "'DM Mono', monospace" }}
         >
-          {data.takenAt}
+          {data?.takenAt}
         </span>
-                {data.isPurchased ? (
+                {data?.isPurchased ? (
                     <span className="text-xs" style={{ color: "var(--primary)", fontFamily: "'Inter', sans-serif" }}>
             Download available
           </span>

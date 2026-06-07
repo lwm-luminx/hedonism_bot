@@ -9,7 +9,6 @@ const FACE_FRAGMENT = graphql`
     fragment FaceFragment on Face {
         id
         thumbnailUrl
-        label
         photoCount
     }
 `
@@ -32,33 +31,30 @@ export default function Face({face, onSelect}: FaceProps) {
     let data = useFragment(FACE_FRAGMENT, face);
     let [selectedFaceId, setSelectedFaceId] = useState(null);
     return  <button
-        key={data.id}
         className="flex items-center gap-2.5 px-2 py-1.5 rounded transition-colors text-left"
         style={{
-            background: selectedFaceId === data.id ? "rgba(201,169,110,0.12)" : "transparent",
-            color: selectedFaceId === data.id ? "var(--primary)" : "var(--foreground)",
+            background: selectedFaceId === data?.id ? "rgba(201,169,110,0.12)" : "transparent",
+            color: selectedFaceId === data?.id ? "var(--primary)" : "var(--foreground)",
             borderRadius: "var(--radius-sm)",
         }}
-        onClick={() => {if (onSelect) {onSelect(data.id)}}}
+        onClick={() => {if (onSelect) {onSelect(data?.id)}}}
     >
         <div
-            className={faceGroupVariants({ selected: selectedFaceId === data.id })}
+            className={faceGroupVariants({ selected: selectedFaceId === data?.id })}
         >
             <ImageWithFallback
-                src={data.thumbnailUrl}
-                alt={data.label}
+                src={data?.thumbnailUrl}
                 className="w-full h-full object-cover object-top"
             />
         </div>
         <div className="min-w-0 flex-1">
             <p className="text-sm truncate" style={{ fontFamily: "'Inter', sans-serif" }}>
-                {data.label}
             </p>
             <p
                 className="text-xs"
                 style={{ color: "var(--muted-foreground)", fontFamily: "'DM Mono', monospace" }}
             >
-                {data.photoCount} photo{data.photoCount !== 1 ? "s" : ""}
+
             </p>
         </div>
     </button>

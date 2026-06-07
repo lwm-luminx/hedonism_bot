@@ -9,6 +9,7 @@ class CreatePhotos < ActiveRecord::Migration[8.1]
       t.string :original_filename
       t.string :content_type
       t.bigint :byte_size
+      t.binary :image_hash
       t.datetime :taken_at
       t.date :folder_date, comment: "Date the photo was taken, used as folder grouping key"
       t.string :status, null: false, default: "pending"

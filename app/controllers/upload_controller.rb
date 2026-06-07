@@ -5,10 +5,6 @@ require "celery"
 class UploadController < ApplicationController
   def cluster
     Celery.enqueue "hedonism.who_dis.worker.cluster_faces", nil do |r|
-      r.each_with_object(Hash.new { |h, k| h[k] = [] }) do |(key, value), hash|
-        hash[key] << value
-      end
-
       r.each do |cluster, person_photo_id|
         next if person_photo_id.nil?
         p = PhotoPerson.find(person_photo_id)
@@ -16,47 +12,57 @@ class UploadController < ApplicationController
         p.save
       end
 
+      Person.delete_all
+      PhotoPerson.all.group_by(&:cluster_number).each do |cluster, person_photos|
+        person = Person.create(tenant: @tenant)
+
+        person_photos.each do |p|
+          p.person = person
+          p.save
+        end
+      end
+    end
 
     head :ok
-    end
   end
 
   def index
   end
 
   def upload
-    file = params[:file]
-    filename = ActiveStorage::Filename.new(params[:file].original_filename)
+    raw_image = params[:raw_image]
+    filename = ActiveStorage::Filename.new(params[:raw_image].original_filename)
     basename = File.basename(filename, ".*")
     extension = File.extname(filename).lstrip(".")
 
     configuration = Photo.configuration_for_extension extension
 
-    photo = Photo.find_or_create_by!(original_filename: basename, tenant: @tenant)
-
-    if configuration[:raw]
-      photo.content_type = configuration[:mime_type]
-      photo.byte_size = file.size
-    end
-
     logger.info "Performing Upload for Image #{basename} with configuration => #{configuration}"
 
-    content_type = configuration[:mime_type]
+    image_hash = Digest::SHA256.hexdigest(raw_image.read)
+    photo = Photo.find_or_initialize_by(image_hash: image_hash, tenant: @tenant)
+    photo.byte_size = raw_image.size
+    photo.raw_image.attach(raw_image)
+    photo.image_hash = image_hash
+    photo.content_type = configuration[:mime_type]
 
-    photo.images.each do |i|
-      i.delete if i.blob.content_type == content_type
+    photo.images.purge
+
+    params[:processed_image].each do |processed_image|
+      processed_configuration = Photo.configuration_for_extension File.extname(processed_image.original_filename).lstrip(".")
+      photo.attach_format processed_configuration[:mime_type], processed_image, filename: processed_image.original_filename
     end
-
-    photo.images.attach(
-      io: file,
-      filename: filename,
-      content_type: content_type,
-      identify: false
-    )
 
     photo.save!
 
     PhotoMetadataJob.perform_later photo.id
+    unless photo.has_format? "image/jpeg"
+      PhotoToJpegJob.perform_later photo.id
+    end
+
+    if photo.has_format? "image/jpeg"
+      FaceDetectionJob.perform_later photo
+    end
 
     head :ok
   end

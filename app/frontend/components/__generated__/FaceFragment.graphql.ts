@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<35cb8b1a34b15bdbceb6e192b02847ca>>
+ * @generated SignedSource<<afced0df48c11ae9d6e39cc54a3a9455>>
  * @lightSyntaxTransform
  */
 
@@ -11,9 +11,8 @@ import { ReaderFragment } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
 export type FaceFragment$data = {
   readonly id: string;
-  readonly label: string;
   readonly photoCount: number;
-  readonly thumbnailUrl: string;
+  readonly thumbnailUrl: string | null | undefined;
   readonly " $fragmentType": "FaceFragment";
 };
 export type FaceFragment$key = {
@@ -45,13 +44,6 @@ const node: ReaderFragment = {
       "alias": null,
       "args": null,
       "kind": "ScalarField",
-      "name": "label",
-      "storageKey": null
-    },
-    {
-      "alias": null,
-      "args": null,
-      "kind": "ScalarField",
       "name": "photoCount",
       "storageKey": null
     }
@@ -60,6 +52,6 @@ const node: ReaderFragment = {
   "abstractKey": null
 };
 
-(node as any).hash = "51e0cec465ca666cf9036c1f66d4e18f";
+(node as any).hash = "760e7ea98a238c0c43c5d84c23d5f65c";
 
 export default node;

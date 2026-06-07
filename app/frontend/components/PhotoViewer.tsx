@@ -1,5 +1,4 @@
 import { Download, ShoppingCart, X, ChevronLeft, ChevronRight } from "lucide-react";
-import type { Photo } from "./PhotoCard";
 import {Button} from "./Button";
 import {ImageWithFallback} from "./ImageWithCallback";
 import {graphql, useFragment} from "react-relay";

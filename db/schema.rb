@@ -83,6 +83,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_05_31_173010) do
     t.jsonb "exif_metadata", default: {}, null: false
     t.jsonb "facial_metadata"
     t.date "folder_date", comment: "Date the photo was taken, used as folder grouping key"
+    t.binary "image_hash"
     t.string "original_filename"
     t.string "status", default: "pending", null: false
     t.datetime "taken_at"

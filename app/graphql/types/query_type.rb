@@ -20,7 +20,7 @@ module Types
       self.tenant.folders
     end
 
-    field :photos, Types::PhotoType.connection_type, null: false, description: "All photos for a particular tenant"
+    field :photos, [Types::PhotoType], null: false, description: "All photos for a particular tenant"
     def photos
       self.tenant.photos
     end
@@ -28,7 +28,7 @@ module Types
     field :photo, PhotoType do
       argument :id, ID, required: true, description: "ID of the photo"
     end
-    def photo(id)
+    def photo(id:)
       Photo.find(id)
     end
   end

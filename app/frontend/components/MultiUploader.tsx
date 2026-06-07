@@ -3,7 +3,7 @@ import Dropzone, { DropzoneState, FileRejection } from 'react-dropzone'
 
 import { PhotoUpload } from './PhotoUpload';
 import {Button} from "./Button";
-import {Container} from "@radix-ui/themes";
+import {Container, Grid} from "@radix-ui/themes";
 import {Row} from "@radix-ui/themes/components/table";
 
 interface UploadPhoto {
@@ -16,12 +16,12 @@ interface UploadPhoto {
 interface UploadState {
     acceptedFiles: Record<string, UploadPhoto>;
     rejectedFiles: FileRejection[];
+    uploadProgress: Record<string, number>;
+    uploading: Record<string, boolean>;
 }
 
 interface MultiUploaderProps {
-    rawUploadPath?: string
-    processedUploadPath?: string
-    completeUploadPath?: string
+    uploadPath?: string
 }
 
 const RAW_FORMAT_EXTENSIONS = ['.arw'];
@@ -32,13 +32,13 @@ export class MultiUploader extends Component<MultiUploaderProps, UploadState> {
         this.state = {
             acceptedFiles: {},
             rejectedFiles: [],
+            uploadProgress: {},
+            uploading: {},
         };
     }
 
     static defaultProps = {
-        rawUploadPath: '/upload',
-        processedUploadPath: '/upload',
-        completeUploadPath: '/upload/{id}/complete'
+        uploadPath: '/upload',
     };
 
     static stripExtension(filename: string) {
@@ -85,29 +85,50 @@ export class MultiUploader extends Component<MultiUploaderProps, UploadState> {
         });
     };
 
+    removeFile = (basename: string) => {
+        const newAcceptedFiles = {...this.state.acceptedFiles};
+        delete newAcceptedFiles[basename];
+        this.setState({ acceptedFiles: newAcceptedFiles });
+    }
+
     upload = async() => {
-        const rawUploadPath = this.props.rawUploadPath ?? MultiUploader.defaultProps.rawUploadPath;
-        const processedUploadPath = this.props.processedUploadPath ?? MultiUploader.defaultProps.processedUploadPath;
+        const uploadPath = this.props.uploadPath ?? MultiUploader.defaultProps.uploadPath;
 
-        await Promise.all(Object.entries(this.state.acceptedFiles).map(async ([_name, file] ) => {
-            const rawFormData = new FormData();
-            rawFormData.append('file', file.rawPhoto);
+        this.setState({ uploading: Object.fromEntries(Object.keys(this.state.acceptedFiles).map(k => [k, true])) });
 
-            await fetch(rawUploadPath, {
-                method: 'POST',
-                body: rawFormData,
+        await Promise.all(Object.entries(this.state.acceptedFiles).map(async ([name, file] ) => {
+            return new Promise<void>((resolve, reject) => {
+                const xhr = new XMLHttpRequest();
+                xhr.open('POST', uploadPath);
+                xhr.upload.onprogress = (event) => {
+                    if (event.lengthComputable) {
+                        const percentComplete = (event.loaded / event.total) * 100;
+                        this.setState(prevState => ({
+                            uploadProgress: {
+                                ...prevState.uploadProgress,
+                                [name]: percentComplete
+                            }
+                        }));
+                    }
+                };
+                xhr.onload = () => {
+                    if (xhr.status >= 200 && xhr.status < 300) {
+                        resolve();
+                    } else {
+                        reject(new Error(xhr.statusText));
+                    }
+                };
+                xhr.onerror = () => reject(new Error('Upload failed'));
+                const formData = new FormData();
+                formData.append('raw_image', file.rawPhoto);
+                for (const [index, processedPhoto] of file.processedPhotos.entries()) {
+                    formData.append('processed_image[]', processedPhoto);
+                }
+                xhr.send(formData);
             });
-
-            for (const processedPhoto of file.processedPhotos) {
-                const processedFormData = new FormData();
-                processedFormData.append('file', processedPhoto);
-
-                await fetch(processedUploadPath, {
-                    method: 'POST',
-                    body: processedFormData,
-                });
-            }
         }));
+
+        this.setState({ uploading: {} });
     }
 
     render() {
@@ -139,11 +160,18 @@ export class MultiUploader extends Component<MultiUploaderProps, UploadState> {
         }
 
         return <Container className="py-4">
-                <Row>
+                <Grid columns="4" gap="4">
                     {Object.entries(this.state.acceptedFiles).map(([name, file]) => (
-                        <PhotoUpload key={name} title={file.title} rawPhoto={file.rawPhoto} processedPhotos={file.processedPhotos}  />
+                        <PhotoUpload
+                            key={name}
+                            title={file.title}
+                            rawPhoto={file.rawPhoto}
+                            processedPhotos={file.processedPhotos}
+                            progress={this.state.uploadProgress[name]}
+                            onRemove={this.state.uploading[name] ? undefined : () => this.removeFile(name)}
+                        />
                     ))}
-                </Row>
+                </Grid>
 
                 <Row>
                     <ul>

@@ -1,6 +1,9 @@
 class Photo < ApplicationRecord
   STATUSES = %w[pending processing processed failed hidden].freeze
 
+  APPLE_FORMATS = %w[image/heic image/heif]
+  COMPOSITE_PREFERENCE_LIST = %w[image/heif image/heic image/jpeg image/png]
+
   RAW_FORMATS = {
     arw: { mime_type: "image/x-sony-arw" }
   }
@@ -30,6 +33,7 @@ class Photo < ApplicationRecord
   has_many_attached :images
 
   validates :status, inclusion: { in: STATUSES }
+  validates_uniqueness_of :image_hash
 
   scope :for_date, ->(date) { where(folder_date: date) }
   scope :processed, -> { where(status: "processed") }
@@ -69,10 +73,46 @@ class Photo < ApplicationRecord
   end
 
   def composite_image
-    images.select { |i| i.blob.content_type == "image/heif" }.first
+    images.first { |i| COMPOSITE_PREFERENCE_LIST.include? i.blob.content_type }
   end
 
   def preview_url
-    images.select { |i| i.blob.content_type == "image/heif" }.first&.url
+    images.select { |i| i.blob.content_type == "image/jpeg" }.first&.url
+  end
+
+  def has_format?(mime_type)
+    images.any? { |image| image.blob.content_type == mime_type }
+  end
+
+  def attach_format(mime_type, processed_file, filename:)
+    if has_format?(mime_type)
+      if APPLE_FORMATS.include?(mime_type)
+        mime_formats = APPLE_FORMATS
+      else
+        mime_formats = [mime_type]
+      end
+      others = images.select { |image| mime_formats.include? image.blob.content_type  }
+      others.each { |image| image.purge_later }
+    end
+
+    images.attach(
+      io: processed_file,
+      filename: filename,
+      content_type: mime_type,
+      identify: APPLE_FORMATS.include?(mime_type)
+    )
+  end
+
+  def update_faces(faces)
+    self.photo_people.clear
+    faces.each do |face|
+      person_photo = photo_people.create(
+        arc_face_embedding: face.embedding,
+        confidence: face.face_confidence,
+        bounding_box: face.facial_area
+      )
+      FacePreviewExtractJob.perform_later person_photo
+    end
+    save!
   end
 end

@@ -22,21 +22,8 @@ class PhotoMetadataJob < ApplicationJob
     photo.folder_date = (photo.taken_at - 3.hours).to_date
     photo.save
 
-    face_image = photo.composite_image
-    face_image_url = rails_storage_proxy_url(face_image, expires_in: 1.minute, host: "localhost:5000")
-
-
-    Celery.enqueue "hedonism.who_dis.worker.download_convert_and_extract_facial_data", face_image_url do |result|
-      photo.facial_metadata = result
-      photo.photo_people.clear
-
-      if result
-        result.each do |face_result|
-          photo.photo_people.create(arc_face_embedding: face_result["embedding"], bounding_box: face_result["facial_area"])
-        end
-
-        photo.save!
-      end
+    if photo.has_format? "image/jpeg"
+      FaceDetectionJob.perform_later photo
     end
   end
 end

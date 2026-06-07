@@ -8,6 +8,7 @@ const FACES_QUERY = graphql`
     query FacesQuery {
         faces {
             nodes {
+                id
                 ...FaceFragment
             }
         }
@@ -53,7 +54,7 @@ export function FaceGroup({ selectedFaceId, onSelect }: FaceGroupProps) {
             </button>
 
             {data.faces?.nodes?.map((face) => (
-                <Face face={face} />
+                <Face face={face!} />
             ))}
         </div>
     );

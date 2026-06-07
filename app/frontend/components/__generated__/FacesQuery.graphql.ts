@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<a75415b72c68594bdf94e15bfad7f525>>
+ * @generated SignedSource<<7639470899d996f23d314afabb467f66>>
  * @lightSyntaxTransform
  */
 
@@ -13,6 +13,7 @@ export type FacesQuery$variables = Record<PropertyKey, never>;
 export type FacesQuery$data = {
   readonly faces: {
     readonly nodes: ReadonlyArray<{
+      readonly id: string;
       readonly " $fragmentSpreads": FragmentRefs<"FaceFragment">;
     } | null | undefined> | null | undefined;
   };
@@ -22,7 +23,15 @@ export type FacesQuery = {
   variables: FacesQuery$variables;
 };
 
-const node: ConcreteRequest = {
+const node: ConcreteRequest = (function(){
+var v0 = {
+  "alias": null,
+  "args": null,
+  "kind": "ScalarField",
+  "name": "id",
+  "storageKey": null
+};
+return {
   "fragment": {
     "argumentDefinitions": [],
     "kind": "Fragment",
@@ -45,6 +54,7 @@ const node: ConcreteRequest = {
             "name": "nodes",
             "plural": true,
             "selections": [
+              (v0/*:: as any*/),
               {
                 "args": null,
                 "kind": "FragmentSpread",
@@ -82,25 +92,12 @@ const node: ConcreteRequest = {
             "name": "nodes",
             "plural": true,
             "selections": [
-              {
-                "alias": null,
-                "args": null,
-                "kind": "ScalarField",
-                "name": "id",
-                "storageKey": null
-              },
+              (v0/*:: as any*/),
               {
                 "alias": null,
                 "args": null,
                 "kind": "ScalarField",
                 "name": "thumbnailUrl",
-                "storageKey": null
-              },
-              {
-                "alias": null,
-                "args": null,
-                "kind": "ScalarField",
-                "name": "label",
                 "storageKey": null
               },
               {
@@ -119,15 +116,16 @@ const node: ConcreteRequest = {
     ]
   },
   "params": {
-    "cacheID": "af1515c92aa62ec770f05b3b69a3e640",
+    "cacheID": "7b9b762582c6e98217242b030ded3be5",
     "id": null,
     "metadata": {},
     "name": "FacesQuery",
     "operationKind": "query",
-    "text": "query FacesQuery {\n  faces {\n    nodes {\n      ...FaceFragment\n      id\n    }\n  }\n}\n\nfragment FaceFragment on Face {\n  id\n  thumbnailUrl\n  label\n  photoCount\n}\n"
+    "text": "query FacesQuery {\n  faces {\n    nodes {\n      id\n      ...FaceFragment\n    }\n  }\n}\n\nfragment FaceFragment on Face {\n  id\n  thumbnailUrl\n  photoCount\n}\n"
   }
 };
+})();
 
-(node as any).hash = "2b654ea31b914b43e718cae4b5df54dd";
+(node as any).hash = "a65bc5bad72364e0827b6698f2cd65bc";
 
 export default node;

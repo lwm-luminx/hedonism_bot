@@ -3,5 +3,7 @@ class PhotoPerson < ApplicationRecord
 
   belongs_to :photo
 
-  belongs_to :person
+  belongs_to :person, optional: true
+
+  has_one_attached :face_image
 end
