@@ -1,6 +1,8 @@
 class Photo < ApplicationRecord
   def has_format?: (String) -> bool
+
   def self.grouped_by_folder_date: () -> Hash[String, [Photo]]
+
   def self.configuration_for_extension: (String) -> Hash[Symbol, { mime_type: String, variant: Symbol, raw: bool }]
 
   def update_faces: ([Types::FaceDataInputType]) -> void

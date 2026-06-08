@@ -13,7 +13,7 @@ class CreateVenues < ActiveRecord::Migration[8.1]
       t.st_point :coordinates, srid: 4326
     end
 
-    add_index :venues, [ :tenant_id, :slug ], unique: true
-    add_index :venues, [ :tenant_id, :name ]
+    add_index :venues, [:tenant_id, :slug], unique: true
+    add_index :venues, [:tenant_id, :name]
   end
 end

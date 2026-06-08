@@ -1,7 +1,7 @@
 class Photo < ApplicationRecord
   include PgSearch::Model
 
-  pg_search_scope :caption_search, against: [ :caption ], using: { tsearch: { prefix: true } }
+  pg_search_scope :caption_search, against: [:caption], using: { tsearch: { prefix: true } }
 
   STATUSES = %w[pending processing processed failed hidden].freeze
 
@@ -67,7 +67,6 @@ class Photo < ApplicationRecord
     update!(status: "failed", processing_error: error.to_s.first(500))
   end
 
-
   def self.configuration_for_extension(extension)
     CONFIGURATIONS[extension.downcase.to_sym].reverse_merge raw: false
   end
@@ -93,9 +92,9 @@ class Photo < ApplicationRecord
       if APPLE_FORMATS.include?(mime_type)
         mime_formats = APPLE_FORMATS
       else
-        mime_formats = [ mime_type ]
+        mime_formats = [mime_type]
       end
-      others = images.filter { |image| mime_formats.include? image.blob.content_type  }
+      others = images.filter { |image| mime_formats.include? image.blob.content_type }
       others.each { |image| image.purge_later }
     end
 
@@ -116,7 +115,6 @@ class Photo < ApplicationRecord
         bounding_box: face.facial_area
       )
       person = Person.nearest_neighbors(:arc_face_embedding, face.embedding, distance: "cosine", threshold: 0.1).first
-
 
       FacePreviewExtractJob.perform_now person_photo
     end

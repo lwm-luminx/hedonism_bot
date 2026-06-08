@@ -3,7 +3,6 @@ require "json"
 require "securerandom"
 require "async"
 
-
 module Celery
   def self.redis
     @redis ||= ConnectionPool::Wrapper.new do

@@ -1,10 +1,10 @@
 import React from 'react';
-import { createRoot } from 'react-dom/client';
-import { BrowserRouter } from 'react-router';
+import {createRoot} from 'react-dom/client';
+import {BrowserRouter} from 'react-router';
 import {Theme} from "@radix-ui/themes";
 import App from "../components/App";
-import { RelayEnvironmentProvider } from "react-relay";
-import { relayEnvironment } from '../services/RelayEnvironment';
+import {RelayEnvironmentProvider} from "react-relay";
+import {relayEnvironment} from '../services/RelayEnvironment';
 
 console.log('Vite ⚡️ Rails')
 
@@ -16,11 +16,11 @@ root.render(
         <RelayEnvironmentProvider environment={relayEnvironment}>
             <BrowserRouter>
                 <Theme accentColor="bronze"
-                          grayColor="gray"
-                          panelBackground="solid"
-                          scaling="100%"
-                          radius="full">
-                    <App />
+                       grayColor="gray"
+                       panelBackground="solid"
+                       scaling="100%"
+                       radius="full">
+                    <App/>
                 </Theme>
             </BrowserRouter>
         </RelayEnvironmentProvider>

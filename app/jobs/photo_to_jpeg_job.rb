@@ -13,9 +13,9 @@ class PhotoToJpegJob < ApplicationJob
 
     heif_image.open do |file|
       processed_file = ImageProcessing::Vips
-        .source(file.path)
-        .convert("jpeg")
-        .call
+                         .source(file.path)
+                         .convert("jpeg")
+                         .call
 
       photo.attach_format "image/jpeg", processed_file, filename: "#{heif_image.filename.base}.jpg"
 

@@ -12,7 +12,7 @@ class ::Photo < ::ApplicationRecord
 
     def id_changed?: (?from: ::String?, ?to: ::String?) -> bool
 
-    def id_change: () -> [ ::String?, ::String? ]
+    def id_change: () -> [::String?, ::String?]
 
     def id_will_change!: () -> void
 
@@ -52,7 +52,7 @@ class ::Photo < ::ApplicationRecord
 
     def byte_size_changed?: (?from: ::Integer?, ?to: ::Integer?) -> bool
 
-    def byte_size_change: () -> [ ::Integer?, ::Integer? ]
+    def byte_size_change: () -> [::Integer?, ::Integer?]
 
     def byte_size_will_change!: () -> void
 
@@ -92,7 +92,7 @@ class ::Photo < ::ApplicationRecord
 
     def caption_changed?: (?from: ::String?, ?to: ::String?) -> bool
 
-    def caption_change: () -> [ ::String?, ::String? ]
+    def caption_change: () -> [::String?, ::String?]
 
     def caption_will_change!: () -> void
 
@@ -132,7 +132,7 @@ class ::Photo < ::ApplicationRecord
 
     def content_type_changed?: (?from: ::String?, ?to: ::String?) -> bool
 
-    def content_type_change: () -> [ ::String?, ::String? ]
+    def content_type_change: () -> [::String?, ::String?]
 
     def content_type_will_change!: () -> void
 
@@ -172,7 +172,7 @@ class ::Photo < ::ApplicationRecord
 
     def created_at_changed?: (?from: ::ActiveSupport::TimeWithZone?, ?to: ::ActiveSupport::TimeWithZone?) -> bool
 
-    def created_at_change: () -> [ ::ActiveSupport::TimeWithZone?, ::ActiveSupport::TimeWithZone? ]
+    def created_at_change: () -> [::ActiveSupport::TimeWithZone?, ::ActiveSupport::TimeWithZone?]
 
     def created_at_will_change!: () -> void
 
@@ -212,7 +212,7 @@ class ::Photo < ::ApplicationRecord
 
     def exif_metadata_changed?: (?from: untyped, ?to: untyped) -> bool
 
-    def exif_metadata_change: () -> [ untyped, untyped ]
+    def exif_metadata_change: () -> [untyped, untyped]
 
     def exif_metadata_will_change!: () -> void
 
@@ -252,7 +252,7 @@ class ::Photo < ::ApplicationRecord
 
     def facial_metadata_changed?: (?from: untyped, ?to: untyped) -> bool
 
-    def facial_metadata_change: () -> [ untyped, untyped ]
+    def facial_metadata_change: () -> [untyped, untyped]
 
     def facial_metadata_will_change!: () -> void
 
@@ -292,7 +292,7 @@ class ::Photo < ::ApplicationRecord
 
     def folder_date_changed?: (?from: ::Date?, ?to: ::Date?) -> bool
 
-    def folder_date_change: () -> [ ::Date?, ::Date? ]
+    def folder_date_change: () -> [::Date?, ::Date?]
 
     def folder_date_will_change!: () -> void
 
@@ -332,7 +332,7 @@ class ::Photo < ::ApplicationRecord
 
     def image_hash_changed?: (?from: ::String?, ?to: ::String?) -> bool
 
-    def image_hash_change: () -> [ ::String?, ::String? ]
+    def image_hash_change: () -> [::String?, ::String?]
 
     def image_hash_will_change!: () -> void
 
@@ -372,7 +372,7 @@ class ::Photo < ::ApplicationRecord
 
     def original_filename_changed?: (?from: ::String?, ?to: ::String?) -> bool
 
-    def original_filename_change: () -> [ ::String?, ::String? ]
+    def original_filename_change: () -> [::String?, ::String?]
 
     def original_filename_will_change!: () -> void
 
@@ -412,7 +412,7 @@ class ::Photo < ::ApplicationRecord
 
     def status_changed?: (?from: ::String?, ?to: ::String?) -> bool
 
-    def status_change: () -> [ ::String?, ::String? ]
+    def status_change: () -> [::String?, ::String?]
 
     def status_will_change!: () -> void
 
@@ -452,7 +452,7 @@ class ::Photo < ::ApplicationRecord
 
     def taken_at_changed?: (?from: ::ActiveSupport::TimeWithZone?, ?to: ::ActiveSupport::TimeWithZone?) -> bool
 
-    def taken_at_change: () -> [ ::ActiveSupport::TimeWithZone?, ::ActiveSupport::TimeWithZone? ]
+    def taken_at_change: () -> [::ActiveSupport::TimeWithZone?, ::ActiveSupport::TimeWithZone?]
 
     def taken_at_will_change!: () -> void
 
@@ -492,7 +492,7 @@ class ::Photo < ::ApplicationRecord
 
     def tenant_id_changed?: (?from: ::String?, ?to: ::String?) -> bool
 
-    def tenant_id_change: () -> [ ::String?, ::String? ]
+    def tenant_id_change: () -> [::String?, ::String?]
 
     def tenant_id_will_change!: () -> void
 
@@ -532,7 +532,7 @@ class ::Photo < ::ApplicationRecord
 
     def updated_at_changed?: (?from: ::ActiveSupport::TimeWithZone?, ?to: ::ActiveSupport::TimeWithZone?) -> bool
 
-    def updated_at_change: () -> [ ::ActiveSupport::TimeWithZone?, ::ActiveSupport::TimeWithZone? ]
+    def updated_at_change: () -> [::ActiveSupport::TimeWithZone?, ::ActiveSupport::TimeWithZone?]
 
     def updated_at_will_change!: () -> void
 
@@ -572,7 +572,7 @@ class ::Photo < ::ApplicationRecord
 
     def venue_id_changed?: (?from: ::String?, ?to: ::String?) -> bool
 
-    def venue_id_change: () -> [ ::String?, ::String? ]
+    def venue_id_change: () -> [::String?, ::String?]
 
     def venue_id_will_change!: () -> void
 
@@ -604,7 +604,9 @@ class ::Photo < ::ApplicationRecord
 
     def venue_id_for_database: () -> ::String?
   end
+
   include ::Photo::GeneratedAttributeMethods
+
   module ::Photo::GeneratedAliasAttributeMethods
     include ::Photo::GeneratedAttributeMethods
 
@@ -648,68 +650,112 @@ class ::Photo < ::ApplicationRecord
 
     alias id_value_for_database id_for_database
   end
+
   include ::Photo::GeneratedAliasAttributeMethods
+
   def photo_people: () -> ::PhotoPerson::ActiveRecord_Associations_CollectionProxy
+
   def photo_people=: (::PhotoPerson::ActiveRecord_Associations_CollectionProxy | ::Array[::PhotoPerson]) -> (::PhotoPerson::ActiveRecord_Associations_CollectionProxy | ::Array[::PhotoPerson])
+
   def photo_person_ids: () -> ::Array[::String]
+
   def photo_person_ids=: (::Array[::String]) -> ::Array[::String]
+
   def people: () -> ::Person::ActiveRecord_Associations_CollectionProxy
+
   def people=: (::Person::ActiveRecord_Associations_CollectionProxy | ::Array[::Person]) -> (::Person::ActiveRecord_Associations_CollectionProxy | ::Array[::Person])
+
   def person_ids: () -> ::Array[::String]
+
   def person_ids=: (::Array[::String]) -> ::Array[::String]
+
   def images_attachments: () -> ::ActiveStorage::Attachment::ActiveRecord_Associations_CollectionProxy
+
   def images_attachments=: (::ActiveStorage::Attachment::ActiveRecord_Associations_CollectionProxy | ::Array[::ActiveStorage::Attachment]) -> (::ActiveStorage::Attachment::ActiveRecord_Associations_CollectionProxy | ::Array[::ActiveStorage::Attachment])
+
   def images_attachment_ids: () -> ::Array[::String]
+
   def images_attachment_ids=: (::Array[::String]) -> ::Array[::String]
+
   def images_blobs: () -> ::ActiveStorage::Blob::ActiveRecord_Associations_CollectionProxy
+
   def images_blobs=: (::ActiveStorage::Blob::ActiveRecord_Associations_CollectionProxy | ::Array[::ActiveStorage::Blob]) -> (::ActiveStorage::Blob::ActiveRecord_Associations_CollectionProxy | ::Array[::ActiveStorage::Blob])
+
   def images_blob_ids: () -> ::Array[::String]
+
   def images_blob_ids=: (::Array[::String]) -> ::Array[::String]
 
   def raw_image_attachment: () -> ::ActiveStorage::Attachment?
+
   def raw_image_attachment=: (::ActiveStorage::Attachment?) -> ::ActiveStorage::Attachment?
+
   def build_raw_image_attachment: (?untyped) -> ::ActiveStorage::Attachment
+
   def create_raw_image_attachment: (?untyped) -> ::ActiveStorage::Attachment
+
   def create_raw_image_attachment!: (?untyped) -> ::ActiveStorage::Attachment
+
   def reload_raw_image_attachment: () -> ::ActiveStorage::Attachment?
+
   def raw_image_blob: () -> ::ActiveStorage::Blob?
+
   def raw_image_blob=: (::ActiveStorage::Blob?) -> ::ActiveStorage::Blob?
+
   def build_raw_image_blob: (?untyped) -> ::ActiveStorage::Blob
+
   def create_raw_image_blob: (?untyped) -> ::ActiveStorage::Blob
+
   def create_raw_image_blob!: (?untyped) -> ::ActiveStorage::Blob
+
   def reload_raw_image_blob: () -> ::ActiveStorage::Blob?
+
   def tenant: () -> ::Tenant
+
   def tenant=: (::Tenant?) -> ::Tenant?
+
   def reload_tenant: () -> ::Tenant?
+
   def build_tenant: (?untyped) -> ::Tenant
+
   def create_tenant: (?untyped) -> ::Tenant
+
   def create_tenant!: (?untyped) -> ::Tenant
+
   def venue: () -> ::Venue?
+
   def venue=: (::Venue?) -> ::Venue?
+
   def reload_venue: () -> ::Venue?
+
   def build_venue: (?untyped) -> ::Venue
+
   def create_venue: (?untyped) -> ::Venue
+
   def create_venue!: (?untyped) -> ::Venue
 
   module ::Photo::GeneratedAssociationMethods
     def raw_image: () -> ::ActiveStorage::Attached::One
 
     def raw_image=: (::ActionDispatch::Http::UploadedFile) -> ::ActionDispatch::Http::UploadedFile
-                  | (::Rack::Test::UploadedFile) -> ::Rack::Test::UploadedFile
-                  | (::ActiveStorage::Blob) -> ::ActiveStorage::Blob
-                  | (::String) -> ::String
-                  | ({ io: ::IO, filename: ::String, content_type: ::String? }) -> { io: ::IO, filename: ::String, content_type: ::String? }
-                  | (nil) -> nil
+      | (::Rack::Test::UploadedFile) -> ::Rack::Test::UploadedFile
+      | (::ActiveStorage::Blob) -> ::ActiveStorage::Blob
+      | (::String) -> ::String
+      | ({ io: ::IO, filename: ::String, content_type: ::String? }) -> { io: ::IO, filename: ::String, content_type: ::String? }
+      | (nil) -> nil
 
     def images: () -> ::ActiveStorage::Attached::Many
 
     def images=: (untyped) -> untyped
   end
+
   include ::Photo::GeneratedAssociationMethods
 
   def self.for_date: (untyped date) -> ::Photo::ActiveRecord_Relation
+
   def self.processed: () -> ::Photo::ActiveRecord_Relation
+
   def self.with_attached_raw_image: () -> ::Photo::ActiveRecord_Relation
+
   def self.with_attached_images: () -> ::Photo::ActiveRecord_Relation
 
   module ::Photo::GeneratedRelationMethods
@@ -734,36 +780,51 @@ class ::Photo < ::ApplicationRecord
     include ::ActiveRecord::Relation::Methods[::Photo, ::String]
 
     def build: (?::ActiveRecord::Associations::CollectionProxy::_EachPair attributes) ?{ () -> untyped } -> ::Photo
-             | (::Array[::ActiveRecord::Associations::CollectionProxy::_EachPair] attributes) ?{ () -> untyped } -> ::Array[::Photo]
+      | (::Array[::ActiveRecord::Associations::CollectionProxy::_EachPair] attributes) ?{ () -> untyped } -> ::Array[::Photo]
+
     def create: (?::ActiveRecord::Associations::CollectionProxy::_EachPair attributes) ?{ () -> untyped } -> ::Photo
-              | (::Array[::ActiveRecord::Associations::CollectionProxy::_EachPair] attributes) ?{ () -> untyped } -> ::Array[::Photo]
+      | (::Array[::ActiveRecord::Associations::CollectionProxy::_EachPair] attributes) ?{ () -> untyped } -> ::Array[::Photo]
+
     def create!: (?::ActiveRecord::Associations::CollectionProxy::_EachPair attributes) ?{ () -> untyped } -> ::Photo
-               | (::Array[::ActiveRecord::Associations::CollectionProxy::_EachPair] attributes) ?{ () -> untyped } -> ::Array[::Photo]
+      | (::Array[::ActiveRecord::Associations::CollectionProxy::_EachPair] attributes) ?{ () -> untyped } -> ::Array[::Photo]
+
     def reload: () -> ::Array[::Photo]
 
     def replace: (::Array[::Photo]) -> void
+
     def delete: (*::Photo | ::String) -> ::Array[::Photo]
+
     def destroy: (*::Photo | ::String) -> ::Array[::Photo]
+
     def <<: (*::Photo | ::Array[::Photo]) -> self
+
     def prepend: (*::Photo | ::Array[::Photo]) -> self
   end
 end
 
 class ::ApplicationRecord < ::ActiveRecord::Base
 end
+
 class ::PhotoPerson < ::ApplicationRecord
 end
+
 class ::PhotoPerson::ActiveRecord_Associations_CollectionProxy < ::ActiveRecord::Associations::CollectionProxy
 end
+
 class ::Person < ::ApplicationRecord
 end
+
 class ::Person::ActiveRecord_Associations_CollectionProxy < ::ActiveRecord::Associations::CollectionProxy
 end
+
 class ::ActiveStorage::Attachment::ActiveRecord_Associations_CollectionProxy < ::ActiveRecord::Associations::CollectionProxy
 end
+
 class ::ActiveStorage::Blob::ActiveRecord_Associations_CollectionProxy < ::ActiveRecord::Associations::CollectionProxy
 end
+
 class ::Tenant < ::ApplicationRecord
 end
+
 class ::Venue < ::ApplicationRecord
 end

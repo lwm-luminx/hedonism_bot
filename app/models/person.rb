@@ -12,14 +12,14 @@ class Person < ApplicationRecord
     Person.delete_all
 
     hdbscan = ClusterKit::Clustering::HDBSCAN.new(
-      min_samples: 5,        # Minimum samples in neighborhood
-      min_cluster_size: 10,  # Minimum cluster size
-      metric: "euclidean"    # Distance metric
+      min_samples: 5, # Minimum samples in neighborhood
+      min_cluster_size: 10, # Minimum cluster size
+      metric: "euclidean" # Distance metric
     )
 
     people = {}
 
-    photo_embeddings = PhotoPerson.where("confidence > ?", 0.9).to_h {|p| [p, p.arc_face_embedding]}
+    photo_embeddings = PhotoPerson.where("confidence > ?", 0.9).to_h { |p| [p, p.arc_face_embedding] }
     clusters = hdbscan.fit_predict(photo_embeddings.values)
     photo_embeddings.keys.zip(clusters).to_h.each do |photo_person, cluster|
       next if cluster == -1

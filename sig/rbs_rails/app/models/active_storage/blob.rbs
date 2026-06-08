@@ -13,7 +13,7 @@ module ::ActiveStorage
 
       def id_changed?: (?from: ::String?, ?to: ::String?) -> bool
 
-      def id_change: () -> [ ::String?, ::String? ]
+      def id_change: () -> [::String?, ::String?]
 
       def id_will_change!: () -> void
 
@@ -53,7 +53,7 @@ module ::ActiveStorage
 
       def byte_size_changed?: (?from: ::Integer?, ?to: ::Integer?) -> bool
 
-      def byte_size_change: () -> [ ::Integer?, ::Integer? ]
+      def byte_size_change: () -> [::Integer?, ::Integer?]
 
       def byte_size_will_change!: () -> void
 
@@ -93,7 +93,7 @@ module ::ActiveStorage
 
       def checksum_changed?: (?from: ::String?, ?to: ::String?) -> bool
 
-      def checksum_change: () -> [ ::String?, ::String? ]
+      def checksum_change: () -> [::String?, ::String?]
 
       def checksum_will_change!: () -> void
 
@@ -133,7 +133,7 @@ module ::ActiveStorage
 
       def content_type_changed?: (?from: ::String?, ?to: ::String?) -> bool
 
-      def content_type_change: () -> [ ::String?, ::String? ]
+      def content_type_change: () -> [::String?, ::String?]
 
       def content_type_will_change!: () -> void
 
@@ -173,7 +173,7 @@ module ::ActiveStorage
 
       def created_at_changed?: (?from: ::ActiveSupport::TimeWithZone?, ?to: ::ActiveSupport::TimeWithZone?) -> bool
 
-      def created_at_change: () -> [ ::ActiveSupport::TimeWithZone?, ::ActiveSupport::TimeWithZone? ]
+      def created_at_change: () -> [::ActiveSupport::TimeWithZone?, ::ActiveSupport::TimeWithZone?]
 
       def created_at_will_change!: () -> void
 
@@ -213,7 +213,7 @@ module ::ActiveStorage
 
       def filename_changed?: (?from: ::String?, ?to: ::String?) -> bool
 
-      def filename_change: () -> [ ::String?, ::String? ]
+      def filename_change: () -> [::String?, ::String?]
 
       def filename_will_change!: () -> void
 
@@ -253,7 +253,7 @@ module ::ActiveStorage
 
       def key_changed?: (?from: ::String?, ?to: ::String?) -> bool
 
-      def key_change: () -> [ ::String?, ::String? ]
+      def key_change: () -> [::String?, ::String?]
 
       def key_will_change!: () -> void
 
@@ -293,7 +293,7 @@ module ::ActiveStorage
 
       def metadata_changed?: (?from: ::String?, ?to: ::String?) -> bool
 
-      def metadata_change: () -> [ ::String?, ::String? ]
+      def metadata_change: () -> [::String?, ::String?]
 
       def metadata_will_change!: () -> void
 
@@ -333,7 +333,7 @@ module ::ActiveStorage
 
       def service_name_changed?: (?from: ::String?, ?to: ::String?) -> bool
 
-      def service_name_change: () -> [ ::String?, ::String? ]
+      def service_name_change: () -> [::String?, ::String?]
 
       def service_name_will_change!: () -> void
 
@@ -365,7 +365,9 @@ module ::ActiveStorage
 
       def service_name_for_database: () -> ::String
     end
+
     include ::ActiveStorage::Blob::GeneratedAttributeMethods
+
     module ::ActiveStorage::Blob::GeneratedAliasAttributeMethods
       include ::ActiveStorage::Blob::GeneratedAttributeMethods
 
@@ -409,42 +411,64 @@ module ::ActiveStorage
 
       alias id_value_for_database id_for_database
     end
+
     include ::ActiveStorage::Blob::GeneratedAliasAttributeMethods
+
     def attachments: () -> ::ActiveStorage::Attachment::ActiveRecord_Associations_CollectionProxy
+
     def attachments=: (::ActiveStorage::Attachment::ActiveRecord_Associations_CollectionProxy | ::Array[::ActiveStorage::Attachment]) -> (::ActiveStorage::Attachment::ActiveRecord_Associations_CollectionProxy | ::Array[::ActiveStorage::Attachment])
+
     def attachment_ids: () -> ::Array[::String]
+
     def attachment_ids=: (::Array[::String]) -> ::Array[::String]
+
     def variant_records: () -> ::ActiveStorage::VariantRecord::ActiveRecord_Associations_CollectionProxy
+
     def variant_records=: (::ActiveStorage::VariantRecord::ActiveRecord_Associations_CollectionProxy | ::Array[::ActiveStorage::VariantRecord]) -> (::ActiveStorage::VariantRecord::ActiveRecord_Associations_CollectionProxy | ::Array[::ActiveStorage::VariantRecord])
+
     def variant_record_ids: () -> ::Array[::String]
+
     def variant_record_ids=: (::Array[::String]) -> ::Array[::String]
 
     def preview_image_attachment: () -> ::ActiveStorage::Attachment?
+
     def preview_image_attachment=: (::ActiveStorage::Attachment?) -> ::ActiveStorage::Attachment?
+
     def build_preview_image_attachment: (?untyped) -> ::ActiveStorage::Attachment
+
     def create_preview_image_attachment: (?untyped) -> ::ActiveStorage::Attachment
+
     def create_preview_image_attachment!: (?untyped) -> ::ActiveStorage::Attachment
+
     def reload_preview_image_attachment: () -> ::ActiveStorage::Attachment?
+
     def preview_image_blob: () -> ::ActiveStorage::Blob?
+
     def preview_image_blob=: (::ActiveStorage::Blob?) -> ::ActiveStorage::Blob?
+
     def build_preview_image_blob: (?untyped) -> ::ActiveStorage::Blob
+
     def create_preview_image_blob: (?untyped) -> ::ActiveStorage::Blob
+
     def create_preview_image_blob!: (?untyped) -> ::ActiveStorage::Blob
+
     def reload_preview_image_blob: () -> ::ActiveStorage::Blob?
 
     module ::ActiveStorage::Blob::GeneratedAssociationMethods
       def preview_image: () -> ::ActiveStorage::Attached::One
 
       def preview_image=: (::ActionDispatch::Http::UploadedFile) -> ::ActionDispatch::Http::UploadedFile
-                        | (::Rack::Test::UploadedFile) -> ::Rack::Test::UploadedFile
-                        | (::ActiveStorage::Blob) -> ::ActiveStorage::Blob
-                        | (::String) -> ::String
-                        | ({ io: ::IO, filename: ::String, content_type: ::String? }) -> { io: ::IO, filename: ::String, content_type: ::String? }
-                        | (nil) -> nil
+        | (::Rack::Test::UploadedFile) -> ::Rack::Test::UploadedFile
+        | (::ActiveStorage::Blob) -> ::ActiveStorage::Blob
+        | (::String) -> ::String
+        | ({ io: ::IO, filename: ::String, content_type: ::String? }) -> { io: ::IO, filename: ::String, content_type: ::String? }
+        | (nil) -> nil
     end
+
     include ::ActiveStorage::Blob::GeneratedAssociationMethods
 
     def self.unattached: () -> ::ActiveStorage::Blob::ActiveRecord_Relation
+
     def self.with_attached_preview_image: () -> ::ActiveStorage::Blob::ActiveRecord_Relation
 
     module ::ActiveStorage::Blob::GeneratedRelationMethods
@@ -465,17 +489,24 @@ module ::ActiveStorage
       include ::ActiveRecord::Relation::Methods[::ActiveStorage::Blob, ::String]
 
       def build: (?::ActiveRecord::Associations::CollectionProxy::_EachPair attributes) ?{ () -> untyped } -> ::ActiveStorage::Blob
-               | (::Array[::ActiveRecord::Associations::CollectionProxy::_EachPair] attributes) ?{ () -> untyped } -> ::Array[::ActiveStorage::Blob]
+        | (::Array[::ActiveRecord::Associations::CollectionProxy::_EachPair] attributes) ?{ () -> untyped } -> ::Array[::ActiveStorage::Blob]
+
       def create: (?::ActiveRecord::Associations::CollectionProxy::_EachPair attributes) ?{ () -> untyped } -> ::ActiveStorage::Blob
-                | (::Array[::ActiveRecord::Associations::CollectionProxy::_EachPair] attributes) ?{ () -> untyped } -> ::Array[::ActiveStorage::Blob]
+        | (::Array[::ActiveRecord::Associations::CollectionProxy::_EachPair] attributes) ?{ () -> untyped } -> ::Array[::ActiveStorage::Blob]
+
       def create!: (?::ActiveRecord::Associations::CollectionProxy::_EachPair attributes) ?{ () -> untyped } -> ::ActiveStorage::Blob
-                 | (::Array[::ActiveRecord::Associations::CollectionProxy::_EachPair] attributes) ?{ () -> untyped } -> ::Array[::ActiveStorage::Blob]
+        | (::Array[::ActiveRecord::Associations::CollectionProxy::_EachPair] attributes) ?{ () -> untyped } -> ::Array[::ActiveStorage::Blob]
+
       def reload: () -> ::Array[::ActiveStorage::Blob]
 
       def replace: (::Array[::ActiveStorage::Blob]) -> void
+
       def delete: (*::ActiveStorage::Blob | ::String) -> ::Array[::ActiveStorage::Blob]
+
       def destroy: (*::ActiveStorage::Blob | ::String) -> ::Array[::ActiveStorage::Blob]
+
       def <<: (*::ActiveStorage::Blob | ::Array[::ActiveStorage::Blob]) -> self
+
       def prepend: (*::ActiveStorage::Blob | ::Array[::ActiveStorage::Blob]) -> self
     end
   end
@@ -483,7 +514,9 @@ end
 
 class ::ActiveStorage::Attachment::ActiveRecord_Associations_CollectionProxy < ::ActiveRecord::Associations::CollectionProxy
 end
+
 class ::ActiveStorage::VariantRecord < ::ActiveStorage::Record
 end
+
 class ::ActiveStorage::VariantRecord::ActiveRecord_Associations_CollectionProxy < ::ActiveRecord::Associations::CollectionProxy
 end

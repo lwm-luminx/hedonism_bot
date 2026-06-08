@@ -12,7 +12,7 @@ class ::Person < ::ApplicationRecord
 
     def id_changed?: (?from: ::String?, ?to: ::String?) -> bool
 
-    def id_change: () -> [ ::String?, ::String? ]
+    def id_change: () -> [::String?, ::String?]
 
     def id_will_change!: () -> void
 
@@ -52,7 +52,7 @@ class ::Person < ::ApplicationRecord
 
     def arc_face_embedding_changed?: (?from: untyped, ?to: untyped) -> bool
 
-    def arc_face_embedding_change: () -> [ untyped, untyped ]
+    def arc_face_embedding_change: () -> [untyped, untyped]
 
     def arc_face_embedding_will_change!: () -> void
 
@@ -92,7 +92,7 @@ class ::Person < ::ApplicationRecord
 
     def cluster_number_changed?: (?from: ::Integer?, ?to: ::Integer?) -> bool
 
-    def cluster_number_change: () -> [ ::Integer?, ::Integer? ]
+    def cluster_number_change: () -> [::Integer?, ::Integer?]
 
     def cluster_number_will_change!: () -> void
 
@@ -132,7 +132,7 @@ class ::Person < ::ApplicationRecord
 
     def created_at_changed?: (?from: ::ActiveSupport::TimeWithZone?, ?to: ::ActiveSupport::TimeWithZone?) -> bool
 
-    def created_at_change: () -> [ ::ActiveSupport::TimeWithZone?, ::ActiveSupport::TimeWithZone? ]
+    def created_at_change: () -> [::ActiveSupport::TimeWithZone?, ::ActiveSupport::TimeWithZone?]
 
     def created_at_will_change!: () -> void
 
@@ -172,7 +172,7 @@ class ::Person < ::ApplicationRecord
 
     def email_changed?: (?from: ::String?, ?to: ::String?) -> bool
 
-    def email_change: () -> [ ::String?, ::String? ]
+    def email_change: () -> [::String?, ::String?]
 
     def email_will_change!: () -> void
 
@@ -212,7 +212,7 @@ class ::Person < ::ApplicationRecord
 
     def facebook_id_changed?: (?from: ::String?, ?to: ::String?) -> bool
 
-    def facebook_id_change: () -> [ ::String?, ::String? ]
+    def facebook_id_change: () -> [::String?, ::String?]
 
     def facebook_id_will_change!: () -> void
 
@@ -252,7 +252,7 @@ class ::Person < ::ApplicationRecord
 
     def first_name_changed?: (?from: ::String?, ?to: ::String?) -> bool
 
-    def first_name_change: () -> [ ::String?, ::String? ]
+    def first_name_change: () -> [::String?, ::String?]
 
     def first_name_will_change!: () -> void
 
@@ -292,7 +292,7 @@ class ::Person < ::ApplicationRecord
 
     def instagram_id_changed?: (?from: ::String?, ?to: ::String?) -> bool
 
-    def instagram_id_change: () -> [ ::String?, ::String? ]
+    def instagram_id_change: () -> [::String?, ::String?]
 
     def instagram_id_will_change!: () -> void
 
@@ -332,7 +332,7 @@ class ::Person < ::ApplicationRecord
 
     def last_name_changed?: (?from: ::String?, ?to: ::String?) -> bool
 
-    def last_name_change: () -> [ ::String?, ::String? ]
+    def last_name_change: () -> [::String?, ::String?]
 
     def last_name_will_change!: () -> void
 
@@ -372,7 +372,7 @@ class ::Person < ::ApplicationRecord
 
     def name_changed?: (?from: ::String?, ?to: ::String?) -> bool
 
-    def name_change: () -> [ ::String?, ::String? ]
+    def name_change: () -> [::String?, ::String?]
 
     def name_will_change!: () -> void
 
@@ -412,7 +412,7 @@ class ::Person < ::ApplicationRecord
 
     def tenant_id_changed?: (?from: ::String?, ?to: ::String?) -> bool
 
-    def tenant_id_change: () -> [ ::String?, ::String? ]
+    def tenant_id_change: () -> [::String?, ::String?]
 
     def tenant_id_will_change!: () -> void
 
@@ -452,7 +452,7 @@ class ::Person < ::ApplicationRecord
 
     def twitter_id_changed?: (?from: ::String?, ?to: ::String?) -> bool
 
-    def twitter_id_change: () -> [ ::String?, ::String? ]
+    def twitter_id_change: () -> [::String?, ::String?]
 
     def twitter_id_will_change!: () -> void
 
@@ -492,7 +492,7 @@ class ::Person < ::ApplicationRecord
 
     def updated_at_changed?: (?from: ::ActiveSupport::TimeWithZone?, ?to: ::ActiveSupport::TimeWithZone?) -> bool
 
-    def updated_at_change: () -> [ ::ActiveSupport::TimeWithZone?, ::ActiveSupport::TimeWithZone? ]
+    def updated_at_change: () -> [::ActiveSupport::TimeWithZone?, ::ActiveSupport::TimeWithZone?]
 
     def updated_at_will_change!: () -> void
 
@@ -524,7 +524,9 @@ class ::Person < ::ApplicationRecord
 
     def updated_at_for_database: () -> ::Time
   end
+
   include ::Person::GeneratedAttributeMethods
+
   module ::Person::GeneratedAliasAttributeMethods
     include ::Person::GeneratedAttributeMethods
 
@@ -568,28 +570,44 @@ class ::Person < ::ApplicationRecord
 
     alias id_value_for_database id_for_database
   end
+
   include ::Person::GeneratedAliasAttributeMethods
+
   def photo_people: () -> ::PhotoPerson::ActiveRecord_Associations_CollectionProxy
+
   def photo_people=: (::PhotoPerson::ActiveRecord_Associations_CollectionProxy | ::Array[::PhotoPerson]) -> (::PhotoPerson::ActiveRecord_Associations_CollectionProxy | ::Array[::PhotoPerson])
+
   def photo_person_ids: () -> ::Array[::String]
+
   def photo_person_ids=: (::Array[::String]) -> ::Array[::String]
+
   def photos: () -> ::Photo::ActiveRecord_Associations_CollectionProxy
+
   def photos=: (::Photo::ActiveRecord_Associations_CollectionProxy | ::Array[::Photo]) -> (::Photo::ActiveRecord_Associations_CollectionProxy | ::Array[::Photo])
+
   def photo_ids: () -> ::Array[::String]
+
   def photo_ids=: (::Array[::String]) -> ::Array[::String]
 
   def tenant: () -> ::Tenant
+
   def tenant=: (::Tenant?) -> ::Tenant?
+
   def reload_tenant: () -> ::Tenant?
+
   def build_tenant: (?untyped) -> ::Tenant
+
   def create_tenant: (?untyped) -> ::Tenant
+
   def create_tenant!: (?untyped) -> ::Tenant
 
   module ::Person::GeneratedAssociationMethods
   end
+
   include ::Person::GeneratedAssociationMethods
 
   def self.for_tenant: (untyped tenant) -> ::Person::ActiveRecord_Relation
+
   def self.with_embedding: () -> ::Person::ActiveRecord_Relation
 
   module ::Person::GeneratedRelationMethods
@@ -610,30 +628,42 @@ class ::Person < ::ApplicationRecord
     include ::ActiveRecord::Relation::Methods[::Person, ::String]
 
     def build: (?::ActiveRecord::Associations::CollectionProxy::_EachPair attributes) ?{ () -> untyped } -> ::Person
-             | (::Array[::ActiveRecord::Associations::CollectionProxy::_EachPair] attributes) ?{ () -> untyped } -> ::Array[::Person]
+      | (::Array[::ActiveRecord::Associations::CollectionProxy::_EachPair] attributes) ?{ () -> untyped } -> ::Array[::Person]
+
     def create: (?::ActiveRecord::Associations::CollectionProxy::_EachPair attributes) ?{ () -> untyped } -> ::Person
-              | (::Array[::ActiveRecord::Associations::CollectionProxy::_EachPair] attributes) ?{ () -> untyped } -> ::Array[::Person]
+      | (::Array[::ActiveRecord::Associations::CollectionProxy::_EachPair] attributes) ?{ () -> untyped } -> ::Array[::Person]
+
     def create!: (?::ActiveRecord::Associations::CollectionProxy::_EachPair attributes) ?{ () -> untyped } -> ::Person
-               | (::Array[::ActiveRecord::Associations::CollectionProxy::_EachPair] attributes) ?{ () -> untyped } -> ::Array[::Person]
+      | (::Array[::ActiveRecord::Associations::CollectionProxy::_EachPair] attributes) ?{ () -> untyped } -> ::Array[::Person]
+
     def reload: () -> ::Array[::Person]
 
     def replace: (::Array[::Person]) -> void
+
     def delete: (*::Person | ::String) -> ::Array[::Person]
+
     def destroy: (*::Person | ::String) -> ::Array[::Person]
+
     def <<: (*::Person | ::Array[::Person]) -> self
+
     def prepend: (*::Person | ::Array[::Person]) -> self
   end
 end
 
 class ::ApplicationRecord < ::ActiveRecord::Base
 end
+
 class ::PhotoPerson < ::ApplicationRecord
 end
+
 class ::PhotoPerson::ActiveRecord_Associations_CollectionProxy < ::ActiveRecord::Associations::CollectionProxy
 end
+
 class ::Photo < ::ApplicationRecord
 end
+
 class ::Photo::ActiveRecord_Associations_CollectionProxy < ::ActiveRecord::Associations::CollectionProxy
 end
+
 class ::Tenant < ::ApplicationRecord
 end

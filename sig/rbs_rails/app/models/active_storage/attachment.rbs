@@ -13,7 +13,7 @@ module ::ActiveStorage
 
       def id_changed?: (?from: ::String?, ?to: ::String?) -> bool
 
-      def id_change: () -> [ ::String?, ::String? ]
+      def id_change: () -> [::String?, ::String?]
 
       def id_will_change!: () -> void
 
@@ -53,7 +53,7 @@ module ::ActiveStorage
 
       def blob_id_changed?: (?from: ::String?, ?to: ::String?) -> bool
 
-      def blob_id_change: () -> [ ::String?, ::String? ]
+      def blob_id_change: () -> [::String?, ::String?]
 
       def blob_id_will_change!: () -> void
 
@@ -93,7 +93,7 @@ module ::ActiveStorage
 
       def created_at_changed?: (?from: ::ActiveSupport::TimeWithZone?, ?to: ::ActiveSupport::TimeWithZone?) -> bool
 
-      def created_at_change: () -> [ ::ActiveSupport::TimeWithZone?, ::ActiveSupport::TimeWithZone? ]
+      def created_at_change: () -> [::ActiveSupport::TimeWithZone?, ::ActiveSupport::TimeWithZone?]
 
       def created_at_will_change!: () -> void
 
@@ -133,7 +133,7 @@ module ::ActiveStorage
 
       def name_changed?: (?from: ::String?, ?to: ::String?) -> bool
 
-      def name_change: () -> [ ::String?, ::String? ]
+      def name_change: () -> [::String?, ::String?]
 
       def name_will_change!: () -> void
 
@@ -173,7 +173,7 @@ module ::ActiveStorage
 
       def record_id_changed?: (?from: ::String?, ?to: ::String?) -> bool
 
-      def record_id_change: () -> [ ::String?, ::String? ]
+      def record_id_change: () -> [::String?, ::String?]
 
       def record_id_will_change!: () -> void
 
@@ -213,7 +213,7 @@ module ::ActiveStorage
 
       def record_type_changed?: (?from: ::String?, ?to: ::String?) -> bool
 
-      def record_type_change: () -> [ ::String?, ::String? ]
+      def record_type_change: () -> [::String?, ::String?]
 
       def record_type_will_change!: () -> void
 
@@ -245,7 +245,9 @@ module ::ActiveStorage
 
       def record_type_for_database: () -> ::String
     end
+
     include ::ActiveStorage::Attachment::GeneratedAttributeMethods
+
     module ::ActiveStorage::Attachment::GeneratedAliasAttributeMethods
       include ::ActiveStorage::Attachment::GeneratedAttributeMethods
 
@@ -289,20 +291,30 @@ module ::ActiveStorage
 
       alias id_value_for_database id_for_database
     end
+
     include ::ActiveStorage::Attachment::GeneratedAliasAttributeMethods
 
     def record: () -> untyped
+
     def record=: (untyped?) -> untyped?
+
     def reload_record: () -> untyped?
+
     def blob: () -> ::ActiveStorage::Blob
+
     def blob=: (::ActiveStorage::Blob?) -> ::ActiveStorage::Blob?
+
     def reload_blob: () -> ::ActiveStorage::Blob?
+
     def build_blob: (?untyped) -> ::ActiveStorage::Blob
+
     def create_blob: (?untyped) -> ::ActiveStorage::Blob
+
     def create_blob!: (?untyped) -> ::ActiveStorage::Blob
 
     module ::ActiveStorage::Attachment::GeneratedAssociationMethods
     end
+
     include ::ActiveStorage::Attachment::GeneratedAssociationMethods
 
     def self.with_all_variant_records: () -> ::ActiveStorage::Attachment::ActiveRecord_Relation
@@ -323,17 +335,24 @@ module ::ActiveStorage
       include ::ActiveRecord::Relation::Methods[::ActiveStorage::Attachment, ::String]
 
       def build: (?::ActiveRecord::Associations::CollectionProxy::_EachPair attributes) ?{ () -> untyped } -> ::ActiveStorage::Attachment
-               | (::Array[::ActiveRecord::Associations::CollectionProxy::_EachPair] attributes) ?{ () -> untyped } -> ::Array[::ActiveStorage::Attachment]
+        | (::Array[::ActiveRecord::Associations::CollectionProxy::_EachPair] attributes) ?{ () -> untyped } -> ::Array[::ActiveStorage::Attachment]
+
       def create: (?::ActiveRecord::Associations::CollectionProxy::_EachPair attributes) ?{ () -> untyped } -> ::ActiveStorage::Attachment
-                | (::Array[::ActiveRecord::Associations::CollectionProxy::_EachPair] attributes) ?{ () -> untyped } -> ::Array[::ActiveStorage::Attachment]
+        | (::Array[::ActiveRecord::Associations::CollectionProxy::_EachPair] attributes) ?{ () -> untyped } -> ::Array[::ActiveStorage::Attachment]
+
       def create!: (?::ActiveRecord::Associations::CollectionProxy::_EachPair attributes) ?{ () -> untyped } -> ::ActiveStorage::Attachment
-                 | (::Array[::ActiveRecord::Associations::CollectionProxy::_EachPair] attributes) ?{ () -> untyped } -> ::Array[::ActiveStorage::Attachment]
+        | (::Array[::ActiveRecord::Associations::CollectionProxy::_EachPair] attributes) ?{ () -> untyped } -> ::Array[::ActiveStorage::Attachment]
+
       def reload: () -> ::Array[::ActiveStorage::Attachment]
 
       def replace: (::Array[::ActiveStorage::Attachment]) -> void
+
       def delete: (*::ActiveStorage::Attachment | ::String) -> ::Array[::ActiveStorage::Attachment]
+
       def destroy: (*::ActiveStorage::Attachment | ::String) -> ::Array[::ActiveStorage::Attachment]
+
       def <<: (*::ActiveStorage::Attachment | ::Array[::ActiveStorage::Attachment]) -> self
+
       def prepend: (*::ActiveStorage::Attachment | ::Array[::ActiveStorage::Attachment]) -> self
     end
   end

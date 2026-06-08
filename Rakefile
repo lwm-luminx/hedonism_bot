@@ -17,5 +17,5 @@ end
 
 GraphQL::RakeTask.new(
   schema_name: "HedonismBotSchema", # Replace with your actual Schema class name
-  directory: "./app/graphql"    # Directory where schema.graphql and schema.json will be saved
+  directory: "./app/graphql" # Directory where schema.graphql and schema.json will be saved
 )

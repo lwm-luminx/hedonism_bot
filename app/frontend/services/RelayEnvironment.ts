@@ -1,4 +1,4 @@
-import { Environment, Network, RecordSource, Store, FetchFunction } from 'relay-runtime';
+import {Environment, FetchFunction, Network, RecordSource, Store} from 'relay-runtime';
 
 const fetchQuery: FetchFunction = async (request, variables) => {
     const response = await fetch('http://localhost:5000/graphql', {

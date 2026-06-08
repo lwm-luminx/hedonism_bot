@@ -36,7 +36,7 @@ export default function Face({face, onSelect, selected}: FaceProps) {
             color: selected ? "var(--primary)" : "var(--foreground)",
             borderRadius: "var(--radius-sm)",
         }}
-        onClick={() => { if (onSelect) {onSelect(data?.id)}}}>
+        onClick={() => { if (onSelect) {onSelect(data.id)}}}>
         <div className={faceGroupVariants({ selected: selected })}>
             {data.thumbnailUrl ?
                 <ImageWithFallback

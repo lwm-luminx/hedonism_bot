@@ -1,5 +1,5 @@
 import * as React from "react";
-import { ScrollArea as ScrollAreaPrimitive } from "radix-ui";
+import {ScrollArea as ScrollAreaPrimitive} from "radix-ui";
 import {cva} from "class-variance-authority";
 
 const scrollAreaVariants = cva("flex touch-none p-px transition-colors select-none",
@@ -30,8 +30,8 @@ function ScrollArea({
             >
                 {children}
             </ScrollAreaPrimitive.Viewport>
-            <ScrollBar />
-            <ScrollAreaPrimitive.Corner />
+            <ScrollBar/>
+            <ScrollAreaPrimitive.Corner/>
         </ScrollAreaPrimitive.Root>
     );
 }
@@ -56,4 +56,4 @@ function ScrollBar({
     );
 }
 
-export { ScrollArea, ScrollBar };
+export {ScrollArea, ScrollBar};

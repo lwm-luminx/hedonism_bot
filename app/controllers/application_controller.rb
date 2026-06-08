@@ -1,7 +1,6 @@
 class ApplicationController < ActionController::Base
   before_action :populate_tenant
 
-
   private
 
   def populate_tenant

@@ -1,31 +1,28 @@
 import { User } from "lucide-react";
 import Face from './Face'
-import {graphql, useFragment} from "react-relay";
+
 import {useState} from "react";
-import {FaceFragment_faces$key} from './__generated__/FaceFragment_faces.graphql';
+import {graphql, useFragment} from "react-relay";
+import {FaceFragment_faces$data, FaceFragment_faces$key} from "./__generated__/FaceFragment_faces.graphql";
 
 const FACES_FRAGMENT = graphql`
-    fragment FaceFragment_faces on Query {
-        faces {
-            nodes {
-                id
-                ...FaceFragment_face
-            }
+    fragment FaceFragment_faces on FaceConnection {
+        nodes {
+            id
+            ...FaceFragment_face
         }
     }
-`;
+`
 
 interface FaceGroupProps {
-    id: FaceFragment_faces$key;
+    faces: FaceFragment_faces$key
     selectedFaceId: string | null;
     onSelect: (faceId: string | null) => void;
 }
 
-export function FaceGroup({ id, selectedFaceId, onSelect }: FaceGroupProps) {
-    const [faceId, setFaceId] = useState<string | null>(null)
-    const data = useFragment(FACES_FRAGMENT, id);
-
-
+export function FaceGroup({ faces, selectedFaceId, onSelect }: FaceGroupProps) {
+    let [faceId, setFaceId] = useState<string | null>(selectedFaceId);
+    const data = useFragment(FACES_FRAGMENT, faces);
     return data ? (
         <div className="flex flex-col gap-2">
             <p
@@ -38,16 +35,16 @@ export function FaceGroup({ id, selectedFaceId, onSelect }: FaceGroupProps) {
             <button
                 className="flex items-center gap-2.5 px-2 py-1.5 rounded transition-colors text-left"
                 style={{
-                    background: selectedFaceId === null ? "rgba(201,169,110,0.12)" : "transparent",
-                    color: selectedFaceId === null ? "var(--primary)" : "var(--foreground)",
+                    background: faceId === null ? "rgba(201,169,110,0.12)" : "transparent",
+                    color: faceId === null ? "var(--primary)" : "var(--foreground)",
                     borderRadius: "var(--radius-sm)",
                 }}
-                onClick={() => onSelect(null)}
-            >
-                <div
-                    className="w-8 h-8 rounded-full flex items-center justify-center shrink-0"
-                    style={{ background: "var(--muted)" }}
-                >
+                onClick={() => {
+                    setFaceId(null);
+                    onSelect?.(null);
+                    }
+                }>
+                <div className="w-8 h-8 rounded-full flex items-center justify-center shrink-0" style={{ background: "var(--muted)" }}>
                     <User className="w-4 h-4" style={{ color: "var(--muted-foreground)" }} />
                 </div>
                 <div className="min-w-0">
@@ -57,9 +54,9 @@ export function FaceGroup({ id, selectedFaceId, onSelect }: FaceGroupProps) {
                 </div>
             </button>
 
-            {data.faces.nodes?.map((face) => face ? (
+            {data?.nodes?.map((face) => (
                 <Face key={face!.id} face={face!} selected={faceId === face!.id} onSelect={() => { setFaceId(face!.id); onSelect?.(face!.id) }} />
-            ) : null)}
+            ))}
         </div>
     ) : null;
 }

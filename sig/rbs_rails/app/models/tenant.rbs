@@ -12,7 +12,7 @@ class ::Tenant < ::ApplicationRecord
 
     def id_changed?: (?from: ::String?, ?to: ::String?) -> bool
 
-    def id_change: () -> [ ::String?, ::String? ]
+    def id_change: () -> [::String?, ::String?]
 
     def id_will_change!: () -> void
 
@@ -52,7 +52,7 @@ class ::Tenant < ::ApplicationRecord
 
     def active_changed?: (?from: bool?, ?to: bool?) -> bool
 
-    def active_change: () -> [ bool?, bool? ]
+    def active_change: () -> [bool?, bool?]
 
     def active_will_change!: () -> void
 
@@ -92,7 +92,7 @@ class ::Tenant < ::ApplicationRecord
 
     def api_key_changed?: (?from: ::String?, ?to: ::String?) -> bool
 
-    def api_key_change: () -> [ ::String?, ::String? ]
+    def api_key_change: () -> [::String?, ::String?]
 
     def api_key_will_change!: () -> void
 
@@ -132,7 +132,7 @@ class ::Tenant < ::ApplicationRecord
 
     def created_at_changed?: (?from: ::ActiveSupport::TimeWithZone?, ?to: ::ActiveSupport::TimeWithZone?) -> bool
 
-    def created_at_change: () -> [ ::ActiveSupport::TimeWithZone?, ::ActiveSupport::TimeWithZone? ]
+    def created_at_change: () -> [::ActiveSupport::TimeWithZone?, ::ActiveSupport::TimeWithZone?]
 
     def created_at_will_change!: () -> void
 
@@ -172,7 +172,7 @@ class ::Tenant < ::ApplicationRecord
 
     def name_changed?: (?from: ::String?, ?to: ::String?) -> bool
 
-    def name_change: () -> [ ::String?, ::String? ]
+    def name_change: () -> [::String?, ::String?]
 
     def name_will_change!: () -> void
 
@@ -212,7 +212,7 @@ class ::Tenant < ::ApplicationRecord
 
     def subdomain_changed?: (?from: ::String?, ?to: ::String?) -> bool
 
-    def subdomain_change: () -> [ ::String?, ::String? ]
+    def subdomain_change: () -> [::String?, ::String?]
 
     def subdomain_will_change!: () -> void
 
@@ -252,7 +252,7 @@ class ::Tenant < ::ApplicationRecord
 
     def updated_at_changed?: (?from: ::ActiveSupport::TimeWithZone?, ?to: ::ActiveSupport::TimeWithZone?) -> bool
 
-    def updated_at_change: () -> [ ::ActiveSupport::TimeWithZone?, ::ActiveSupport::TimeWithZone? ]
+    def updated_at_change: () -> [::ActiveSupport::TimeWithZone?, ::ActiveSupport::TimeWithZone?]
 
     def updated_at_will_change!: () -> void
 
@@ -284,7 +284,9 @@ class ::Tenant < ::ApplicationRecord
 
     def updated_at_for_database: () -> ::Time
   end
+
   include ::Tenant::GeneratedAttributeMethods
+
   module ::Tenant::GeneratedAliasAttributeMethods
     include ::Tenant::GeneratedAttributeMethods
 
@@ -328,22 +330,36 @@ class ::Tenant < ::ApplicationRecord
 
     alias id_value_for_database id_for_database
   end
+
   include ::Tenant::GeneratedAliasAttributeMethods
+
   def photos: () -> ::Photo::ActiveRecord_Associations_CollectionProxy
+
   def photos=: (::Photo::ActiveRecord_Associations_CollectionProxy | ::Array[::Photo]) -> (::Photo::ActiveRecord_Associations_CollectionProxy | ::Array[::Photo])
+
   def photo_ids: () -> ::Array[::String]
+
   def photo_ids=: (::Array[::String]) -> ::Array[::String]
+
   def venues: () -> ::Venue::ActiveRecord_Associations_CollectionProxy
+
   def venues=: (::Venue::ActiveRecord_Associations_CollectionProxy | ::Array[::Venue]) -> (::Venue::ActiveRecord_Associations_CollectionProxy | ::Array[::Venue])
+
   def venue_ids: () -> ::Array[::String]
+
   def venue_ids=: (::Array[::String]) -> ::Array[::String]
+
   def people: () -> ::Person::ActiveRecord_Associations_CollectionProxy
+
   def people=: (::Person::ActiveRecord_Associations_CollectionProxy | ::Array[::Person]) -> (::Person::ActiveRecord_Associations_CollectionProxy | ::Array[::Person])
+
   def person_ids: () -> ::Array[::String]
+
   def person_ids=: (::Array[::String]) -> ::Array[::String]
 
   module ::Tenant::GeneratedAssociationMethods
   end
+
   include ::Tenant::GeneratedAssociationMethods
 
   def self.active: () -> ::Tenant::ActiveRecord_Relation
@@ -364,17 +380,24 @@ class ::Tenant < ::ApplicationRecord
     include ::ActiveRecord::Relation::Methods[::Tenant, ::String]
 
     def build: (?::ActiveRecord::Associations::CollectionProxy::_EachPair attributes) ?{ () -> untyped } -> ::Tenant
-             | (::Array[::ActiveRecord::Associations::CollectionProxy::_EachPair] attributes) ?{ () -> untyped } -> ::Array[::Tenant]
+      | (::Array[::ActiveRecord::Associations::CollectionProxy::_EachPair] attributes) ?{ () -> untyped } -> ::Array[::Tenant]
+
     def create: (?::ActiveRecord::Associations::CollectionProxy::_EachPair attributes) ?{ () -> untyped } -> ::Tenant
-              | (::Array[::ActiveRecord::Associations::CollectionProxy::_EachPair] attributes) ?{ () -> untyped } -> ::Array[::Tenant]
+      | (::Array[::ActiveRecord::Associations::CollectionProxy::_EachPair] attributes) ?{ () -> untyped } -> ::Array[::Tenant]
+
     def create!: (?::ActiveRecord::Associations::CollectionProxy::_EachPair attributes) ?{ () -> untyped } -> ::Tenant
-               | (::Array[::ActiveRecord::Associations::CollectionProxy::_EachPair] attributes) ?{ () -> untyped } -> ::Array[::Tenant]
+      | (::Array[::ActiveRecord::Associations::CollectionProxy::_EachPair] attributes) ?{ () -> untyped } -> ::Array[::Tenant]
+
     def reload: () -> ::Array[::Tenant]
 
     def replace: (::Array[::Tenant]) -> void
+
     def delete: (*::Tenant | ::String) -> ::Array[::Tenant]
+
     def destroy: (*::Tenant | ::String) -> ::Array[::Tenant]
+
     def <<: (*::Tenant | ::Array[::Tenant]) -> self
+
     def prepend: (*::Tenant | ::Array[::Tenant]) -> self
   end
 
@@ -383,15 +406,21 @@ end
 
 class ::ApplicationRecord < ::ActiveRecord::Base
 end
+
 class ::Photo < ::ApplicationRecord
 end
+
 class ::Photo::ActiveRecord_Associations_CollectionProxy < ::ActiveRecord::Associations::CollectionProxy
 end
+
 class ::Venue < ::ApplicationRecord
 end
+
 class ::Venue::ActiveRecord_Associations_CollectionProxy < ::ActiveRecord::Associations::CollectionProxy
 end
+
 class ::Person < ::ApplicationRecord
 end
+
 class ::Person::ActiveRecord_Associations_CollectionProxy < ::ActiveRecord::Associations::CollectionProxy
 end

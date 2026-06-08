@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<50a48fe232c01d1177285e8b9f347fbc>>
+ * @generated SignedSource<<a3ebf3ca1b0a6f454190c0b5603ad2a9>>
  * @lightSyntaxTransform
  */
 
@@ -10,12 +10,10 @@
 import { ReaderFragment } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
 export type FaceFragment_faces$data = {
-  readonly faces: {
-    readonly nodes: ReadonlyArray<{
-      readonly id: string;
-      readonly " $fragmentSpreads": FragmentRefs<"FaceFragment_face">;
-    } | null | undefined> | null | undefined;
-  };
+  readonly nodes: ReadonlyArray<{
+    readonly id: string;
+    readonly " $fragmentSpreads": FragmentRefs<"FaceFragment_face">;
+  } | null | undefined> | null | undefined;
   readonly " $fragmentType": "FaceFragment_faces";
 };
 export type FaceFragment_faces$key = {
@@ -32,42 +30,31 @@ const node: ReaderFragment = {
     {
       "alias": null,
       "args": null,
-      "concreteType": "FaceConnection",
+      "concreteType": "Face",
       "kind": "LinkedField",
-      "name": "faces",
-      "plural": false,
+      "name": "nodes",
+      "plural": true,
       "selections": [
         {
           "alias": null,
           "args": null,
-          "concreteType": "Face",
-          "kind": "LinkedField",
-          "name": "nodes",
-          "plural": true,
-          "selections": [
-            {
-              "alias": null,
-              "args": null,
-              "kind": "ScalarField",
-              "name": "id",
-              "storageKey": null
-            },
-            {
-              "args": null,
-              "kind": "FragmentSpread",
-              "name": "FaceFragment_face"
-            }
-          ],
+          "kind": "ScalarField",
+          "name": "id",
           "storageKey": null
+        },
+        {
+          "args": null,
+          "kind": "FragmentSpread",
+          "name": "FaceFragment_face"
         }
       ],
       "storageKey": null
     }
   ],
-  "type": "Query",
+  "type": "FaceConnection",
   "abstractKey": null
 };
 
-(node as any).hash = "834ea23b1a449ff9e2e6b65e03a376ee";
+(node as any).hash = "056b86a222041cb00bd2e5ba3b55ff70";
 
 export default node;

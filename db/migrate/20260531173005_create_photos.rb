@@ -19,8 +19,8 @@ class CreatePhotos < ActiveRecord::Migration[8.1]
       t.string :caption, null: true, default: nil
     end
 
-    add_index :photos, [ :tenant_id, :folder_date ]
-    add_index :photos, [ :tenant_id, :status ]
-    add_index :photos, [ :tenant_id, :venue_id ]
+    add_index :photos, [:tenant_id, :folder_date]
+    add_index :photos, [:tenant_id, :status]
+    add_index :photos, [:tenant_id, :venue_id]
   end
 end

@@ -19,7 +19,7 @@ class CreatePeople < ActiveRecord::Migration[8.1]
       t.vector :arc_face_embedding, limit: 512, null: true
     end
 
-    add_index :people, [ :tenant_id, :name ]
+    add_index :people, [:tenant_id, :name]
 
     create_table :photo_people, id: :uuid, default: 'gen_random_uuid()' do |t|
       t.timestamps
@@ -33,6 +33,6 @@ class CreatePeople < ActiveRecord::Migration[8.1]
       t.integer :cluster_number, null: true
     end
 
-    add_index :photo_people, [ :photo_id, :person_id ], unique: true
+    add_index :photo_people, [:photo_id, :person_id], unique: true
   end
 end

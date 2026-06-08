@@ -1,4 +1,4 @@
-import { Download, ShoppingCart, X, ChevronLeft, ChevronRight } from "lucide-react";
+import {ChevronLeft, ChevronRight, Download, ShoppingCart, X} from "lucide-react";
 import {Button} from "./Button";
 import {ImageWithFallback} from "./ImageWithCallback";
 import {graphql, useFragment} from "react-relay";
@@ -22,7 +22,7 @@ interface PhotoViewerProps {
     onNavigate: (photo: PhotoViewerFragment$key) => void;
 }
 
-export function PhotoViewer({ photo, open, onClose, onPurchase }: PhotoViewerProps) {
+export function PhotoViewer({photo, open, onClose, onPurchase}: PhotoViewerProps) {
 
     if (!open || !photo) return null;
     let data = useFragment(PHOTO_FRAGMENT, photo!);
@@ -33,29 +33,29 @@ export function PhotoViewer({ photo, open, onClose, onPurchase }: PhotoViewerPro
     return (
         <div
             className="fixed inset-0 z-50 flex items-center justify-center"
-            style={{ background: "rgba(0,0,0,0.92)" }}
+            style={{background: "rgba(0,0,0,0.92)"}}
             onClick={onClose}
         >
             {/* Close */}
             <button
                 className="absolute top-4 right-4 p-2 rounded transition-colors hover:bg-white/10"
-                style={{ color: "var(--foreground)" }}
+                style={{color: "var(--foreground)"}}
                 onClick={onClose}
             >
-                <X className="w-5 h-5" />
+                <X className="w-5 h-5"/>
             </button>
 
             {/* Prev */}
             {hasPrev && (
                 <button
                     className="absolute left-4 top-1/2 -translate-y-1/2 p-2 rounded transition-colors hover:bg-white/10"
-                    style={{ color: "var(--foreground)" }}
+                    style={{color: "var(--foreground)"}}
                     onClick={(e) => {
                         e.stopPropagation();
 
                     }}
                 >
-                    <ChevronLeft className="w-6 h-6" />
+                    <ChevronLeft className="w-6 h-6"/>
                 </button>
             )}
 
@@ -63,12 +63,12 @@ export function PhotoViewer({ photo, open, onClose, onPurchase }: PhotoViewerPro
             {hasNext && (
                 <button
                     className="absolute right-4 top-1/2 -translate-y-1/2 p-2 rounded transition-colors hover:bg-white/10"
-                    style={{ color: "var(--foreground)" }}
+                    style={{color: "var(--foreground)"}}
                     onClick={(e) => {
                         e.stopPropagation();
                     }}
                 >
-                    <ChevronRight className="w-6 h-6" />
+                    <ChevronRight className="w-6 h-6"/>
                 </button>
             )}
 
@@ -108,7 +108,7 @@ export function PhotoViewer({ photo, open, onClose, onPurchase }: PhotoViewerPro
                                 }}
                                 onClick={() => onPurchase(photo)}
                             >
-                                <ShoppingCart className="w-4 h-4 mr-2" />
+                                <ShoppingCart className="w-4 h-4 mr-2"/>
                                 Purchase for
                             </Button>
                         </div>
@@ -118,13 +118,18 @@ export function PhotoViewer({ photo, open, onClose, onPurchase }: PhotoViewerPro
                 {/* Meta bar */}
                 <div
                     className="w-full flex items-center justify-between px-4 py-3 rounded"
-                    style={{ background: "var(--card)", border: "1px solid var(--border)" }}
+                    style={{background: "var(--card)", border: "1px solid var(--border)"}}
                 >
                     <div>
-                        <p style={{ fontFamily: "'Inter', sans-serif", color: "var(--foreground)", fontSize: "0.9375rem" }}>
+                        <p style={{
+                            fontFamily: "'Inter', sans-serif",
+                            color: "var(--foreground)",
+                            fontSize: "0.9375rem"
+                        }}>
 
                         </p>
-                        <p className="text-xs mt-0.5" style={{ color: "var(--muted-foreground)", fontFamily: "'DM Mono', monospace" }}>
+                        <p className="text-xs mt-0.5"
+                           style={{color: "var(--muted-foreground)", fontFamily: "'DM Mono', monospace"}}>
 
                         </p>
                     </div>
@@ -139,7 +144,7 @@ export function PhotoViewer({ photo, open, onClose, onPurchase }: PhotoViewerPro
                                     borderRadius: "var(--radius-sm)",
                                 }}
                             >
-                                <Download className="w-4 h-4 mr-1.5" />
+                                <Download className="w-4 h-4 mr-1.5"/>
                                 Download
                             </Button>
                         ) : (
@@ -153,7 +158,7 @@ export function PhotoViewer({ photo, open, onClose, onPurchase }: PhotoViewerPro
                                 }}
 
                             >
-                                <ShoppingCart className="w-4 h-4 mr-1.5" />
+                                <ShoppingCart className="w-4 h-4 mr-1.5"/>
 
                             </Button>
                         )}

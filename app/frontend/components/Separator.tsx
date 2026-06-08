@@ -1,5 +1,5 @@
 import * as React from "react";
-import { Separator as SeparatorPrimitive } from "radix-ui";
+import {Separator as SeparatorPrimitive} from "radix-ui";
 import {cva} from "class-variance-authority";
 
 const separatorVariants = cva("bg-border shrink-0 data-[orientation=horizontal]:h-px data-[orientation=horizontal]:w-full data-[orientation=vertical]:h-full data-[orientation=vertical]:w-px");
@@ -21,4 +21,4 @@ function Separator({
     );
 }
 
-export { Separator };
+export {Separator};

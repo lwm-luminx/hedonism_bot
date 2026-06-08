@@ -1,9 +1,9 @@
-import { useState } from "react";
-import { Check, CreditCard, Download, Lock } from "lucide-react";
-import { Dialog, DialogContent, DialogTitle } from "./Dialog";
-import { Button } from "./Button";
-import { Input } from "./Input";
-import { Label } from "./Label";
+import {useState} from "react";
+import {Check, CreditCard, Download, Lock} from "lucide-react";
+import {Dialog, DialogContent, DialogTitle} from "./Dialog";
+import {Button} from "./Button";
+import {Input} from "./Input";
+import {Label} from "./Label";
 import {Separator} from "./Separator";
 import {ImageWithFallback} from "./ImageWithCallback";
 import {graphql, useLazyLoadQuery} from "react-relay";
@@ -29,7 +29,7 @@ query PhotoPurchaseQuery($photoId: ID!) {
 
 type Step = "review" | "payment" | "success";
 
-export function PurchaseModal({ photoId, open, onClose, onPurchaseComplete }: PurchaseModalProps) {
+export function PurchaseModal({photoId, open, onClose, onPurchaseComplete}: PurchaseModalProps) {
     if (!photoId) return null;
 
     const data = useLazyLoadQuery<PhotoPurchaseQuery>(PHOTO_PURCHASE_QUERY, {photoId});
@@ -75,7 +75,6 @@ export function PurchaseModal({ photoId, open, onClose, onPurchaseComplete }: Pu
     };
 
 
-
     return (
         <Dialog open={open} onOpenChange={handleClose}>
             <DialogContent
@@ -89,7 +88,7 @@ export function PurchaseModal({ photoId, open, onClose, onPurchaseComplete }: Pu
                 }}
             >
                 {/* Header */}
-                <div className="px-6 pt-5 pb-4 border-b" style={{ borderColor: "var(--border)" }}>
+                <div className="px-6 pt-5 pb-4 border-b" style={{borderColor: "var(--border)"}}>
                     <DialogTitle
                         style={{
                             fontFamily: "'Playfair Display', serif",
@@ -99,8 +98,9 @@ export function PurchaseModal({ photoId, open, onClose, onPurchaseComplete }: Pu
                     >
                         {step === "success" ? "Purchase Complete" : step === "payment" ? "Secure Checkout" : "Purchase Photo"}
                     </DialogTitle>
-                    <p className="text-xs mt-1" style={{ color: "var(--muted-foreground)", fontFamily: "'DM Mono', monospace" }}>
-                       {data.photo!.takenAt}
+                    <p className="text-xs mt-1"
+                       style={{color: "var(--muted-foreground)", fontFamily: "'DM Mono', monospace"}}>
+                        {data.photo!.takenAt}
                     </p>
                 </div>
 
@@ -109,7 +109,7 @@ export function PurchaseModal({ photoId, open, onClose, onPurchaseComplete }: Pu
                         <div className="flex gap-4">
                             <div
                                 className="w-24 h-24 overflow-hidden shrink-0"
-                                style={{ borderRadius: "var(--radius-sm)", border: "1px solid var(--border)" }}
+                                style={{borderRadius: "var(--radius-sm)", border: "1px solid var(--border)"}}
                             >
                                 <ImageWithFallback
                                     src={data.photo!.previewUrl!}
@@ -118,20 +118,26 @@ export function PurchaseModal({ photoId, open, onClose, onPurchaseComplete }: Pu
                                 />
                             </div>
                             <div className="flex flex-col justify-center gap-1">
-                                <p style={{ fontFamily: "'Inter', sans-serif", color: "var(--foreground)", fontSize: "0.9375rem" }}>
+                                <p style={{
+                                    fontFamily: "'Inter', sans-serif",
+                                    color: "var(--foreground)",
+                                    fontSize: "0.9375rem"
+                                }}>
                                     {data.photo!.alternateDescription}
                                 </p>
-                                <p className="text-xs" style={{ color: "var(--muted-foreground)", fontFamily: "'DM Mono', monospace" }}>
+                                <p className="text-xs"
+                                   style={{color: "var(--muted-foreground)", fontFamily: "'DM Mono', monospace"}}>
                                     Original high-resolution file
                                 </p>
-                                <p className="text-xs" style={{ color: "var(--muted-foreground)", fontFamily: "'DM Mono', monospace" }}>
+                                <p className="text-xs"
+                                   style={{color: "var(--muted-foreground)", fontFamily: "'DM Mono', monospace"}}>
                                     Instant download · Unlimited use
                                 </p>
                             </div>
                         </div>
-                        <Separator style={{ background: "var(--border)" }} />
+                        <Separator style={{background: "var(--border)"}}/>
                         <div className="flex justify-between items-center">
-              <span style={{ fontFamily: "'Inter', sans-serif", color: "var(--foreground)", fontSize: "0.9375rem" }}>
+              <span style={{fontFamily: "'Inter', sans-serif", color: "var(--foreground)", fontSize: "0.9375rem"}}>
                 Total
               </span>
                             <span
@@ -154,7 +160,7 @@ export function PurchaseModal({ photoId, open, onClose, onPurchaseComplete }: Pu
                             }}
                             onClick={() => setStep("payment")}
                         >
-                            <CreditCard className="w-4 h-4 mr-2" />
+                            <CreditCard className="w-4 h-4 mr-2"/>
                             Continue to Payment
                         </Button>
                     </div>
@@ -167,7 +173,7 @@ export function PurchaseModal({ photoId, open, onClose, onPurchaseComplete }: Pu
                                 <Label
                                     htmlFor="name"
                                     className="text-xs mb-1.5 block"
-                                    style={{ color: "var(--muted-foreground)", fontFamily: "'DM Mono', monospace" }}
+                                    style={{color: "var(--muted-foreground)", fontFamily: "'DM Mono', monospace"}}
                                 >
                                     Cardholder Name
                                 </Label>
@@ -189,7 +195,7 @@ export function PurchaseModal({ photoId, open, onClose, onPurchaseComplete }: Pu
                                 <Label
                                     htmlFor="card"
                                     className="text-xs mb-1.5 block"
-                                    style={{ color: "var(--muted-foreground)", fontFamily: "'DM Mono', monospace" }}
+                                    style={{color: "var(--muted-foreground)", fontFamily: "'DM Mono', monospace"}}
                                 >
                                     Card Number
                                 </Label>
@@ -212,7 +218,7 @@ export function PurchaseModal({ photoId, open, onClose, onPurchaseComplete }: Pu
                                     <Label
                                         htmlFor="expiry"
                                         className="text-xs mb-1.5 block"
-                                        style={{ color: "var(--muted-foreground)", fontFamily: "'DM Mono', monospace" }}
+                                        style={{color: "var(--muted-foreground)", fontFamily: "'DM Mono', monospace"}}
                                     >
                                         Expiry
                                     </Label>
@@ -234,7 +240,7 @@ export function PurchaseModal({ photoId, open, onClose, onPurchaseComplete }: Pu
                                     <Label
                                         htmlFor="cvc"
                                         className="text-xs mb-1.5 block"
-                                        style={{ color: "var(--muted-foreground)", fontFamily: "'DM Mono', monospace" }}
+                                        style={{color: "var(--muted-foreground)", fontFamily: "'DM Mono', monospace"}}
                                     >
                                         CVC
                                     </Label>
@@ -254,12 +260,16 @@ export function PurchaseModal({ photoId, open, onClose, onPurchaseComplete }: Pu
                                 </div>
                             </div>
                         </div>
-                        <Separator style={{ background: "var(--border)" }} />
+                        <Separator style={{background: "var(--border)"}}/>
                         <div className="flex justify-between items-center">
-              <span style={{ fontFamily: "'Inter', sans-serif", color: "var(--foreground)", fontSize: "0.9375rem" }}>
+              <span style={{fontFamily: "'Inter', sans-serif", color: "var(--foreground)", fontSize: "0.9375rem"}}>
                 Total
               </span>
-                            <span style={{ fontFamily: "'Playfair Display', serif", color: "var(--primary)", fontSize: "1.375rem" }}>
+                            <span style={{
+                                fontFamily: "'Playfair Display', serif",
+                                color: "var(--primary)",
+                                fontSize: "1.375rem"
+                            }}>
                 $1
               </span>
                         </div>
@@ -278,23 +288,23 @@ export function PurchaseModal({ photoId, open, onClose, onPurchaseComplete }: Pu
                             {processing ? (
                                 <span className="flex items-center gap-2">
                   <svg className="animate-spin w-4 h-4" viewBox="0 0 24 24" fill="none">
-                    <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
-                    <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v8z" />
+                    <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"/>
+                    <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v8z"/>
                   </svg>
                   Processing…
                 </span>
                             ) : (
                                 <>
-                                    <Lock className="w-4 h-4 mr-2" />
+                                    <Lock className="w-4 h-4 mr-2"/>
                                     Pay $1
                                 </>
                             )}
                         </Button>
                         <p
                             className="text-center text-xs"
-                            style={{ color: "var(--muted-foreground)", fontFamily: "'DM Mono', monospace" }}
+                            style={{color: "var(--muted-foreground)", fontFamily: "'DM Mono', monospace"}}
                         >
-                            <Lock className="w-3 h-3 inline mr-1" />
+                            <Lock className="w-3 h-3 inline mr-1"/>
                             Secured by Stripe · No data stored
                         </p>
                     </div>
@@ -304,9 +314,9 @@ export function PurchaseModal({ photoId, open, onClose, onPurchaseComplete }: Pu
                     <div className="p-6 flex flex-col items-center gap-5 text-center">
                         <div
                             className="w-14 h-14 rounded-full flex items-center justify-center"
-                            style={{ background: "rgba(201,169,110,0.15)" }}
+                            style={{background: "rgba(201,169,110,0.15)"}}
                         >
-                            <Check className="w-7 h-7" style={{ color: "var(--primary)" }} />
+                            <Check className="w-7 h-7" style={{color: "var(--primary)"}}/>
                         </div>
                         <div>
                             <p
@@ -319,7 +329,8 @@ export function PurchaseModal({ photoId, open, onClose, onPurchaseComplete }: Pu
                             >
                                 Thank you for your purchase
                             </p>
-                            <p className="text-sm" style={{ color: "var(--muted-foreground)", fontFamily: "'Inter', sans-serif" }}>
+                            <p className="text-sm"
+                               style={{color: "var(--muted-foreground)", fontFamily: "'Inter', sans-serif"}}>
                                 Your original high-resolution photo is ready to download.
                             </p>
                         </div>
@@ -333,12 +344,12 @@ export function PurchaseModal({ photoId, open, onClose, onPurchaseComplete }: Pu
                             }}
                             onClick={handleClose}
                         >
-                            <Download className="w-4 h-4 mr-2" />
+                            <Download className="w-4 h-4 mr-2"/>
                             Download Original
                         </Button>
                         <button
                             className="text-sm underline underline-offset-2 transition-opacity hover:opacity-70"
-                            style={{ color: "var(--muted-foreground)", fontFamily: "'Inter', sans-serif" }}
+                            style={{color: "var(--muted-foreground)", fontFamily: "'Inter', sans-serif"}}
                             onClick={handleClose}
                         >
                             Close

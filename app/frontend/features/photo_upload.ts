@@ -33,48 +33,46 @@ const photoUploadSlice = createSlice({
     name: 'photoUpload',
     initialState: INITIAL_STATE,
     reducers: {
-      addFile: (state, action : PayloadAction<File>) => {
-          if (RAW_FORMAT_EXTENSIONS.includes(getExtension(action.payload.name))) {
-              const basename = stripExtension(action.payload.name);
+        addFile: (state, action: PayloadAction<File>) => {
+            if (RAW_FORMAT_EXTENSIONS.includes(getExtension(action.payload.name))) {
+                const basename = stripExtension(action.payload.name);
 
-              if (state.acceptedFiles[basename]) {
-                state.acceptedFiles[basename] = {
-                    ...state.acceptedFiles[basename],
-                    rawPhoto: action.payload
+                if (state.acceptedFiles[basename]) {
+                    state.acceptedFiles[basename] = {
+                        ...state.acceptedFiles[basename],
+                        rawPhoto: action.payload
+                    }
+                } else {
+                    state.acceptedFiles[basename] = {
+                        id: null,
+                        title: basename,
+                        rawPhoto: action.payload,
+                        processedPhotos: []
+                    }
                 }
-              }
-              else {
-                  state.acceptedFiles[basename] = {
-                      id: null,
-                      title: basename,
-                      rawPhoto: action.payload,
-                      processedPhotos: []
-                  }
-              }
-          } else {
-              const basename = stripExtension(action.payload.name);
+            } else {
+                const basename = stripExtension(action.payload.name);
 
-              if (state.acceptedFiles[basename]) {
-                  state.acceptedFiles[basename].processedPhotos = [
-                      ...state.acceptedFiles[basename].processedPhotos,
-                      action.payload
-                  ]
-              }
-              else {
-                  state.acceptedFiles[basename] = {
-                      id: null,
-                      title: basename,
-                      rawPhoto: null,
-                      processedPhotos: [
-                          action.payload
-                      ]
-                  }
-              }
-          }
-      }
+                if (state.acceptedFiles[basename]) {
+                    state.acceptedFiles[basename].processedPhotos = [
+                        ...state.acceptedFiles[basename].processedPhotos,
+                        action.payload
+                    ]
+                } else {
+                    state.acceptedFiles[basename] = {
+                        id: null,
+                        title: basename,
+                        rawPhoto: null,
+                        processedPhotos: [
+                            action.payload
+                        ]
+                    }
+                }
+            }
+        }
     }
 })
 
-export { }
+export {}
 
 export default photoUploadSlice;

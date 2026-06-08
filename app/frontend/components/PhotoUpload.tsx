@@ -1,6 +1,6 @@
 import React from 'react';
-import {Card, Inset, Text, Progress, Button, Flex} from "@radix-ui/themes";
-import { X } from 'lucide-react';
+import {Button, Card, Flex, Inset, Progress, Text} from "@radix-ui/themes";
+import {X} from 'lucide-react';
 
 export interface CardProps {
     rawPhoto: File;
@@ -11,7 +11,14 @@ export interface CardProps {
     onRemove?: () => void;
 }
 
-export const PhotoUpload: React.FC<CardProps> = ({ title, description, rawPhoto, processedPhotos, progress, onRemove }) => {
+export const PhotoUpload: React.FC<CardProps> = ({
+                                                     title,
+                                                     description,
+                                                     rawPhoto,
+                                                     processedPhotos,
+                                                     progress,
+                                                     onRemove
+                                                 }) => {
     return <Card style={{width: '18rem'}}>
         <Flex justify="between" align="center" mb="2">
             <Text as="p" size="3" truncate>{title}</Text>
@@ -35,7 +42,7 @@ export const PhotoUpload: React.FC<CardProps> = ({ title, description, rawPhoto,
             />
         </Inset>
         {progress !== undefined && (
-            <Progress value={progress} />
+            <Progress value={progress}/>
         )}
         <Text as="p" size="1" color="gray">
             {description}

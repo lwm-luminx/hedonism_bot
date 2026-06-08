@@ -1,7 +1,7 @@
-import React, { Component } from 'react';
-import Dropzone, { DropzoneState, FileRejection } from 'react-dropzone'
+import React, {Component} from 'react';
+import Dropzone, {DropzoneState, FileRejection} from 'react-dropzone'
 
-import { PhotoUpload } from './PhotoUpload';
+import {PhotoUpload} from './PhotoUpload';
 import {Button} from "./Button";
 import {Container, Grid} from "@radix-ui/themes";
 import {Row} from "@radix-ui/themes/components/table";
@@ -27,6 +27,10 @@ interface MultiUploaderProps {
 const RAW_FORMAT_EXTENSIONS = ['.arw'];
 
 export class MultiUploader extends Component<MultiUploaderProps, UploadState> {
+    static defaultProps = {
+        uploadPath: '/upload',
+    };
+
     constructor(props: MultiUploaderProps) {
         super(props);
         this.state = {
@@ -36,10 +40,6 @@ export class MultiUploader extends Component<MultiUploaderProps, UploadState> {
             uploading: {},
         };
     }
-
-    static defaultProps = {
-        uploadPath: '/upload',
-    };
 
     static stripExtension(filename: string) {
         return filename.substring(0, filename.lastIndexOf('.')) || filename;
@@ -73,8 +73,7 @@ export class MultiUploader extends Component<MultiUploaderProps, UploadState> {
 
             if (basename in newAcceptedFiles) {
                 newAcceptedFiles[basename].processedPhotos.push(processedPhoto);
-            }
-            else {
+            } else {
                 console.error(`Processed photo ${processedPhoto.name} does not have a corresponding raw photo (${processedPhoto.type})`);
             }
         }
@@ -88,13 +87,13 @@ export class MultiUploader extends Component<MultiUploaderProps, UploadState> {
     removeFile = (basename: string) => {
         const newAcceptedFiles = {...this.state.acceptedFiles};
         delete newAcceptedFiles[basename];
-        this.setState({ acceptedFiles: newAcceptedFiles });
+        this.setState({acceptedFiles: newAcceptedFiles});
     }
 
-    upload = async() => {
+    upload = async () => {
         const uploadPath = this.props.uploadPath ?? MultiUploader.defaultProps.uploadPath;
 
-        this.setState({ uploading: Object.fromEntries(Object.keys(this.state.acceptedFiles).map(k => [k, true])) });
+        this.setState({uploading: Object.fromEntries(Object.keys(this.state.acceptedFiles).map(k => [k, true]))});
 
         for (const [_name, file] of Object.entries(this.state.acceptedFiles)) {
 
@@ -114,8 +113,13 @@ export class MultiUploader extends Component<MultiUploaderProps, UploadState> {
     render() {
         if (Object.keys(this.state.acceptedFiles).length == 0) {
             return <div className="container">
-                <Dropzone onDrop={this.handleDrop} accept={{ 'image/*': ['.arw'], 'image/heif': ['.heif', '.heic', '.hif'], 'image/png': ['.png'], 'image/jpeg': ['.jpg', '.jpeg']}}>
-                    {({ getRootProps, getInputProps, isDragActive }: DropzoneState) => (
+                <Dropzone onDrop={this.handleDrop} accept={{
+                    'image/*': ['.arw'],
+                    'image/heif': ['.heif', '.heic', '.hif'],
+                    'image/png': ['.png'],
+                    'image/jpeg': ['.jpg', '.jpeg']
+                }}>
+                    {({getRootProps, getInputProps, isDragActive}: DropzoneState) => (
                         <div
                             {...getRootProps()}
                             style={{
@@ -140,29 +144,29 @@ export class MultiUploader extends Component<MultiUploaderProps, UploadState> {
         }
 
         return <Container className="py-4">
-                <Grid columns="4" gap="4">
-                    {Object.entries(this.state.acceptedFiles).map(([name, file]) => (
-                        <PhotoUpload
-                            key={name}
-                            title={file.title}
-                            rawPhoto={file.rawPhoto}
-                            processedPhotos={file.processedPhotos}
-                            progress={this.state.uploadProgress[name]}
-                            onRemove={this.state.uploading[name] ? undefined : () => this.removeFile(name)}
-                        />
-                    ))}
-                </Grid>
+            <Grid columns="4" gap="4">
+                {Object.entries(this.state.acceptedFiles).map(([name, file]) => (
+                    <PhotoUpload
+                        key={name}
+                        title={file.title}
+                        rawPhoto={file.rawPhoto}
+                        processedPhotos={file.processedPhotos}
+                        progress={this.state.uploadProgress[name]}
+                        onRemove={this.state.uploading[name] ? undefined : () => this.removeFile(name)}
+                    />
+                ))}
+            </Grid>
 
-                <Row>
-                    <ul>
-                        {this.state.rejectedFiles.map(({ file, errors }) => (
-                            <li key={file.name}>
-                                {file.name} - {errors[0].message}
-                            </li>
-                        ))}
-                    </ul>
-                </Row>
-                <Button onClick={this.upload}>Upload</Button>
-            </Container>;
+            <Row>
+                <ul>
+                    {this.state.rejectedFiles.map(({file, errors}) => (
+                        <li key={file.name}>
+                            {file.name} - {errors[0].message}
+                        </li>
+                    ))}
+                </ul>
+            </Row>
+            <Button onClick={this.upload}>Upload</Button>
+        </Container>;
     }
 }
