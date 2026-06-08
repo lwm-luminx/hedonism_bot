@@ -1633,7 +1633,7 @@
           "fields": [
             {
               "name": "id",
-              "description": "The unique identifier for the tenant",
+              "description": "ID of the object.",
               "args": [],
               "type": {
                 "kind": "NON_NULL",

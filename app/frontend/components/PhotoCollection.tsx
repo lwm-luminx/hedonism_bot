@@ -11,14 +11,13 @@ const PHOTOS_FRAGMENT = graphql`
 
 export default function PhotoCollection({photos}: { photos: PhotoCollection_photos$key }) {
     const data = useFragment(PHOTOS_FRAGMENT, photos)
-    let photo_cards = data.map(photo => {
-            return <PhotoCard key={photo.id} photo={photo!} onPurchase={(p) => {
-            }}/>
+
+    const photo_cards = data.map(photo => {
+            return <PhotoCard key={photo.id} photo={photo} />
         }
     );
 
-    return <div
-        className="p-4 grid gap-3"
-        style={{gridTemplateColumns: `repeat(${3}, minmax(0, 1fr))`}}
-    >{photo_cards}</div>
+    return <div className="p-4 grid gap-3" style={{gridTemplateColumns: `repeat(${3}, minmax(0, 1fr))`}}>
+        {photo_cards}
+    </div>
 }

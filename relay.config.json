@@ -1,6 +1,6 @@
 {
   "$schema": "https://raw.githubusercontent.com/facebook/relay/master/config/relay.config.schema.json",
   "src": "./app/frontend",
-  "schema": "http://localhost:5000/graphql",
+  "schema": "./app/graphql/schema.graphql",
   "language": "typescript"
 }
