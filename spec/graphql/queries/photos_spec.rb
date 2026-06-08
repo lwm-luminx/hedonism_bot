@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe "GraphQL Photos Query", type: :request do
-  before :each do
+  before do
     mock_tenant
   end
 

@@ -29,7 +29,7 @@ interface FaceProps {
 }
 
 export default function Face({face, onSelect, selected}: FaceProps) {
-    let data = useFragment(FACE_FRAGMENT, face);
+    const data = useFragment(FACE_FRAGMENT, face);
     return <button className="flex items-center gap-2.5 px-2 py-1.5 rounded transition-colors text-left"
         style={{
             background: selected ? "rgba(201,169,110,0.12)" : "transparent",

@@ -1,3 +1,21 @@
+module Validate
+  def self.run_validate(queries, schema)
+    results = queries.map { |query| schema.validate(query) }
+    errors = results.flatten
+
+    if errors.empty?
+
+    else
+      print_errors(errors)
+    end
+  end
+
+  def self.print_errors(errors)
+    errors.each do |error|
+      path = error.path.join(", ")
+    end
+  end
+end
 
 namespace :graphql do
   namespace :queries do
@@ -7,25 +25,6 @@ namespace :graphql do
       queries = Oj.load(File.read(queries_file))
 
       Validate.run_validate(queries, HedonismBotSchema)
-    end
-
-    module Validate
-      def self.run_validate(queries, schema)
-        results = queries.map { |query| schema.validate(query) }
-        errors = results.flatten
-
-        if errors.empty?
-
-        else
-          print_errors(errors)
-        end
-      end
-
-      def self.print_errors(errors)
-        errors.each do |error|
-          path = error.path.join(", ")
-        end
-      end
     end
   end
 end

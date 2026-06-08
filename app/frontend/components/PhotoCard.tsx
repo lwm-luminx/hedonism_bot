@@ -13,7 +13,7 @@ interface PhotoCardProps {
 }
 
 export function PhotoCard({photo, onSelect, onPurchase}: PhotoCardProps) {
-    let data = useFragment(graphql`
+    const data = useFragment(graphql`
         fragment PhotoFragment on Photo {
             id
             isPurchased

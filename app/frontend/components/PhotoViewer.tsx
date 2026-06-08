@@ -25,7 +25,7 @@ interface PhotoViewerProps {
 export function PhotoViewer({photo, open, onClose, onPurchase}: PhotoViewerProps) {
 
     if (!open || !photo) return null;
-    let data = useFragment(PHOTO_FRAGMENT, photo!);
+    const data = useFragment(PHOTO_FRAGMENT, photo!);
 
     const hasPrev = true;
     const hasNext = true;

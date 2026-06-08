@@ -6,7 +6,12 @@ import {defineConfig} from "eslint/config";
 
 export default defineConfig([
     {
-        ignores: ['node_modules/**', 'public/vite-dev/**', 'app/assets/builds/**'],
+        ignores: [
+            'node_modules/**',
+            'public/vite-dev/**',
+            'public/vite-test/**',
+            'app/assets/builds/**'
+        ],
     },
     {
         files: ["app/frontend/**/*.{js,mjs,cjs,ts,mts,cts,jsx,tsx}"],
