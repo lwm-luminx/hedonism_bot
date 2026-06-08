@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<afced0df48c11ae9d6e39cc54a3a9455>>
+ * @generated SignedSource<<ae0f0ef46ac5e56d90bd4c01e4085066>>
  * @lightSyntaxTransform
  */
 
@@ -9,22 +9,22 @@
 
 import { ReaderFragment } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
-export type FaceFragment$data = {
+export type FaceFragment_face$data = {
   readonly id: string;
   readonly photoCount: number;
   readonly thumbnailUrl: string | null | undefined;
-  readonly " $fragmentType": "FaceFragment";
+  readonly " $fragmentType": "FaceFragment_face";
 };
-export type FaceFragment$key = {
-  readonly " $data"?: FaceFragment$data;
-  readonly " $fragmentSpreads": FragmentRefs<"FaceFragment">;
+export type FaceFragment_face$key = {
+  readonly " $data"?: FaceFragment_face$data;
+  readonly " $fragmentSpreads": FragmentRefs<"FaceFragment_face">;
 };
 
 const node: ReaderFragment = {
   "argumentDefinitions": [],
   "kind": "Fragment",
   "metadata": null,
-  "name": "FaceFragment",
+  "name": "FaceFragment_face",
   "selections": [
     {
       "alias": null,
@@ -52,6 +52,6 @@ const node: ReaderFragment = {
   "abstractKey": null
 };
 
-(node as any).hash = "760e7ea98a238c0c43c5d84c23d5f65c";
+(node as any).hash = "2dd24075f5c4f18a694c39fee8811f32";
 
 export default node;

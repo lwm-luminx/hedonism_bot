@@ -373,6 +373,11 @@ type Query {
     first: Int
 
     """
+    Filter faces by folder ID
+    """
+    folderId: ID
+
+    """
     Returns the last _n_ elements from the list.
     """
     last: Int
@@ -391,6 +396,11 @@ type Query {
     Returns the elements in the list that come before the specified cursor.
     """
     before: String
+
+    """
+    Filter folders by face ID
+    """
+    faceId: ID
 
     """
     Returns the first _n_ elements from the list.

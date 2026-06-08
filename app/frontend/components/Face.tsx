@@ -1,12 +1,12 @@
 import {graphql, useFragment} from "react-relay";
-import {FaceFragment$key} from "./__generated__/FaceFragment.graphql";
 import {ImageWithFallback} from "./ImageWithCallback";
 import {useState} from "react";
 import {cva} from "class-variance-authority";
+import {FaceFragment_face$key} from "./__generated__/FaceFragment_face.graphql";
 
 
 const FACE_FRAGMENT = graphql`
-    fragment FaceFragment on Face {
+    fragment FaceFragment_face on Face {
         id
         thumbnailUrl
         photoCount
@@ -23,7 +23,7 @@ const faceGroupVariants = cva("w-8 h-8 rounded-full overflow-hidden shrink-0 rin
 });
 
 interface FaceProps {
-    face: FaceFragment$key;
+    face: FaceFragment_face$key;
     selected: boolean;
     onSelect?: (faceId: string) => void;
 }
