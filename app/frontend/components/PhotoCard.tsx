@@ -2,7 +2,7 @@ import {useState} from "react";
 import {Download, ShoppingCart, ZoomIn} from "lucide-react";
 
 import {Badge} from "./Badge";
-import {ImageWithFallback} from "./ImageWithCallback";
+import {ImageWithFallback} from "./ImageWithFallback";
 import {graphql, useFragment} from "react-relay";
 import {PhotoFragment$key} from "./__generated__/PhotoFragment.graphql";
 
@@ -33,11 +33,13 @@ export function PhotoCard({photo, onSelect, onPurchase}: PhotoCardProps) {
             style={{borderRadius: "var(--radius)"}}
             onMouseEnter={() => setHovered(true)}
             onMouseLeave={() => setHovered(false)}
+            onClick={() => onSelect?.(data.id)}
         >
             <div className="relative aspect-4/3 overflow-hidden">
                 <ImageWithFallback
-                    src={data?.previewUrl ?? "https://source.unsplash.com/random"}
-                    className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                    src={data?.previewUrl ?? "/assets/images/placeholder.png"}
+                    alt={data?.caption ?? "A gallery image"}
+                    className="w-full object-cover transition-transform duration-500 group-hover:scale-105"
                 />
                 {/* Gradient overlay */}
                 <div

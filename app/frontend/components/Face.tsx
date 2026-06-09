@@ -1,5 +1,5 @@
 import {graphql, useFragment} from "react-relay";
-import {ImageWithFallback} from "./ImageWithCallback";
+import {ImageWithFallback} from "./ImageWithFallback";
 import {cva} from "class-variance-authority";
 import {FaceFragment_face$key} from "./__generated__/FaceFragment_face.graphql";
 

@@ -1,31 +1,36 @@
 import {ChevronLeft, ChevronRight, Download, ShoppingCart, X} from "lucide-react";
 import {Button} from "./Button";
-import {ImageWithFallback} from "./ImageWithCallback";
-import {graphql, useFragment} from "react-relay";
-import {PhotoViewerFragment$key} from "./__generated__/PhotoViewerFragment.graphql";
+import {ImageWithFallback} from "./ImageWithFallback";
+import {graphql, useLazyLoadQuery} from "react-relay";
+import {PhotoViewerQuery} from "./__generated__/PhotoViewerQuery.graphql";
 
-const PHOTO_FRAGMENT = graphql`
-fragment PhotoViewerFragment on Photo {
-    id @required(action: THROW)
-    previewUrl
-    alternateDescription
-    isPurchased
-    takenAt
+const PHOTO_QUERY = graphql`
+query PhotoViewerQuery($id: ID!) {
+    node(id: $id) {
+        ... on Photo {
+            id @required(action: THROW)
+            previewUrl
+            alternateDescription
+            isPurchased
+            takenAt
+        }
+    }
 }
 `;
 
 interface PhotoViewerProps {
-    photo: PhotoViewerFragment$key | null;
+    id: string | null;
     open: boolean;
     onClose: () => void;
     onPurchase: (photo: string) => void;
-    onNavigate: (photo: PhotoViewerFragment$key) => void;
+    onNavigate?: (photo: string) => void;
 }
 
-export function PhotoViewer({photo, open, onClose, onPurchase, onNavigate}: PhotoViewerProps) {
-    if (!open || !photo) return null;
+export function PhotoViewer({id, open, onClose, onPurchase, onNavigate}: PhotoViewerProps) {
+    if (!open || !id) return null;
 
-    const data = useFragment(PHOTO_FRAGMENT, photo!);
+    const data = useLazyLoadQuery<PhotoViewerQuery>(PHOTO_QUERY, {id: id});
+    if (!data.node) return null;
 
     const hasPrev = true;
     const hasNext = true;
@@ -71,20 +76,20 @@ export function PhotoViewer({photo, open, onClose, onPurchase, onNavigate}: Phot
             >
                 <div className="relative w-full max-h-[70vh] flex items-center justify-center">
                     <ImageWithFallback
-                        src={data.previewUrl!}
-                        alt={data.alternateDescription}
+                        src={data.node.previewUrl ?? "A gallery image"}
+                        alt={data.node.alternateDescription}
                         className="max-w-full max-h-[70vh] object-contain"
                         style={{
                             borderRadius: "var(--radius-sm)",
-                            filter: data.isPurchased ? "none" : "blur(12px) brightness(0.5)",
+                            filter: data.node.isPurchased ? "none" : "blur(3px) brightness(0.5)",
                         }}
                     />
-                    {!data.isPurchased && (
+                    {!data.node.isPurchased && (
                         <div className="absolute inset-0 flex flex-col items-center justify-center gap-3">
                             <p className="gallery-button-caption">
                                 Purchase to view full resolution
                             </p>
-                            <Button className="gallery-button" onClick={() => onPurchase(data.id)}>
+                            <Button className="gallery-button" onClick={() => onPurchase?.(id)}>
                                 <ShoppingCart className="w-4 h-4 mr-2"/>
                                 Purchase for
                             </Button>
@@ -111,7 +116,7 @@ export function PhotoViewer({photo, open, onClose, onPurchase, onNavigate}: Phot
                         </p>
                     </div>
                     <div className="flex items-center gap-2">
-                        {data.isPurchased ? (
+                        {data.node.isPurchased ? (
                             <Button size="sm" className="gallery-button">
                                 <Download className="w-4 h-4 mr-1.5"/>
                                 Download

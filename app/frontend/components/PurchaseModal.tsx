@@ -5,7 +5,7 @@ import {Button} from "./Button";
 import {Input} from "./Input";
 import {Label} from "./Label";
 import {Separator} from "./Separator";
-import {ImageWithFallback} from "./ImageWithCallback";
+import {ImageWithFallback} from "./ImageWithFallback";
 import {graphql, useLazyLoadQuery} from "react-relay";
 import {PhotoPurchaseQuery} from "./__generated__/PhotoPurchaseQuery.graphql";
 

@@ -9,7 +9,6 @@ import { PhotoViewer } from "./PhotoViewer";
 import { Separator } from "./Separator";
 import { graphql, useLazyLoadQuery } from 'react-relay';
 import { BaseApplicationQuery } from "./__generated__/BaseApplicationQuery.graphql";
-import { PhotoViewerFragment$key } from "./__generated__/PhotoViewerFragment.graphql";
 import PhotoCollection from "./PhotoCollection";
 
 const BASE_QUERY = graphql`
@@ -38,7 +37,7 @@ export default function App() {
     const [purchasePhoto, setPurchasePhoto] = useState<string | null>(null);
     const [sidebarOpen, setSidebarOpen] = useState(true);
     const [gridCols, setGridCols] = useState<3 | 4>(3);
-    const [viewerPhoto, setViewerPhoto] = useState<PhotoViewerFragment$key | null>(null);
+    const [viewerPhoto, setViewerPhoto] = useState<string | null>(null);
 
     const data = useLazyLoadQuery<BaseApplicationQuery>(BASE_QUERY, {
         faceId: selectedFaceId,
@@ -254,19 +253,22 @@ export default function App() {
                     <ScrollArea className="flex-1">
                         <PhotoCollection
                             photos={data.photos}
+                            onSelect={(id) => {
+                                console.log("Selected photo:", id);
+                                setViewerPhoto(id);
+                            }}
                         />
                     </ScrollArea>
                 </main>
             </div>
 
             <PhotoViewer
-                photo={viewerPhoto}
+                id={viewerPhoto}
                 open={viewerPhoto !== null}
                 onClose={() => setViewerPhoto(null)}
                 onPurchase={(p) => {
                     setViewerPhoto(null);
                 }}
-                onNavigate={(p) => setViewerPhoto(p)}
             />
 
             <PurchaseModal
