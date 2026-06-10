@@ -45,126 +45,6 @@ module ::ActiveStorage
 
       def id_for_database: () -> ::String
 
-      def name: () -> ::String
-
-      def name=: (::String) -> ::String
-
-      def name?: () -> bool
-
-      def name_changed?: (?from: ::String?, ?to: ::String?) -> bool
-
-      def name_change: () -> [ ::String?, ::String? ]
-
-      def name_will_change!: () -> void
-
-      def name_was: () -> ::String?
-
-      def name_previously_changed?: (?from: ::String?, ?to: ::String?) -> bool
-
-      def name_previous_change: () -> ::Array[::String?]?
-
-      def name_previously_was: () -> ::String?
-
-      def name_before_last_save: () -> ::String?
-
-      def name_change_to_be_saved: () -> ::Array[::String?]?
-
-      def name_in_database: () -> ::String?
-
-      def saved_change_to_name: () -> ::Array[::String?]?
-
-      def saved_change_to_name?: (?from: ::String?, ?to: ::String?) -> bool
-
-      def will_save_change_to_name?: (?from: ::String?, ?to: ::String?) -> bool
-
-      def restore_name!: () -> void
-
-      def clear_name_change: () -> void
-
-      def name_before_type_cast: () -> ::String
-
-      def name_for_database: () -> ::String
-
-      def record_type: () -> ::String
-
-      def record_type=: (::String) -> ::String
-
-      def record_type?: () -> bool
-
-      def record_type_changed?: (?from: ::String?, ?to: ::String?) -> bool
-
-      def record_type_change: () -> [ ::String?, ::String? ]
-
-      def record_type_will_change!: () -> void
-
-      def record_type_was: () -> ::String?
-
-      def record_type_previously_changed?: (?from: ::String?, ?to: ::String?) -> bool
-
-      def record_type_previous_change: () -> ::Array[::String?]?
-
-      def record_type_previously_was: () -> ::String?
-
-      def record_type_before_last_save: () -> ::String?
-
-      def record_type_change_to_be_saved: () -> ::Array[::String?]?
-
-      def record_type_in_database: () -> ::String?
-
-      def saved_change_to_record_type: () -> ::Array[::String?]?
-
-      def saved_change_to_record_type?: (?from: ::String?, ?to: ::String?) -> bool
-
-      def will_save_change_to_record_type?: (?from: ::String?, ?to: ::String?) -> bool
-
-      def restore_record_type!: () -> void
-
-      def clear_record_type_change: () -> void
-
-      def record_type_before_type_cast: () -> ::String
-
-      def record_type_for_database: () -> ::String
-
-      def record_id: () -> ::String
-
-      def record_id=: (::String) -> ::String
-
-      def record_id?: () -> bool
-
-      def record_id_changed?: (?from: ::String?, ?to: ::String?) -> bool
-
-      def record_id_change: () -> [ ::String?, ::String? ]
-
-      def record_id_will_change!: () -> void
-
-      def record_id_was: () -> ::String?
-
-      def record_id_previously_changed?: (?from: ::String?, ?to: ::String?) -> bool
-
-      def record_id_previous_change: () -> ::Array[::String?]?
-
-      def record_id_previously_was: () -> ::String?
-
-      def record_id_before_last_save: () -> ::String?
-
-      def record_id_change_to_be_saved: () -> ::Array[::String?]?
-
-      def record_id_in_database: () -> ::String?
-
-      def saved_change_to_record_id: () -> ::Array[::String?]?
-
-      def saved_change_to_record_id?: (?from: ::String?, ?to: ::String?) -> bool
-
-      def will_save_change_to_record_id?: (?from: ::String?, ?to: ::String?) -> bool
-
-      def restore_record_id!: () -> void
-
-      def clear_record_id_change: () -> void
-
-      def record_id_before_type_cast: () -> ::String
-
-      def record_id_for_database: () -> ::String
-
       def blob_id: () -> ::String
 
       def blob_id=: (::String) -> ::String
@@ -244,6 +124,126 @@ module ::ActiveStorage
       def created_at_before_type_cast: () -> ::Time
 
       def created_at_for_database: () -> ::Time
+
+      def name: () -> ::String
+
+      def name=: (::String) -> ::String
+
+      def name?: () -> bool
+
+      def name_changed?: (?from: ::String?, ?to: ::String?) -> bool
+
+      def name_change: () -> [ ::String?, ::String? ]
+
+      def name_will_change!: () -> void
+
+      def name_was: () -> ::String?
+
+      def name_previously_changed?: (?from: ::String?, ?to: ::String?) -> bool
+
+      def name_previous_change: () -> ::Array[::String?]?
+
+      def name_previously_was: () -> ::String?
+
+      def name_before_last_save: () -> ::String?
+
+      def name_change_to_be_saved: () -> ::Array[::String?]?
+
+      def name_in_database: () -> ::String?
+
+      def saved_change_to_name: () -> ::Array[::String?]?
+
+      def saved_change_to_name?: (?from: ::String?, ?to: ::String?) -> bool
+
+      def will_save_change_to_name?: (?from: ::String?, ?to: ::String?) -> bool
+
+      def restore_name!: () -> void
+
+      def clear_name_change: () -> void
+
+      def name_before_type_cast: () -> ::String
+
+      def name_for_database: () -> ::String
+
+      def record_id: () -> ::String
+
+      def record_id=: (::String) -> ::String
+
+      def record_id?: () -> bool
+
+      def record_id_changed?: (?from: ::String?, ?to: ::String?) -> bool
+
+      def record_id_change: () -> [ ::String?, ::String? ]
+
+      def record_id_will_change!: () -> void
+
+      def record_id_was: () -> ::String?
+
+      def record_id_previously_changed?: (?from: ::String?, ?to: ::String?) -> bool
+
+      def record_id_previous_change: () -> ::Array[::String?]?
+
+      def record_id_previously_was: () -> ::String?
+
+      def record_id_before_last_save: () -> ::String?
+
+      def record_id_change_to_be_saved: () -> ::Array[::String?]?
+
+      def record_id_in_database: () -> ::String?
+
+      def saved_change_to_record_id: () -> ::Array[::String?]?
+
+      def saved_change_to_record_id?: (?from: ::String?, ?to: ::String?) -> bool
+
+      def will_save_change_to_record_id?: (?from: ::String?, ?to: ::String?) -> bool
+
+      def restore_record_id!: () -> void
+
+      def clear_record_id_change: () -> void
+
+      def record_id_before_type_cast: () -> ::String
+
+      def record_id_for_database: () -> ::String
+
+      def record_type: () -> ::String
+
+      def record_type=: (::String) -> ::String
+
+      def record_type?: () -> bool
+
+      def record_type_changed?: (?from: ::String?, ?to: ::String?) -> bool
+
+      def record_type_change: () -> [ ::String?, ::String? ]
+
+      def record_type_will_change!: () -> void
+
+      def record_type_was: () -> ::String?
+
+      def record_type_previously_changed?: (?from: ::String?, ?to: ::String?) -> bool
+
+      def record_type_previous_change: () -> ::Array[::String?]?
+
+      def record_type_previously_was: () -> ::String?
+
+      def record_type_before_last_save: () -> ::String?
+
+      def record_type_change_to_be_saved: () -> ::Array[::String?]?
+
+      def record_type_in_database: () -> ::String?
+
+      def saved_change_to_record_type: () -> ::Array[::String?]?
+
+      def saved_change_to_record_type?: (?from: ::String?, ?to: ::String?) -> bool
+
+      def will_save_change_to_record_type?: (?from: ::String?, ?to: ::String?) -> bool
+
+      def restore_record_type!: () -> void
+
+      def clear_record_type_change: () -> void
+
+      def record_type_before_type_cast: () -> ::String
+
+      def record_type_for_database: () -> ::String
     end
     include ::ActiveStorage::Attachment::GeneratedAttributeMethods
     module ::ActiveStorage::Attachment::GeneratedAliasAttributeMethods
