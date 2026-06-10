@@ -10,8 +10,8 @@ RSpec.describe Photo, type: :model do
       expect(build(:photo, original_filename: nil)).to be_invalid
     end
 
-    it "is invalid with without a tenant" do
-      expect(build(:photo, tenant_id: nil)).to be_invalid
+    it "is invalid with without a Photographer" do
+      expect(build(:photo, photographer_id: nil)).to be_invalid
     end
 
     it "is invalid without a mime_type" do
@@ -19,7 +19,7 @@ RSpec.describe Photo, type: :model do
     end
 
     it "is invalid without a filesize" do
-      expect(build(:photo, byte_size: nil)).to be_invalid
+      expect(build(:photo, file_size_bytes: nil)).to be_invalid
     end
   end
 

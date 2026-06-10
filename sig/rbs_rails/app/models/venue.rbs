@@ -44,6 +44,246 @@ class ::Venue < ::ApplicationRecord
 
     def id_for_database: () -> ::String
 
+    def created_at: () -> ::ActiveSupport::TimeWithZone
+
+    def created_at=: (::ActiveSupport::TimeWithZone) -> ::ActiveSupport::TimeWithZone
+
+    def created_at?: () -> bool
+
+    def created_at_changed?: (?from: ::ActiveSupport::TimeWithZone?, ?to: ::ActiveSupport::TimeWithZone?) -> bool
+
+    def created_at_change: () -> [ ::ActiveSupport::TimeWithZone?, ::ActiveSupport::TimeWithZone? ]
+
+    def created_at_will_change!: () -> void
+
+    def created_at_was: () -> ::ActiveSupport::TimeWithZone?
+
+    def created_at_previously_changed?: (?from: ::ActiveSupport::TimeWithZone?, ?to: ::ActiveSupport::TimeWithZone?) -> bool
+
+    def created_at_previous_change: () -> ::Array[::ActiveSupport::TimeWithZone?]?
+
+    def created_at_previously_was: () -> ::ActiveSupport::TimeWithZone?
+
+    def created_at_before_last_save: () -> ::ActiveSupport::TimeWithZone?
+
+    def created_at_change_to_be_saved: () -> ::Array[::ActiveSupport::TimeWithZone?]?
+
+    def created_at_in_database: () -> ::ActiveSupport::TimeWithZone?
+
+    def saved_change_to_created_at: () -> ::Array[::ActiveSupport::TimeWithZone?]?
+
+    def saved_change_to_created_at?: (?from: ::ActiveSupport::TimeWithZone?, ?to: ::ActiveSupport::TimeWithZone?) -> bool
+
+    def will_save_change_to_created_at?: (?from: ::ActiveSupport::TimeWithZone?, ?to: ::ActiveSupport::TimeWithZone?) -> bool
+
+    def restore_created_at!: () -> void
+
+    def clear_created_at_change: () -> void
+
+    def created_at_before_type_cast: () -> ::Time
+
+    def created_at_for_database: () -> ::Time
+
+    def updated_at: () -> ::ActiveSupport::TimeWithZone
+
+    def updated_at=: (::ActiveSupport::TimeWithZone) -> ::ActiveSupport::TimeWithZone
+
+    def updated_at?: () -> bool
+
+    def updated_at_changed?: (?from: ::ActiveSupport::TimeWithZone?, ?to: ::ActiveSupport::TimeWithZone?) -> bool
+
+    def updated_at_change: () -> [ ::ActiveSupport::TimeWithZone?, ::ActiveSupport::TimeWithZone? ]
+
+    def updated_at_will_change!: () -> void
+
+    def updated_at_was: () -> ::ActiveSupport::TimeWithZone?
+
+    def updated_at_previously_changed?: (?from: ::ActiveSupport::TimeWithZone?, ?to: ::ActiveSupport::TimeWithZone?) -> bool
+
+    def updated_at_previous_change: () -> ::Array[::ActiveSupport::TimeWithZone?]?
+
+    def updated_at_previously_was: () -> ::ActiveSupport::TimeWithZone?
+
+    def updated_at_before_last_save: () -> ::ActiveSupport::TimeWithZone?
+
+    def updated_at_change_to_be_saved: () -> ::Array[::ActiveSupport::TimeWithZone?]?
+
+    def updated_at_in_database: () -> ::ActiveSupport::TimeWithZone?
+
+    def saved_change_to_updated_at: () -> ::Array[::ActiveSupport::TimeWithZone?]?
+
+    def saved_change_to_updated_at?: (?from: ::ActiveSupport::TimeWithZone?, ?to: ::ActiveSupport::TimeWithZone?) -> bool
+
+    def will_save_change_to_updated_at?: (?from: ::ActiveSupport::TimeWithZone?, ?to: ::ActiveSupport::TimeWithZone?) -> bool
+
+    def restore_updated_at!: () -> void
+
+    def clear_updated_at_change: () -> void
+
+    def updated_at_before_type_cast: () -> ::Time
+
+    def updated_at_for_database: () -> ::Time
+
+    def photographer_id: () -> ::String
+
+    def photographer_id=: (::String) -> ::String
+
+    def photographer_id?: () -> bool
+
+    def photographer_id_changed?: (?from: ::String?, ?to: ::String?) -> bool
+
+    def photographer_id_change: () -> [ ::String?, ::String? ]
+
+    def photographer_id_will_change!: () -> void
+
+    def photographer_id_was: () -> ::String?
+
+    def photographer_id_previously_changed?: (?from: ::String?, ?to: ::String?) -> bool
+
+    def photographer_id_previous_change: () -> ::Array[::String?]?
+
+    def photographer_id_previously_was: () -> ::String?
+
+    def photographer_id_before_last_save: () -> ::String?
+
+    def photographer_id_change_to_be_saved: () -> ::Array[::String?]?
+
+    def photographer_id_in_database: () -> ::String?
+
+    def saved_change_to_photographer_id: () -> ::Array[::String?]?
+
+    def saved_change_to_photographer_id?: (?from: ::String?, ?to: ::String?) -> bool
+
+    def will_save_change_to_photographer_id?: (?from: ::String?, ?to: ::String?) -> bool
+
+    def restore_photographer_id!: () -> void
+
+    def clear_photographer_id_change: () -> void
+
+    def photographer_id_before_type_cast: () -> ::String
+
+    def photographer_id_for_database: () -> ::String
+
+    def slug: () -> ::String
+
+    def slug=: (::String) -> ::String
+
+    def slug?: () -> bool
+
+    def slug_changed?: (?from: ::String?, ?to: ::String?) -> bool
+
+    def slug_change: () -> [ ::String?, ::String? ]
+
+    def slug_will_change!: () -> void
+
+    def slug_was: () -> ::String?
+
+    def slug_previously_changed?: (?from: ::String?, ?to: ::String?) -> bool
+
+    def slug_previous_change: () -> ::Array[::String?]?
+
+    def slug_previously_was: () -> ::String?
+
+    def slug_before_last_save: () -> ::String?
+
+    def slug_change_to_be_saved: () -> ::Array[::String?]?
+
+    def slug_in_database: () -> ::String?
+
+    def saved_change_to_slug: () -> ::Array[::String?]?
+
+    def saved_change_to_slug?: (?from: ::String?, ?to: ::String?) -> bool
+
+    def will_save_change_to_slug?: (?from: ::String?, ?to: ::String?) -> bool
+
+    def restore_slug!: () -> void
+
+    def clear_slug_change: () -> void
+
+    def slug_before_type_cast: () -> ::String
+
+    def slug_for_database: () -> ::String
+
+    def name: () -> ::String
+
+    def name=: (::String) -> ::String
+
+    def name?: () -> bool
+
+    def name_changed?: (?from: ::String?, ?to: ::String?) -> bool
+
+    def name_change: () -> [ ::String?, ::String? ]
+
+    def name_will_change!: () -> void
+
+    def name_was: () -> ::String?
+
+    def name_previously_changed?: (?from: ::String?, ?to: ::String?) -> bool
+
+    def name_previous_change: () -> ::Array[::String?]?
+
+    def name_previously_was: () -> ::String?
+
+    def name_before_last_save: () -> ::String?
+
+    def name_change_to_be_saved: () -> ::Array[::String?]?
+
+    def name_in_database: () -> ::String?
+
+    def saved_change_to_name: () -> ::Array[::String?]?
+
+    def saved_change_to_name?: (?from: ::String?, ?to: ::String?) -> bool
+
+    def will_save_change_to_name?: (?from: ::String?, ?to: ::String?) -> bool
+
+    def restore_name!: () -> void
+
+    def clear_name_change: () -> void
+
+    def name_before_type_cast: () -> ::String
+
+    def name_for_database: () -> ::String
+
+    def description: () -> ::String?
+
+    def description=: (::String?) -> ::String?
+
+    def description?: () -> bool
+
+    def description_changed?: (?from: ::String?, ?to: ::String?) -> bool
+
+    def description_change: () -> [ ::String?, ::String? ]
+
+    def description_will_change!: () -> void
+
+    def description_was: () -> ::String?
+
+    def description_previously_changed?: (?from: ::String?, ?to: ::String?) -> bool
+
+    def description_previous_change: () -> ::Array[::String?]?
+
+    def description_previously_was: () -> ::String?
+
+    def description_before_last_save: () -> ::String?
+
+    def description_change_to_be_saved: () -> ::Array[::String?]?
+
+    def description_in_database: () -> ::String?
+
+    def saved_change_to_description: () -> ::Array[::String?]?
+
+    def saved_change_to_description?: (?from: ::String?, ?to: ::String?) -> bool
+
+    def will_save_change_to_description?: (?from: ::String?, ?to: ::String?) -> bool
+
+    def restore_description!: () -> void
+
+    def clear_description_change: () -> void
+
+    def description_before_type_cast: () -> ::String?
+
+    def description_for_database: () -> ::String?
+
     def address: () -> ::String?
 
     def address=: (::String?) -> ::String?
@@ -123,246 +363,6 @@ class ::Venue < ::ApplicationRecord
     def coordinates_before_type_cast: () -> untyped?
 
     def coordinates_for_database: () -> untyped?
-
-    def created_at: () -> ::ActiveSupport::TimeWithZone
-
-    def created_at=: (::ActiveSupport::TimeWithZone) -> ::ActiveSupport::TimeWithZone
-
-    def created_at?: () -> bool
-
-    def created_at_changed?: (?from: ::ActiveSupport::TimeWithZone?, ?to: ::ActiveSupport::TimeWithZone?) -> bool
-
-    def created_at_change: () -> [ ::ActiveSupport::TimeWithZone?, ::ActiveSupport::TimeWithZone? ]
-
-    def created_at_will_change!: () -> void
-
-    def created_at_was: () -> ::ActiveSupport::TimeWithZone?
-
-    def created_at_previously_changed?: (?from: ::ActiveSupport::TimeWithZone?, ?to: ::ActiveSupport::TimeWithZone?) -> bool
-
-    def created_at_previous_change: () -> ::Array[::ActiveSupport::TimeWithZone?]?
-
-    def created_at_previously_was: () -> ::ActiveSupport::TimeWithZone?
-
-    def created_at_before_last_save: () -> ::ActiveSupport::TimeWithZone?
-
-    def created_at_change_to_be_saved: () -> ::Array[::ActiveSupport::TimeWithZone?]?
-
-    def created_at_in_database: () -> ::ActiveSupport::TimeWithZone?
-
-    def saved_change_to_created_at: () -> ::Array[::ActiveSupport::TimeWithZone?]?
-
-    def saved_change_to_created_at?: (?from: ::ActiveSupport::TimeWithZone?, ?to: ::ActiveSupport::TimeWithZone?) -> bool
-
-    def will_save_change_to_created_at?: (?from: ::ActiveSupport::TimeWithZone?, ?to: ::ActiveSupport::TimeWithZone?) -> bool
-
-    def restore_created_at!: () -> void
-
-    def clear_created_at_change: () -> void
-
-    def created_at_before_type_cast: () -> ::Time
-
-    def created_at_for_database: () -> ::Time
-
-    def description: () -> ::String?
-
-    def description=: (::String?) -> ::String?
-
-    def description?: () -> bool
-
-    def description_changed?: (?from: ::String?, ?to: ::String?) -> bool
-
-    def description_change: () -> [ ::String?, ::String? ]
-
-    def description_will_change!: () -> void
-
-    def description_was: () -> ::String?
-
-    def description_previously_changed?: (?from: ::String?, ?to: ::String?) -> bool
-
-    def description_previous_change: () -> ::Array[::String?]?
-
-    def description_previously_was: () -> ::String?
-
-    def description_before_last_save: () -> ::String?
-
-    def description_change_to_be_saved: () -> ::Array[::String?]?
-
-    def description_in_database: () -> ::String?
-
-    def saved_change_to_description: () -> ::Array[::String?]?
-
-    def saved_change_to_description?: (?from: ::String?, ?to: ::String?) -> bool
-
-    def will_save_change_to_description?: (?from: ::String?, ?to: ::String?) -> bool
-
-    def restore_description!: () -> void
-
-    def clear_description_change: () -> void
-
-    def description_before_type_cast: () -> ::String?
-
-    def description_for_database: () -> ::String?
-
-    def name: () -> ::String
-
-    def name=: (::String) -> ::String
-
-    def name?: () -> bool
-
-    def name_changed?: (?from: ::String?, ?to: ::String?) -> bool
-
-    def name_change: () -> [ ::String?, ::String? ]
-
-    def name_will_change!: () -> void
-
-    def name_was: () -> ::String?
-
-    def name_previously_changed?: (?from: ::String?, ?to: ::String?) -> bool
-
-    def name_previous_change: () -> ::Array[::String?]?
-
-    def name_previously_was: () -> ::String?
-
-    def name_before_last_save: () -> ::String?
-
-    def name_change_to_be_saved: () -> ::Array[::String?]?
-
-    def name_in_database: () -> ::String?
-
-    def saved_change_to_name: () -> ::Array[::String?]?
-
-    def saved_change_to_name?: (?from: ::String?, ?to: ::String?) -> bool
-
-    def will_save_change_to_name?: (?from: ::String?, ?to: ::String?) -> bool
-
-    def restore_name!: () -> void
-
-    def clear_name_change: () -> void
-
-    def name_before_type_cast: () -> ::String
-
-    def name_for_database: () -> ::String
-
-    def slug: () -> ::String
-
-    def slug=: (::String) -> ::String
-
-    def slug?: () -> bool
-
-    def slug_changed?: (?from: ::String?, ?to: ::String?) -> bool
-
-    def slug_change: () -> [ ::String?, ::String? ]
-
-    def slug_will_change!: () -> void
-
-    def slug_was: () -> ::String?
-
-    def slug_previously_changed?: (?from: ::String?, ?to: ::String?) -> bool
-
-    def slug_previous_change: () -> ::Array[::String?]?
-
-    def slug_previously_was: () -> ::String?
-
-    def slug_before_last_save: () -> ::String?
-
-    def slug_change_to_be_saved: () -> ::Array[::String?]?
-
-    def slug_in_database: () -> ::String?
-
-    def saved_change_to_slug: () -> ::Array[::String?]?
-
-    def saved_change_to_slug?: (?from: ::String?, ?to: ::String?) -> bool
-
-    def will_save_change_to_slug?: (?from: ::String?, ?to: ::String?) -> bool
-
-    def restore_slug!: () -> void
-
-    def clear_slug_change: () -> void
-
-    def slug_before_type_cast: () -> ::String
-
-    def slug_for_database: () -> ::String
-
-    def tenant_id: () -> ::String
-
-    def tenant_id=: (::String) -> ::String
-
-    def tenant_id?: () -> bool
-
-    def tenant_id_changed?: (?from: ::String?, ?to: ::String?) -> bool
-
-    def tenant_id_change: () -> [ ::String?, ::String? ]
-
-    def tenant_id_will_change!: () -> void
-
-    def tenant_id_was: () -> ::String?
-
-    def tenant_id_previously_changed?: (?from: ::String?, ?to: ::String?) -> bool
-
-    def tenant_id_previous_change: () -> ::Array[::String?]?
-
-    def tenant_id_previously_was: () -> ::String?
-
-    def tenant_id_before_last_save: () -> ::String?
-
-    def tenant_id_change_to_be_saved: () -> ::Array[::String?]?
-
-    def tenant_id_in_database: () -> ::String?
-
-    def saved_change_to_tenant_id: () -> ::Array[::String?]?
-
-    def saved_change_to_tenant_id?: (?from: ::String?, ?to: ::String?) -> bool
-
-    def will_save_change_to_tenant_id?: (?from: ::String?, ?to: ::String?) -> bool
-
-    def restore_tenant_id!: () -> void
-
-    def clear_tenant_id_change: () -> void
-
-    def tenant_id_before_type_cast: () -> ::String
-
-    def tenant_id_for_database: () -> ::String
-
-    def updated_at: () -> ::ActiveSupport::TimeWithZone
-
-    def updated_at=: (::ActiveSupport::TimeWithZone) -> ::ActiveSupport::TimeWithZone
-
-    def updated_at?: () -> bool
-
-    def updated_at_changed?: (?from: ::ActiveSupport::TimeWithZone?, ?to: ::ActiveSupport::TimeWithZone?) -> bool
-
-    def updated_at_change: () -> [ ::ActiveSupport::TimeWithZone?, ::ActiveSupport::TimeWithZone? ]
-
-    def updated_at_will_change!: () -> void
-
-    def updated_at_was: () -> ::ActiveSupport::TimeWithZone?
-
-    def updated_at_previously_changed?: (?from: ::ActiveSupport::TimeWithZone?, ?to: ::ActiveSupport::TimeWithZone?) -> bool
-
-    def updated_at_previous_change: () -> ::Array[::ActiveSupport::TimeWithZone?]?
-
-    def updated_at_previously_was: () -> ::ActiveSupport::TimeWithZone?
-
-    def updated_at_before_last_save: () -> ::ActiveSupport::TimeWithZone?
-
-    def updated_at_change_to_be_saved: () -> ::Array[::ActiveSupport::TimeWithZone?]?
-
-    def updated_at_in_database: () -> ::ActiveSupport::TimeWithZone?
-
-    def saved_change_to_updated_at: () -> ::Array[::ActiveSupport::TimeWithZone?]?
-
-    def saved_change_to_updated_at?: (?from: ::ActiveSupport::TimeWithZone?, ?to: ::ActiveSupport::TimeWithZone?) -> bool
-
-    def will_save_change_to_updated_at?: (?from: ::ActiveSupport::TimeWithZone?, ?to: ::ActiveSupport::TimeWithZone?) -> bool
-
-    def restore_updated_at!: () -> void
-
-    def clear_updated_at_change: () -> void
-
-    def updated_at_before_type_cast: () -> ::Time
-
-    def updated_at_for_database: () -> ::Time
   end
   include ::Venue::GeneratedAttributeMethods
   module ::Venue::GeneratedAliasAttributeMethods
@@ -414,21 +414,18 @@ class ::Venue < ::ApplicationRecord
   def photo_ids: () -> ::Array[::String]
   def photo_ids=: (::Array[::String]) -> ::Array[::String]
 
-  def tenant: () -> ::Tenant
-  def tenant=: (::Tenant?) -> ::Tenant?
-  def reload_tenant: () -> ::Tenant?
-  def build_tenant: (?untyped) -> ::Tenant
-  def create_tenant: (?untyped) -> ::Tenant
-  def create_tenant!: (?untyped) -> ::Tenant
+  def photographer: () -> ::Photographer
+  def photographer=: (::Photographer?) -> ::Photographer?
+  def reload_photographer: () -> ::Photographer?
+  def build_photographer: (?untyped) -> ::Photographer
+  def create_photographer: (?untyped) -> ::Photographer
+  def create_photographer!: (?untyped) -> ::Photographer
 
   module ::Venue::GeneratedAssociationMethods
   end
   include ::Venue::GeneratedAssociationMethods
 
-  def self.for_tenant: (untyped tenant) -> ::Venue::ActiveRecord_Relation
-
   module ::Venue::GeneratedRelationMethods
-    def for_tenant: (untyped tenant) -> ::Venue::ActiveRecord_Relation
   end
 
   class ::Venue::ActiveRecord_Relation < ::ActiveRecord::Relation
@@ -464,5 +461,5 @@ class ::Photo < ::ApplicationRecord
 end
 class ::Photo::ActiveRecord_Associations_CollectionProxy < ::ActiveRecord::Associations::CollectionProxy
 end
-class ::Tenant < ::ApplicationRecord
+class ::Photographer < ::ApplicationRecord
 end

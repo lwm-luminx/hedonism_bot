@@ -2,7 +2,7 @@ require 'rails_helper'
 
 RSpec.describe "Graphql", type: :request do
   before do
-    mock_tenant
+    mock_photographer
   end
 
   describe "POST /graphql" do

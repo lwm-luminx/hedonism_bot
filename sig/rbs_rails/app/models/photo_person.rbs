@@ -44,126 +44,6 @@ class ::PhotoPerson < ::ApplicationRecord
 
     def id_for_database: () -> ::String
 
-    def arc_face_embedding: () -> untyped
-
-    def arc_face_embedding=: (untyped) -> untyped
-
-    def arc_face_embedding?: () -> bool
-
-    def arc_face_embedding_changed?: (?from: untyped, ?to: untyped) -> bool
-
-    def arc_face_embedding_change: () -> [ untyped, untyped ]
-
-    def arc_face_embedding_will_change!: () -> void
-
-    def arc_face_embedding_was: () -> untyped
-
-    def arc_face_embedding_previously_changed?: (?from: untyped, ?to: untyped) -> bool
-
-    def arc_face_embedding_previous_change: () -> ::Array[untyped]?
-
-    def arc_face_embedding_previously_was: () -> untyped
-
-    def arc_face_embedding_before_last_save: () -> untyped
-
-    def arc_face_embedding_change_to_be_saved: () -> ::Array[untyped]?
-
-    def arc_face_embedding_in_database: () -> untyped
-
-    def saved_change_to_arc_face_embedding: () -> ::Array[untyped]?
-
-    def saved_change_to_arc_face_embedding?: (?from: untyped, ?to: untyped) -> bool
-
-    def will_save_change_to_arc_face_embedding?: (?from: untyped, ?to: untyped) -> bool
-
-    def restore_arc_face_embedding!: () -> void
-
-    def clear_arc_face_embedding_change: () -> void
-
-    def arc_face_embedding_before_type_cast: () -> untyped?
-
-    def arc_face_embedding_for_database: () -> untyped?
-
-    def bounding_box: () -> untyped
-
-    def bounding_box=: (untyped) -> untyped
-
-    def bounding_box?: () -> bool
-
-    def bounding_box_changed?: (?from: untyped, ?to: untyped) -> bool
-
-    def bounding_box_change: () -> [ untyped, untyped ]
-
-    def bounding_box_will_change!: () -> void
-
-    def bounding_box_was: () -> untyped
-
-    def bounding_box_previously_changed?: (?from: untyped, ?to: untyped) -> bool
-
-    def bounding_box_previous_change: () -> ::Array[untyped]?
-
-    def bounding_box_previously_was: () -> untyped
-
-    def bounding_box_before_last_save: () -> untyped
-
-    def bounding_box_change_to_be_saved: () -> ::Array[untyped]?
-
-    def bounding_box_in_database: () -> untyped
-
-    def saved_change_to_bounding_box: () -> ::Array[untyped]?
-
-    def saved_change_to_bounding_box?: (?from: untyped, ?to: untyped) -> bool
-
-    def will_save_change_to_bounding_box?: (?from: untyped, ?to: untyped) -> bool
-
-    def restore_bounding_box!: () -> void
-
-    def clear_bounding_box_change: () -> void
-
-    def bounding_box_before_type_cast: () -> untyped
-
-    def bounding_box_for_database: () -> untyped
-
-    def confidence: () -> ::Float?
-
-    def confidence=: (::Float?) -> ::Float?
-
-    def confidence?: () -> bool
-
-    def confidence_changed?: (?from: ::Float?, ?to: ::Float?) -> bool
-
-    def confidence_change: () -> [ ::Float?, ::Float? ]
-
-    def confidence_will_change!: () -> void
-
-    def confidence_was: () -> ::Float?
-
-    def confidence_previously_changed?: (?from: ::Float?, ?to: ::Float?) -> bool
-
-    def confidence_previous_change: () -> ::Array[::Float?]?
-
-    def confidence_previously_was: () -> ::Float?
-
-    def confidence_before_last_save: () -> ::Float?
-
-    def confidence_change_to_be_saved: () -> ::Array[::Float?]?
-
-    def confidence_in_database: () -> ::Float?
-
-    def saved_change_to_confidence: () -> ::Array[::Float?]?
-
-    def saved_change_to_confidence?: (?from: ::Float?, ?to: ::Float?) -> bool
-
-    def will_save_change_to_confidence?: (?from: ::Float?, ?to: ::Float?) -> bool
-
-    def restore_confidence!: () -> void
-
-    def clear_confidence_change: () -> void
-
-    def confidence_before_type_cast: () -> ::Float?
-
-    def confidence_for_database: () -> ::Float?
-
     def created_at: () -> ::ActiveSupport::TimeWithZone
 
     def created_at=: (::ActiveSupport::TimeWithZone) -> ::ActiveSupport::TimeWithZone
@@ -204,45 +84,45 @@ class ::PhotoPerson < ::ApplicationRecord
 
     def created_at_for_database: () -> ::Time
 
-    def person_id: () -> ::String?
+    def updated_at: () -> ::ActiveSupport::TimeWithZone
 
-    def person_id=: (::String?) -> ::String?
+    def updated_at=: (::ActiveSupport::TimeWithZone) -> ::ActiveSupport::TimeWithZone
 
-    def person_id?: () -> bool
+    def updated_at?: () -> bool
 
-    def person_id_changed?: (?from: ::String?, ?to: ::String?) -> bool
+    def updated_at_changed?: (?from: ::ActiveSupport::TimeWithZone?, ?to: ::ActiveSupport::TimeWithZone?) -> bool
 
-    def person_id_change: () -> [ ::String?, ::String? ]
+    def updated_at_change: () -> [ ::ActiveSupport::TimeWithZone?, ::ActiveSupport::TimeWithZone? ]
 
-    def person_id_will_change!: () -> void
+    def updated_at_will_change!: () -> void
 
-    def person_id_was: () -> ::String?
+    def updated_at_was: () -> ::ActiveSupport::TimeWithZone?
 
-    def person_id_previously_changed?: (?from: ::String?, ?to: ::String?) -> bool
+    def updated_at_previously_changed?: (?from: ::ActiveSupport::TimeWithZone?, ?to: ::ActiveSupport::TimeWithZone?) -> bool
 
-    def person_id_previous_change: () -> ::Array[::String?]?
+    def updated_at_previous_change: () -> ::Array[::ActiveSupport::TimeWithZone?]?
 
-    def person_id_previously_was: () -> ::String?
+    def updated_at_previously_was: () -> ::ActiveSupport::TimeWithZone?
 
-    def person_id_before_last_save: () -> ::String?
+    def updated_at_before_last_save: () -> ::ActiveSupport::TimeWithZone?
 
-    def person_id_change_to_be_saved: () -> ::Array[::String?]?
+    def updated_at_change_to_be_saved: () -> ::Array[::ActiveSupport::TimeWithZone?]?
 
-    def person_id_in_database: () -> ::String?
+    def updated_at_in_database: () -> ::ActiveSupport::TimeWithZone?
 
-    def saved_change_to_person_id: () -> ::Array[::String?]?
+    def saved_change_to_updated_at: () -> ::Array[::ActiveSupport::TimeWithZone?]?
 
-    def saved_change_to_person_id?: (?from: ::String?, ?to: ::String?) -> bool
+    def saved_change_to_updated_at?: (?from: ::ActiveSupport::TimeWithZone?, ?to: ::ActiveSupport::TimeWithZone?) -> bool
 
-    def will_save_change_to_person_id?: (?from: ::String?, ?to: ::String?) -> bool
+    def will_save_change_to_updated_at?: (?from: ::ActiveSupport::TimeWithZone?, ?to: ::ActiveSupport::TimeWithZone?) -> bool
 
-    def restore_person_id!: () -> void
+    def restore_updated_at!: () -> void
 
-    def clear_person_id_change: () -> void
+    def clear_updated_at_change: () -> void
 
-    def person_id_before_type_cast: () -> ::String?
+    def updated_at_before_type_cast: () -> ::Time
 
-    def person_id_for_database: () -> ::String?
+    def updated_at_for_database: () -> ::Time
 
     def photo_id: () -> ::String
 
@@ -284,45 +164,165 @@ class ::PhotoPerson < ::ApplicationRecord
 
     def photo_id_for_database: () -> ::String
 
-    def updated_at: () -> ::ActiveSupport::TimeWithZone
+    def person_id: () -> ::String?
 
-    def updated_at=: (::ActiveSupport::TimeWithZone) -> ::ActiveSupport::TimeWithZone
+    def person_id=: (::String?) -> ::String?
 
-    def updated_at?: () -> bool
+    def person_id?: () -> bool
 
-    def updated_at_changed?: (?from: ::ActiveSupport::TimeWithZone?, ?to: ::ActiveSupport::TimeWithZone?) -> bool
+    def person_id_changed?: (?from: ::String?, ?to: ::String?) -> bool
 
-    def updated_at_change: () -> [ ::ActiveSupport::TimeWithZone?, ::ActiveSupport::TimeWithZone? ]
+    def person_id_change: () -> [ ::String?, ::String? ]
 
-    def updated_at_will_change!: () -> void
+    def person_id_will_change!: () -> void
 
-    def updated_at_was: () -> ::ActiveSupport::TimeWithZone?
+    def person_id_was: () -> ::String?
 
-    def updated_at_previously_changed?: (?from: ::ActiveSupport::TimeWithZone?, ?to: ::ActiveSupport::TimeWithZone?) -> bool
+    def person_id_previously_changed?: (?from: ::String?, ?to: ::String?) -> bool
 
-    def updated_at_previous_change: () -> ::Array[::ActiveSupport::TimeWithZone?]?
+    def person_id_previous_change: () -> ::Array[::String?]?
 
-    def updated_at_previously_was: () -> ::ActiveSupport::TimeWithZone?
+    def person_id_previously_was: () -> ::String?
 
-    def updated_at_before_last_save: () -> ::ActiveSupport::TimeWithZone?
+    def person_id_before_last_save: () -> ::String?
 
-    def updated_at_change_to_be_saved: () -> ::Array[::ActiveSupport::TimeWithZone?]?
+    def person_id_change_to_be_saved: () -> ::Array[::String?]?
 
-    def updated_at_in_database: () -> ::ActiveSupport::TimeWithZone?
+    def person_id_in_database: () -> ::String?
 
-    def saved_change_to_updated_at: () -> ::Array[::ActiveSupport::TimeWithZone?]?
+    def saved_change_to_person_id: () -> ::Array[::String?]?
 
-    def saved_change_to_updated_at?: (?from: ::ActiveSupport::TimeWithZone?, ?to: ::ActiveSupport::TimeWithZone?) -> bool
+    def saved_change_to_person_id?: (?from: ::String?, ?to: ::String?) -> bool
 
-    def will_save_change_to_updated_at?: (?from: ::ActiveSupport::TimeWithZone?, ?to: ::ActiveSupport::TimeWithZone?) -> bool
+    def will_save_change_to_person_id?: (?from: ::String?, ?to: ::String?) -> bool
 
-    def restore_updated_at!: () -> void
+    def restore_person_id!: () -> void
 
-    def clear_updated_at_change: () -> void
+    def clear_person_id_change: () -> void
 
-    def updated_at_before_type_cast: () -> ::Time
+    def person_id_before_type_cast: () -> ::String?
 
-    def updated_at_for_database: () -> ::Time
+    def person_id_for_database: () -> ::String?
+
+    def confidence: () -> ::Float?
+
+    def confidence=: (::Float?) -> ::Float?
+
+    def confidence?: () -> bool
+
+    def confidence_changed?: (?from: ::Float?, ?to: ::Float?) -> bool
+
+    def confidence_change: () -> [ ::Float?, ::Float? ]
+
+    def confidence_will_change!: () -> void
+
+    def confidence_was: () -> ::Float?
+
+    def confidence_previously_changed?: (?from: ::Float?, ?to: ::Float?) -> bool
+
+    def confidence_previous_change: () -> ::Array[::Float?]?
+
+    def confidence_previously_was: () -> ::Float?
+
+    def confidence_before_last_save: () -> ::Float?
+
+    def confidence_change_to_be_saved: () -> ::Array[::Float?]?
+
+    def confidence_in_database: () -> ::Float?
+
+    def saved_change_to_confidence: () -> ::Array[::Float?]?
+
+    def saved_change_to_confidence?: (?from: ::Float?, ?to: ::Float?) -> bool
+
+    def will_save_change_to_confidence?: (?from: ::Float?, ?to: ::Float?) -> bool
+
+    def restore_confidence!: () -> void
+
+    def clear_confidence_change: () -> void
+
+    def confidence_before_type_cast: () -> ::Float?
+
+    def confidence_for_database: () -> ::Float?
+
+    def bounding_box: () -> untyped
+
+    def bounding_box=: (untyped) -> untyped
+
+    def bounding_box?: () -> bool
+
+    def bounding_box_changed?: (?from: untyped, ?to: untyped) -> bool
+
+    def bounding_box_change: () -> [ untyped, untyped ]
+
+    def bounding_box_will_change!: () -> void
+
+    def bounding_box_was: () -> untyped
+
+    def bounding_box_previously_changed?: (?from: untyped, ?to: untyped) -> bool
+
+    def bounding_box_previous_change: () -> ::Array[untyped]?
+
+    def bounding_box_previously_was: () -> untyped
+
+    def bounding_box_before_last_save: () -> untyped
+
+    def bounding_box_change_to_be_saved: () -> ::Array[untyped]?
+
+    def bounding_box_in_database: () -> untyped
+
+    def saved_change_to_bounding_box: () -> ::Array[untyped]?
+
+    def saved_change_to_bounding_box?: (?from: untyped, ?to: untyped) -> bool
+
+    def will_save_change_to_bounding_box?: (?from: untyped, ?to: untyped) -> bool
+
+    def restore_bounding_box!: () -> void
+
+    def clear_bounding_box_change: () -> void
+
+    def bounding_box_before_type_cast: () -> untyped
+
+    def bounding_box_for_database: () -> untyped
+
+    def arc_face_embedding: () -> untyped
+
+    def arc_face_embedding=: (untyped) -> untyped
+
+    def arc_face_embedding?: () -> bool
+
+    def arc_face_embedding_changed?: (?from: untyped, ?to: untyped) -> bool
+
+    def arc_face_embedding_change: () -> [ untyped, untyped ]
+
+    def arc_face_embedding_will_change!: () -> void
+
+    def arc_face_embedding_was: () -> untyped
+
+    def arc_face_embedding_previously_changed?: (?from: untyped, ?to: untyped) -> bool
+
+    def arc_face_embedding_previous_change: () -> ::Array[untyped]?
+
+    def arc_face_embedding_previously_was: () -> untyped
+
+    def arc_face_embedding_before_last_save: () -> untyped
+
+    def arc_face_embedding_change_to_be_saved: () -> ::Array[untyped]?
+
+    def arc_face_embedding_in_database: () -> untyped
+
+    def saved_change_to_arc_face_embedding: () -> ::Array[untyped]?
+
+    def saved_change_to_arc_face_embedding?: (?from: untyped, ?to: untyped) -> bool
+
+    def will_save_change_to_arc_face_embedding?: (?from: untyped, ?to: untyped) -> bool
+
+    def restore_arc_face_embedding!: () -> void
+
+    def clear_arc_face_embedding_change: () -> void
+
+    def arc_face_embedding_before_type_cast: () -> untyped?
+
+    def arc_face_embedding_for_database: () -> untyped?
   end
   include ::PhotoPerson::GeneratedAttributeMethods
   module ::PhotoPerson::GeneratedAliasAttributeMethods

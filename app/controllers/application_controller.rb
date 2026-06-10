@@ -1,12 +1,12 @@
 class ApplicationController < ActionController::Base
-  attr_reader :tenant
+  attr_reader :photographer
 
   private
 
-  def tenant
+  def photographer
     subdomain = request.hostname&.split(".")&.first
-    @tenant ||= Tenant.find_by(subdomain: subdomain) || Tenant.default_tenant if Rails.env.development?
+    @photographer ||= Photographer.find_by(subdomain: subdomain) || Photographer.default_photographer if Rails.env.development?
 
-    @tenant or raise "No tenant found (subdomain: #{subdomain})"
+    @photographer or raise "No Photographer found (subdomain: #{subdomain})"
   end
 end

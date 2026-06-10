@@ -1,5 +1,5 @@
 FactoryBot.define do
   factory :person do
-    tenant
+    photographer
   end
 end

@@ -21,8 +21,12 @@ default: &default
 
 
 development:
-  <<: *default
-  database: hedonism_bot_development
+  primary:
+    <<: *default
+    database: hedonism_bot_development
+  queue:
+    <<: *default
+    database: hedonism_bot_development
 
   # The specified database role being used to connect to PostgreSQL.
   # To create additional roles in PostgreSQL see `$ createuser --help`.

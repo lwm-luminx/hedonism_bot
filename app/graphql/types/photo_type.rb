@@ -6,7 +6,7 @@ module Types
     field :caption, String, null: true, description: "Caption of the photo"
     field :content_type, String, null: false, description: "MIME type of the photo"
     field :filename, String, null: false, description: "Filename of the photo"
-    field :byte_size, Integer
+    field :file_size_bytes, Integer
     field :event_name, String, null: true, description: "Name of the event associated with the photo"
     field :folder, Types::FolderType, null: true, description: "Folder containing the photo"
     field :faces, Types::FaceType.connection_type, null: false, description: "Faces in the photo"

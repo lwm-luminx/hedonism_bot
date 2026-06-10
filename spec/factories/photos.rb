@@ -6,7 +6,7 @@ FactoryBot.define do
       file { generate(:image_file) }
     end
 
-    tenant { create(:default_tenant) }
+    photographer { create(:default_photographer) }
 
     image_hash {
       filename = Rails.root.join("spec/fixtures/#{file}.arw")
@@ -15,7 +15,7 @@ FactoryBot.define do
       end
     }
 
-    byte_size {
+    file_size_bytes {
       File.stat(Rails.root.join("spec/fixtures/#{file}.arw")).size
     }
 

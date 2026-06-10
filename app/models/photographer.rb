@@ -1,4 +1,4 @@
-class Tenant < ApplicationRecord
+class Photographer < ApplicationRecord
   has_many :photos, dependent: :destroy
   has_many :venues, dependent: :destroy
   has_many :people, dependent: :destroy
@@ -16,9 +16,9 @@ class Tenant < ApplicationRecord
     self.photos.where.not(folder_date: nil).group_by(&:folder_date).map { |folder, photos| Folder.new(folder.to_s, photos) }
   end
 
-  def self.default_tenant
-    Tenant.find_or_create_by(subdomain: "localhost") do |t|
-      t.name = "Local Development Tenant"
+  def self.default_photographer
+    Photographer.find_or_create_by(subdomain: "localhost") do |t|
+      t.name = "Local Development Photographer"
     end
   end
 

@@ -1,13 +1,13 @@
 FactoryBot.define do
-  factory :tenant do
-    name { "Test Tenant" }
+  factory :photographer do
+    name { "Test Photographer" }
 
-    subdomain { "test-tenant" }
+    subdomain { "test-photographer" }
 
     active { true }
 
-    factory :default_tenant do
-      initialize_with { Tenant.first_or_create }
+    factory :default_photographer do
+      initialize_with { Photographer.first_or_create }
     end
   end
 end

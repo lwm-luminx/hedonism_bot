@@ -1,5 +1,5 @@
-def mock_tenant(tenant = nil)
-  tenant ||= create(:default_tenant)
+def mock_photographer(photographer = nil)
+  photographer ||= create(:default_photographer)
 
-  allow(Tenant).to receive_messages(default_tenant: tenant, find_by: tenant)
+  allow(Photographer).to receive_messages(default_photographer: photographer, find_by: photographer)
 end

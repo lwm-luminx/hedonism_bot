@@ -2,7 +2,7 @@ require 'rails_helper'
 
 RSpec.describe Types::PhotoType, type: :graphql do
   before do
-    mock_tenant
+    mock_photographer
   end
 
   let_it_be(:photos) { create_list(:photo, 5) }

@@ -3,22 +3,6 @@
 require "celery"
 
 class UploadController < ApplicationController
-  def cluster
-    render json: Person.cluster
-  end
-
-  def infer
-    Photo.where(caption: nil).each do |p|
-      Celery.enqueue "hedonism.who_dis.worker.caption_image", p.to_gid_param
-    end
-
-    Photo.where(facial_metadata: nil).each do |p|
-      Celery.enqueue "hedonism.who_dis.worker.extract_facial_data", p.to_gid_param
-    end
-
-    head :ok
-  end
-
   def upload
     raw_image = params[:raw_image]
     filename = ActiveStorage::Filename.new(params[:raw_image].original_filename)
@@ -30,8 +14,8 @@ class UploadController < ApplicationController
     logger.info "Performing Upload for Image #{basename} with configuration => #{configuration}"
 
     image_hash = Digest::SHA256.hexdigest(raw_image.read)
-    photo = Photo.find_or_initialize_by(image_hash: image_hash, tenant: tenant)
-    photo.byte_size = raw_image.size
+    photo = Photo.find_or_initialize_by(image_hash: image_hash, photographer: photographer)
+    photo.file_size_bytes = raw_image.size
     photo.original_filename = filename.to_s
     photo.raw_image.attach(raw_image) unless photo.raw_image.attached?
     photo.image_hash = image_hash
@@ -47,11 +31,11 @@ class UploadController < ApplicationController
 
     photo.save!
 
-    PhotoMetadataJob.perform_now photo
+    PhotoMetadataJob.perform_later photo
     if photo.has_format? "image/jpeg"
-      FaceDetectionJob.perform_now photo
+      FaceDetectionJob.perform_later photo
     else
-      PhotoToJpegJob.perform_now photo
+      PhotoToJpegJob.perform_later photo
     end
 
     head :ok

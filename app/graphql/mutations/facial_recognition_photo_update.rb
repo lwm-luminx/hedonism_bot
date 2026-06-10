@@ -10,7 +10,7 @@ module Mutations
     argument :faces, [ ::Types::FaceDataInputType ], required: true
 
     def resolve(id:, faces:)
-      photo = Photo.find(id)
+      photo = Photo.find(GlobalID.parse(id).model_id)
       photo.facial_metadata = faces
 
       photo.update_faces(faces)

@@ -18,11 +18,14 @@ interface PurchaseModalProps {
 
 const PHOTO_PURCHASE_QUERY = graphql`
   query PhotoPurchaseQuery($photoId: ID!) {
-    photo(id: $photoId) {
+    node(id: $photoId) {
       id
-      alternateDescription
-      previewUrl
-      takenAt
+      ... on Photo {
+        id
+        alternateDescription
+        previewUrl
+        takenAt
+      }
     }
   }
 `;
@@ -65,7 +68,7 @@ export function PurchaseModal({
     await new Promise((r) => setTimeout(r, 1800));
     setProcessing(false);
     setStep("success");
-    if (data.photo) onPurchaseComplete(data.photo.id);
+    if (data.node) onPurchaseComplete(data.node.id);
   };
 
   const formatCard = (val: string) =>
@@ -118,7 +121,7 @@ export function PurchaseModal({
               fontFamily: "'DM Mono', monospace",
             }}
           >
-            {data.photo!.takenAt}
+            {data.node!.takenAt}
           </p>
         </div>
 
@@ -133,8 +136,8 @@ export function PurchaseModal({
                 }}
               >
                 <ImageWithFallback
-                  src={data.photo!.previewUrl!}
-                  alt={data.photo!.alternateDescription}
+                  src={data.node!.previewUrl!}
+                  alt={data.node!.alternateDescription ?? "A gallery photo"}
                   className="w-full h-full object-cover"
                 />
               </div>
@@ -146,7 +149,7 @@ export function PurchaseModal({
                     fontSize: "0.9375rem",
                   }}
                 >
-                  {data.photo!.alternateDescription}
+                  {data.node!.alternateDescription}
                 </p>
                 <p
                   className="text-xs"

@@ -3,7 +3,7 @@ class CreatePeople < ActiveRecord::Migration[8.1]
     create_table :people, id: :uuid, default: 'gen_random_uuid()' do |t|
       t.timestamps
 
-      t.references :tenant, type: :uuid, null: false, foreign_key: true
+      t.references :photographer, type: :uuid, null: false, foreign_key: true
 
       t.string :first_name
       t.string :last_name
@@ -19,7 +19,7 @@ class CreatePeople < ActiveRecord::Migration[8.1]
       t.vector :arc_face_embedding, limit: 512, null: true
     end
 
-    add_index :people, [ :tenant_id, :name ]
+    add_index :people, [ :photographer_id, :name ]
 
     create_table :photo_people, id: :uuid, default: 'gen_random_uuid()' do |t|
       t.timestamps

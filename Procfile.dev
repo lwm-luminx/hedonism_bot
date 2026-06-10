@@ -2,3 +2,4 @@ web: env RUBY_DEBUG_OPEN=true bin/rails server
 js: bun run build --watch
 vite: bin/vite dev
 relay: bun run relay
+worker: bin/jobs

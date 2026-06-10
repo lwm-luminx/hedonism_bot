@@ -4,7 +4,7 @@ module Types
 
     include GraphQL::Types::Relay::HasNodesField
 
-    def tenant: () -> untyped
+    def Photographer: () -> untyped
 
     def faces: (?folder_id: untyped?) -> untyped
 

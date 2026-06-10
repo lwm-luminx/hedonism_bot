@@ -27,7 +27,7 @@ class Photo < ApplicationRecord
     png: { mime_type: "image/png", variant: :png }
   }
 
-  belongs_to :tenant
+  belongs_to :photographer
   belongs_to :venue, optional: true
 
   has_many :photo_people, dependent: :destroy
@@ -39,7 +39,7 @@ class Photo < ApplicationRecord
   validates :status, inclusion: { in: STATUSES }
   validates_uniqueness_of :image_hash
 
-  validates :original_filename, :tenant_id, :content_type, :byte_size, presence: true
+  validates :original_filename, :photographer_id, :content_type, :file_size_bytes, presence: true
 
   scope :for_date, ->(date) { where(folder_date: date) }
   scope :processed, -> { where(status: "processed") }

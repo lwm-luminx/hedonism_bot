@@ -1,8 +1,7 @@
 class ApplicationController < ActionController::Base
-  @tenant: Tenant
-
+  @Photographer: Photographer
 
   private
 
-  def tenant: () -> Tenant
+  def Photographer: () -> Photographer
 end

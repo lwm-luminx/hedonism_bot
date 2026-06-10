@@ -3,7 +3,7 @@ class ApplicationController < ActionController::Base
 
   private
 
-  def default_tenant: -> Tenant
+  def default_photographer: -> Photographer
 
-  def populate_tenant: -> Tenant
+  def populate_Photographer: -> Photographer
 end

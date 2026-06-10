@@ -8,11 +8,12 @@ module Mutations
 
     argument :id, ID, required: true
     argument :caption, String, required: true
+    argument :description, String, required: true
 
-    def resolve(id:, caption:)
+    def resolve(id:, caption:, description:)
       caption_photo = GlobalID::Locator.locate(id) #: Photo
 
-      caption_photo.update(caption: caption)
+      caption_photo.update(caption: caption, description: description)
       { photo: caption_photo }
     end
   end

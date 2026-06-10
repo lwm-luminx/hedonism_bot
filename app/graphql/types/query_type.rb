@@ -5,20 +5,20 @@ module Types
     include GraphQL::Types::Relay::HasNodeField
     include GraphQL::Types::Relay::HasNodesField
 
-    field :tenant, Types::TenantType, null: false, description: "The current tenant for the request"
-    field :photos, [ Types::PhotoType ], null: false, description: "All photos for a particular tenant" do
+    field :photographer, Types::PhotographerType, null: false, description: "The current Photographer for the request"
+    field :photos, [ Types::PhotoType ], null: false, description: "All photos for a particular Photographer" do
       argument :face_id, ID, required: false, description: "Filter photos by face ID"
       argument :folder_id, ID, required: false, description: "Filter photos by folder ID"
     end
-    field :faces, Types::FaceType.connection_type, null: false, description: "All faces for a particular tenant" do
+    field :faces, Types::FaceType.connection_type, null: false, description: "All faces for a particular Photographer" do
       argument :folder_id, ID, required: false, description: "Filter faces by folder ID"
     end
-    field :folders, Types::FolderType.connection_type, null: false, description: "All groupings for a particular tenant" do
+    field :folders, Types::FolderType.connection_type, null: false, description: "All groupings for a particular Photographer" do
       argument :face_id, ID, required: false, description: "Filter folders by face ID"
     end
 
-    def tenant
-      context[:tenant]
+    def photographer
+      context[:photographer]
     end
 
     def faces(folder_id: nil)
@@ -36,12 +36,12 @@ module Types
         photos = face.photos.group_by(&:folder_date)
         photos.map { |folder, photos| Folder.new(folder, photos) }
       else
-        tenant.folders
+        photographer.folders
       end
     end
 
     def photos(face_id: nil, folder_id: nil)
-      photos = Photo.where(tenant: tenant).with_preview_image
+      photos = Photo.where(photographer: photographer).with_preview_image
 
       if face_id
         face = GlobalID.parse(face_id).model_id

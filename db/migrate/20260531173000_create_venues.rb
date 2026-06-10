@@ -3,7 +3,7 @@ class CreateVenues < ActiveRecord::Migration[8.1]
     create_table :venues, id: :uuid, default: 'gen_random_uuid()' do |t|
       t.timestamps
 
-      t.references :tenant, null: false, type: :uuid, foreign_key: true
+      t.references :photographer, null: false, type: :uuid, foreign_key: true
 
       t.string :slug, null: false
       t.string :name, null: false
@@ -13,7 +13,7 @@ class CreateVenues < ActiveRecord::Migration[8.1]
       t.st_point :coordinates, srid: 4326
     end
 
-    add_index :venues, [ :tenant_id, :slug ], unique: true
-    add_index :venues, [ :tenant_id, :name ]
+    add_index :venues, [ :photographer_id, :slug ], unique: true
+    add_index :venues, [ :photographer_id, :name ]
   end
 end

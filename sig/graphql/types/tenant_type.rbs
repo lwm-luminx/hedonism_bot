@@ -1,4 +1,4 @@
 module Types
-  class TenantType < BaseObject
+  class PhotographerType < BaseObject
   end
 end

@@ -859,7 +859,7 @@
             },
             {
               "kind": "OBJECT",
-              "name": "Tenant",
+              "name": "Photographer",
               "ofType": null
             }
           ]
@@ -1302,7 +1302,7 @@
           "fields": [
             {
               "name": "faces",
-              "description": "All faces for a particular tenant",
+              "description": "All faces for a particular Photographer",
               "args": [
                 {
                   "name": "after",
@@ -1379,7 +1379,7 @@
             },
             {
               "name": "folders",
-              "description": "All groupings for a particular tenant",
+              "description": "All groupings for a particular Photographer",
               "args": [
                 {
                   "name": "after",
@@ -1530,7 +1530,7 @@
             },
             {
               "name": "photos",
-              "description": "All photos for a particular tenant",
+              "description": "All photos for a particular Photographer",
               "args": [
                 {
                   "name": "faceId",
@@ -1578,15 +1578,15 @@
               "deprecationReason": null
             },
             {
-              "name": "tenant",
-              "description": "The current tenant for the request",
+              "name": "Photographer",
+              "description": "The current Photographer for the request",
               "args": [],
               "type": {
                 "kind": "NON_NULL",
                 "name": null,
                 "ofType": {
                   "kind": "OBJECT",
-                  "name": "Tenant",
+                  "name": "Photographer",
                   "ofType": null
                 }
               },
@@ -1611,7 +1611,7 @@
         },
         {
           "kind": "OBJECT",
-          "name": "Tenant",
+          "name": "Photographer",
           "description": null,
           "fields": [
             {
@@ -1632,7 +1632,7 @@
             },
             {
               "name": "name",
-              "description": "The name of the tenant",
+              "description": "The name of the Photographer",
               "args": [],
               "type": {
                 "kind": "NON_NULL",
@@ -1648,7 +1648,7 @@
             },
             {
               "name": "subdomain",
-              "description": "The subdomain of the tenant",
+              "description": "The subdomain of the Photographer",
               "args": [],
               "type": {
                 "kind": "NON_NULL",
@@ -2670,11 +2670,7 @@
         {
           "name": "include",
           "description": "Directs the executor to include this field or fragment only when the `if` argument is true.",
-          "locations": [
-            "FIELD",
-            "FRAGMENT_SPREAD",
-            "INLINE_FRAGMENT"
-          ],
+          "locations": ["FIELD", "FRAGMENT_SPREAD", "INLINE_FRAGMENT"],
           "args": [
             {
               "name": "if",
@@ -2697,19 +2693,13 @@
         {
           "name": "oneOf",
           "description": "Requires that exactly one field must be supplied and that field must not be `null`.",
-          "locations": [
-            "INPUT_OBJECT"
-          ],
+          "locations": ["INPUT_OBJECT"],
           "args": []
         },
         {
           "name": "skip",
           "description": "Directs the executor to skip this field or fragment when the `if` argument is true.",
-          "locations": [
-            "FIELD",
-            "FRAGMENT_SPREAD",
-            "INLINE_FRAGMENT"
-          ],
+          "locations": ["FIELD", "FRAGMENT_SPREAD", "INLINE_FRAGMENT"],
           "args": [
             {
               "name": "if",
@@ -2732,9 +2722,7 @@
         {
           "name": "specifiedBy",
           "description": "Exposes a URL that specifies the behavior of this scalar.",
-          "locations": [
-            "SCALAR"
-          ],
+          "locations": ["SCALAR"],
           "args": [
             {
               "name": "url",
