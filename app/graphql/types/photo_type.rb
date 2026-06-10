@@ -22,7 +22,7 @@ module Types
     end
 
     def event_name
-      nil
+      @object.description || "Cannot describe the photo+"
     end
 
     def taken_at
@@ -42,7 +42,7 @@ module Types
     end
 
     def alternate_description
-      @object.description || "Cannot describe the photo+"
+      @object.caption || "Cannot caption the photo+"
     end
 
     def preview_url
