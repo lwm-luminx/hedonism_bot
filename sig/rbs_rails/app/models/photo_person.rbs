@@ -407,9 +407,12 @@ class ::PhotoPerson < ::ApplicationRecord
   end
   include ::PhotoPerson::GeneratedAssociationMethods
 
+  def self.with_preview_image: () -> ::PhotoPerson::ActiveRecord_Relation
   def self.with_attached_face_image: () -> ::PhotoPerson::ActiveRecord_Relation
 
   module ::PhotoPerson::GeneratedRelationMethods
+    def with_preview_image: () -> ::PhotoPerson::ActiveRecord_Relation
+
     def with_attached_face_image: () -> ::PhotoPerson::ActiveRecord_Relation
   end
 

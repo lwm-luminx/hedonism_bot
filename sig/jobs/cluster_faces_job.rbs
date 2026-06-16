@@ -1,0 +1,3 @@
+class ClusterFacesJob < ApplicationJob
+  
+end

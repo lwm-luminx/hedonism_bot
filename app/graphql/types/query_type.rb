@@ -22,12 +22,14 @@ module Types
     end
 
     def faces(folder_id: nil)
+      @photos = Person.for_photographer(photographer).with_preview_image
+
       if folder_id
-        photos = Photo.where("folder_date = ?", GlobalID.parse(folder_id).model_id)
-        photos.map { |photo| photo.people }.flatten.uniq
-      else
-        PhotoPerson.joins(:face_image_blob).includes(:person).map { |photo_person| photo_person.person }.uniq
+        folder = GlobalID.parse(folder_id).model_id
+        @photos = @photos.where(photo_people: { photos: { folder_date: folder } })
       end
+
+      @photos
     end
 
     def folders(face_id: nil)

@@ -1,7 +1,7 @@
 class ApplicationController < ActionController::Base
-  @Photographer: Photographer
+  @photographer: Photographer
 
   private
 
-  def Photographer: () -> Photographer
+  def photographer: () -> Photographer
 end

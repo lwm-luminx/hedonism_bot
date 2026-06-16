@@ -6,10 +6,6 @@ module Types
     field :photo_count, Integer, null: false
     field :thumbnail_url, String, null: true
 
-    def photo_count
-      @object.photos.count
-    end
-
     def thumbnail_url
       @object.photo_people.first&.face_image&.url
     end

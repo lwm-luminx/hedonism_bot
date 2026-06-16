@@ -61,6 +61,8 @@ gem "foreman", require: false
 
 gem "aws-sdk-s3", require: false
 
+gem "stripe"
+
 # Use Rack CORS for handling Cross-Origin Resource Sharing (CORS), making cross-origin Ajax possible
 gem "rack-cors"
 

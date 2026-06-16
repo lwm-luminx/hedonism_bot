@@ -1,4 +1,7 @@
 class ::ApplicationJob < ::ActiveJob::Base
   def logger: -> Logger
+
   def self.queue_as: (Symbol) -> void
+
+  def self.limits_concurrency: (to: int, key: string | nil) -> void
 end

@@ -1,3 +1,5 @@
 class ::Person < ::ApplicationRecord
   def self.cluster: -> void
+
+  def photo_count: -> int
 end

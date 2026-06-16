@@ -1,0 +1,3 @@
+class PhotoDescriptionJob < ApplicationJob
+  def perform: (Photo) -> void
+end

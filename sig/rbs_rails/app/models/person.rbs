@@ -591,11 +591,14 @@ class ::Person < ::ApplicationRecord
 
   def self.for_photographer: (untyped photographer) -> ::Person::ActiveRecord_Relation
   def self.with_embedding: () -> ::Person::ActiveRecord_Relation
+  def self.with_preview_image: () -> ::Person::ActiveRecord_Relation
 
   module ::Person::GeneratedRelationMethods
     def for_photographer: (untyped photographer) -> ::Person::ActiveRecord_Relation
 
     def with_embedding: () -> ::Person::ActiveRecord_Relation
+
+    def with_preview_image: () -> ::Person::ActiveRecord_Relation
   end
 
   class ::Person::ActiveRecord_Relation < ::ActiveRecord::Relation
