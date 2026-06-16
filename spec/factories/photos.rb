@@ -29,8 +29,8 @@ FactoryBot.define do
     after(:create) do |photo, context|
       raw_photo = Rails.root.join("spec/fixtures/#{context.file}.arw")
       processed_photo = Rails.root.join("spec/fixtures/#{context.file}.hif")
-      photo.raw_image.attach(io: File.open(raw_photo), filename: 'DSC00001.ARW', content_type: 'image/x-sony-arw')
-      photo.images.attach(io: File.open(processed_photo), filename: 'DSC00001.HIF', content_type: 'image/heif')
+      photo.raw_image.attach(io: File.open(raw_photo), filename: "#{context.file}.arw", content_type: 'image/x-sony-arw')
+      photo.images.attach(io: File.open(processed_photo), filename: "#{context.file}.hif", content_type: 'video/quicktime')
       PhotoToJpegJob.perform_now photo
     end
   end

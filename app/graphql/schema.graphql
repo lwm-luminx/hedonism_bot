@@ -5,6 +5,57 @@ type CaptionPhotoUpdatePayload {
   photo: Photo!
 }
 
+type Event implements Node {
+  date: ISO8601DateTime
+
+  """
+  ID of the object.
+  """
+  id: ID!
+  name: String
+  venue: Venue
+}
+
+"""
+The connection type for Event.
+"""
+type EventConnection {
+  """
+  A list of edges.
+  """
+  edges: [EventEdge]
+
+  """
+  A list of nodes.
+  """
+  nodes: [Event]
+
+  """
+  Information to aid in pagination.
+  """
+  pageInfo: PageInfo!
+
+  """
+  The total number of items in the entire collection.
+  """
+  totalCount: Int!
+}
+
+"""
+An edge in a connection.
+"""
+type EventEdge {
+  """
+  A cursor for use in pagination.
+  """
+  cursor: String!
+
+  """
+  The item at the end of the edge.
+  """
+  node: Event
+}
+
 type Face implements Node {
   """
   ID of the object.
@@ -53,6 +104,11 @@ type FaceConnection {
   Information to aid in pagination.
   """
   pageInfo: PageInfo!
+
+  """
+  The total number of items in the entire collection.
+  """
+  totalCount: Int!
 }
 
 input FaceDataInput {
@@ -164,6 +220,11 @@ type FolderConnection {
   Information to aid in pagination.
   """
   pageInfo: PageInfo!
+
+  """
+  The total number of items in the entire collection.
+  """
+  totalCount: Int!
 }
 
 """
@@ -253,6 +314,7 @@ type Photo implements Node {
   MIME type of the photo
   """
   contentType: String!
+  event: Event
 
   """
   Name of the event associated with the photo
@@ -315,6 +377,7 @@ type Photo implements Node {
   URL to a preview image of the photo
   """
   previewUrl: String
+  price: Float
 
   """
   Date and time the photo was taken
@@ -340,6 +403,11 @@ type PhotoConnection {
   Information to aid in pagination.
   """
   pageInfo: PageInfo!
+
+  """
+  The total number of items in the entire collection.
+  """
+  totalCount: Int!
 }
 
 """
@@ -375,6 +443,28 @@ type Photographer implements Node {
 }
 
 type Query {
+  events(
+    """
+    Returns the elements in the list that come after the specified cursor.
+    """
+    after: String
+
+    """
+    Returns the elements in the list that come before the specified cursor.
+    """
+    before: String
+
+    """
+    Returns the first _n_ elements from the list.
+    """
+    first: Int
+
+    """
+    Returns the last _n_ elements from the list.
+    """
+    last: Int
+  ): EventConnection
+
   """
   All faces for a particular Photographer
   """
@@ -465,13 +555,126 @@ type Query {
   """
   photos(
     """
+    Returns the elements in the list that come after the specified cursor.
+    """
+    after: String
+
+    """
+    Returns the elements in the list that come before the specified cursor.
+    """
+    before: String
+
+    """
     Filter photos by face ID
     """
     faceId: ID
 
     """
+    Returns the first _n_ elements from the list.
+    """
+    first: Int
+
+    """
     Filter photos by folder ID
     """
     folderId: ID
-  ): [Photo!]!
+
+    """
+    Returns the last _n_ elements from the list.
+    """
+    last: Int
+  ): PhotoConnection!
+  venues(
+    """
+    Returns the elements in the list that come after the specified cursor.
+    """
+    after: String
+
+    """
+    Returns the elements in the list that come before the specified cursor.
+    """
+    before: String
+
+    """
+    Returns the first _n_ elements from the list.
+    """
+    first: Int
+
+    """
+    Returns the last _n_ elements from the list.
+    """
+    last: Int
+  ): VenueConnection
+}
+
+type Venue implements Node {
+  address: String
+  city: String
+  events(
+    """
+    Returns the elements in the list that come after the specified cursor.
+    """
+    after: String
+
+    """
+    Returns the elements in the list that come before the specified cursor.
+    """
+    before: String
+
+    """
+    Returns the first _n_ elements from the list.
+    """
+    first: Int
+
+    """
+    Returns the last _n_ elements from the list.
+    """
+    last: Int
+  ): EventConnection
+
+  """
+  ID of the object.
+  """
+  id: ID!
+  name: String
+}
+
+"""
+The connection type for Venue.
+"""
+type VenueConnection {
+  """
+  A list of edges.
+  """
+  edges: [VenueEdge]
+
+  """
+  A list of nodes.
+  """
+  nodes: [Venue]
+
+  """
+  Information to aid in pagination.
+  """
+  pageInfo: PageInfo!
+
+  """
+  The total number of items in the entire collection.
+  """
+  totalCount: Int!
+}
+
+"""
+An edge in a connection.
+"""
+type VenueEdge {
+  """
+  A cursor for use in pagination.
+  """
+  cursor: String!
+
+  """
+  The item at the end of the edge.
+  """
+  node: Venue
 }

@@ -1,158 +1,171 @@
+@layer components {
+    .gallery-button {
+        background: var(--primary);
+        color: var(--primary-foreground);
+        font-family: "Inter", sans-serif;
+        border-radius: var(--radius-sm);
+    }
 
-.gallery-button {
-    background: var(--primary);
-    color: var(--primary-foreground);
-    font-family: 'Inter', sans-serif;
-    border-radius: var(--radius-sm);
-}
+    .gallery-button-caption {
+        font-family: "Playfair Display", serif;
+        color: var(--foreground);
+        font-size: 1.125rem;
+        text-align: center;
+    }
 
-.gallery-button-caption {
-    font-family: 'Playfair Display', serif;
-    color: var(--foreground);
-    font-size: 1.125rem;
-    text-align: center;
-}
+    .separator {
+        @apply bg-border shrink-0 data-[orientation=horizontal]:h-px data-[orientation=horizontal]:w-full data-[orientation=vertical]:h-full data-[orientation=vertical]:w-px;
+    }
 
-.separator {
-    @apply bg-border shrink-0 data-[orientation=horizontal]:h-px data-[orientation=horizontal]:w-full data-[orientation=vertical]:h-full data-[orientation=vertical]:w-px
-}
+    .scroll-area-viewport {
+        @apply focus-visible:ring-ring/50 transition-[color_box-shadow] size-full rounded-[inherit] outline-none focus-visible:ring-[3px] focus-visible:outline-1;
+    }
 
-.scroll-area-viewport {
-    @apply focus-visible:ring-ring/50 size-full rounded-[inherit] transition-[color,box-shadow] outline-none focus-visible:ring-[3px] focus-visible:outline-1
-}
+    .scroll-area-thumb {
+        @apply bg-border relative flex-1 rounded-full;
+    }
 
-.scroll-area-thumb {
-    @apply bg-border relative flex-1 rounded-full
-}
+    .scroll-area-base {
+        @apply flex touch-none p-px transition-colors select-none;
+    }
 
-.scroll-area-base {
-    @apply flex touch-none p-px transition-colors select-none
-}
+    .scroll-area-vertical {
+        @apply h-full w-2.5 border-l border-l-transparent;
+    }
 
-.scroll-area-vertical {
-    @apply h-full w-2.5 border-l border-l-transparent
-}
+    .scroll-area-horizontal {
+        @apply h-2.5 flex-col border-t border-t-transparent;
+    }
 
-.scroll-area-horizontal {
-    @apply h-2.5 flex-col border-t border-t-transparent
-}
+    .badge-base {
+        @apply focus-visible:border-ring focus-visible:ring-ring/50 aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive transition-[color_box-shadow] inline-flex w-fit shrink-0 items-center justify-center gap-1 overflow-hidden rounded-md border px-2 py-0.5 text-xs font-medium whitespace-nowrap focus-visible:ring-[3px] [&>svg]:pointer-events-none [&>svg]:size-3;
+    }
 
-.badge-base {
-    @apply inline-flex items-center justify-center rounded-md border px-2 py-0.5 text-xs font-medium w-fit whitespace-nowrap shrink-0 [&>svg]:size-3 gap-1 [&>svg]:pointer-events-none focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:ring-[3px] aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive transition-[color,box-shadow] overflow-hidden
-}
+    .badge-default {
+        @apply bg-primary text-primary-foreground [a&]:hover:bg-primary/90 border-transparent;
+    }
 
-.badge-default {
-    @apply border-transparent bg-primary text-primary-foreground [a&]:hover:bg-primary/90
-}
+    .badge-secondary {
+        @apply bg-secondary text-secondary-foreground [a&]:hover:bg-secondary/90 border-transparent;
+    }
 
-.badge-secondary {
-    @apply border-transparent bg-secondary text-secondary-foreground [a&]:hover:bg-secondary/90
-}
+    .badge-destructive {
+        @apply bg-destructive [a&]:hover:bg-destructive/90 focus-visible:ring-destructive/20 dark:focus-visible:ring-destructive/40 dark:bg-destructive/60 border-transparent text-white;
+    }
 
-.badge-destructive {
-    @apply border-transparent bg-destructive text-white [a&]:hover:bg-destructive/90 focus-visible:ring-destructive/20 dark:focus-visible:ring-destructive/40 dark:bg-destructive/60
-}
+    .badge-outline {
+        @apply text-foreground [a&]:hover:bg-accent [a&]:hover:text-accent-foreground;
+    }
 
-.badge-outline {
-    @apply text-foreground [a&]:hover:bg-accent [a&]:hover:text-accent-foreground
-}
+    .button-base {
+        @apply focus-visible:border-ring focus-visible:ring-ring/50 aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive inline-flex shrink-0 items-center justify-center gap-2 rounded-md text-sm font-medium whitespace-nowrap transition-all outline-none focus-visible:ring-[3px] disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-4;
+    }
 
-.button-base {
-    @apply inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium transition-all disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg:not([class*='size-'])]:size-4 shrink-0 [&_svg]:shrink-0 outline-none focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:ring-[3px] aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive
-}
+    .button-default {
+        @apply bg-primary text-primary-foreground hover:bg-primary/90;
+    }
 
-.button-default {
-    @apply bg-primary text-primary-foreground hover:bg-primary/90
-}
+    .button-destructive {
+        @apply bg-destructive hover:bg-destructive/90 focus-visible:ring-destructive/20 dark:focus-visible:ring-destructive/40 dark:bg-destructive/60 text-white;
+    }
 
-.button-destructive {
-    @apply bg-destructive text-white hover:bg-destructive/90 focus-visible:ring-destructive/20 dark:focus-visible:ring-destructive/40 dark:bg-destructive/60
-}
+    .button-outline {
+        @apply bg-background text-foreground hover:bg-accent hover:text-accent-foreground dark:bg-input/30 dark:border-input dark:hover:bg-input/50 border;
+    }
 
-.button-outline {
-    @apply border bg-background text-foreground hover:bg-accent hover:text-accent-foreground dark:bg-input/30 dark:border-input dark:hover:bg-input/50
-}
+    .button-secondary {
+        @apply bg-secondary text-secondary-foreground hover:bg-secondary/80;
+    }
 
-.button-secondary {
-    @apply bg-secondary text-secondary-foreground hover:bg-secondary/80
-}
+    .button-ghost {
+        @apply hover:bg-accent hover:text-accent-foreground dark:hover:bg-accent/50;
+    }
 
-.button-ghost {
-    @apply hover:bg-accent hover:text-accent-foreground dark:hover:bg-accent/50
-}
+    .button-link {
+        @apply text-primary underline-offset-4 hover:underline;
+    }
 
-.button-link {
-    @apply text-primary underline-offset-4 hover:underline
-}
+    .label-base {
+        @apply flex items-center gap-2 text-sm leading-none font-medium select-none group-data-[disabled=true]:pointer-events-none group-data-[disabled=true]:opacity-50 peer-disabled:cursor-not-allowed peer-disabled:opacity-50;
+    }
 
-.label-base {
-    @apply flex items-center gap-2 text-sm leading-none font-medium select-none group-data-[disabled=true]:pointer-events-none group-data-[disabled=true]:opacity-50 peer-disabled:cursor-not-allowed peer-disabled:opacity-50
-}
+    .fallback-image-error-base {
+        @apply inline-block bg-gray-100 text-center align-middle;
+    }
 
-.fallback-image-error-base {
-    @apply inline-block bg-gray-100 text-center align-middle
-}
+    .fallback-image-error {
+        @apply flex h-full w-full items-center justify-center;
+    }
 
-.fallback-image-error {
-    @apply flex items-center justify-center w-full h-full
-}
+    .face-base {
+        @apply h-8 w-8 shrink-0 overflow-hidden rounded-full ring-1;
+    }
 
-.face-base {
-    @apply w-8 h-8 rounded-full overflow-hidden shrink-0 ring-1
-}
+    .face-selected {
+        @apply ring-current outline-2;
+    }
 
-.face-selected {
-    @apply ring-current outline-2
-}
+    .face-unselected {
+        @apply ring-transparent outline-transparent;
+    }
 
-.face-unselected {
-    @apply ring-transparent outline-transparent
-}
+    .face-fallback-style {
+        @apply h-full w-full object-cover object-top;
+    }
 
-.face-fallback-style {
-    @apply w-full h-full object-cover object-top
-}
+    .face-button-base {
+        @apply flex items-center gap-2.5 rounded px-2 py-1.5 text-left transition-colors;
+    }
 
-.face-button-base {
-    @apply flex items-center gap-2.5 px-2 py-1.5 rounded transition-colors text-left
-}
+    .face-button-unselected {
+        background: transparent;
+        color: var(--foreground);
+        borderradius: var(--radius-sm);
+    }
 
-.face-button-unselected {
-    background: transparent;
-    color: var(--foreground);
-    borderRadius: var(--radius-sm);
-}
+    .face-button-selected {
+        background: rgba(201, 169, 110, 0.12);
+        color: var(--primary);
+        border-radius: var(--radius-sm);
+    }
 
-.face-button-selected {
-    background: rgba(201,169,110,0.12);
-    color: var(--primary);
-    border-radius: var(--radius-sm)
-}
+    .input-base {
+        @apply file:text-foreground placeholder:text-muted-foreground selection:bg-primary selection:text-primary-foreground dark:bg-input/30 border-input bg-input-background transition-[color_box-shadow] focus-visible:border-ring focus-visible:ring-ring/50 aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive flex h-9 w-full min-w-0 rounded-md border px-3 py-1 text-base outline-none file:inline-flex file:h-7 file:border-0 file:bg-transparent file:text-sm file:font-medium focus-visible:ring-[3px] disabled:pointer-events-none disabled:cursor-not-allowed disabled:opacity-50 md:text-sm;
+    }
 
-.input-base {
-    @apply file:text-foreground placeholder:text-muted-foreground selection:bg-primary selection:text-primary-foreground dark:bg-input/30 border-input flex h-9 w-full min-w-0 rounded-md border px-3 py-1 text-base bg-input-background transition-[color,box-shadow] outline-none file:inline-flex file:h-7 file:border-0 file:bg-transparent file:text-sm file:font-medium disabled:pointer-events-none disabled:cursor-not-allowed disabled:opacity-50 md:text-sm focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:ring-[3px] aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive
-}
+    .back-link {
+        color: var(--muted-foreground);
+        font-family: "Inter", sans-serif;
+        font-size: 0.875rem;
+    }
 
-.back-link {
-    color: var(--muted-foreground);
-    font-family: 'Inter', sans-serif;
-    font-size: 0.875rem;
-}
+    .upload-title {
+        font-family: "Playfair Display", serif;
+        color: var(--foreground);
+        font-size: 1.125rem;
+    }
 
-.upload-title {
-    font-family: 'Playfair Display', serif;
-    color: var(--foreground);
-    font-size: 1.125rem;
-}
+    .upload-header {
+        border-color: var(--border);
+        background: var(--card);
+        @apply flex shrink-0 items-center gap-4 border-b px-6 py-3.5;
+    }
 
-.upload-header {
-    border-color: var(--border);
-    background: var(--card);
-    @apply flex items-center gap-4 px-6 py-3.5 border-b shrink-0
-}
+    .upload-subheader {
+        color: var(--muted-foreground);
+        font-family: "DM Mono", monospace;
+        @apply ml-1 text-xs;
+    }
 
-.upload-subheader {
-    color: var(--muted-foreground);
-    font-family: 'DM Mono', monospace;
-    @apply text-xs ml-1
+    .admin-nav {
+        @apply flex items-center gap-2.5 rounded bg-transparent px-3 py-2 text-left transition-colors;
+        color: var(--foreground);
+    }
+
+    .admin-nav.active {
+        background: rgba(201, 169, 110, 0.12);
+        color: var(--primary);
+        borderradius: var(--radius-sm);
+        font-size: 0.875rem;
+    }
 }

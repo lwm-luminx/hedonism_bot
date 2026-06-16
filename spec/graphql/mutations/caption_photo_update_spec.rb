@@ -15,8 +15,8 @@ RSpec.describe Mutations::CaptionPhotoUpdate, type: :graphql do
 
   let(:update_query) do
     <<~GQL
-      mutation {
-        photoCaptionUpdate(id: "#{photo_id}", caption: "New Caption", description: "Some description") {
+      mutation($id: ID!) {
+        photoCaptionUpdate(id: $id, caption: "New Caption", description: "Some description") {
           photo {
             id
             caption

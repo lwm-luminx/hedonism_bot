@@ -12,9 +12,11 @@ class GraphqlController < ApplicationController
     operation_name = params[:operationName]
     photographer = Photographer.find_by(subdomain: request.subdomain)
     photographer ||= Photographer.default_photographer if Rails.env.development?
+    extensions = params[:extensions]
     context = {
       photographer: photographer,
-      current_user: nil
+      current_user: nil,
+      extensions: extensions
     }
     result = HedonismBotSchema.execute(query, variables: variables, context: context, operation_name: operation_name)
     render json: result

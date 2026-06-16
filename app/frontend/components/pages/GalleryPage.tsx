@@ -1,5 +1,17 @@
-import { useState } from "react";
-import { Calendar, Camera, Filter, Grid3X3, LayoutList, LogOut, Search, ShoppingBag, Upload, X } from "lucide-react";
+import { Suspense, useState } from "react";
+import {
+  Calendar,
+  Camera,
+  Filter,
+  Grid3X3,
+  LayoutList,
+  LogOut,
+  Search,
+  Settings,
+  ShoppingBag,
+  Upload,
+  X,
+} from "lucide-react";
 import { Badge } from "../controls/Badge";
 import { Input } from "../controls/Input";
 import { ScrollArea } from "../controls/ScrollArea";
@@ -11,6 +23,7 @@ import { graphql, useLazyLoadQuery } from "react-relay";
 import PhotoCollection from "../PhotoCollection";
 import { BaseApplicationQuery } from "./__generated__/BaseApplicationQuery.graphql";
 import { useNavigate } from "react-router";
+import { Spinner } from "../controls/Spinner";
 
 const BASE_QUERY = graphql`
   query BaseApplicationQuery($faceId: ID, $folderId: ID) {
@@ -23,10 +36,6 @@ const BASE_QUERY = graphql`
     }
     faces(folderId: $folderId) {
       ...FaceFragment_faces
-    }
-    photos(faceId: $faceId, folderId: $folderId) {
-      id
-      ...PhotoCollection_photos
     }
   }
 `;
@@ -56,7 +65,7 @@ export default function GalleryPage() {
 
   return (
     <div
-      className="min-h-screen flex flex-col"
+      className="flex min-h-screen flex-col"
       style={{
         background: "var(--background)",
         fontFamily: "'Inter', sans-serif",
@@ -64,11 +73,11 @@ export default function GalleryPage() {
     >
       {/* Top nav */}
       <header
-        className="flex items-center justify-between px-6 py-3.5 border-b shrink-0"
+        className="flex shrink-0 items-center justify-between border-b px-6 py-3.5"
         style={{ borderColor: "var(--border)", background: "var(--card)" }}
       >
         <div className="flex items-center gap-3">
-          <Camera className="w-4.5 h-4.5" style={{ color: "var(--primary)" }} />
+          <Camera className="h-4.5 w-4.5" style={{ color: "var(--primary)" }} />
           <span
             style={{
               fontFamily: "'Inner', serif",
@@ -81,7 +90,7 @@ export default function GalleryPage() {
           </span>
           <Separator
             orientation="vertical"
-            className="h-4 mx-1"
+            className="mx-1 h-4"
             style={{ background: "var(--border)" }}
           />
           <span
@@ -95,14 +104,14 @@ export default function GalleryPage() {
         <div className="flex items-center gap-3">
           <div className="relative">
             <Search
-              className="w-3.5 h-3.5 absolute left-2.5 top-1/2 -translate-y-1/2 pointer-events-none"
+              className="pointer-events-none absolute top-1/2 left-2.5 h-3.5 w-3.5 -translate-y-1/2"
               style={{ color: "var(--muted-foreground)" }}
             />
             <Input
               placeholder="Search photos…"
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              className="pl-8 h-8 w-52 text-sm"
+              className="h-8 w-52 pl-8 text-sm"
               style={{
                 background: "var(--input-background)",
                 border: "1px solid var(--border)",
@@ -113,11 +122,11 @@ export default function GalleryPage() {
             />
             {searchQuery && (
               <button
-                className="absolute right-2.5 top-1/2 -translate-y-1/2"
+                className="absolute top-1/2 right-2.5 -translate-y-1/2"
                 onClick={() => setSearchQuery("")}
                 style={{ color: "var(--muted-foreground)" }}
               >
-                <X className="w-3.5 h-3.5" />
+                <X className="h-3.5 w-3.5" />
               </button>
             )}
           </div>
@@ -125,7 +134,7 @@ export default function GalleryPage() {
             onClick={() => {
               navigate("/upload");
             }}
-            className="flex items-center gap-1.5 px-3 py-1.5 rounded transition-colors"
+            className="flex items-center gap-1.5 rounded px-3 py-1.5 transition-colors"
             style={{
               background: "var(--secondary)",
               color: "var(--foreground)",
@@ -135,12 +144,27 @@ export default function GalleryPage() {
               fontSize: "0.8125rem",
             }}
           >
-            <Upload className="w-3.5 h-3.5" />
+            <Upload className="h-3.5 w-3.5" />
             Upload
+          </button>
+          <button
+            onClick={() => navigate("/admin")}
+            className="flex items-center gap-1.5 rounded px-3 py-1.5 transition-colors"
+            style={{
+              background: "var(--secondary)",
+              color: "var(--foreground)",
+              borderRadius: "var(--radius-sm)",
+              border: "1px solid var(--border)",
+              fontFamily: "'Inter', sans-serif",
+              fontSize: "0.8125rem",
+            }}
+          >
+            <Settings className="h-3.5 w-3.5" />
+            Admin
           </button>
 
           <div
-            className="flex items-center gap-1.5 px-3 py-1.5 rounded"
+            className="flex items-center gap-1.5 rounded px-3 py-1.5"
             style={{
               background: "rgba(201,169,110,0.12)",
               color: "var(--primary)",
@@ -148,7 +172,7 @@ export default function GalleryPage() {
               border: "1px solid rgba(201,169,110,0.2)",
             }}
           >
-            <ShoppingBag className="w-3.5 h-3.5" />
+            <ShoppingBag className="h-3.5 w-3.5" />
             <span
               className="text-xs"
               style={{ fontFamily: "'DM Mono', monospace" }}
@@ -157,17 +181,17 @@ export default function GalleryPage() {
             </span>
           </div>
 
-          <div className="flex items-center gap-2 ml-1">
+          <div className="ml-1 flex items-center gap-2">
             {user.user_metadata?.avatar_url ? (
               <img
                 src={user.user_metadata.avatar_url}
                 alt={user.user_metadata?.full_name ?? "User"}
-                className="w-7 h-7 rounded-full object-cover"
+                className="h-7 w-7 rounded-full object-cover"
                 style={{ border: "1.5px solid var(--border)" }}
               />
             ) : (
               <div
-                className="w-7 h-7 rounded-full flex items-center justify-center text-xs"
+                className="flex h-7 w-7 items-center justify-center rounded-full text-xs"
                 style={{
                   background: "rgba(201,169,110,0.15)",
                   color: "var(--primary)",
@@ -182,7 +206,7 @@ export default function GalleryPage() {
               </div>
             )}
             <span
-              className="text-xs hidden sm:block max-w-28 truncate"
+              className="hidden max-w-28 truncate text-xs sm:block"
               style={{
                 color: "var(--muted-foreground)",
                 fontFamily: "'Inter', sans-serif",
@@ -191,14 +215,14 @@ export default function GalleryPage() {
               {user.user_metadata?.full_name ?? user.email}
             </span>
             <button
-              className="p-1.5 rounded transition-colors hover:bg-muted"
+              className="hover:bg-muted rounded p-1.5 transition-colors"
               style={{
                 color: "var(--muted-foreground)",
                 borderRadius: "var(--radius-sm)",
               }}
               title="Sign out"
             >
-              <LogOut className="w-3.5 h-3.5" />
+              <LogOut className="h-3.5 w-3.5" />
             </button>
           </div>
         </div>
@@ -211,7 +235,7 @@ export default function GalleryPage() {
         {/* Sidebar */}
         {sidebarOpen && (
           <aside
-            className="w-56 shrink-0 flex flex-col border-r"
+            className="flex w-56 shrink-0 flex-col border-r"
             style={{
               borderColor: "var(--border)",
               background: "var(--sidebar)",
@@ -221,7 +245,7 @@ export default function GalleryPage() {
               {/* Events by date */}
               <div className="mb-5">
                 <p
-                  className="text-xs uppercase tracking-widest mb-2.5"
+                  className="mb-2.5 text-xs tracking-widest uppercase"
                   style={{
                     color: "var(--muted-foreground)",
                     fontFamily: "'DM Mono', monospace",
@@ -231,7 +255,7 @@ export default function GalleryPage() {
                 </p>
                 <div className="flex flex-col gap-0.5">
                   <button
-                    className="flex items-center gap-2 px-2 py-1.5 rounded text-left transition-colors"
+                    className="flex items-center gap-2 rounded px-2 py-1.5 text-left transition-colors"
                     style={{
                       background:
                         selectedEventId === null
@@ -245,14 +269,14 @@ export default function GalleryPage() {
                     }}
                     onClick={() => setSelectedEventId(null)}
                   >
-                    <Calendar className="w-3.5 h-3.5 shrink-0" />
+                    <Calendar className="h-3.5 w-3.5 shrink-0" />
                     <span className="text-sm">All events</span>
                   </button>
                   {data?.folders?.nodes?.map((event) =>
                     event ? (
                       <button
                         key={event.id}
-                        className="flex flex-col px-2 py-1.5 rounded text-left transition-colors"
+                        className="flex flex-col rounded px-2 py-1.5 text-left transition-colors"
                         style={{
                           background:
                             selectedEventId === event?.id
@@ -266,7 +290,7 @@ export default function GalleryPage() {
                         }}
                         onClick={() => setSelectedEventId(event!.id!)}
                       >
-                        <span className="text-sm truncate">{event?.name}</span>
+                        <span className="truncate text-sm">{event?.name}</span>
                         <span
                           className="text-xs"
                           style={{
@@ -297,15 +321,15 @@ export default function GalleryPage() {
         )}
 
         {/* Main gallery */}
-        <main className="flex-1 flex flex-col overflow-hidden">
+        <main className="flex flex-1 flex-col overflow-hidden">
           {/* Toolbar */}
           <div
-            className="flex items-center justify-between px-5 py-2.5 border-b shrink-0"
+            className="flex shrink-0 items-center justify-between border-b px-5 py-2.5"
             style={{ borderColor: "var(--border)", background: "var(--card)" }}
           >
             <div className="flex items-center gap-3">
               <button
-                className="p-1.5 rounded transition-colors hover:bg-muted"
+                className="hover:bg-muted rounded p-1.5 transition-colors"
                 onClick={() => setSidebarOpen((v) => !v)}
                 style={{
                   color: "var(--muted-foreground)",
@@ -313,7 +337,7 @@ export default function GalleryPage() {
                 }}
                 title="Toggle sidebar"
               >
-                <Filter className="w-3.5 h-3.5" />
+                <Filter className="h-3.5 w-3.5" />
               </button>
               <span
                 className="text-xs"
@@ -324,7 +348,7 @@ export default function GalleryPage() {
               ></span>
               {selectedEventId && (
                 <Badge
-                  className="text-xs cursor-pointer gap-1 select-none"
+                  className="cursor-pointer gap-1 text-xs select-none"
                   style={{
                     background: "rgba(201,169,110,0.15)",
                     color: "var(--primary)",
@@ -333,12 +357,12 @@ export default function GalleryPage() {
                   }}
                   onClick={() => setSelectedEventId(null)}
                 >
-                  <X className="w-3 h-3" />
+                  <X className="h-3 w-3" />
                 </Badge>
               )}
               {selectedFaceId && (
                 <Badge
-                  className="text-xs cursor-pointer gap-1 select-none"
+                  className="cursor-pointer gap-1 text-xs select-none"
                   style={{
                     background: "rgba(201,169,110,0.15)",
                     color: "var(--primary)",
@@ -347,13 +371,13 @@ export default function GalleryPage() {
                   }}
                   onClick={() => setSelectedFaceId(null)}
                 >
-                  <X className="w-3 h-3" />
+                  <X className="h-3 w-3" />
                 </Badge>
               )}
             </div>
             <div className="flex items-center gap-0.5">
               <button
-                className="p-1.5 rounded transition-colors"
+                className="rounded p-1.5 transition-colors"
                 style={{
                   background:
                     gridCols === 3 ? "rgba(201,169,110,0.15)" : "transparent",
@@ -366,10 +390,10 @@ export default function GalleryPage() {
                 onClick={() => setGridCols(3)}
                 title="3 columns"
               >
-                <Grid3X3 className="w-3.5 h-3.5" />
+                <Grid3X3 className="h-3.5 w-3.5" />
               </button>
               <button
-                className="p-1.5 rounded transition-colors"
+                className="rounded p-1.5 transition-colors"
                 style={{
                   background:
                     gridCols === 4 ? "rgba(201,169,110,0.15)" : "transparent",
@@ -382,20 +406,23 @@ export default function GalleryPage() {
                 onClick={() => setGridCols(4)}
                 title="4 columns"
               >
-                <LayoutList className="w-3.5 h-3.5" />
+                <LayoutList className="h-3.5 w-3.5" />
               </button>
             </div>
           </div>
 
           {/* Photo grid */}
           <ScrollArea className="flex-1">
-            <PhotoCollection
-              photos={data.photos}
-              onSelect={(id) => {
-                console.log("Selected photo:", id);
-                setViewerPhoto(id);
-              }}
-            />
+            <Suspense fallback={<Spinner />}>
+              <PhotoCollection
+                faceId={selectedFaceId}
+                eventId={selectedEventId}
+                onSelect={(id) => {
+                  console.log("Selected photo:", id);
+                  setViewerPhoto(id);
+                }}
+              />
+            </Suspense>
           </ScrollArea>
         </main>
       </div>

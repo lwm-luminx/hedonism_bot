@@ -11,7 +11,9 @@ RSpec.describe Types::PhotoType, type: :graphql do
     <<~GQL
       query {
         photos {
-          id
+          nodes {
+            id
+          }
         }
       }
     GQL
@@ -23,7 +25,7 @@ RSpec.describe Types::PhotoType, type: :graphql do
     end
 
     it "types photos" do
-      expect(data["photos"].length).to be(5)
+      expect(data["photos"]["nodes"].length).to be(5)
     end
   end
 end

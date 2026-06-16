@@ -4,6 +4,11 @@ import { BrowserRouter, Route, Routes } from "react-router";
 import GalleryPage from "./pages/GalleryPage";
 import { UploadPage } from "./pages/UploadPage";
 import React from "react";
+import { AdminPage } from "./pages/AdminPage";
+import { AdminOverview } from "./admin/AdminOverview";
+import { VenuesPanel } from "./admin/VenuesPanel";
+import { EventsPanel } from "./admin/EventsPanel";
+import { AdminPhotosPanel } from "./admin/AdminPhotosPanel";
 
 export default function App() {
   return (
@@ -12,6 +17,12 @@ export default function App() {
         <Routes>
           <Route path="/" element={<GalleryPage />} />
           <Route path="/upload" element={<UploadPage />} />
+          <Route path="admin" element={<AdminPage />}>
+            <Route index element={<AdminOverview />} />
+            <Route path="venues" element={<VenuesPanel />} />
+            <Route path="events" element={<EventsPanel />} />
+            <Route path="photos" element={<AdminPhotosPanel />} />
+          </Route>
         </Routes>
       </BrowserRouter>
     </RelayEnvironmentProvider>

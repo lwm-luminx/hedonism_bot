@@ -1,5 +1,11 @@
 require 'rails_helper'
 
 RSpec.describe ClusterFacesJob, type: :job do
-  pending "add some examples to (or delete) #{__FILE__}"
+  before do
+    create_list :photo_person, 5
+  end
+
+  it "works with valid data" do
+    expect { described_class.perform_now }.not_to raise_error
+  end
 end

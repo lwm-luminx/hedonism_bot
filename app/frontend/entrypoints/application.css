@@ -1,7 +1,7 @@
 @import "../stylesheets/fonts.css";
 
-@import 'tailwindcss';
-@import 'tw-animate-css';
+@import "tailwindcss";
+@import "tw-animate-css";
 
-@import '../stylesheets/theme.css';
-@import '../stylesheets/components.css';
+@import "../stylesheets/theme.css";
+@import "../stylesheets/components.css";

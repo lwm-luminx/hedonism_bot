@@ -2,5 +2,9 @@
   "$schema": "https://raw.githubusercontent.com/facebook/relay/master/config/relay.config.schema.json",
   "src": "./app/frontend",
   "schema": "./app/graphql/schema.graphql",
-  "language": "typescript"
+  "language": "typescript",
+  "persistConfig": {
+    "file": "./app/graphql/queries.json",
+    "include_query_text": true
+  }
 }

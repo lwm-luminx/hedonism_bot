@@ -67,6 +67,7 @@ gem "stripe"
 gem "rack-cors"
 
 gem "graphql"
+gem "graphql-persisted_queries"
 
 group :development, :test do
   gem "graphiql-rails"

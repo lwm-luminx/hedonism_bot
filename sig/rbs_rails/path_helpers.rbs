@@ -9,9 +9,8 @@ interface ::_RbsRailsPathHelpers
   def graphql_path: (*untyped) -> ::String
   def graphiql_rails_path: (*untyped) -> ::String
   def upload_path: (*untyped) -> ::String
-  def infer_path: (*untyped) -> ::String
-  def cluster_path: (*untyped) -> ::String
   def rails_health_check_path: (*untyped) -> ::String
+  def admin_path: (*untyped) -> ::String
   def root_path: (*untyped) -> ::String
   def turbo_recede_historical_location_path: (*untyped) -> ::String
   def turbo_resume_historical_location_path: (*untyped) -> ::String
@@ -49,9 +48,8 @@ interface ::_RbsRailsPathHelpers
   def graphql_url: (*untyped) -> ::String
   def graphiql_rails_url: (*untyped) -> ::String
   def upload_url: (*untyped) -> ::String
-  def infer_url: (*untyped) -> ::String
-  def cluster_url: (*untyped) -> ::String
   def rails_health_check_url: (*untyped) -> ::String
+  def admin_url: (*untyped) -> ::String
   def root_url: (*untyped) -> ::String
   def turbo_recede_historical_location_url: (*untyped) -> ::String
   def turbo_resume_historical_location_url: (*untyped) -> ::String

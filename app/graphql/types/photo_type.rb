@@ -15,6 +15,8 @@ module Types
     field :alternate_description, String, null: false, description: "Description of the photo for the visually impaired"
     field :taken_at, GraphQL::Types::ISO8601DateTime, null: false, description: "Date and time the photo was taken"
     field :facial_recognition_url, String, null: true, description: "URL to a preview image of the photo for facial recognition"
+    field :event, EventType
+    field :price, Float
 
     def facial_recognition_url
       face_image = @object.images.select { |img| img.content_type == "image/jpeg" }.first

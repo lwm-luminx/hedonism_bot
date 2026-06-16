@@ -130,6 +130,7 @@
     <orderEntry type="library" scope="PROVIDED" name="globalid (v1.3.0, rbenv: 4.0.5) [gem]" level="application" />
     <orderEntry type="library" scope="TEST" name="graphiql-rails (v1.10.5, rbenv: 4.0.5) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="graphql (v2.6.3, rbenv: 4.0.5) [gem]" level="application" />
+    <orderEntry type="library" scope="PROVIDED" name="graphql-persisted_queries (v2.0.0, rbenv: 4.0.5) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="haml (v7.2.0, rbenv: 4.0.5) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="haml-rails (v3.0.0, rbenv: 4.0.5) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="hashdiff (v1.2.1, rbenv: 4.0.5) [gem]" level="application" />
@@ -223,7 +224,7 @@
     <orderEntry type="library" scope="PROVIDED" name="rspec-mocks (v3.13.8, rbenv: 4.0.5) [gem]" level="application" />
     <orderEntry type="library" scope="TEST" name="rspec-rails (v8.0.4, rbenv: 4.0.5) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="rspec-support (v3.13.7, rbenv: 4.0.5) [gem]" level="application" />
-    <orderEntry type="library" scope="PROVIDED" name="rubocop (v1.87.0, rbenv: 4.0.5) [gem]" level="application" />
+    <orderEntry type="library" scope="PROVIDED" name="rubocop (v1.88.0, rbenv: 4.0.5) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="rubocop-ast (v1.49.1, rbenv: 4.0.5) [gem]" level="application" />
     <orderEntry type="library" scope="TEST" name="rubocop-performance (v1.26.1, rbenv: 4.0.5) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="rubocop-rails (v2.35.4, rbenv: 4.0.5) [gem]" level="application" />

@@ -6,7 +6,7 @@ module Types
     include GraphQL::Types::Relay::HasNodesField
 
     field :photographer, Types::PhotographerType, null: false, description: "The current Photographer for the request"
-    field :photos, [ Types::PhotoType ], null: false, description: "All photos for a particular Photographer" do
+    field :photos, Types::PhotoType.connection_type, null: false, description: "All photos for a particular Photographer" do
       argument :face_id, ID, required: false, description: "Filter photos by face ID"
       argument :folder_id, ID, required: false, description: "Filter photos by folder ID"
     end
@@ -16,6 +16,8 @@ module Types
     field :folders, Types::FolderType.connection_type, null: false, description: "All groupings for a particular Photographer" do
       argument :face_id, ID, required: false, description: "Filter folders by face ID"
     end
+    field :events, Types::EventType.connection_type
+    field :venues, Types::VenueType.connection_type
 
     def photographer
       context[:photographer]
@@ -40,6 +42,14 @@ module Types
       else
         photographer.folders
       end
+    end
+
+    def events
+      []
+    end
+
+    def venues
+      []
     end
 
     def photos(face_id: nil, folder_id: nil)
