@@ -1,0 +1,451 @@
+# resolve-type-names: false
+
+class ::PhotoFace < ::ApplicationRecord
+  extend ::ActiveRecord::Base::ClassMethods[::PhotoFace, ::PhotoFace::ActiveRecord_Relation, ::String]
+
+  module ::PhotoFace::GeneratedAttributeMethods
+    def id: () -> ::String
+
+    def id=: (::String) -> ::String
+
+    def id?: () -> bool
+
+    def id_changed?: (?from: ::String?, ?to: ::String?) -> bool
+
+    def id_change: () -> [ ::String?, ::String? ]
+
+    def id_will_change!: () -> void
+
+    def id_was: () -> ::String?
+
+    def id_previously_changed?: (?from: ::String?, ?to: ::String?) -> bool
+
+    def id_previous_change: () -> ::Array[::String?]?
+
+    def id_previously_was: () -> ::String?
+
+    def id_before_last_save: () -> ::String?
+
+    def id_change_to_be_saved: () -> ::Array[::String?]?
+
+    def id_in_database: () -> ::String?
+
+    def saved_change_to_id: () -> ::Array[::String?]?
+
+    def saved_change_to_id?: (?from: ::String?, ?to: ::String?) -> bool
+
+    def will_save_change_to_id?: (?from: ::String?, ?to: ::String?) -> bool
+
+    def restore_id!: () -> void
+
+    def clear_id_change: () -> void
+
+    def id_before_type_cast: () -> ::String
+
+    def id_for_database: () -> ::String
+
+    def created_at: () -> ::ActiveSupport::TimeWithZone
+
+    def created_at=: (::ActiveSupport::TimeWithZone) -> ::ActiveSupport::TimeWithZone
+
+    def created_at?: () -> bool
+
+    def created_at_changed?: (?from: ::ActiveSupport::TimeWithZone?, ?to: ::ActiveSupport::TimeWithZone?) -> bool
+
+    def created_at_change: () -> [ ::ActiveSupport::TimeWithZone?, ::ActiveSupport::TimeWithZone? ]
+
+    def created_at_will_change!: () -> void
+
+    def created_at_was: () -> ::ActiveSupport::TimeWithZone?
+
+    def created_at_previously_changed?: (?from: ::ActiveSupport::TimeWithZone?, ?to: ::ActiveSupport::TimeWithZone?) -> bool
+
+    def created_at_previous_change: () -> ::Array[::ActiveSupport::TimeWithZone?]?
+
+    def created_at_previously_was: () -> ::ActiveSupport::TimeWithZone?
+
+    def created_at_before_last_save: () -> ::ActiveSupport::TimeWithZone?
+
+    def created_at_change_to_be_saved: () -> ::Array[::ActiveSupport::TimeWithZone?]?
+
+    def created_at_in_database: () -> ::ActiveSupport::TimeWithZone?
+
+    def saved_change_to_created_at: () -> ::Array[::ActiveSupport::TimeWithZone?]?
+
+    def saved_change_to_created_at?: (?from: ::ActiveSupport::TimeWithZone?, ?to: ::ActiveSupport::TimeWithZone?) -> bool
+
+    def will_save_change_to_created_at?: (?from: ::ActiveSupport::TimeWithZone?, ?to: ::ActiveSupport::TimeWithZone?) -> bool
+
+    def restore_created_at!: () -> void
+
+    def clear_created_at_change: () -> void
+
+    def created_at_before_type_cast: () -> ::Time
+
+    def created_at_for_database: () -> ::Time
+
+    def updated_at: () -> ::ActiveSupport::TimeWithZone
+
+    def updated_at=: (::ActiveSupport::TimeWithZone) -> ::ActiveSupport::TimeWithZone
+
+    def updated_at?: () -> bool
+
+    def updated_at_changed?: (?from: ::ActiveSupport::TimeWithZone?, ?to: ::ActiveSupport::TimeWithZone?) -> bool
+
+    def updated_at_change: () -> [ ::ActiveSupport::TimeWithZone?, ::ActiveSupport::TimeWithZone? ]
+
+    def updated_at_will_change!: () -> void
+
+    def updated_at_was: () -> ::ActiveSupport::TimeWithZone?
+
+    def updated_at_previously_changed?: (?from: ::ActiveSupport::TimeWithZone?, ?to: ::ActiveSupport::TimeWithZone?) -> bool
+
+    def updated_at_previous_change: () -> ::Array[::ActiveSupport::TimeWithZone?]?
+
+    def updated_at_previously_was: () -> ::ActiveSupport::TimeWithZone?
+
+    def updated_at_before_last_save: () -> ::ActiveSupport::TimeWithZone?
+
+    def updated_at_change_to_be_saved: () -> ::Array[::ActiveSupport::TimeWithZone?]?
+
+    def updated_at_in_database: () -> ::ActiveSupport::TimeWithZone?
+
+    def saved_change_to_updated_at: () -> ::Array[::ActiveSupport::TimeWithZone?]?
+
+    def saved_change_to_updated_at?: (?from: ::ActiveSupport::TimeWithZone?, ?to: ::ActiveSupport::TimeWithZone?) -> bool
+
+    def will_save_change_to_updated_at?: (?from: ::ActiveSupport::TimeWithZone?, ?to: ::ActiveSupport::TimeWithZone?) -> bool
+
+    def restore_updated_at!: () -> void
+
+    def clear_updated_at_change: () -> void
+
+    def updated_at_before_type_cast: () -> ::Time
+
+    def updated_at_for_database: () -> ::Time
+
+    def photo_id: () -> ::String
+
+    def photo_id=: (::String) -> ::String
+
+    def photo_id?: () -> bool
+
+    def photo_id_changed?: (?from: ::String?, ?to: ::String?) -> bool
+
+    def photo_id_change: () -> [ ::String?, ::String? ]
+
+    def photo_id_will_change!: () -> void
+
+    def photo_id_was: () -> ::String?
+
+    def photo_id_previously_changed?: (?from: ::String?, ?to: ::String?) -> bool
+
+    def photo_id_previous_change: () -> ::Array[::String?]?
+
+    def photo_id_previously_was: () -> ::String?
+
+    def photo_id_before_last_save: () -> ::String?
+
+    def photo_id_change_to_be_saved: () -> ::Array[::String?]?
+
+    def photo_id_in_database: () -> ::String?
+
+    def saved_change_to_photo_id: () -> ::Array[::String?]?
+
+    def saved_change_to_photo_id?: (?from: ::String?, ?to: ::String?) -> bool
+
+    def will_save_change_to_photo_id?: (?from: ::String?, ?to: ::String?) -> bool
+
+    def restore_photo_id!: () -> void
+
+    def clear_photo_id_change: () -> void
+
+    def photo_id_before_type_cast: () -> ::String
+
+    def photo_id_for_database: () -> ::String
+
+    def face_id: () -> ::String?
+
+    def face_id=: (::String?) -> ::String?
+
+    def face_id?: () -> bool
+
+    def face_id_changed?: (?from: ::String?, ?to: ::String?) -> bool
+
+    def face_id_change: () -> [ ::String?, ::String? ]
+
+    def face_id_will_change!: () -> void
+
+    def face_id_was: () -> ::String?
+
+    def face_id_previously_changed?: (?from: ::String?, ?to: ::String?) -> bool
+
+    def face_id_previous_change: () -> ::Array[::String?]?
+
+    def face_id_previously_was: () -> ::String?
+
+    def face_id_before_last_save: () -> ::String?
+
+    def face_id_change_to_be_saved: () -> ::Array[::String?]?
+
+    def face_id_in_database: () -> ::String?
+
+    def saved_change_to_face_id: () -> ::Array[::String?]?
+
+    def saved_change_to_face_id?: (?from: ::String?, ?to: ::String?) -> bool
+
+    def will_save_change_to_face_id?: (?from: ::String?, ?to: ::String?) -> bool
+
+    def restore_face_id!: () -> void
+
+    def clear_face_id_change: () -> void
+
+    def face_id_before_type_cast: () -> ::String?
+
+    def face_id_for_database: () -> ::String?
+
+    def confidence: () -> ::Float?
+
+    def confidence=: (::Float?) -> ::Float?
+
+    def confidence?: () -> bool
+
+    def confidence_changed?: (?from: ::Float?, ?to: ::Float?) -> bool
+
+    def confidence_change: () -> [ ::Float?, ::Float? ]
+
+    def confidence_will_change!: () -> void
+
+    def confidence_was: () -> ::Float?
+
+    def confidence_previously_changed?: (?from: ::Float?, ?to: ::Float?) -> bool
+
+    def confidence_previous_change: () -> ::Array[::Float?]?
+
+    def confidence_previously_was: () -> ::Float?
+
+    def confidence_before_last_save: () -> ::Float?
+
+    def confidence_change_to_be_saved: () -> ::Array[::Float?]?
+
+    def confidence_in_database: () -> ::Float?
+
+    def saved_change_to_confidence: () -> ::Array[::Float?]?
+
+    def saved_change_to_confidence?: (?from: ::Float?, ?to: ::Float?) -> bool
+
+    def will_save_change_to_confidence?: (?from: ::Float?, ?to: ::Float?) -> bool
+
+    def restore_confidence!: () -> void
+
+    def clear_confidence_change: () -> void
+
+    def confidence_before_type_cast: () -> ::Float?
+
+    def confidence_for_database: () -> ::Float?
+
+    def bounding_box: () -> untyped
+
+    def bounding_box=: (untyped) -> untyped
+
+    def bounding_box?: () -> bool
+
+    def bounding_box_changed?: (?from: untyped, ?to: untyped) -> bool
+
+    def bounding_box_change: () -> [ untyped, untyped ]
+
+    def bounding_box_will_change!: () -> void
+
+    def bounding_box_was: () -> untyped
+
+    def bounding_box_previously_changed?: (?from: untyped, ?to: untyped) -> bool
+
+    def bounding_box_previous_change: () -> ::Array[untyped]?
+
+    def bounding_box_previously_was: () -> untyped
+
+    def bounding_box_before_last_save: () -> untyped
+
+    def bounding_box_change_to_be_saved: () -> ::Array[untyped]?
+
+    def bounding_box_in_database: () -> untyped
+
+    def saved_change_to_bounding_box: () -> ::Array[untyped]?
+
+    def saved_change_to_bounding_box?: (?from: untyped, ?to: untyped) -> bool
+
+    def will_save_change_to_bounding_box?: (?from: untyped, ?to: untyped) -> bool
+
+    def restore_bounding_box!: () -> void
+
+    def clear_bounding_box_change: () -> void
+
+    def bounding_box_before_type_cast: () -> untyped
+
+    def bounding_box_for_database: () -> untyped
+
+    def arc_face_embedding: () -> untyped
+
+    def arc_face_embedding=: (untyped) -> untyped
+
+    def arc_face_embedding?: () -> bool
+
+    def arc_face_embedding_changed?: (?from: untyped, ?to: untyped) -> bool
+
+    def arc_face_embedding_change: () -> [ untyped, untyped ]
+
+    def arc_face_embedding_will_change!: () -> void
+
+    def arc_face_embedding_was: () -> untyped
+
+    def arc_face_embedding_previously_changed?: (?from: untyped, ?to: untyped) -> bool
+
+    def arc_face_embedding_previous_change: () -> ::Array[untyped]?
+
+    def arc_face_embedding_previously_was: () -> untyped
+
+    def arc_face_embedding_before_last_save: () -> untyped
+
+    def arc_face_embedding_change_to_be_saved: () -> ::Array[untyped]?
+
+    def arc_face_embedding_in_database: () -> untyped
+
+    def saved_change_to_arc_face_embedding: () -> ::Array[untyped]?
+
+    def saved_change_to_arc_face_embedding?: (?from: untyped, ?to: untyped) -> bool
+
+    def will_save_change_to_arc_face_embedding?: (?from: untyped, ?to: untyped) -> bool
+
+    def restore_arc_face_embedding!: () -> void
+
+    def clear_arc_face_embedding_change: () -> void
+
+    def arc_face_embedding_before_type_cast: () -> untyped?
+
+    def arc_face_embedding_for_database: () -> untyped?
+  end
+  include ::PhotoFace::GeneratedAttributeMethods
+  module ::PhotoFace::GeneratedAliasAttributeMethods
+    include ::PhotoFace::GeneratedAttributeMethods
+
+    alias id_value id
+
+    alias id_value= id=
+
+    alias id_value? id?
+
+    alias id_value_changed? id_changed?
+
+    alias id_value_change id_change
+
+    alias id_value_will_change! id_will_change!
+
+    alias id_value_was id_was
+
+    alias id_value_previously_changed? id_previously_changed?
+
+    alias id_value_previous_change id_previous_change
+
+    alias id_value_previously_was id_previously_was
+
+    alias id_value_before_last_save id_before_last_save
+
+    alias id_value_change_to_be_saved id_change_to_be_saved
+
+    alias id_value_in_database id_in_database
+
+    alias saved_change_to_id_value saved_change_to_id
+
+    alias saved_change_to_id_value? saved_change_to_id?
+
+    alias will_save_change_to_id_value? will_save_change_to_id?
+
+    alias restore_id_value! restore_id!
+
+    alias clear_id_value_change clear_id_change
+
+    alias id_value_before_type_cast id_before_type_cast
+
+    alias id_value_for_database id_for_database
+  end
+  include ::PhotoFace::GeneratedAliasAttributeMethods
+
+  def face_image_attachment: () -> ::ActiveStorage::Attachment?
+  def face_image_attachment=: (::ActiveStorage::Attachment?) -> ::ActiveStorage::Attachment?
+  def build_face_image_attachment: (?untyped) -> ::ActiveStorage::Attachment
+  def create_face_image_attachment: (?untyped) -> ::ActiveStorage::Attachment
+  def create_face_image_attachment!: (?untyped) -> ::ActiveStorage::Attachment
+  def reload_face_image_attachment: () -> ::ActiveStorage::Attachment?
+  def face_image_blob: () -> ::ActiveStorage::Blob?
+  def face_image_blob=: (::ActiveStorage::Blob?) -> ::ActiveStorage::Blob?
+  def build_face_image_blob: (?untyped) -> ::ActiveStorage::Blob
+  def create_face_image_blob: (?untyped) -> ::ActiveStorage::Blob
+  def create_face_image_blob!: (?untyped) -> ::ActiveStorage::Blob
+  def reload_face_image_blob: () -> ::ActiveStorage::Blob?
+  def photo_take: () -> ::PhotoTake
+  def photo_take=: (::PhotoTake?) -> ::PhotoTake?
+  def reload_photo_take: () -> ::PhotoTake?
+  def build_photo_take: (?untyped) -> ::PhotoTake
+  def create_photo_take: (?untyped) -> ::PhotoTake
+  def create_photo_take!: (?untyped) -> ::PhotoTake
+  def face: () -> ::Face?
+  def face=: (::Face?) -> ::Face?
+  def reload_face: () -> ::Face?
+  def build_face: (?untyped) -> ::Face
+  def create_face: (?untyped) -> ::Face
+  def create_face!: (?untyped) -> ::Face
+
+  module ::PhotoFace::GeneratedAssociationMethods
+    def face_image: () -> ::ActiveStorage::Attached::One
+
+    def face_image=: (::ActionDispatch::Http::UploadedFile) -> ::ActionDispatch::Http::UploadedFile
+                   | (::Rack::Test::UploadedFile) -> ::Rack::Test::UploadedFile
+                   | (::ActiveStorage::Blob) -> ::ActiveStorage::Blob
+                   | (::String) -> ::String
+                   | ({ io: ::IO, filename: ::String, content_type: ::String? }) -> { io: ::IO, filename: ::String, content_type: ::String? }
+                   | (nil) -> nil
+  end
+  include ::PhotoFace::GeneratedAssociationMethods
+
+  def self.with_preview_image: () -> ::PhotoFace::ActiveRecord_Relation
+  def self.with_attached_face_image: () -> ::PhotoFace::ActiveRecord_Relation
+
+  module ::PhotoFace::GeneratedRelationMethods
+    def with_preview_image: () -> ::PhotoFace::ActiveRecord_Relation
+
+    def with_attached_face_image: () -> ::PhotoFace::ActiveRecord_Relation
+  end
+
+  class ::PhotoFace::ActiveRecord_Relation < ::ActiveRecord::Relation
+    include ::Enumerable[::PhotoFace]
+    include ::PhotoFace::GeneratedRelationMethods
+    include ::ActiveRecord::Relation::Methods[::PhotoFace, ::String]
+  end
+
+  class ::PhotoFace::ActiveRecord_Associations_CollectionProxy < ::ActiveRecord::Associations::CollectionProxy
+    include ::Enumerable[::PhotoFace]
+    include ::PhotoFace::GeneratedRelationMethods
+    include ::ActiveRecord::Relation::Methods[::PhotoFace, ::String]
+
+    def build: (?::ActiveRecord::Associations::CollectionProxy::_EachPair attributes) ?{ () -> untyped } -> ::PhotoFace
+             | (::Array[::ActiveRecord::Associations::CollectionProxy::_EachPair] attributes) ?{ () -> untyped } -> ::Array[::PhotoFace]
+    def create: (?::ActiveRecord::Associations::CollectionProxy::_EachPair attributes) ?{ () -> untyped } -> ::PhotoFace
+              | (::Array[::ActiveRecord::Associations::CollectionProxy::_EachPair] attributes) ?{ () -> untyped } -> ::Array[::PhotoFace]
+    def create!: (?::ActiveRecord::Associations::CollectionProxy::_EachPair attributes) ?{ () -> untyped } -> ::PhotoFace
+               | (::Array[::ActiveRecord::Associations::CollectionProxy::_EachPair] attributes) ?{ () -> untyped } -> ::Array[::PhotoFace]
+    def reload: () -> ::Array[::PhotoFace]
+
+    def replace: (::Array[::PhotoFace]) -> void
+    def delete: (*::PhotoFace | ::String) -> ::Array[::PhotoFace]
+    def destroy: (*::PhotoFace | ::String) -> ::Array[::PhotoFace]
+    def <<: (*::PhotoFace | ::Array[::PhotoFace]) -> self
+    def prepend: (*::PhotoFace | ::Array[::PhotoFace]) -> self
+  end
+end
+
+class ::ApplicationRecord < ::ActiveRecord::Base
+end
+class ::PhotoTake < ::ApplicationRecord
+end
+class ::Face < ::ApplicationRecord
+end

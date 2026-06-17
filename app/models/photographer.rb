@@ -1,7 +1,7 @@
 class Photographer < ApplicationRecord
-  has_many :photos, dependent: :destroy
+  has_many :photo_takes, dependent: :destroy
   has_many :venues, dependent: :destroy
-  has_many :people, dependent: :destroy
+  has_many :faces, dependent: :destroy
 
   validates :name, presence: true
   validates :subdomain, presence: true, uniqueness: true,

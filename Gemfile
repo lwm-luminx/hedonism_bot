@@ -66,6 +66,7 @@ gem "stripe"
 # Use Rack CORS for handling Cross-Origin Resource Sharing (CORS), making cross-origin Ajax possible
 gem "rack-cors"
 
+gem "koala"
 gem "graphql"
 gem "graphql-persisted_queries"
 

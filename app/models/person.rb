@@ -1,15 +1,22 @@
+# frozen_string_literal: true
+
 class Person < ApplicationRecord
-  belongs_to :photographer
-  has_many :photo_people, dependent: :nullify
-  has_many :photos, through: :photo_people
+  belongs_to :page
 
-  scope :for_photographer, ->(photographer) { includes(photo_people: :photo).joins(photo_people: :photo).where(photo_people: { photos: { photographer_id: photographer } }) }
-  scope :with_embedding, -> { where.not(embedding: nil) }
-  scope :with_preview_image, -> { includes(photo_people: { face_image_attachment: :blob }) }
+  has_many :event_people, dependent: :destroy
+  has_many :events, lambda {
+                      where("start_at > ? OR end_at > ?", DateTime.now, DateTime.now).order(start_at: :asc)
+                    }, through: :event_people
 
-  has_neighbors :arc_face_embedding, dimensions: 512, normalize: true
+  delegate :facebook_id, :display_name, :name, :name=, to: :page, allow_nil: true
 
-  def photo_count
-    photo_people.size
+  def social_links
+    SocialLink.where(object_id: id).includes(:tracks)
   end
+
+  def tracks
+    social_links.flat_map(&:tracks)
+  end
+
+  def self.from_page_id(page_id); end
 end

@@ -11,7 +11,7 @@ module Mutations
     argument :description, String, required: true
 
     def resolve(id:, caption:, description:)
-      caption_photo = GlobalID::Locator.locate(id) #: Photo
+      caption_photo = GlobalID::Locator.locate(id) #: PhotoTake
       caption = caption || caption_photo.caption
       description = description || caption_photo.description
 

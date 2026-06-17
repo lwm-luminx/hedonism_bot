@@ -1,14 +1,11 @@
 /**
- * @generated SignedSource<<e099edbb0cf52c0f8e86c51bbc675d05>>
- * @relayHash e16814f500b39701f8422d37a19c34f2
+ * @generated SignedSource<<6c33756de02454ecd14c5aeb2a0bec62>>
  * @lightSyntaxTransform
  */
 
 /* tslint:disable */
 /* eslint-disable */
 // @ts-nocheck
-
-// @relayRequestID e16814f500b39701f8422d37a19c34f2
 
 import { ConcreteRequest } from 'relay-runtime';
 export type PhotoPurchaseQuery$variables = {
@@ -131,7 +128,7 @@ return {
   },
   "params": {
     "cacheID": "e16814f500b39701f8422d37a19c34f2",
-    "id": "e16814f500b39701f8422d37a19c34f2",
+    "id": null,
     "metadata": {},
     "name": "PhotoPurchaseQuery",
     "operationKind": "query",

@@ -411,7 +411,7 @@ export default function GalleryPage() {
             </div>
           </div>
 
-          {/* Photo grid */}
+          {/* PhotoTake grid */}
           <ScrollArea className="flex-1">
             <Suspense fallback={<Spinner />}>
               <PhotoCollection

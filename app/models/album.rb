@@ -1,4 +1,4 @@
-class Folder
+class Album
   include ActiveModel::API
   include GlobalID::Identification
 

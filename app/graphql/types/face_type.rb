@@ -7,7 +7,7 @@ module Types
     field :thumbnail_url, String, null: true
 
     def thumbnail_url
-      @object.photo_people.first&.face_image&.url
+      @object.photo_facess.first&.face_image&.url
     end
   end
 end

@@ -259,7 +259,7 @@ type Mutation {
   photoCaptionUpdate(caption: String!, description: String!, id: ID!): CaptionPhotoUpdatePayload
 
   """
-  Updates a Photo by id
+  Updates a PhotoTake by id
   """
   photoFaceUpdate(faces: [FaceDataInput!]!, id: ID!): FacialRecognitionPhotoUpdatePayload
 }
@@ -358,7 +358,7 @@ type Photo implements Node {
   filename: String!
 
   """
-  Folder containing the photo
+  Album containing the photo
   """
   folder: Folder
 

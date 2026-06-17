@@ -1,9 +1,7 @@
-class PhotoPerson < ApplicationRecord
-  self.table_name = "photo_people"
+class PhotoFace < ApplicationRecord
+  belongs_to :photo_take
 
-  belongs_to :photo
-
-  belongs_to :person, optional: true
+  belongs_to :face, optional: true
 
   has_one_attached :face_image
   scope :with_preview_image, -> { includes(face_image_attachment: :blob).joins(face_image_attachment: :blob) }

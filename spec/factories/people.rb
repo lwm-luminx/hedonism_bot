@@ -1,5 +1,5 @@
 FactoryBot.define do
-  factory :person do
+  factory :face do
     photographer
   end
 end

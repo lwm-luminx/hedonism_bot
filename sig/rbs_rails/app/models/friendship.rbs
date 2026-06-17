@@ -1,0 +1,368 @@
+# resolve-type-names: false
+
+class ::Friendship < ::ApplicationRecord
+  extend ::ActiveRecord::Base::ClassMethods[::Friendship, ::Friendship::ActiveRecord_Relation, ::String]
+
+  module ::Friendship::GeneratedAttributeMethods
+    def id: () -> ::String
+
+    def id=: (::String) -> ::String
+
+    def id?: () -> bool
+
+    def id_changed?: (?from: ::String?, ?to: ::String?) -> bool
+
+    def id_change: () -> [ ::String?, ::String? ]
+
+    def id_will_change!: () -> void
+
+    def id_was: () -> ::String?
+
+    def id_previously_changed?: (?from: ::String?, ?to: ::String?) -> bool
+
+    def id_previous_change: () -> ::Array[::String?]?
+
+    def id_previously_was: () -> ::String?
+
+    def id_before_last_save: () -> ::String?
+
+    def id_change_to_be_saved: () -> ::Array[::String?]?
+
+    def id_in_database: () -> ::String?
+
+    def saved_change_to_id: () -> ::Array[::String?]?
+
+    def saved_change_to_id?: (?from: ::String?, ?to: ::String?) -> bool
+
+    def will_save_change_to_id?: (?from: ::String?, ?to: ::String?) -> bool
+
+    def restore_id!: () -> void
+
+    def clear_id_change: () -> void
+
+    def id_before_type_cast: () -> ::String
+
+    def id_for_database: () -> ::String
+
+    def friend_high_id: () -> ::String
+
+    def friend_high_id=: (::String) -> ::String
+
+    def friend_high_id?: () -> bool
+
+    def friend_high_id_changed?: (?from: ::String?, ?to: ::String?) -> bool
+
+    def friend_high_id_change: () -> [ ::String?, ::String? ]
+
+    def friend_high_id_will_change!: () -> void
+
+    def friend_high_id_was: () -> ::String?
+
+    def friend_high_id_previously_changed?: (?from: ::String?, ?to: ::String?) -> bool
+
+    def friend_high_id_previous_change: () -> ::Array[::String?]?
+
+    def friend_high_id_previously_was: () -> ::String?
+
+    def friend_high_id_before_last_save: () -> ::String?
+
+    def friend_high_id_change_to_be_saved: () -> ::Array[::String?]?
+
+    def friend_high_id_in_database: () -> ::String?
+
+    def saved_change_to_friend_high_id: () -> ::Array[::String?]?
+
+    def saved_change_to_friend_high_id?: (?from: ::String?, ?to: ::String?) -> bool
+
+    def will_save_change_to_friend_high_id?: (?from: ::String?, ?to: ::String?) -> bool
+
+    def restore_friend_high_id!: () -> void
+
+    def clear_friend_high_id_change: () -> void
+
+    def friend_high_id_before_type_cast: () -> ::String
+
+    def friend_high_id_for_database: () -> ::String
+
+    def friend_low_id: () -> ::String
+
+    def friend_low_id=: (::String) -> ::String
+
+    def friend_low_id?: () -> bool
+
+    def friend_low_id_changed?: (?from: ::String?, ?to: ::String?) -> bool
+
+    def friend_low_id_change: () -> [ ::String?, ::String? ]
+
+    def friend_low_id_will_change!: () -> void
+
+    def friend_low_id_was: () -> ::String?
+
+    def friend_low_id_previously_changed?: (?from: ::String?, ?to: ::String?) -> bool
+
+    def friend_low_id_previous_change: () -> ::Array[::String?]?
+
+    def friend_low_id_previously_was: () -> ::String?
+
+    def friend_low_id_before_last_save: () -> ::String?
+
+    def friend_low_id_change_to_be_saved: () -> ::Array[::String?]?
+
+    def friend_low_id_in_database: () -> ::String?
+
+    def saved_change_to_friend_low_id: () -> ::Array[::String?]?
+
+    def saved_change_to_friend_low_id?: (?from: ::String?, ?to: ::String?) -> bool
+
+    def will_save_change_to_friend_low_id?: (?from: ::String?, ?to: ::String?) -> bool
+
+    def restore_friend_low_id!: () -> void
+
+    def clear_friend_low_id_change: () -> void
+
+    def friend_low_id_before_type_cast: () -> ::String
+
+    def friend_low_id_for_database: () -> ::String
+
+    def friends_at: () -> ::Date?
+
+    def friends_at=: (::Date?) -> ::Date?
+
+    def friends_at?: () -> bool
+
+    def friends_at_changed?: (?from: ::Date?, ?to: ::Date?) -> bool
+
+    def friends_at_change: () -> [ ::Date?, ::Date? ]
+
+    def friends_at_will_change!: () -> void
+
+    def friends_at_was: () -> ::Date?
+
+    def friends_at_previously_changed?: (?from: ::Date?, ?to: ::Date?) -> bool
+
+    def friends_at_previous_change: () -> ::Array[::Date?]?
+
+    def friends_at_previously_was: () -> ::Date?
+
+    def friends_at_before_last_save: () -> ::Date?
+
+    def friends_at_change_to_be_saved: () -> ::Array[::Date?]?
+
+    def friends_at_in_database: () -> ::Date?
+
+    def saved_change_to_friends_at: () -> ::Array[::Date?]?
+
+    def saved_change_to_friends_at?: (?from: ::Date?, ?to: ::Date?) -> bool
+
+    def will_save_change_to_friends_at?: (?from: ::Date?, ?to: ::Date?) -> bool
+
+    def restore_friends_at!: () -> void
+
+    def clear_friends_at_change: () -> void
+
+    def friends_at_before_type_cast: () -> ::Date?
+
+    def friends_at_for_database: () -> ::Date?
+
+    def friend_hash: () -> ::String?
+
+    def friend_hash=: (::String?) -> ::String?
+
+    def friend_hash?: () -> bool
+
+    def friend_hash_changed?: (?from: ::String?, ?to: ::String?) -> bool
+
+    def friend_hash_change: () -> [ ::String?, ::String? ]
+
+    def friend_hash_will_change!: () -> void
+
+    def friend_hash_was: () -> ::String?
+
+    def friend_hash_previously_changed?: (?from: ::String?, ?to: ::String?) -> bool
+
+    def friend_hash_previous_change: () -> ::Array[::String?]?
+
+    def friend_hash_previously_was: () -> ::String?
+
+    def friend_hash_before_last_save: () -> ::String?
+
+    def friend_hash_change_to_be_saved: () -> ::Array[::String?]?
+
+    def friend_hash_in_database: () -> ::String?
+
+    def saved_change_to_friend_hash: () -> ::Array[::String?]?
+
+    def saved_change_to_friend_hash?: (?from: ::String?, ?to: ::String?) -> bool
+
+    def will_save_change_to_friend_hash?: (?from: ::String?, ?to: ::String?) -> bool
+
+    def restore_friend_hash!: () -> void
+
+    def clear_friend_hash_change: () -> void
+
+    def friend_hash_before_type_cast: () -> ::String?
+
+    def friend_hash_for_database: () -> ::String?
+
+    def weight: () -> ::Integer?
+
+    def weight=: (::Integer?) -> ::Integer?
+
+    def weight?: () -> bool
+
+    def weight_changed?: (?from: ::Integer?, ?to: ::Integer?) -> bool
+
+    def weight_change: () -> [ ::Integer?, ::Integer? ]
+
+    def weight_will_change!: () -> void
+
+    def weight_was: () -> ::Integer?
+
+    def weight_previously_changed?: (?from: ::Integer?, ?to: ::Integer?) -> bool
+
+    def weight_previous_change: () -> ::Array[::Integer?]?
+
+    def weight_previously_was: () -> ::Integer?
+
+    def weight_before_last_save: () -> ::Integer?
+
+    def weight_change_to_be_saved: () -> ::Array[::Integer?]?
+
+    def weight_in_database: () -> ::Integer?
+
+    def saved_change_to_weight: () -> ::Array[::Integer?]?
+
+    def saved_change_to_weight?: (?from: ::Integer?, ?to: ::Integer?) -> bool
+
+    def will_save_change_to_weight?: (?from: ::Integer?, ?to: ::Integer?) -> bool
+
+    def restore_weight!: () -> void
+
+    def clear_weight_change: () -> void
+
+    def weight_before_type_cast: () -> ::Integer?
+
+    def weight_for_database: () -> ::Integer?
+
+    def is_circle: () -> bool
+
+    def is_circle=: (bool) -> bool
+
+    def is_circle?: () -> bool
+
+    def is_circle_changed?: (?from: bool?, ?to: bool?) -> bool
+
+    def is_circle_change: () -> [ bool?, bool? ]
+
+    def is_circle_will_change!: () -> void
+
+    def is_circle_was: () -> bool?
+
+    def is_circle_previously_changed?: (?from: bool?, ?to: bool?) -> bool
+
+    def is_circle_previous_change: () -> ::Array[bool?]?
+
+    def is_circle_previously_was: () -> bool?
+
+    def is_circle_before_last_save: () -> bool?
+
+    def is_circle_change_to_be_saved: () -> ::Array[bool?]?
+
+    def is_circle_in_database: () -> bool?
+
+    def saved_change_to_is_circle: () -> ::Array[bool?]?
+
+    def saved_change_to_is_circle?: (?from: bool?, ?to: bool?) -> bool
+
+    def will_save_change_to_is_circle?: (?from: bool?, ?to: bool?) -> bool
+
+    def restore_is_circle!: () -> void
+
+    def clear_is_circle_change: () -> void
+
+    def is_circle_before_type_cast: () -> bool
+
+    def is_circle_for_database: () -> bool
+  end
+  include ::Friendship::GeneratedAttributeMethods
+  module ::Friendship::GeneratedAliasAttributeMethods
+    include ::Friendship::GeneratedAttributeMethods
+
+    alias id_value id
+
+    alias id_value= id=
+
+    alias id_value? id?
+
+    alias id_value_changed? id_changed?
+
+    alias id_value_change id_change
+
+    alias id_value_will_change! id_will_change!
+
+    alias id_value_was id_was
+
+    alias id_value_previously_changed? id_previously_changed?
+
+    alias id_value_previous_change id_previous_change
+
+    alias id_value_previously_was id_previously_was
+
+    alias id_value_before_last_save id_before_last_save
+
+    alias id_value_change_to_be_saved id_change_to_be_saved
+
+    alias id_value_in_database id_in_database
+
+    alias saved_change_to_id_value saved_change_to_id
+
+    alias saved_change_to_id_value? saved_change_to_id?
+
+    alias will_save_change_to_id_value? will_save_change_to_id?
+
+    alias restore_id_value! restore_id!
+
+    alias clear_id_value_change clear_id_change
+
+    alias id_value_before_type_cast id_before_type_cast
+
+    alias id_value_for_database id_for_database
+  end
+  include ::Friendship::GeneratedAliasAttributeMethods
+
+  module ::Friendship::GeneratedAssociationMethods
+  end
+  include ::Friendship::GeneratedAssociationMethods
+
+  module ::Friendship::GeneratedRelationMethods
+  end
+
+  class ::Friendship::ActiveRecord_Relation < ::ActiveRecord::Relation
+    include ::Enumerable[::Friendship]
+    include ::Friendship::GeneratedRelationMethods
+    include ::ActiveRecord::Relation::Methods[::Friendship, ::String]
+  end
+
+  class ::Friendship::ActiveRecord_Associations_CollectionProxy < ::ActiveRecord::Associations::CollectionProxy
+    include ::Enumerable[::Friendship]
+    include ::Friendship::GeneratedRelationMethods
+    include ::ActiveRecord::Relation::Methods[::Friendship, ::String]
+
+    def build: (?::ActiveRecord::Associations::CollectionProxy::_EachPair attributes) ?{ () -> untyped } -> ::Friendship
+             | (::Array[::ActiveRecord::Associations::CollectionProxy::_EachPair] attributes) ?{ () -> untyped } -> ::Array[::Friendship]
+    def create: (?::ActiveRecord::Associations::CollectionProxy::_EachPair attributes) ?{ () -> untyped } -> ::Friendship
+              | (::Array[::ActiveRecord::Associations::CollectionProxy::_EachPair] attributes) ?{ () -> untyped } -> ::Array[::Friendship]
+    def create!: (?::ActiveRecord::Associations::CollectionProxy::_EachPair attributes) ?{ () -> untyped } -> ::Friendship
+               | (::Array[::ActiveRecord::Associations::CollectionProxy::_EachPair] attributes) ?{ () -> untyped } -> ::Array[::Friendship]
+    def reload: () -> ::Array[::Friendship]
+
+    def replace: (::Array[::Friendship]) -> void
+    def delete: (*::Friendship | ::String) -> ::Array[::Friendship]
+    def destroy: (*::Friendship | ::String) -> ::Array[::Friendship]
+    def <<: (*::Friendship | ::Array[::Friendship]) -> self
+    def prepend: (*::Friendship | ::Array[::Friendship]) -> self
+  end
+end
+
+class ::ApplicationRecord < ::ActiveRecord::Base
+end

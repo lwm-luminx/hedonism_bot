@@ -28,7 +28,7 @@ module Types
 
       if folder_id
         folder = GlobalID.parse(folder_id).model_id
-        @photos = @photos.where(photo_people: { photos: { folder_date: folder } })
+        @photos = @photos.where(photo_faces: { photos: { folder_date: folder } })
       end
 
       @photos

@@ -990,7 +990,7 @@
             },
             {
               "name": "photoFaceUpdate",
-              "description": "Updates a Photo by id",
+              "description": "Updates a PhotoTake by id",
               "args": [
                 {
                   "name": "id",
@@ -1352,7 +1352,7 @@
             },
             {
               "name": "folder",
-              "description": "Folder containing the photo",
+              "description": "Album containing the photo",
               "args": [],
               "type": {
                 "kind": "OBJECT",

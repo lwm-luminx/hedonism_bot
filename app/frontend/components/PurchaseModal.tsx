@@ -98,7 +98,7 @@ export function PurchaseModal({
       >
         {/* Header */}
         <div
-          className="px-6 pt-5 pb-4 border-b"
+          className="border-b px-6 pt-5 pb-4"
           style={{ borderColor: "var(--border)" }}
         >
           <DialogTitle
@@ -112,10 +112,10 @@ export function PurchaseModal({
               ? "Purchase Complete"
               : step === "payment"
                 ? "Secure Checkout"
-                : "Purchase Photo"}
+                : "Purchase PhotoTake"}
           </DialogTitle>
           <p
-            className="text-xs mt-1"
+            className="mt-1 text-xs"
             style={{
               color: "var(--muted-foreground)",
               fontFamily: "'DM Mono', monospace",
@@ -126,10 +126,10 @@ export function PurchaseModal({
         </div>
 
         {step === "review" && (
-          <div className="p-6 flex flex-col gap-5">
+          <div className="flex flex-col gap-5 p-6">
             <div className="flex gap-4">
               <div
-                className="w-24 h-24 overflow-hidden shrink-0"
+                className="h-24 w-24 shrink-0 overflow-hidden"
                 style={{
                   borderRadius: "var(--radius-sm)",
                   border: "1px solid var(--border)",
@@ -138,7 +138,7 @@ export function PurchaseModal({
                 <ImageWithFallback
                   src={data.node!.previewUrl!}
                   alt={data.node!.alternateDescription ?? "A gallery photo"}
-                  className="w-full h-full object-cover"
+                  className="h-full w-full object-cover"
                 />
               </div>
               <div className="flex flex-col justify-center gap-1">
@@ -172,7 +172,7 @@ export function PurchaseModal({
               </div>
             </div>
             <Separator style={{ background: "var(--border)" }} />
-            <div className="flex justify-between items-center">
+            <div className="flex items-center justify-between">
               <span
                 style={{
                   fontFamily: "'Inter', sans-serif",
@@ -202,19 +202,19 @@ export function PurchaseModal({
               }}
               onClick={() => setStep("payment")}
             >
-              <CreditCard className="w-4 h-4 mr-2" />
+              <CreditCard className="mr-2 h-4 w-4" />
               Continue to Payment
             </Button>
           </div>
         )}
 
         {step === "payment" && (
-          <div className="p-6 flex flex-col gap-4">
+          <div className="flex flex-col gap-4 p-6">
             <div className="flex flex-col gap-3">
               <div>
                 <Label
                   htmlFor="name"
-                  className="text-xs mb-1.5 block"
+                  className="mb-1.5 block text-xs"
                   style={{
                     color: "var(--muted-foreground)",
                     fontFamily: "'DM Mono', monospace",
@@ -239,7 +239,7 @@ export function PurchaseModal({
               <div>
                 <Label
                   htmlFor="card"
-                  className="text-xs mb-1.5 block"
+                  className="mb-1.5 block text-xs"
                   style={{
                     color: "var(--muted-foreground)",
                     fontFamily: "'DM Mono', monospace",
@@ -265,7 +265,7 @@ export function PurchaseModal({
                 <div>
                   <Label
                     htmlFor="expiry"
-                    className="text-xs mb-1.5 block"
+                    className="mb-1.5 block text-xs"
                     style={{
                       color: "var(--muted-foreground)",
                       fontFamily: "'DM Mono', monospace",
@@ -290,7 +290,7 @@ export function PurchaseModal({
                 <div>
                   <Label
                     htmlFor="cvc"
-                    className="text-xs mb-1.5 block"
+                    className="mb-1.5 block text-xs"
                     style={{
                       color: "var(--muted-foreground)",
                       fontFamily: "'DM Mono', monospace",
@@ -317,7 +317,7 @@ export function PurchaseModal({
               </div>
             </div>
             <Separator style={{ background: "var(--border)" }} />
-            <div className="flex justify-between items-center">
+            <div className="flex items-center justify-between">
               <span
                 style={{
                   fontFamily: "'Inter', sans-serif",
@@ -358,7 +358,7 @@ export function PurchaseModal({
               {processing ? (
                 <span className="flex items-center gap-2">
                   <svg
-                    className="animate-spin w-4 h-4"
+                    className="h-4 w-4 animate-spin"
                     viewBox="0 0 24 24"
                     fill="none"
                   >
@@ -380,7 +380,7 @@ export function PurchaseModal({
                 </span>
               ) : (
                 <>
-                  <Lock className="w-4 h-4 mr-2" />
+                  <Lock className="mr-2 h-4 w-4" />
                   Pay $1
                 </>
               )}
@@ -392,19 +392,19 @@ export function PurchaseModal({
                 fontFamily: "'DM Mono', monospace",
               }}
             >
-              <Lock className="w-3 h-3 inline mr-1" />
+              <Lock className="mr-1 inline h-3 w-3" />
               Secured by Stripe · No data stored
             </p>
           </div>
         )}
 
         {step === "success" && (
-          <div className="p-6 flex flex-col items-center gap-5 text-center">
+          <div className="flex flex-col items-center gap-5 p-6 text-center">
             <div
-              className="w-14 h-14 rounded-full flex items-center justify-center"
+              className="flex h-14 w-14 items-center justify-center rounded-full"
               style={{ background: "rgba(201,169,110,0.15)" }}
             >
-              <Check className="w-7 h-7" style={{ color: "var(--primary)" }} />
+              <Check className="h-7 w-7" style={{ color: "var(--primary)" }} />
             </div>
             <div>
               <p
@@ -437,7 +437,7 @@ export function PurchaseModal({
               }}
               onClick={handleClose}
             >
-              <Download className="w-4 h-4 mr-2" />
+              <Download className="mr-2 h-4 w-4" />
               Download Original
             </Button>
             <button

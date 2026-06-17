@@ -14,7 +14,7 @@ class PhotoMetadataJob < ApplicationJob
       MiniExiftool.new(file)
     end
 
-    logger.info "Photo Metadata => #{data.to_hash}"
+    logger.info "PhotoTake Metadata => #{data.to_hash}"
 
     photo.exif_metadata = data.to_hash
     photo.taken_at = data.date_time_original

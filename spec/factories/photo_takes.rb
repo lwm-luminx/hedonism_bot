@@ -1,7 +1,7 @@
 FactoryBot.define do
   sequence(:image_file) { |n| "DSC0000#{(n % 6) + 1}" }
 
-  factory :photo do
+  factory :photo_take do
     transient do
       file { generate(:image_file) }
     end

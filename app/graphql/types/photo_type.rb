@@ -8,7 +8,7 @@ module Types
     field :filename, String, null: false, description: "Filename of the photo"
     field :file_size_bytes, Integer
     field :event_name, String, null: true, description: "Name of the event associated with the photo"
-    field :folder, Types::FolderType, null: true, description: "Folder containing the photo"
+    field :folder, Types::FolderType, null: true, description: "Album containing the photo"
     field :faces, Types::FaceType.connection_type, null: false, description: "Faces in the photo"
     field :is_purchased, Boolean, null: false, description: "Whether the photo has been purchased"
     field :preview_url, String, null: true, description: "URL to a preview image of the photo"
@@ -36,7 +36,7 @@ module Types
     end
 
     def faces
-      @object.photo_people
+      @object.photo_faces
     end
 
     def is_purchased

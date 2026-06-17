@@ -1,5 +1,5 @@
 FactoryBot.define do
-  factory :photo_person do
+  factory :photo_face do
     photo { create(:photo) }
     confidence { 0.95 }
     arc_face_embedding { (1..512).map { rand(-1.0..1.0) } }

@@ -11,7 +11,7 @@ class ClusterFacesJob < ApplicationJob
       metric: "euclidean" # Distance metric
     )
 
-    people = {} #: Hash[String, Person]
+    people = {} #: Hash[String, Face]
 
     photo_embeddings = PhotoPerson.where("confidence > ?", 0.9).to_h { |p| [ p, p.arc_face_embedding ] }
     clusters = hdbscan.fit_predict(photo_embeddings.values)

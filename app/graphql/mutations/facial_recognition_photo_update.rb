@@ -2,7 +2,7 @@
 
 module Mutations
   class FacialRecognitionPhotoUpdate < BaseMutation
-    description "Updates a Photo by id"
+    description "Updates a PhotoTake by id"
 
     field :photo, ::Types::PhotoType, null: false
 
