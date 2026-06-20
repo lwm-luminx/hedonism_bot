@@ -3,7 +3,7 @@ class Face < ApplicationRecord
   has_many :photo_faces, dependent: :nullify
   has_many :photo_takes, through: :photo_faces
 
-  scope :for_photographer, ->(photographer) { includes(photo_faces: :photo).joins(photo_faces: :photo).where(photo_faces: { photos: { photographer_id: photographer } }) }
+  scope :for_photographer, ->(photographer) { includes(photo_faces: :photo).joins(photo_faces: :photo).where(photo_faces: { photo_faces: { photo: { photographer_id: photographer } } }) }
   scope :with_embedding, -> { where.not(embedding: nil) }
   scope :with_preview_image, -> { includes(photo_faces: { face_image_attachment: :blob }) }
 

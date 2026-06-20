@@ -5,7 +5,6 @@ class Venue < ApplicationRecord
 
   has_one :page, dependent: :destroy
 
-  has_one :photo_take, dependent: :destroy
   has_many :events, lambda {
     where("start_at > ? OR end_at > ?", DateTime.now, DateTime.now).order(start_at: :asc)
   }, dependent: :destroy, inverse_of: :venue

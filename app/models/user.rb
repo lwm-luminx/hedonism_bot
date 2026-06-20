@@ -12,7 +12,6 @@ class User < ApplicationRecord
   has_many :audience_users, dependent: :destroy
   has_many :audiences, dependent: :destroy, through: :audience_users
 
-  belongs_to :venue
   has_many :user_rsvps, dependent: :destroy
 
   def update_from(graph)

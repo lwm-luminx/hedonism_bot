@@ -626,30 +626,12 @@ class ::Page < ::ApplicationRecord
   def event_ids: () -> ::Array[::String]
   def event_ids=: (::Array[::String]) -> ::Array[::String]
 
-  def venue: () -> ::Venue?
-  def venue=: (::Venue?) -> ::Venue?
-  def build_venue: (?untyped) -> ::Venue
-  def create_venue: (?untyped) -> ::Venue
-  def create_venue!: (?untyped) -> ::Venue
-  def reload_venue: () -> ::Venue?
-  def person: () -> ::Person?
-  def person=: (::Person?) -> ::Person?
-  def build_person: (?untyped) -> ::Person
-  def create_person: (?untyped) -> ::Person
-  def create_person!: (?untyped) -> ::Person
-  def reload_person: () -> ::Person?
-  def photo_take: () -> ::PhotoTake
-  def photo_take=: (::PhotoTake?) -> ::PhotoTake?
-  def reload_photo_take: () -> ::PhotoTake?
-  def build_photo_take: (?untyped) -> ::PhotoTake
-  def create_photo_take: (?untyped) -> ::PhotoTake
-  def create_photo_take!: (?untyped) -> ::PhotoTake
-  def cover_photo: () -> ::PhotoTake
-  def cover_photo=: (::PhotoTake?) -> ::PhotoTake?
-  def reload_cover_photo: () -> ::PhotoTake?
-  def build_cover_photo: (?untyped) -> ::PhotoTake
-  def create_cover_photo: (?untyped) -> ::PhotoTake
-  def create_cover_photo!: (?untyped) -> ::PhotoTake
+  def cover_image: () -> ::Image
+  def cover_image=: (::Image?) -> ::Image?
+  def reload_cover_image: () -> ::Image?
+  def build_cover_image: (?untyped) -> ::Image
+  def create_cover_image: (?untyped) -> ::Image
+  def create_cover_image!: (?untyped) -> ::Image
 
   module ::Page::GeneratedAssociationMethods
   end
@@ -703,9 +685,5 @@ class ::Event < ::ApplicationRecord
 end
 class ::Event::ActiveRecord_Associations_CollectionProxy < ::ActiveRecord::Associations::CollectionProxy
 end
-class ::Venue < ::ApplicationRecord
-end
-class ::Person < ::ApplicationRecord
-end
-class ::PhotoTake < ::ApplicationRecord
+class ::Image < ::ApplicationRecord
 end

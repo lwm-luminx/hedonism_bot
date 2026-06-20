@@ -7,6 +7,7 @@ class HedonismBotSchema < GraphQL::Schema
   # For batch-loading (see https://graphql-ruby.org/dataloader/overview.html)
   use GraphQL::Dataloader
   use GraphQL::PersistedQueries, compiled_queries: true
+  use GraphQL::Tracing::DetailedTrace, redis: Redis.new, limit: 100
 
   # GraphQL-Ruby calls this when something goes wrong while running a query:
   def self.type_error(err, context)
@@ -45,5 +46,9 @@ class HedonismBotSchema < GraphQL::Schema
   def self.object_from_id(global_id, query_ctx)
     # For example, use Rails' GlobalID library (https://github.com/rails/globalid):
     GlobalID.find(global_id)
+  end
+
+  def self.detailed_trace?(query)
+    Rails.env.development?
   end
 end

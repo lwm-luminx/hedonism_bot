@@ -6,7 +6,7 @@ FactoryBot.define do
       file { generate(:image_file) }
     end
 
-    photographer { create(:default_photographer) }
+    photo
 
     image_hash {
       filename = Rails.root.join("spec/fixtures/#{file}.arw")
@@ -22,7 +22,6 @@ FactoryBot.define do
     original_filename { "#{file}.arw" }
 
     status { "pending" }
-    folder_date { Date.today }
     taken_at { Date.yesterday }
     content_type { "image/x-sony-arw" }
 

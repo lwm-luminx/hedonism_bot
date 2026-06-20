@@ -6,11 +6,7 @@ class Page < ApplicationRecord
   validates :name, :facebook_id, :facebook_graph, presence: true
   validates :name_override, presence: { allow_nil: true }
 
-  has_one :venue, dependent: :destroy
-  has_one :person, dependent: :destroy
-
-  belongs_to :photo_take
-  belongs_to :cover_photo, class_name: "PhotoTake"
+  belongs_to :cover_image, class_name: "Image"
 
   has_many :reviews, dependent: :destroy
 

@@ -124,9 +124,9 @@ class ::PhotoTake < ::ApplicationRecord
 
     def updated_at_for_database: () -> ::Time
 
-    def photo_id: () -> ::String
+    def photo_id: () -> ::String?
 
-    def photo_id=: (::String) -> ::String
+    def photo_id=: (::String?) -> ::String?
 
     def photo_id?: () -> bool
 
@@ -160,9 +160,9 @@ class ::PhotoTake < ::ApplicationRecord
 
     def clear_photo_id_change: () -> void
 
-    def photo_id_before_type_cast: () -> ::String
+    def photo_id_before_type_cast: () -> ::String?
 
-    def photo_id_for_database: () -> ::String
+    def photo_id_for_database: () -> ::String?
 
     def original_filename: () -> ::String?
 
@@ -638,18 +638,12 @@ class ::PhotoTake < ::ApplicationRecord
   def create_raw_image_blob: (?untyped) -> ::ActiveStorage::Blob
   def create_raw_image_blob!: (?untyped) -> ::ActiveStorage::Blob
   def reload_raw_image_blob: () -> ::ActiveStorage::Blob?
-  def photographer: () -> ::Photographer
-  def photographer=: (::Photographer?) -> ::Photographer?
-  def reload_photographer: () -> ::Photographer?
-  def build_photographer: (?untyped) -> ::Photographer
-  def create_photographer: (?untyped) -> ::Photographer
-  def create_photographer!: (?untyped) -> ::Photographer
-  def venue: () -> ::Venue?
-  def venue=: (::Venue?) -> ::Venue?
-  def reload_venue: () -> ::Venue?
-  def build_venue: (?untyped) -> ::Venue
-  def create_venue: (?untyped) -> ::Venue
-  def create_venue!: (?untyped) -> ::Venue
+  def photo: () -> ::Photo?
+  def photo=: (::Photo?) -> ::Photo?
+  def reload_photo: () -> ::Photo?
+  def build_photo: (?untyped) -> ::Photo
+  def create_photo: (?untyped) -> ::Photo
+  def create_photo!: (?untyped) -> ::Photo
 
   module ::PhotoTake::GeneratedAssociationMethods
     def raw_image: () -> ::ActiveStorage::Attached::One
@@ -669,7 +663,8 @@ class ::PhotoTake < ::ApplicationRecord
 
   def self.for_date: (untyped date) -> ::PhotoTake::ActiveRecord_Relation
   def self.processed: () -> ::PhotoTake::ActiveRecord_Relation
-  def self.with_face: (untyped person_id) -> ::PhotoTake::ActiveRecord_Relation
+  def self.with_photographer: (untyped photographer) -> ::PhotoTake::ActiveRecord_Relation
+  def self.with_face: (untyped face_id) -> ::PhotoTake::ActiveRecord_Relation
   def self.with_preview_image: () -> ::PhotoTake::ActiveRecord_Relation
   def self.with_attached_raw_image: () -> ::PhotoTake::ActiveRecord_Relation
   def self.with_attached_images: () -> ::PhotoTake::ActiveRecord_Relation
@@ -679,7 +674,9 @@ class ::PhotoTake < ::ApplicationRecord
 
     def processed: () -> ::PhotoTake::ActiveRecord_Relation
 
-    def with_face: (untyped person_id) -> ::PhotoTake::ActiveRecord_Relation
+    def with_photographer: (untyped photographer) -> ::PhotoTake::ActiveRecord_Relation
+
+    def with_face: (untyped face_id) -> ::PhotoTake::ActiveRecord_Relation
 
     def with_preview_image: () -> ::PhotoTake::ActiveRecord_Relation
 
@@ -729,7 +726,5 @@ class ::ActiveStorage::Attachment::ActiveRecord_Associations_CollectionProxy < :
 end
 class ::ActiveStorage::Blob::ActiveRecord_Associations_CollectionProxy < ::ActiveRecord::Associations::CollectionProxy
 end
-class ::Photographer < ::ApplicationRecord
-end
-class ::Venue < ::ApplicationRecord
+class ::Photo < ::ApplicationRecord
 end

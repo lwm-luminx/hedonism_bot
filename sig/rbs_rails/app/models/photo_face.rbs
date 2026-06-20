@@ -124,45 +124,45 @@ class ::PhotoFace < ::ApplicationRecord
 
     def updated_at_for_database: () -> ::Time
 
-    def photo_id: () -> ::String
+    def photo_take_id: () -> ::String
 
-    def photo_id=: (::String) -> ::String
+    def photo_take_id=: (::String) -> ::String
 
-    def photo_id?: () -> bool
+    def photo_take_id?: () -> bool
 
-    def photo_id_changed?: (?from: ::String?, ?to: ::String?) -> bool
+    def photo_take_id_changed?: (?from: ::String?, ?to: ::String?) -> bool
 
-    def photo_id_change: () -> [ ::String?, ::String? ]
+    def photo_take_id_change: () -> [ ::String?, ::String? ]
 
-    def photo_id_will_change!: () -> void
+    def photo_take_id_will_change!: () -> void
 
-    def photo_id_was: () -> ::String?
+    def photo_take_id_was: () -> ::String?
 
-    def photo_id_previously_changed?: (?from: ::String?, ?to: ::String?) -> bool
+    def photo_take_id_previously_changed?: (?from: ::String?, ?to: ::String?) -> bool
 
-    def photo_id_previous_change: () -> ::Array[::String?]?
+    def photo_take_id_previous_change: () -> ::Array[::String?]?
 
-    def photo_id_previously_was: () -> ::String?
+    def photo_take_id_previously_was: () -> ::String?
 
-    def photo_id_before_last_save: () -> ::String?
+    def photo_take_id_before_last_save: () -> ::String?
 
-    def photo_id_change_to_be_saved: () -> ::Array[::String?]?
+    def photo_take_id_change_to_be_saved: () -> ::Array[::String?]?
 
-    def photo_id_in_database: () -> ::String?
+    def photo_take_id_in_database: () -> ::String?
 
-    def saved_change_to_photo_id: () -> ::Array[::String?]?
+    def saved_change_to_photo_take_id: () -> ::Array[::String?]?
 
-    def saved_change_to_photo_id?: (?from: ::String?, ?to: ::String?) -> bool
+    def saved_change_to_photo_take_id?: (?from: ::String?, ?to: ::String?) -> bool
 
-    def will_save_change_to_photo_id?: (?from: ::String?, ?to: ::String?) -> bool
+    def will_save_change_to_photo_take_id?: (?from: ::String?, ?to: ::String?) -> bool
 
-    def restore_photo_id!: () -> void
+    def restore_photo_take_id!: () -> void
 
-    def clear_photo_id_change: () -> void
+    def clear_photo_take_id_change: () -> void
 
-    def photo_id_before_type_cast: () -> ::String
+    def photo_take_id_before_type_cast: () -> ::String
 
-    def photo_id_for_database: () -> ::String
+    def photo_take_id_for_database: () -> ::String
 
     def face_id: () -> ::String?
 
@@ -382,18 +382,18 @@ class ::PhotoFace < ::ApplicationRecord
   def create_face_image_blob: (?untyped) -> ::ActiveStorage::Blob
   def create_face_image_blob!: (?untyped) -> ::ActiveStorage::Blob
   def reload_face_image_blob: () -> ::ActiveStorage::Blob?
-  def photo_take: () -> ::PhotoTake
-  def photo_take=: (::PhotoTake?) -> ::PhotoTake?
-  def reload_photo_take: () -> ::PhotoTake?
-  def build_photo_take: (?untyped) -> ::PhotoTake
-  def create_photo_take: (?untyped) -> ::PhotoTake
-  def create_photo_take!: (?untyped) -> ::PhotoTake
   def face: () -> ::Face?
   def face=: (::Face?) -> ::Face?
   def reload_face: () -> ::Face?
   def build_face: (?untyped) -> ::Face
   def create_face: (?untyped) -> ::Face
   def create_face!: (?untyped) -> ::Face
+  def photo_take: () -> ::PhotoTake
+  def photo_take=: (::PhotoTake?) -> ::PhotoTake?
+  def reload_photo_take: () -> ::PhotoTake?
+  def build_photo_take: (?untyped) -> ::PhotoTake
+  def create_photo_take: (?untyped) -> ::PhotoTake
+  def create_photo_take!: (?untyped) -> ::PhotoTake
 
   module ::PhotoFace::GeneratedAssociationMethods
     def face_image: () -> ::ActiveStorage::Attached::One
@@ -445,7 +445,7 @@ end
 
 class ::ApplicationRecord < ::ActiveRecord::Base
 end
-class ::PhotoTake < ::ApplicationRecord
-end
 class ::Face < ::ApplicationRecord
+end
+class ::PhotoTake < ::ApplicationRecord
 end

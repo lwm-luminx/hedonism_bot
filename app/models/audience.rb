@@ -5,5 +5,5 @@ class Audience < ApplicationRecord
   has_many :audience_domains, dependent: :destroy
   has_many :users, dependent: :nullify, through: :audience_users
 
-  validates :hostname, :production_facebook_id, presence: true
+  validates :subdomain, presence: true
 end

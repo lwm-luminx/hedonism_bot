@@ -27,8 +27,7 @@ class PhotoTake < ApplicationRecord
     png: { mime_type: "image/png", variant: :png }
   }
 
-  belongs_to :photographer
-  belongs_to :venue, optional: true
+  belongs_to :photo, optional: true
 
   has_many :photo_faces, dependent: :destroy
   has_many :faces, through: :photo_faces
@@ -39,11 +38,12 @@ class PhotoTake < ApplicationRecord
   validates :status, inclusion: { in: STATUSES }
   validates_uniqueness_of :image_hash
 
-  validates :original_filename, :photographer_id, :content_type, :file_size_bytes, presence: true
+  validates :original_filename, :content_type, :file_size_bytes, presence: true
 
   scope :for_date, ->(date) { where(folder_date: date) }
   scope :processed, -> { where(status: "processed") }
-  scope :with_face, ->(person_id) { includes(:people).where(people: { id: person_id }) }
+  scope :with_photographer, ->(photographer) { includes(photo: :album).where(photos: { albums: { photographer: photographer } }) }
+  scope :with_face, ->(face_id) { includes(:faces).where(faces: { id: face_id }) }
   scope :with_preview_image, -> { includes(images_attachments: :blob).joins(images_attachments: :blob).where(blob: { content_type: "image/jpeg" }) }
 
   # Group photos by the date they were taken (folder_date), newest day first.

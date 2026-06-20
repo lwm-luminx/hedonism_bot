@@ -5,7 +5,7 @@ RSpec.describe Types::PhotoType, type: :graphql do
     mock_photographer
   end
 
-  let_it_be(:photos) { create_list(:photo, 5) }
+  let_it_be(:photos) { create_list(:photo_take, 5) }
 
   let(:query) do
     <<~GQL

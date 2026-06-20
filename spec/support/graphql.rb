@@ -31,3 +31,12 @@ module GraphQLHelpers
     response.to_h["errors"]
   end
 end
+
+RSpec.configure do |config|
+  config.after(:each, type: :graphql) do |example|
+    if example.exception
+      # rubocop:disable RSpec/Output
+      ap @response
+    end
+  end
+end

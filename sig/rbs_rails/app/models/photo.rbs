@@ -249,6 +249,17 @@ class ::Photo < ::ApplicationRecord
     alias id_value_for_database id_for_database
   end
   include ::Photo::GeneratedAliasAttributeMethods
+  def photo_takes: () -> ::PhotoTake::ActiveRecord_Associations_CollectionProxy
+  def photo_takes=: (::PhotoTake::ActiveRecord_Associations_CollectionProxy | ::Array[::PhotoTake]) -> (::PhotoTake::ActiveRecord_Associations_CollectionProxy | ::Array[::PhotoTake])
+  def photo_take_ids: () -> ::Array[::String]
+  def photo_take_ids=: (::Array[::String]) -> ::Array[::String]
+
+  def album: () -> ::Album
+  def album=: (::Album?) -> ::Album?
+  def reload_album: () -> ::Album?
+  def build_album: (?untyped) -> ::Album
+  def create_album: (?untyped) -> ::Album
+  def create_album!: (?untyped) -> ::Album
 
   module ::Photo::GeneratedAssociationMethods
   end
@@ -285,4 +296,10 @@ class ::Photo < ::ApplicationRecord
 end
 
 class ::ApplicationRecord < ::ActiveRecord::Base
+end
+class ::PhotoTake < ::ApplicationRecord
+end
+class ::PhotoTake::ActiveRecord_Associations_CollectionProxy < ::ActiveRecord::Associations::CollectionProxy
+end
+class ::Album < ::ApplicationRecord
 end

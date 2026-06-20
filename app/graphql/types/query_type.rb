@@ -53,7 +53,7 @@ module Types
     end
 
     def photos(face_id: nil, folder_id: nil)
-      photos = Photo.where(photographer: photographer).with_preview_image
+      photos = PhotoTake.with_photographer(photographer).with_preview_image
 
       if face_id
         face = GlobalID.parse(face_id).model_id

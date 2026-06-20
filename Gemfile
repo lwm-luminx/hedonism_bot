@@ -27,7 +27,7 @@ gem "async"
 gem "async-redis"
 gem "redis"
 gem "pg_search"
-gem "clusterkit"
+gem "clusterkit", "~> 0.3.1.pre.3"
 
 # Use Active Model has_secure_password [https://guides.rubyonrails.org/active_model_basics.html#securepassword]
 gem "bcrypt", "~> 3.1.7"
@@ -67,10 +67,15 @@ gem "stripe"
 gem "rack-cors"
 
 gem "koala"
+gem "pundit"
+gem "omniauth-facebook"
 gem "graphql"
 gem "graphql-persisted_queries"
 
 group :development, :test do
+  gem "pry-rails"
+  gem "google-protobuf"
+  gem "awesome_print"
   gem "graphiql-rails"
 
   # Static Typing

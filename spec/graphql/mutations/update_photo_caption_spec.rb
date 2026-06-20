@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe Mutations::CaptionPhotoUpdate, type: :graphql do
+RSpec.describe Mutations::UpdatePhotoCaption, type: :graphql do
   before do
     mock_photographer
   end
@@ -10,13 +10,13 @@ RSpec.describe Mutations::CaptionPhotoUpdate, type: :graphql do
   end
 
   let(:photo_id) do
-    create(:photo, photographer: photographer).to_gid_param
+    create(:photo_take).to_gid_param
   end
 
   let(:update_query) do
     <<~GQL
       mutation($id: ID!) {
-        photoCaptionUpdate(id: $id, caption: "New Caption", description: "Some description") {
+        updatePhotoCaption(id: $id, caption: "New Caption", description: "Some description") {
           photo {
             id
             caption
@@ -32,7 +32,7 @@ RSpec.describe Mutations::CaptionPhotoUpdate, type: :graphql do
     end
 
     it "updates a caption" do
-      expect(data[:photoCaptionUpdate][:photo][:id]).to eq(photo_id)
+      expect(data[:updatePhotoCaption][:photo][:id]).to eq(photo_id)
     end
   end
 end

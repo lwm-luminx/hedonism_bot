@@ -1,16 +1,6 @@
-class Album
-  include ActiveModel::API
-  include GlobalID::Identification
+class Album < ApplicationRecord
+  belongs_to :photographer
 
-  attr_accessor :id, :photos
-
-  def initialize(id, photos)
-    @id = id
-    @photos = photos || []
-  end
-
-  def self.find(id)
-    photos = Photo.where(folder_date: id).to_a
-    new(id, photos)
-  end
+  has_many :photos
+  has_many :photo_takes, through: :photos
 end

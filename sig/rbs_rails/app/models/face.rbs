@@ -164,9 +164,9 @@ class ::Face < ::ApplicationRecord
 
     def photographer_id_for_database: () -> ::String
 
-    def user_id: () -> ::String
+    def user_id: () -> ::String?
 
-    def user_id=: (::String) -> ::String
+    def user_id=: (::String?) -> ::String?
 
     def user_id?: () -> bool
 
@@ -200,9 +200,9 @@ class ::Face < ::ApplicationRecord
 
     def clear_user_id_change: () -> void
 
-    def user_id_before_type_cast: () -> ::String
+    def user_id_before_type_cast: () -> ::String?
 
-    def user_id_for_database: () -> ::String
+    def user_id_for_database: () -> ::String?
 
     def arc_face_embedding: () -> untyped
 

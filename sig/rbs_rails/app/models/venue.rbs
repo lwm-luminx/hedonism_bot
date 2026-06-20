@@ -464,12 +464,6 @@ class ::Venue < ::ApplicationRecord
   def create_page: (?untyped) -> ::Page
   def create_page!: (?untyped) -> ::Page
   def reload_page: () -> ::Page?
-  def photo_take: () -> ::PhotoTake?
-  def photo_take=: (::PhotoTake?) -> ::PhotoTake?
-  def build_photo_take: (?untyped) -> ::PhotoTake
-  def create_photo_take: (?untyped) -> ::PhotoTake
-  def create_photo_take!: (?untyped) -> ::PhotoTake
-  def reload_photo_take: () -> ::PhotoTake?
   def location: () -> ::Location
   def location=: (::Location?) -> ::Location?
   def reload_location: () -> ::Location?
@@ -534,8 +528,6 @@ end
 class ::User::ActiveRecord_Associations_CollectionProxy < ::ActiveRecord::Associations::CollectionProxy
 end
 class ::Page < ::ApplicationRecord
-end
-class ::PhotoTake < ::ApplicationRecord
 end
 class ::Location < ::ApplicationRecord
 end

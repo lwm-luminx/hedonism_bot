@@ -60,7 +60,18 @@ class CreatePhotos < ActiveRecord::Migration[8.1]
       t.float :price
     end
 
-    create_table :photo_promise, id: :uuid, default: "gen_random_uuid()" do |t|
+    create_table :photo_promises, id: :uuid, default: 'gen_random_uuid()' do |t|
+      t.timestamps
+
+      # Required on create
+      t.references :photographer, type: :uuid, null: false, foreign_key: true, index: true
+
+      # Optional on create
+      t.references :venue, type: :uuid, null: true, foreign_key: true, index: true
+      t.references :event, type: :uuid, null: true, foreign_key: true, index: true
+    end
+
+    create_table :photo_promise_files, id: :uuid, default: "gen_random_uuid()" do |t|
       t.timestamps
 
       t.string :status, null: false, default: "pending"
@@ -70,10 +81,7 @@ class CreatePhotos < ActiveRecord::Migration[8.1]
       t.binary :image_hash, null: true, default: nil
       t.integer :file_size_bytes, null: true, default: nil
 
-      t.references :venue, type: :uuid, null: false, foreign_key: true, index: true
-      t.references :photographer, type: :uuid, null: false, foreign_key: true, index: true
-      t.references :event, type: :uuid, null: true, foreign_key: true, index: true
-      t.references :photo, type: :uuid, null: true, foreign_key: true, index: true
+      t.references :photo_promise, type: :uuid, null: false, foreign_key: true, index: true
 
       t.index [ :image_hash ], name: "photo_takes_image_hash_index"
     end
@@ -81,7 +89,7 @@ class CreatePhotos < ActiveRecord::Migration[8.1]
     create_table :photo_takes, id: :uuid, default: 'gen_random_uuid()' do |t|
       t.timestamps
 
-      t.references :photo, type: :uuid, null: false, foreign_key: true, index: true
+      t.references :photo, type: :uuid, null: true, foreign_key: true, index: true
 
       t.string :original_filename
       t.string :content_type

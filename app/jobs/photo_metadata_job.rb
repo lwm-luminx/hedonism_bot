@@ -5,8 +5,8 @@ class PhotoMetadataJob < ApplicationJob
   include Rails.application.routes.url_helpers
   queue_as :default
 
-  def perform(photo)
-    image = photo.raw_image
+  def perform(photo_take)
+    image = photo_take.raw_image
 
     return unless image
 
@@ -16,9 +16,8 @@ class PhotoMetadataJob < ApplicationJob
 
     logger.info "PhotoTake Metadata => #{data.to_hash}"
 
-    photo.exif_metadata = data.to_hash
-    photo.taken_at = data.date_time_original
-    photo.folder_date = (photo.taken_at - 3.hours).to_date
-    photo.save
+    photo_take.exif_metadata = data.to_hash
+    photo_take.taken_at = data.date_time_original
+    photo_take.save
   end
 end

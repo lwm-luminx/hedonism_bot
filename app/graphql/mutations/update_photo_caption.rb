@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 module Mutations
-  class CaptionPhotoUpdate < BaseMutation
+  class UpdatePhotoCaption < BaseMutation
     description "Updates a caption_photo by id"
 
     field :photo, Types::PhotoType, null: false

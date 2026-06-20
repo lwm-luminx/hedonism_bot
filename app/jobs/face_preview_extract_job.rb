@@ -2,7 +2,7 @@ class FacePreviewExtractJob < ApplicationJob
   queue_as :default
 
   def perform(person_photo)
-    face_image = person_photo.photo.images.filter { |img| "image/jpeg" == img.content_type }.first
+    face_image = person_photo.photo_take.images.filter { |img| "image/jpeg" == img.content_type }.first
 
     face_image.open do |file|
       processed_file = ImageProcessing::Vips

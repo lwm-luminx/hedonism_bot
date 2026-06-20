@@ -1,5 +1,5 @@
 FactoryBot.define do
-  factory :face do
+  factory :photo_promise do
     photographer
   end
 end

@@ -188,7 +188,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_06_17_083638) do
     t.datetime "created_at", null: false
     t.uuid "photographer_id", null: false
     t.datetime "updated_at", null: false
-    t.uuid "user_id", null: false
+    t.uuid "user_id"
     t.index ["arc_face_embedding"], name: "index_faces_on_arc_face_embedding", opclass: :vector_cosine_ops, using: :hnsw
     t.index ["photographer_id"], name: "index_faces_on_photographer_id"
     t.index ["user_id"], name: "index_faces_on_user_id"
@@ -314,32 +314,37 @@ ActiveRecord::Schema[8.1].define(version: 2026_06_17_083638) do
     t.float "confidence"
     t.datetime "created_at", null: false
     t.uuid "face_id"
-    t.uuid "photo_id", null: false
+    t.uuid "photo_take_id", null: false
     t.datetime "updated_at", null: false
     t.index ["arc_face_embedding"], name: "index_photo_faces_on_arc_face_embedding", opclass: :vector_cosine_ops, using: :hnsw
-    t.index ["face_id", "photo_id"], name: "photo_faces_takes_face_id_index", unique: true
+    t.index ["face_id", "photo_take_id"], name: "photo_faces_takes_face_id_index", unique: true
     t.index ["face_id"], name: "index_photo_faces_on_face_id"
-    t.index ["photo_id"], name: "index_photo_faces_on_photo_id"
+    t.index ["photo_take_id"], name: "index_photo_faces_on_photo_take_id"
   end
 
-  create_table "photo_promise", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+  create_table "photo_promise_files", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.string "content_type", null: false
     t.datetime "created_at", null: false
-    t.uuid "event_id"
     t.integer "file_size_bytes"
     t.binary "image_hash"
     t.string "original_filename", null: false
-    t.uuid "photo_id"
-    t.uuid "photographer_id", null: false
+    t.uuid "photo_promise_id", null: false
     t.string "status", default: "pending", null: false
     t.datetime "updated_at", null: false
     t.string "upload_url", null: false
-    t.uuid "venue_id", null: false
-    t.index ["event_id"], name: "index_photo_promise_on_event_id"
     t.index ["image_hash"], name: "photo_takes_image_hash_index"
-    t.index ["photo_id"], name: "index_photo_promise_on_photo_id"
-    t.index ["photographer_id"], name: "index_photo_promise_on_photographer_id"
-    t.index ["venue_id"], name: "index_photo_promise_on_venue_id"
+    t.index ["photo_promise_id"], name: "index_photo_promise_files_on_photo_promise_id"
+  end
+
+  create_table "photo_promises", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.uuid "event_id"
+    t.uuid "photographer_id", null: false
+    t.datetime "updated_at", null: false
+    t.uuid "venue_id"
+    t.index ["event_id"], name: "index_photo_promises_on_event_id"
+    t.index ["photographer_id"], name: "index_photo_promises_on_photographer_id"
+    t.index ["venue_id"], name: "index_photo_promises_on_venue_id"
   end
 
   create_table "photo_takes", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
@@ -352,7 +357,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_06_17_083638) do
     t.bigint "file_size_bytes"
     t.binary "image_hash"
     t.string "original_filename"
-    t.uuid "photo_id", null: false
+    t.uuid "photo_id"
     t.string "status", default: "pending", null: false
     t.datetime "taken_at"
     t.datetime "updated_at", null: false
@@ -648,11 +653,11 @@ ActiveRecord::Schema[8.1].define(version: 2026_06_17_083638) do
   add_foreign_key "person_locales", "locales"
   add_foreign_key "person_locales", "people"
   add_foreign_key "photo_faces", "faces", on_delete: :nullify
-  add_foreign_key "photo_faces", "photos"
-  add_foreign_key "photo_promise", "events"
-  add_foreign_key "photo_promise", "photographers"
-  add_foreign_key "photo_promise", "photos"
-  add_foreign_key "photo_promise", "venues"
+  add_foreign_key "photo_faces", "photo_takes"
+  add_foreign_key "photo_promise_files", "photo_promises"
+  add_foreign_key "photo_promises", "events"
+  add_foreign_key "photo_promises", "photographers"
+  add_foreign_key "photo_promises", "venues"
   add_foreign_key "photo_takes", "photos"
   add_foreign_key "photographer_admins", "photographers"
   add_foreign_key "photographer_admins", "users"

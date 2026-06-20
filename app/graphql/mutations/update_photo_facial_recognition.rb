@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 module Mutations
-  class FacialRecognitionPhotoUpdate < BaseMutation
+  class UpdatePhotoFacialRecognition < BaseMutation
     description "Updates a PhotoTake by id"
 
     field :photo, ::Types::PhotoType, null: false

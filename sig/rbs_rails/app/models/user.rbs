@@ -800,12 +800,6 @@ class ::User < ::ApplicationRecord
   def create_photo_take: (?untyped) -> ::PhotoTake
   def create_photo_take!: (?untyped) -> ::PhotoTake
   def reload_photo_take: () -> ::PhotoTake?
-  def venue: () -> ::Venue
-  def venue=: (::Venue?) -> ::Venue?
-  def reload_venue: () -> ::Venue?
-  def build_venue: (?untyped) -> ::Venue
-  def create_venue: (?untyped) -> ::Venue
-  def create_venue!: (?untyped) -> ::Venue
 
   module ::User::GeneratedAssociationMethods
   end
@@ -868,6 +862,4 @@ end
 class ::UserRsvp::ActiveRecord_Associations_CollectionProxy < ::ActiveRecord::Associations::CollectionProxy
 end
 class ::PhotoTake < ::ApplicationRecord
-end
-class ::Venue < ::ApplicationRecord
 end
