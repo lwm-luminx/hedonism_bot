@@ -44,6 +44,86 @@ class ::Application < ::ApplicationRecord
 
     def id_for_database: () -> ::String
 
+    def api_key: () -> ::String
+
+    def api_key=: (::String) -> ::String
+
+    def api_key?: () -> bool
+
+    def api_key_changed?: (?from: ::String?, ?to: ::String?) -> bool
+
+    def api_key_change: () -> [ ::String?, ::String? ]
+
+    def api_key_will_change!: () -> void
+
+    def api_key_was: () -> ::String?
+
+    def api_key_previously_changed?: (?from: ::String?, ?to: ::String?) -> bool
+
+    def api_key_previous_change: () -> ::Array[::String?]?
+
+    def api_key_previously_was: () -> ::String?
+
+    def api_key_before_last_save: () -> ::String?
+
+    def api_key_change_to_be_saved: () -> ::Array[::String?]?
+
+    def api_key_in_database: () -> ::String?
+
+    def saved_change_to_api_key: () -> ::Array[::String?]?
+
+    def saved_change_to_api_key?: (?from: ::String?, ?to: ::String?) -> bool
+
+    def will_save_change_to_api_key?: (?from: ::String?, ?to: ::String?) -> bool
+
+    def restore_api_key!: () -> void
+
+    def clear_api_key_change: () -> void
+
+    def api_key_before_type_cast: () -> ::String
+
+    def api_key_for_database: () -> ::String
+
+    def audience_id: () -> ::String
+
+    def audience_id=: (::String) -> ::String
+
+    def audience_id?: () -> bool
+
+    def audience_id_changed?: (?from: ::String?, ?to: ::String?) -> bool
+
+    def audience_id_change: () -> [ ::String?, ::String? ]
+
+    def audience_id_will_change!: () -> void
+
+    def audience_id_was: () -> ::String?
+
+    def audience_id_previously_changed?: (?from: ::String?, ?to: ::String?) -> bool
+
+    def audience_id_previous_change: () -> ::Array[::String?]?
+
+    def audience_id_previously_was: () -> ::String?
+
+    def audience_id_before_last_save: () -> ::String?
+
+    def audience_id_change_to_be_saved: () -> ::Array[::String?]?
+
+    def audience_id_in_database: () -> ::String?
+
+    def saved_change_to_audience_id: () -> ::Array[::String?]?
+
+    def saved_change_to_audience_id?: (?from: ::String?, ?to: ::String?) -> bool
+
+    def will_save_change_to_audience_id?: (?from: ::String?, ?to: ::String?) -> bool
+
+    def restore_audience_id!: () -> void
+
+    def clear_audience_id_change: () -> void
+
+    def audience_id_before_type_cast: () -> ::String
+
+    def audience_id_for_database: () -> ::String
+
     def created_at: () -> ::ActiveSupport::TimeWithZone
 
     def created_at=: (::ActiveSupport::TimeWithZone) -> ::ActiveSupport::TimeWithZone
@@ -123,86 +203,6 @@ class ::Application < ::ApplicationRecord
     def updated_at_before_type_cast: () -> ::Time
 
     def updated_at_for_database: () -> ::Time
-
-    def audience_id: () -> ::String
-
-    def audience_id=: (::String) -> ::String
-
-    def audience_id?: () -> bool
-
-    def audience_id_changed?: (?from: ::String?, ?to: ::String?) -> bool
-
-    def audience_id_change: () -> [ ::String?, ::String? ]
-
-    def audience_id_will_change!: () -> void
-
-    def audience_id_was: () -> ::String?
-
-    def audience_id_previously_changed?: (?from: ::String?, ?to: ::String?) -> bool
-
-    def audience_id_previous_change: () -> ::Array[::String?]?
-
-    def audience_id_previously_was: () -> ::String?
-
-    def audience_id_before_last_save: () -> ::String?
-
-    def audience_id_change_to_be_saved: () -> ::Array[::String?]?
-
-    def audience_id_in_database: () -> ::String?
-
-    def saved_change_to_audience_id: () -> ::Array[::String?]?
-
-    def saved_change_to_audience_id?: (?from: ::String?, ?to: ::String?) -> bool
-
-    def will_save_change_to_audience_id?: (?from: ::String?, ?to: ::String?) -> bool
-
-    def restore_audience_id!: () -> void
-
-    def clear_audience_id_change: () -> void
-
-    def audience_id_before_type_cast: () -> ::String
-
-    def audience_id_for_database: () -> ::String
-
-    def api_key: () -> ::String
-
-    def api_key=: (::String) -> ::String
-
-    def api_key?: () -> bool
-
-    def api_key_changed?: (?from: ::String?, ?to: ::String?) -> bool
-
-    def api_key_change: () -> [ ::String?, ::String? ]
-
-    def api_key_will_change!: () -> void
-
-    def api_key_was: () -> ::String?
-
-    def api_key_previously_changed?: (?from: ::String?, ?to: ::String?) -> bool
-
-    def api_key_previous_change: () -> ::Array[::String?]?
-
-    def api_key_previously_was: () -> ::String?
-
-    def api_key_before_last_save: () -> ::String?
-
-    def api_key_change_to_be_saved: () -> ::Array[::String?]?
-
-    def api_key_in_database: () -> ::String?
-
-    def saved_change_to_api_key: () -> ::Array[::String?]?
-
-    def saved_change_to_api_key?: (?from: ::String?, ?to: ::String?) -> bool
-
-    def will_save_change_to_api_key?: (?from: ::String?, ?to: ::String?) -> bool
-
-    def restore_api_key!: () -> void
-
-    def clear_api_key_change: () -> void
-
-    def api_key_before_type_cast: () -> ::String
-
-    def api_key_for_database: () -> ::String
   end
   include ::Application::GeneratedAttributeMethods
   module ::Application::GeneratedAliasAttributeMethods

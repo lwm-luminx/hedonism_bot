@@ -6,6 +6,7 @@ class Page < ApplicationRecord
   validates :name, :facebook_id, :facebook_graph, presence: true
   validates :name_override, presence: { allow_nil: true }
 
+  belongs_to :image, class_name: "Image"
   belongs_to :cover_image, class_name: "Image"
 
   has_many :reviews, dependent: :destroy
@@ -24,26 +25,27 @@ class Page < ApplicationRecord
   def update_photo(photo)
     image_url = photo["url"]
 
-    self.photo = Photo.for_url image_url
+    self.photo = Image.for_url image_url
     save
   end
 
-  def update_graph(graph, options = {})
+  def update_graph(graph, photo: nil)
     self.facebook_graph = graph
     self.name = graph["name"]
 
-    self.photo = Photo.for_url(options[:photo_data]["url"]) if options[:photo_data]
+    self.image = Image.for_url(photo["url"]) if photo
 
-    return unless graph["cover"]
+    return self unless graph["cover"]
 
     cover_url = graph["cover"]["source"]
 
-    self.cover_photo = Photo.for_url cover_url
+    self.cover_image = Image.for_url cover_url if cover_url
+    self.save
+    self
   end
 
   def self.default_client
-    @default_client ||= Koala::Facebook::API.new(app_id: Rails.application.credentials.facebook.app_id,
-                                                 app_secret: Rails.application.credentials.facebook.secret)
+    @default_client ||= Koala::Facebook::API.new(app_id: Rails.application.credentials.facebook.app_id, app_secret: Rails.application.credentials.facebook.secret)
   end
 
   def self.page_for_facebook_id(client, facebook_id, hidden: false)

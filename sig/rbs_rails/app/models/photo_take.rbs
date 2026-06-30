@@ -44,165 +44,45 @@ class ::PhotoTake < ::ApplicationRecord
 
     def id_for_database: () -> ::String
 
-    def created_at: () -> ::ActiveSupport::TimeWithZone
+    def caption: () -> ::String?
 
-    def created_at=: (::ActiveSupport::TimeWithZone) -> ::ActiveSupport::TimeWithZone
+    def caption=: (::String?) -> ::String?
 
-    def created_at?: () -> bool
+    def caption?: () -> bool
 
-    def created_at_changed?: (?from: ::ActiveSupport::TimeWithZone?, ?to: ::ActiveSupport::TimeWithZone?) -> bool
+    def caption_changed?: (?from: ::String?, ?to: ::String?) -> bool
 
-    def created_at_change: () -> [ ::ActiveSupport::TimeWithZone?, ::ActiveSupport::TimeWithZone? ]
+    def caption_change: () -> [ ::String?, ::String? ]
 
-    def created_at_will_change!: () -> void
+    def caption_will_change!: () -> void
 
-    def created_at_was: () -> ::ActiveSupport::TimeWithZone?
+    def caption_was: () -> ::String?
 
-    def created_at_previously_changed?: (?from: ::ActiveSupport::TimeWithZone?, ?to: ::ActiveSupport::TimeWithZone?) -> bool
+    def caption_previously_changed?: (?from: ::String?, ?to: ::String?) -> bool
 
-    def created_at_previous_change: () -> ::Array[::ActiveSupport::TimeWithZone?]?
+    def caption_previous_change: () -> ::Array[::String?]?
 
-    def created_at_previously_was: () -> ::ActiveSupport::TimeWithZone?
+    def caption_previously_was: () -> ::String?
 
-    def created_at_before_last_save: () -> ::ActiveSupport::TimeWithZone?
+    def caption_before_last_save: () -> ::String?
 
-    def created_at_change_to_be_saved: () -> ::Array[::ActiveSupport::TimeWithZone?]?
+    def caption_change_to_be_saved: () -> ::Array[::String?]?
 
-    def created_at_in_database: () -> ::ActiveSupport::TimeWithZone?
+    def caption_in_database: () -> ::String?
 
-    def saved_change_to_created_at: () -> ::Array[::ActiveSupport::TimeWithZone?]?
+    def saved_change_to_caption: () -> ::Array[::String?]?
 
-    def saved_change_to_created_at?: (?from: ::ActiveSupport::TimeWithZone?, ?to: ::ActiveSupport::TimeWithZone?) -> bool
+    def saved_change_to_caption?: (?from: ::String?, ?to: ::String?) -> bool
 
-    def will_save_change_to_created_at?: (?from: ::ActiveSupport::TimeWithZone?, ?to: ::ActiveSupport::TimeWithZone?) -> bool
+    def will_save_change_to_caption?: (?from: ::String?, ?to: ::String?) -> bool
 
-    def restore_created_at!: () -> void
+    def restore_caption!: () -> void
 
-    def clear_created_at_change: () -> void
+    def clear_caption_change: () -> void
 
-    def created_at_before_type_cast: () -> ::Time
+    def caption_before_type_cast: () -> ::String?
 
-    def created_at_for_database: () -> ::Time
-
-    def updated_at: () -> ::ActiveSupport::TimeWithZone
-
-    def updated_at=: (::ActiveSupport::TimeWithZone) -> ::ActiveSupport::TimeWithZone
-
-    def updated_at?: () -> bool
-
-    def updated_at_changed?: (?from: ::ActiveSupport::TimeWithZone?, ?to: ::ActiveSupport::TimeWithZone?) -> bool
-
-    def updated_at_change: () -> [ ::ActiveSupport::TimeWithZone?, ::ActiveSupport::TimeWithZone? ]
-
-    def updated_at_will_change!: () -> void
-
-    def updated_at_was: () -> ::ActiveSupport::TimeWithZone?
-
-    def updated_at_previously_changed?: (?from: ::ActiveSupport::TimeWithZone?, ?to: ::ActiveSupport::TimeWithZone?) -> bool
-
-    def updated_at_previous_change: () -> ::Array[::ActiveSupport::TimeWithZone?]?
-
-    def updated_at_previously_was: () -> ::ActiveSupport::TimeWithZone?
-
-    def updated_at_before_last_save: () -> ::ActiveSupport::TimeWithZone?
-
-    def updated_at_change_to_be_saved: () -> ::Array[::ActiveSupport::TimeWithZone?]?
-
-    def updated_at_in_database: () -> ::ActiveSupport::TimeWithZone?
-
-    def saved_change_to_updated_at: () -> ::Array[::ActiveSupport::TimeWithZone?]?
-
-    def saved_change_to_updated_at?: (?from: ::ActiveSupport::TimeWithZone?, ?to: ::ActiveSupport::TimeWithZone?) -> bool
-
-    def will_save_change_to_updated_at?: (?from: ::ActiveSupport::TimeWithZone?, ?to: ::ActiveSupport::TimeWithZone?) -> bool
-
-    def restore_updated_at!: () -> void
-
-    def clear_updated_at_change: () -> void
-
-    def updated_at_before_type_cast: () -> ::Time
-
-    def updated_at_for_database: () -> ::Time
-
-    def photo_id: () -> ::String?
-
-    def photo_id=: (::String?) -> ::String?
-
-    def photo_id?: () -> bool
-
-    def photo_id_changed?: (?from: ::String?, ?to: ::String?) -> bool
-
-    def photo_id_change: () -> [ ::String?, ::String? ]
-
-    def photo_id_will_change!: () -> void
-
-    def photo_id_was: () -> ::String?
-
-    def photo_id_previously_changed?: (?from: ::String?, ?to: ::String?) -> bool
-
-    def photo_id_previous_change: () -> ::Array[::String?]?
-
-    def photo_id_previously_was: () -> ::String?
-
-    def photo_id_before_last_save: () -> ::String?
-
-    def photo_id_change_to_be_saved: () -> ::Array[::String?]?
-
-    def photo_id_in_database: () -> ::String?
-
-    def saved_change_to_photo_id: () -> ::Array[::String?]?
-
-    def saved_change_to_photo_id?: (?from: ::String?, ?to: ::String?) -> bool
-
-    def will_save_change_to_photo_id?: (?from: ::String?, ?to: ::String?) -> bool
-
-    def restore_photo_id!: () -> void
-
-    def clear_photo_id_change: () -> void
-
-    def photo_id_before_type_cast: () -> ::String?
-
-    def photo_id_for_database: () -> ::String?
-
-    def original_filename: () -> ::String?
-
-    def original_filename=: (::String?) -> ::String?
-
-    def original_filename?: () -> bool
-
-    def original_filename_changed?: (?from: ::String?, ?to: ::String?) -> bool
-
-    def original_filename_change: () -> [ ::String?, ::String? ]
-
-    def original_filename_will_change!: () -> void
-
-    def original_filename_was: () -> ::String?
-
-    def original_filename_previously_changed?: (?from: ::String?, ?to: ::String?) -> bool
-
-    def original_filename_previous_change: () -> ::Array[::String?]?
-
-    def original_filename_previously_was: () -> ::String?
-
-    def original_filename_before_last_save: () -> ::String?
-
-    def original_filename_change_to_be_saved: () -> ::Array[::String?]?
-
-    def original_filename_in_database: () -> ::String?
-
-    def saved_change_to_original_filename: () -> ::Array[::String?]?
-
-    def saved_change_to_original_filename?: (?from: ::String?, ?to: ::String?) -> bool
-
-    def will_save_change_to_original_filename?: (?from: ::String?, ?to: ::String?) -> bool
-
-    def restore_original_filename!: () -> void
-
-    def clear_original_filename_change: () -> void
-
-    def original_filename_before_type_cast: () -> ::String?
-
-    def original_filename_for_database: () -> ::String?
+    def caption_for_database: () -> ::String?
 
     def content_type: () -> ::String?
 
@@ -244,165 +124,85 @@ class ::PhotoTake < ::ApplicationRecord
 
     def content_type_for_database: () -> ::String?
 
-    def file_size_bytes: () -> ::Integer?
+    def created_at: () -> ::ActiveSupport::TimeWithZone
 
-    def file_size_bytes=: (::Integer?) -> ::Integer?
+    def created_at=: (::ActiveSupport::TimeWithZone) -> ::ActiveSupport::TimeWithZone
 
-    def file_size_bytes?: () -> bool
+    def created_at?: () -> bool
 
-    def file_size_bytes_changed?: (?from: ::Integer?, ?to: ::Integer?) -> bool
+    def created_at_changed?: (?from: ::ActiveSupport::TimeWithZone?, ?to: ::ActiveSupport::TimeWithZone?) -> bool
 
-    def file_size_bytes_change: () -> [ ::Integer?, ::Integer? ]
+    def created_at_change: () -> [ ::ActiveSupport::TimeWithZone?, ::ActiveSupport::TimeWithZone? ]
 
-    def file_size_bytes_will_change!: () -> void
+    def created_at_will_change!: () -> void
 
-    def file_size_bytes_was: () -> ::Integer?
+    def created_at_was: () -> ::ActiveSupport::TimeWithZone?
 
-    def file_size_bytes_previously_changed?: (?from: ::Integer?, ?to: ::Integer?) -> bool
+    def created_at_previously_changed?: (?from: ::ActiveSupport::TimeWithZone?, ?to: ::ActiveSupport::TimeWithZone?) -> bool
 
-    def file_size_bytes_previous_change: () -> ::Array[::Integer?]?
+    def created_at_previous_change: () -> ::Array[::ActiveSupport::TimeWithZone?]?
 
-    def file_size_bytes_previously_was: () -> ::Integer?
+    def created_at_previously_was: () -> ::ActiveSupport::TimeWithZone?
 
-    def file_size_bytes_before_last_save: () -> ::Integer?
+    def created_at_before_last_save: () -> ::ActiveSupport::TimeWithZone?
 
-    def file_size_bytes_change_to_be_saved: () -> ::Array[::Integer?]?
+    def created_at_change_to_be_saved: () -> ::Array[::ActiveSupport::TimeWithZone?]?
 
-    def file_size_bytes_in_database: () -> ::Integer?
+    def created_at_in_database: () -> ::ActiveSupport::TimeWithZone?
 
-    def saved_change_to_file_size_bytes: () -> ::Array[::Integer?]?
+    def saved_change_to_created_at: () -> ::Array[::ActiveSupport::TimeWithZone?]?
 
-    def saved_change_to_file_size_bytes?: (?from: ::Integer?, ?to: ::Integer?) -> bool
+    def saved_change_to_created_at?: (?from: ::ActiveSupport::TimeWithZone?, ?to: ::ActiveSupport::TimeWithZone?) -> bool
 
-    def will_save_change_to_file_size_bytes?: (?from: ::Integer?, ?to: ::Integer?) -> bool
+    def will_save_change_to_created_at?: (?from: ::ActiveSupport::TimeWithZone?, ?to: ::ActiveSupport::TimeWithZone?) -> bool
 
-    def restore_file_size_bytes!: () -> void
+    def restore_created_at!: () -> void
 
-    def clear_file_size_bytes_change: () -> void
+    def clear_created_at_change: () -> void
 
-    def file_size_bytes_before_type_cast: () -> ::Integer?
+    def created_at_before_type_cast: () -> ::Time
 
-    def file_size_bytes_for_database: () -> ::Integer?
+    def created_at_for_database: () -> ::Time
 
-    def image_hash: () -> ::String?
+    def description: () -> ::String?
 
-    def image_hash=: (::String?) -> ::String?
+    def description=: (::String?) -> ::String?
 
-    def image_hash?: () -> bool
+    def description?: () -> bool
 
-    def image_hash_changed?: (?from: ::String?, ?to: ::String?) -> bool
+    def description_changed?: (?from: ::String?, ?to: ::String?) -> bool
 
-    def image_hash_change: () -> [ ::String?, ::String? ]
+    def description_change: () -> [ ::String?, ::String? ]
 
-    def image_hash_will_change!: () -> void
+    def description_will_change!: () -> void
 
-    def image_hash_was: () -> ::String?
+    def description_was: () -> ::String?
 
-    def image_hash_previously_changed?: (?from: ::String?, ?to: ::String?) -> bool
+    def description_previously_changed?: (?from: ::String?, ?to: ::String?) -> bool
 
-    def image_hash_previous_change: () -> ::Array[::String?]?
+    def description_previous_change: () -> ::Array[::String?]?
 
-    def image_hash_previously_was: () -> ::String?
+    def description_previously_was: () -> ::String?
 
-    def image_hash_before_last_save: () -> ::String?
+    def description_before_last_save: () -> ::String?
 
-    def image_hash_change_to_be_saved: () -> ::Array[::String?]?
+    def description_change_to_be_saved: () -> ::Array[::String?]?
 
-    def image_hash_in_database: () -> ::String?
+    def description_in_database: () -> ::String?
 
-    def saved_change_to_image_hash: () -> ::Array[::String?]?
+    def saved_change_to_description: () -> ::Array[::String?]?
 
-    def saved_change_to_image_hash?: (?from: ::String?, ?to: ::String?) -> bool
+    def saved_change_to_description?: (?from: ::String?, ?to: ::String?) -> bool
 
-    def will_save_change_to_image_hash?: (?from: ::String?, ?to: ::String?) -> bool
+    def will_save_change_to_description?: (?from: ::String?, ?to: ::String?) -> bool
 
-    def restore_image_hash!: () -> void
+    def restore_description!: () -> void
 
-    def clear_image_hash_change: () -> void
+    def clear_description_change: () -> void
 
-    def image_hash_before_type_cast: () -> ::String?
+    def description_before_type_cast: () -> ::String?
 
-    def image_hash_for_database: () -> ::String?
-
-    def taken_at: () -> ::ActiveSupport::TimeWithZone?
-
-    def taken_at=: (::ActiveSupport::TimeWithZone?) -> ::ActiveSupport::TimeWithZone?
-
-    def taken_at?: () -> bool
-
-    def taken_at_changed?: (?from: ::ActiveSupport::TimeWithZone?, ?to: ::ActiveSupport::TimeWithZone?) -> bool
-
-    def taken_at_change: () -> [ ::ActiveSupport::TimeWithZone?, ::ActiveSupport::TimeWithZone? ]
-
-    def taken_at_will_change!: () -> void
-
-    def taken_at_was: () -> ::ActiveSupport::TimeWithZone?
-
-    def taken_at_previously_changed?: (?from: ::ActiveSupport::TimeWithZone?, ?to: ::ActiveSupport::TimeWithZone?) -> bool
-
-    def taken_at_previous_change: () -> ::Array[::ActiveSupport::TimeWithZone?]?
-
-    def taken_at_previously_was: () -> ::ActiveSupport::TimeWithZone?
-
-    def taken_at_before_last_save: () -> ::ActiveSupport::TimeWithZone?
-
-    def taken_at_change_to_be_saved: () -> ::Array[::ActiveSupport::TimeWithZone?]?
-
-    def taken_at_in_database: () -> ::ActiveSupport::TimeWithZone?
-
-    def saved_change_to_taken_at: () -> ::Array[::ActiveSupport::TimeWithZone?]?
-
-    def saved_change_to_taken_at?: (?from: ::ActiveSupport::TimeWithZone?, ?to: ::ActiveSupport::TimeWithZone?) -> bool
-
-    def will_save_change_to_taken_at?: (?from: ::ActiveSupport::TimeWithZone?, ?to: ::ActiveSupport::TimeWithZone?) -> bool
-
-    def restore_taken_at!: () -> void
-
-    def clear_taken_at_change: () -> void
-
-    def taken_at_before_type_cast: () -> ::Time?
-
-    def taken_at_for_database: () -> ::Time?
-
-    def status: () -> ::String
-
-    def status=: (::String) -> ::String
-
-    def status?: () -> bool
-
-    def status_changed?: (?from: ::String?, ?to: ::String?) -> bool
-
-    def status_change: () -> [ ::String?, ::String? ]
-
-    def status_will_change!: () -> void
-
-    def status_was: () -> ::String?
-
-    def status_previously_changed?: (?from: ::String?, ?to: ::String?) -> bool
-
-    def status_previous_change: () -> ::Array[::String?]?
-
-    def status_previously_was: () -> ::String?
-
-    def status_before_last_save: () -> ::String?
-
-    def status_change_to_be_saved: () -> ::Array[::String?]?
-
-    def status_in_database: () -> ::String?
-
-    def saved_change_to_status: () -> ::Array[::String?]?
-
-    def saved_change_to_status?: (?from: ::String?, ?to: ::String?) -> bool
-
-    def will_save_change_to_status?: (?from: ::String?, ?to: ::String?) -> bool
-
-    def restore_status!: () -> void
-
-    def clear_status_change: () -> void
-
-    def status_before_type_cast: () -> ::String
-
-    def status_for_database: () -> ::String
+    def description_for_database: () -> ::String?
 
     def exif_metadata: () -> untyped
 
@@ -484,85 +284,285 @@ class ::PhotoTake < ::ApplicationRecord
 
     def facial_metadata_for_database: () -> untyped?
 
-    def caption: () -> ::String?
+    def file_size_bytes: () -> ::Integer?
 
-    def caption=: (::String?) -> ::String?
+    def file_size_bytes=: (::Integer?) -> ::Integer?
 
-    def caption?: () -> bool
+    def file_size_bytes?: () -> bool
 
-    def caption_changed?: (?from: ::String?, ?to: ::String?) -> bool
+    def file_size_bytes_changed?: (?from: ::Integer?, ?to: ::Integer?) -> bool
 
-    def caption_change: () -> [ ::String?, ::String? ]
+    def file_size_bytes_change: () -> [ ::Integer?, ::Integer? ]
 
-    def caption_will_change!: () -> void
+    def file_size_bytes_will_change!: () -> void
 
-    def caption_was: () -> ::String?
+    def file_size_bytes_was: () -> ::Integer?
 
-    def caption_previously_changed?: (?from: ::String?, ?to: ::String?) -> bool
+    def file_size_bytes_previously_changed?: (?from: ::Integer?, ?to: ::Integer?) -> bool
 
-    def caption_previous_change: () -> ::Array[::String?]?
+    def file_size_bytes_previous_change: () -> ::Array[::Integer?]?
 
-    def caption_previously_was: () -> ::String?
+    def file_size_bytes_previously_was: () -> ::Integer?
 
-    def caption_before_last_save: () -> ::String?
+    def file_size_bytes_before_last_save: () -> ::Integer?
 
-    def caption_change_to_be_saved: () -> ::Array[::String?]?
+    def file_size_bytes_change_to_be_saved: () -> ::Array[::Integer?]?
 
-    def caption_in_database: () -> ::String?
+    def file_size_bytes_in_database: () -> ::Integer?
 
-    def saved_change_to_caption: () -> ::Array[::String?]?
+    def saved_change_to_file_size_bytes: () -> ::Array[::Integer?]?
 
-    def saved_change_to_caption?: (?from: ::String?, ?to: ::String?) -> bool
+    def saved_change_to_file_size_bytes?: (?from: ::Integer?, ?to: ::Integer?) -> bool
 
-    def will_save_change_to_caption?: (?from: ::String?, ?to: ::String?) -> bool
+    def will_save_change_to_file_size_bytes?: (?from: ::Integer?, ?to: ::Integer?) -> bool
 
-    def restore_caption!: () -> void
+    def restore_file_size_bytes!: () -> void
 
-    def clear_caption_change: () -> void
+    def clear_file_size_bytes_change: () -> void
 
-    def caption_before_type_cast: () -> ::String?
+    def file_size_bytes_before_type_cast: () -> ::Integer?
 
-    def caption_for_database: () -> ::String?
+    def file_size_bytes_for_database: () -> ::Integer?
 
-    def description: () -> ::String?
+    def image_hash: () -> ::String?
 
-    def description=: (::String?) -> ::String?
+    def image_hash=: (::String?) -> ::String?
 
-    def description?: () -> bool
+    def image_hash?: () -> bool
 
-    def description_changed?: (?from: ::String?, ?to: ::String?) -> bool
+    def image_hash_changed?: (?from: ::String?, ?to: ::String?) -> bool
 
-    def description_change: () -> [ ::String?, ::String? ]
+    def image_hash_change: () -> [ ::String?, ::String? ]
 
-    def description_will_change!: () -> void
+    def image_hash_will_change!: () -> void
 
-    def description_was: () -> ::String?
+    def image_hash_was: () -> ::String?
 
-    def description_previously_changed?: (?from: ::String?, ?to: ::String?) -> bool
+    def image_hash_previously_changed?: (?from: ::String?, ?to: ::String?) -> bool
 
-    def description_previous_change: () -> ::Array[::String?]?
+    def image_hash_previous_change: () -> ::Array[::String?]?
 
-    def description_previously_was: () -> ::String?
+    def image_hash_previously_was: () -> ::String?
 
-    def description_before_last_save: () -> ::String?
+    def image_hash_before_last_save: () -> ::String?
 
-    def description_change_to_be_saved: () -> ::Array[::String?]?
+    def image_hash_change_to_be_saved: () -> ::Array[::String?]?
 
-    def description_in_database: () -> ::String?
+    def image_hash_in_database: () -> ::String?
 
-    def saved_change_to_description: () -> ::Array[::String?]?
+    def saved_change_to_image_hash: () -> ::Array[::String?]?
 
-    def saved_change_to_description?: (?from: ::String?, ?to: ::String?) -> bool
+    def saved_change_to_image_hash?: (?from: ::String?, ?to: ::String?) -> bool
 
-    def will_save_change_to_description?: (?from: ::String?, ?to: ::String?) -> bool
+    def will_save_change_to_image_hash?: (?from: ::String?, ?to: ::String?) -> bool
 
-    def restore_description!: () -> void
+    def restore_image_hash!: () -> void
 
-    def clear_description_change: () -> void
+    def clear_image_hash_change: () -> void
 
-    def description_before_type_cast: () -> ::String?
+    def image_hash_before_type_cast: () -> ::String?
 
-    def description_for_database: () -> ::String?
+    def image_hash_for_database: () -> ::String?
+
+    def original_filename: () -> ::String?
+
+    def original_filename=: (::String?) -> ::String?
+
+    def original_filename?: () -> bool
+
+    def original_filename_changed?: (?from: ::String?, ?to: ::String?) -> bool
+
+    def original_filename_change: () -> [ ::String?, ::String? ]
+
+    def original_filename_will_change!: () -> void
+
+    def original_filename_was: () -> ::String?
+
+    def original_filename_previously_changed?: (?from: ::String?, ?to: ::String?) -> bool
+
+    def original_filename_previous_change: () -> ::Array[::String?]?
+
+    def original_filename_previously_was: () -> ::String?
+
+    def original_filename_before_last_save: () -> ::String?
+
+    def original_filename_change_to_be_saved: () -> ::Array[::String?]?
+
+    def original_filename_in_database: () -> ::String?
+
+    def saved_change_to_original_filename: () -> ::Array[::String?]?
+
+    def saved_change_to_original_filename?: (?from: ::String?, ?to: ::String?) -> bool
+
+    def will_save_change_to_original_filename?: (?from: ::String?, ?to: ::String?) -> bool
+
+    def restore_original_filename!: () -> void
+
+    def clear_original_filename_change: () -> void
+
+    def original_filename_before_type_cast: () -> ::String?
+
+    def original_filename_for_database: () -> ::String?
+
+    def photo_id: () -> ::String?
+
+    def photo_id=: (::String?) -> ::String?
+
+    def photo_id?: () -> bool
+
+    def photo_id_changed?: (?from: ::String?, ?to: ::String?) -> bool
+
+    def photo_id_change: () -> [ ::String?, ::String? ]
+
+    def photo_id_will_change!: () -> void
+
+    def photo_id_was: () -> ::String?
+
+    def photo_id_previously_changed?: (?from: ::String?, ?to: ::String?) -> bool
+
+    def photo_id_previous_change: () -> ::Array[::String?]?
+
+    def photo_id_previously_was: () -> ::String?
+
+    def photo_id_before_last_save: () -> ::String?
+
+    def photo_id_change_to_be_saved: () -> ::Array[::String?]?
+
+    def photo_id_in_database: () -> ::String?
+
+    def saved_change_to_photo_id: () -> ::Array[::String?]?
+
+    def saved_change_to_photo_id?: (?from: ::String?, ?to: ::String?) -> bool
+
+    def will_save_change_to_photo_id?: (?from: ::String?, ?to: ::String?) -> bool
+
+    def restore_photo_id!: () -> void
+
+    def clear_photo_id_change: () -> void
+
+    def photo_id_before_type_cast: () -> ::String?
+
+    def photo_id_for_database: () -> ::String?
+
+    def status: () -> ::String
+
+    def status=: (::String) -> ::String
+
+    def status?: () -> bool
+
+    def status_changed?: (?from: ::String?, ?to: ::String?) -> bool
+
+    def status_change: () -> [ ::String?, ::String? ]
+
+    def status_will_change!: () -> void
+
+    def status_was: () -> ::String?
+
+    def status_previously_changed?: (?from: ::String?, ?to: ::String?) -> bool
+
+    def status_previous_change: () -> ::Array[::String?]?
+
+    def status_previously_was: () -> ::String?
+
+    def status_before_last_save: () -> ::String?
+
+    def status_change_to_be_saved: () -> ::Array[::String?]?
+
+    def status_in_database: () -> ::String?
+
+    def saved_change_to_status: () -> ::Array[::String?]?
+
+    def saved_change_to_status?: (?from: ::String?, ?to: ::String?) -> bool
+
+    def will_save_change_to_status?: (?from: ::String?, ?to: ::String?) -> bool
+
+    def restore_status!: () -> void
+
+    def clear_status_change: () -> void
+
+    def status_before_type_cast: () -> ::String
+
+    def status_for_database: () -> ::String
+
+    def taken_at: () -> ::ActiveSupport::TimeWithZone?
+
+    def taken_at=: (::ActiveSupport::TimeWithZone?) -> ::ActiveSupport::TimeWithZone?
+
+    def taken_at?: () -> bool
+
+    def taken_at_changed?: (?from: ::ActiveSupport::TimeWithZone?, ?to: ::ActiveSupport::TimeWithZone?) -> bool
+
+    def taken_at_change: () -> [ ::ActiveSupport::TimeWithZone?, ::ActiveSupport::TimeWithZone? ]
+
+    def taken_at_will_change!: () -> void
+
+    def taken_at_was: () -> ::ActiveSupport::TimeWithZone?
+
+    def taken_at_previously_changed?: (?from: ::ActiveSupport::TimeWithZone?, ?to: ::ActiveSupport::TimeWithZone?) -> bool
+
+    def taken_at_previous_change: () -> ::Array[::ActiveSupport::TimeWithZone?]?
+
+    def taken_at_previously_was: () -> ::ActiveSupport::TimeWithZone?
+
+    def taken_at_before_last_save: () -> ::ActiveSupport::TimeWithZone?
+
+    def taken_at_change_to_be_saved: () -> ::Array[::ActiveSupport::TimeWithZone?]?
+
+    def taken_at_in_database: () -> ::ActiveSupport::TimeWithZone?
+
+    def saved_change_to_taken_at: () -> ::Array[::ActiveSupport::TimeWithZone?]?
+
+    def saved_change_to_taken_at?: (?from: ::ActiveSupport::TimeWithZone?, ?to: ::ActiveSupport::TimeWithZone?) -> bool
+
+    def will_save_change_to_taken_at?: (?from: ::ActiveSupport::TimeWithZone?, ?to: ::ActiveSupport::TimeWithZone?) -> bool
+
+    def restore_taken_at!: () -> void
+
+    def clear_taken_at_change: () -> void
+
+    def taken_at_before_type_cast: () -> ::Time?
+
+    def taken_at_for_database: () -> ::Time?
+
+    def updated_at: () -> ::ActiveSupport::TimeWithZone
+
+    def updated_at=: (::ActiveSupport::TimeWithZone) -> ::ActiveSupport::TimeWithZone
+
+    def updated_at?: () -> bool
+
+    def updated_at_changed?: (?from: ::ActiveSupport::TimeWithZone?, ?to: ::ActiveSupport::TimeWithZone?) -> bool
+
+    def updated_at_change: () -> [ ::ActiveSupport::TimeWithZone?, ::ActiveSupport::TimeWithZone? ]
+
+    def updated_at_will_change!: () -> void
+
+    def updated_at_was: () -> ::ActiveSupport::TimeWithZone?
+
+    def updated_at_previously_changed?: (?from: ::ActiveSupport::TimeWithZone?, ?to: ::ActiveSupport::TimeWithZone?) -> bool
+
+    def updated_at_previous_change: () -> ::Array[::ActiveSupport::TimeWithZone?]?
+
+    def updated_at_previously_was: () -> ::ActiveSupport::TimeWithZone?
+
+    def updated_at_before_last_save: () -> ::ActiveSupport::TimeWithZone?
+
+    def updated_at_change_to_be_saved: () -> ::Array[::ActiveSupport::TimeWithZone?]?
+
+    def updated_at_in_database: () -> ::ActiveSupport::TimeWithZone?
+
+    def saved_change_to_updated_at: () -> ::Array[::ActiveSupport::TimeWithZone?]?
+
+    def saved_change_to_updated_at?: (?from: ::ActiveSupport::TimeWithZone?, ?to: ::ActiveSupport::TimeWithZone?) -> bool
+
+    def will_save_change_to_updated_at?: (?from: ::ActiveSupport::TimeWithZone?, ?to: ::ActiveSupport::TimeWithZone?) -> bool
+
+    def restore_updated_at!: () -> void
+
+    def clear_updated_at_change: () -> void
+
+    def updated_at_before_type_cast: () -> ::Time
+
+    def updated_at_for_database: () -> ::Time
   end
   include ::PhotoTake::GeneratedAttributeMethods
   module ::PhotoTake::GeneratedAliasAttributeMethods
@@ -632,15 +632,20 @@ class ::PhotoTake < ::ApplicationRecord
   def create_raw_image_attachment: (?untyped) -> ::ActiveStorage::Attachment
   def create_raw_image_attachment!: (?untyped) -> ::ActiveStorage::Attachment
   def reload_raw_image_attachment: () -> ::ActiveStorage::Attachment?
+  def reset_raw_image_attachment: () -> void
   def raw_image_blob: () -> ::ActiveStorage::Blob?
   def raw_image_blob=: (::ActiveStorage::Blob?) -> ::ActiveStorage::Blob?
   def build_raw_image_blob: (?untyped) -> ::ActiveStorage::Blob
   def create_raw_image_blob: (?untyped) -> ::ActiveStorage::Blob
   def create_raw_image_blob!: (?untyped) -> ::ActiveStorage::Blob
   def reload_raw_image_blob: () -> ::ActiveStorage::Blob?
+  def reset_raw_image_blob: () -> void
   def photo: () -> ::Photo?
   def photo=: (::Photo?) -> ::Photo?
   def reload_photo: () -> ::Photo?
+  def photo_changed?: () -> bool
+  def photo_previously_changed?: () -> bool
+  def reset_photo: () -> void
   def build_photo: (?untyped) -> ::Photo
   def create_photo: (?untyped) -> ::Photo
   def create_photo!: (?untyped) -> ::Photo

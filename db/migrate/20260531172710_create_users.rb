@@ -28,7 +28,7 @@ class CreateUsers < ActiveRecord::Migration[8.1]
       t.string :first_name
       t.string :last_name
       t.string :culture
-      t.jsonb :facebook_graph
+      t.jsonb :facebook_graph, null: false, default: {}
       t.string :facebook_scopes, array: true
       t.boolean :god_mode, default: false, null: false
 

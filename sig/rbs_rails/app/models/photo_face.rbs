@@ -44,205 +44,45 @@ class ::PhotoFace < ::ApplicationRecord
 
     def id_for_database: () -> ::String
 
-    def created_at: () -> ::ActiveSupport::TimeWithZone
+    def arc_face_embedding: () -> untyped
 
-    def created_at=: (::ActiveSupport::TimeWithZone) -> ::ActiveSupport::TimeWithZone
+    def arc_face_embedding=: (untyped) -> untyped
 
-    def created_at?: () -> bool
+    def arc_face_embedding?: () -> bool
 
-    def created_at_changed?: (?from: ::ActiveSupport::TimeWithZone?, ?to: ::ActiveSupport::TimeWithZone?) -> bool
+    def arc_face_embedding_changed?: (?from: untyped, ?to: untyped) -> bool
 
-    def created_at_change: () -> [ ::ActiveSupport::TimeWithZone?, ::ActiveSupport::TimeWithZone? ]
+    def arc_face_embedding_change: () -> [ untyped, untyped ]
 
-    def created_at_will_change!: () -> void
+    def arc_face_embedding_will_change!: () -> void
 
-    def created_at_was: () -> ::ActiveSupport::TimeWithZone?
+    def arc_face_embedding_was: () -> untyped
 
-    def created_at_previously_changed?: (?from: ::ActiveSupport::TimeWithZone?, ?to: ::ActiveSupport::TimeWithZone?) -> bool
+    def arc_face_embedding_previously_changed?: (?from: untyped, ?to: untyped) -> bool
 
-    def created_at_previous_change: () -> ::Array[::ActiveSupport::TimeWithZone?]?
+    def arc_face_embedding_previous_change: () -> ::Array[untyped]?
 
-    def created_at_previously_was: () -> ::ActiveSupport::TimeWithZone?
+    def arc_face_embedding_previously_was: () -> untyped
 
-    def created_at_before_last_save: () -> ::ActiveSupport::TimeWithZone?
+    def arc_face_embedding_before_last_save: () -> untyped
 
-    def created_at_change_to_be_saved: () -> ::Array[::ActiveSupport::TimeWithZone?]?
+    def arc_face_embedding_change_to_be_saved: () -> ::Array[untyped]?
 
-    def created_at_in_database: () -> ::ActiveSupport::TimeWithZone?
+    def arc_face_embedding_in_database: () -> untyped
 
-    def saved_change_to_created_at: () -> ::Array[::ActiveSupport::TimeWithZone?]?
+    def saved_change_to_arc_face_embedding: () -> ::Array[untyped]?
 
-    def saved_change_to_created_at?: (?from: ::ActiveSupport::TimeWithZone?, ?to: ::ActiveSupport::TimeWithZone?) -> bool
+    def saved_change_to_arc_face_embedding?: (?from: untyped, ?to: untyped) -> bool
 
-    def will_save_change_to_created_at?: (?from: ::ActiveSupport::TimeWithZone?, ?to: ::ActiveSupport::TimeWithZone?) -> bool
+    def will_save_change_to_arc_face_embedding?: (?from: untyped, ?to: untyped) -> bool
 
-    def restore_created_at!: () -> void
+    def restore_arc_face_embedding!: () -> void
 
-    def clear_created_at_change: () -> void
+    def clear_arc_face_embedding_change: () -> void
 
-    def created_at_before_type_cast: () -> ::Time
+    def arc_face_embedding_before_type_cast: () -> untyped?
 
-    def created_at_for_database: () -> ::Time
-
-    def updated_at: () -> ::ActiveSupport::TimeWithZone
-
-    def updated_at=: (::ActiveSupport::TimeWithZone) -> ::ActiveSupport::TimeWithZone
-
-    def updated_at?: () -> bool
-
-    def updated_at_changed?: (?from: ::ActiveSupport::TimeWithZone?, ?to: ::ActiveSupport::TimeWithZone?) -> bool
-
-    def updated_at_change: () -> [ ::ActiveSupport::TimeWithZone?, ::ActiveSupport::TimeWithZone? ]
-
-    def updated_at_will_change!: () -> void
-
-    def updated_at_was: () -> ::ActiveSupport::TimeWithZone?
-
-    def updated_at_previously_changed?: (?from: ::ActiveSupport::TimeWithZone?, ?to: ::ActiveSupport::TimeWithZone?) -> bool
-
-    def updated_at_previous_change: () -> ::Array[::ActiveSupport::TimeWithZone?]?
-
-    def updated_at_previously_was: () -> ::ActiveSupport::TimeWithZone?
-
-    def updated_at_before_last_save: () -> ::ActiveSupport::TimeWithZone?
-
-    def updated_at_change_to_be_saved: () -> ::Array[::ActiveSupport::TimeWithZone?]?
-
-    def updated_at_in_database: () -> ::ActiveSupport::TimeWithZone?
-
-    def saved_change_to_updated_at: () -> ::Array[::ActiveSupport::TimeWithZone?]?
-
-    def saved_change_to_updated_at?: (?from: ::ActiveSupport::TimeWithZone?, ?to: ::ActiveSupport::TimeWithZone?) -> bool
-
-    def will_save_change_to_updated_at?: (?from: ::ActiveSupport::TimeWithZone?, ?to: ::ActiveSupport::TimeWithZone?) -> bool
-
-    def restore_updated_at!: () -> void
-
-    def clear_updated_at_change: () -> void
-
-    def updated_at_before_type_cast: () -> ::Time
-
-    def updated_at_for_database: () -> ::Time
-
-    def photo_take_id: () -> ::String
-
-    def photo_take_id=: (::String) -> ::String
-
-    def photo_take_id?: () -> bool
-
-    def photo_take_id_changed?: (?from: ::String?, ?to: ::String?) -> bool
-
-    def photo_take_id_change: () -> [ ::String?, ::String? ]
-
-    def photo_take_id_will_change!: () -> void
-
-    def photo_take_id_was: () -> ::String?
-
-    def photo_take_id_previously_changed?: (?from: ::String?, ?to: ::String?) -> bool
-
-    def photo_take_id_previous_change: () -> ::Array[::String?]?
-
-    def photo_take_id_previously_was: () -> ::String?
-
-    def photo_take_id_before_last_save: () -> ::String?
-
-    def photo_take_id_change_to_be_saved: () -> ::Array[::String?]?
-
-    def photo_take_id_in_database: () -> ::String?
-
-    def saved_change_to_photo_take_id: () -> ::Array[::String?]?
-
-    def saved_change_to_photo_take_id?: (?from: ::String?, ?to: ::String?) -> bool
-
-    def will_save_change_to_photo_take_id?: (?from: ::String?, ?to: ::String?) -> bool
-
-    def restore_photo_take_id!: () -> void
-
-    def clear_photo_take_id_change: () -> void
-
-    def photo_take_id_before_type_cast: () -> ::String
-
-    def photo_take_id_for_database: () -> ::String
-
-    def face_id: () -> ::String?
-
-    def face_id=: (::String?) -> ::String?
-
-    def face_id?: () -> bool
-
-    def face_id_changed?: (?from: ::String?, ?to: ::String?) -> bool
-
-    def face_id_change: () -> [ ::String?, ::String? ]
-
-    def face_id_will_change!: () -> void
-
-    def face_id_was: () -> ::String?
-
-    def face_id_previously_changed?: (?from: ::String?, ?to: ::String?) -> bool
-
-    def face_id_previous_change: () -> ::Array[::String?]?
-
-    def face_id_previously_was: () -> ::String?
-
-    def face_id_before_last_save: () -> ::String?
-
-    def face_id_change_to_be_saved: () -> ::Array[::String?]?
-
-    def face_id_in_database: () -> ::String?
-
-    def saved_change_to_face_id: () -> ::Array[::String?]?
-
-    def saved_change_to_face_id?: (?from: ::String?, ?to: ::String?) -> bool
-
-    def will_save_change_to_face_id?: (?from: ::String?, ?to: ::String?) -> bool
-
-    def restore_face_id!: () -> void
-
-    def clear_face_id_change: () -> void
-
-    def face_id_before_type_cast: () -> ::String?
-
-    def face_id_for_database: () -> ::String?
-
-    def confidence: () -> ::Float?
-
-    def confidence=: (::Float?) -> ::Float?
-
-    def confidence?: () -> bool
-
-    def confidence_changed?: (?from: ::Float?, ?to: ::Float?) -> bool
-
-    def confidence_change: () -> [ ::Float?, ::Float? ]
-
-    def confidence_will_change!: () -> void
-
-    def confidence_was: () -> ::Float?
-
-    def confidence_previously_changed?: (?from: ::Float?, ?to: ::Float?) -> bool
-
-    def confidence_previous_change: () -> ::Array[::Float?]?
-
-    def confidence_previously_was: () -> ::Float?
-
-    def confidence_before_last_save: () -> ::Float?
-
-    def confidence_change_to_be_saved: () -> ::Array[::Float?]?
-
-    def confidence_in_database: () -> ::Float?
-
-    def saved_change_to_confidence: () -> ::Array[::Float?]?
-
-    def saved_change_to_confidence?: (?from: ::Float?, ?to: ::Float?) -> bool
-
-    def will_save_change_to_confidence?: (?from: ::Float?, ?to: ::Float?) -> bool
-
-    def restore_confidence!: () -> void
-
-    def clear_confidence_change: () -> void
-
-    def confidence_before_type_cast: () -> ::Float?
-
-    def confidence_for_database: () -> ::Float?
+    def arc_face_embedding_for_database: () -> untyped?
 
     def bounding_box: () -> untyped
 
@@ -284,45 +124,205 @@ class ::PhotoFace < ::ApplicationRecord
 
     def bounding_box_for_database: () -> untyped
 
-    def arc_face_embedding: () -> untyped
+    def confidence: () -> ::Float?
 
-    def arc_face_embedding=: (untyped) -> untyped
+    def confidence=: (::Float?) -> ::Float?
 
-    def arc_face_embedding?: () -> bool
+    def confidence?: () -> bool
 
-    def arc_face_embedding_changed?: (?from: untyped, ?to: untyped) -> bool
+    def confidence_changed?: (?from: ::Float?, ?to: ::Float?) -> bool
 
-    def arc_face_embedding_change: () -> [ untyped, untyped ]
+    def confidence_change: () -> [ ::Float?, ::Float? ]
 
-    def arc_face_embedding_will_change!: () -> void
+    def confidence_will_change!: () -> void
 
-    def arc_face_embedding_was: () -> untyped
+    def confidence_was: () -> ::Float?
 
-    def arc_face_embedding_previously_changed?: (?from: untyped, ?to: untyped) -> bool
+    def confidence_previously_changed?: (?from: ::Float?, ?to: ::Float?) -> bool
 
-    def arc_face_embedding_previous_change: () -> ::Array[untyped]?
+    def confidence_previous_change: () -> ::Array[::Float?]?
 
-    def arc_face_embedding_previously_was: () -> untyped
+    def confidence_previously_was: () -> ::Float?
 
-    def arc_face_embedding_before_last_save: () -> untyped
+    def confidence_before_last_save: () -> ::Float?
 
-    def arc_face_embedding_change_to_be_saved: () -> ::Array[untyped]?
+    def confidence_change_to_be_saved: () -> ::Array[::Float?]?
 
-    def arc_face_embedding_in_database: () -> untyped
+    def confidence_in_database: () -> ::Float?
 
-    def saved_change_to_arc_face_embedding: () -> ::Array[untyped]?
+    def saved_change_to_confidence: () -> ::Array[::Float?]?
 
-    def saved_change_to_arc_face_embedding?: (?from: untyped, ?to: untyped) -> bool
+    def saved_change_to_confidence?: (?from: ::Float?, ?to: ::Float?) -> bool
 
-    def will_save_change_to_arc_face_embedding?: (?from: untyped, ?to: untyped) -> bool
+    def will_save_change_to_confidence?: (?from: ::Float?, ?to: ::Float?) -> bool
 
-    def restore_arc_face_embedding!: () -> void
+    def restore_confidence!: () -> void
 
-    def clear_arc_face_embedding_change: () -> void
+    def clear_confidence_change: () -> void
 
-    def arc_face_embedding_before_type_cast: () -> untyped?
+    def confidence_before_type_cast: () -> ::Float?
 
-    def arc_face_embedding_for_database: () -> untyped?
+    def confidence_for_database: () -> ::Float?
+
+    def created_at: () -> ::ActiveSupport::TimeWithZone
+
+    def created_at=: (::ActiveSupport::TimeWithZone) -> ::ActiveSupport::TimeWithZone
+
+    def created_at?: () -> bool
+
+    def created_at_changed?: (?from: ::ActiveSupport::TimeWithZone?, ?to: ::ActiveSupport::TimeWithZone?) -> bool
+
+    def created_at_change: () -> [ ::ActiveSupport::TimeWithZone?, ::ActiveSupport::TimeWithZone? ]
+
+    def created_at_will_change!: () -> void
+
+    def created_at_was: () -> ::ActiveSupport::TimeWithZone?
+
+    def created_at_previously_changed?: (?from: ::ActiveSupport::TimeWithZone?, ?to: ::ActiveSupport::TimeWithZone?) -> bool
+
+    def created_at_previous_change: () -> ::Array[::ActiveSupport::TimeWithZone?]?
+
+    def created_at_previously_was: () -> ::ActiveSupport::TimeWithZone?
+
+    def created_at_before_last_save: () -> ::ActiveSupport::TimeWithZone?
+
+    def created_at_change_to_be_saved: () -> ::Array[::ActiveSupport::TimeWithZone?]?
+
+    def created_at_in_database: () -> ::ActiveSupport::TimeWithZone?
+
+    def saved_change_to_created_at: () -> ::Array[::ActiveSupport::TimeWithZone?]?
+
+    def saved_change_to_created_at?: (?from: ::ActiveSupport::TimeWithZone?, ?to: ::ActiveSupport::TimeWithZone?) -> bool
+
+    def will_save_change_to_created_at?: (?from: ::ActiveSupport::TimeWithZone?, ?to: ::ActiveSupport::TimeWithZone?) -> bool
+
+    def restore_created_at!: () -> void
+
+    def clear_created_at_change: () -> void
+
+    def created_at_before_type_cast: () -> ::Time
+
+    def created_at_for_database: () -> ::Time
+
+    def face_id: () -> ::String?
+
+    def face_id=: (::String?) -> ::String?
+
+    def face_id?: () -> bool
+
+    def face_id_changed?: (?from: ::String?, ?to: ::String?) -> bool
+
+    def face_id_change: () -> [ ::String?, ::String? ]
+
+    def face_id_will_change!: () -> void
+
+    def face_id_was: () -> ::String?
+
+    def face_id_previously_changed?: (?from: ::String?, ?to: ::String?) -> bool
+
+    def face_id_previous_change: () -> ::Array[::String?]?
+
+    def face_id_previously_was: () -> ::String?
+
+    def face_id_before_last_save: () -> ::String?
+
+    def face_id_change_to_be_saved: () -> ::Array[::String?]?
+
+    def face_id_in_database: () -> ::String?
+
+    def saved_change_to_face_id: () -> ::Array[::String?]?
+
+    def saved_change_to_face_id?: (?from: ::String?, ?to: ::String?) -> bool
+
+    def will_save_change_to_face_id?: (?from: ::String?, ?to: ::String?) -> bool
+
+    def restore_face_id!: () -> void
+
+    def clear_face_id_change: () -> void
+
+    def face_id_before_type_cast: () -> ::String?
+
+    def face_id_for_database: () -> ::String?
+
+    def photo_take_id: () -> ::String
+
+    def photo_take_id=: (::String) -> ::String
+
+    def photo_take_id?: () -> bool
+
+    def photo_take_id_changed?: (?from: ::String?, ?to: ::String?) -> bool
+
+    def photo_take_id_change: () -> [ ::String?, ::String? ]
+
+    def photo_take_id_will_change!: () -> void
+
+    def photo_take_id_was: () -> ::String?
+
+    def photo_take_id_previously_changed?: (?from: ::String?, ?to: ::String?) -> bool
+
+    def photo_take_id_previous_change: () -> ::Array[::String?]?
+
+    def photo_take_id_previously_was: () -> ::String?
+
+    def photo_take_id_before_last_save: () -> ::String?
+
+    def photo_take_id_change_to_be_saved: () -> ::Array[::String?]?
+
+    def photo_take_id_in_database: () -> ::String?
+
+    def saved_change_to_photo_take_id: () -> ::Array[::String?]?
+
+    def saved_change_to_photo_take_id?: (?from: ::String?, ?to: ::String?) -> bool
+
+    def will_save_change_to_photo_take_id?: (?from: ::String?, ?to: ::String?) -> bool
+
+    def restore_photo_take_id!: () -> void
+
+    def clear_photo_take_id_change: () -> void
+
+    def photo_take_id_before_type_cast: () -> ::String
+
+    def photo_take_id_for_database: () -> ::String
+
+    def updated_at: () -> ::ActiveSupport::TimeWithZone
+
+    def updated_at=: (::ActiveSupport::TimeWithZone) -> ::ActiveSupport::TimeWithZone
+
+    def updated_at?: () -> bool
+
+    def updated_at_changed?: (?from: ::ActiveSupport::TimeWithZone?, ?to: ::ActiveSupport::TimeWithZone?) -> bool
+
+    def updated_at_change: () -> [ ::ActiveSupport::TimeWithZone?, ::ActiveSupport::TimeWithZone? ]
+
+    def updated_at_will_change!: () -> void
+
+    def updated_at_was: () -> ::ActiveSupport::TimeWithZone?
+
+    def updated_at_previously_changed?: (?from: ::ActiveSupport::TimeWithZone?, ?to: ::ActiveSupport::TimeWithZone?) -> bool
+
+    def updated_at_previous_change: () -> ::Array[::ActiveSupport::TimeWithZone?]?
+
+    def updated_at_previously_was: () -> ::ActiveSupport::TimeWithZone?
+
+    def updated_at_before_last_save: () -> ::ActiveSupport::TimeWithZone?
+
+    def updated_at_change_to_be_saved: () -> ::Array[::ActiveSupport::TimeWithZone?]?
+
+    def updated_at_in_database: () -> ::ActiveSupport::TimeWithZone?
+
+    def saved_change_to_updated_at: () -> ::Array[::ActiveSupport::TimeWithZone?]?
+
+    def saved_change_to_updated_at?: (?from: ::ActiveSupport::TimeWithZone?, ?to: ::ActiveSupport::TimeWithZone?) -> bool
+
+    def will_save_change_to_updated_at?: (?from: ::ActiveSupport::TimeWithZone?, ?to: ::ActiveSupport::TimeWithZone?) -> bool
+
+    def restore_updated_at!: () -> void
+
+    def clear_updated_at_change: () -> void
+
+    def updated_at_before_type_cast: () -> ::Time
+
+    def updated_at_for_database: () -> ::Time
   end
   include ::PhotoFace::GeneratedAttributeMethods
   module ::PhotoFace::GeneratedAliasAttributeMethods
@@ -376,21 +376,29 @@ class ::PhotoFace < ::ApplicationRecord
   def create_face_image_attachment: (?untyped) -> ::ActiveStorage::Attachment
   def create_face_image_attachment!: (?untyped) -> ::ActiveStorage::Attachment
   def reload_face_image_attachment: () -> ::ActiveStorage::Attachment?
+  def reset_face_image_attachment: () -> void
   def face_image_blob: () -> ::ActiveStorage::Blob?
   def face_image_blob=: (::ActiveStorage::Blob?) -> ::ActiveStorage::Blob?
   def build_face_image_blob: (?untyped) -> ::ActiveStorage::Blob
   def create_face_image_blob: (?untyped) -> ::ActiveStorage::Blob
   def create_face_image_blob!: (?untyped) -> ::ActiveStorage::Blob
   def reload_face_image_blob: () -> ::ActiveStorage::Blob?
+  def reset_face_image_blob: () -> void
   def face: () -> ::Face?
   def face=: (::Face?) -> ::Face?
   def reload_face: () -> ::Face?
+  def face_changed?: () -> bool
+  def face_previously_changed?: () -> bool
+  def reset_face: () -> void
   def build_face: (?untyped) -> ::Face
   def create_face: (?untyped) -> ::Face
   def create_face!: (?untyped) -> ::Face
   def photo_take: () -> ::PhotoTake
   def photo_take=: (::PhotoTake?) -> ::PhotoTake?
   def reload_photo_take: () -> ::PhotoTake?
+  def photo_take_changed?: () -> bool
+  def photo_take_previously_changed?: () -> bool
+  def reset_photo_take: () -> void
   def build_photo_take: (?untyped) -> ::PhotoTake
   def create_photo_take: (?untyped) -> ::PhotoTake
   def create_photo_take!: (?untyped) -> ::PhotoTake

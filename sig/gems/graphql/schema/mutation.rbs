@@ -1,7 +1,0 @@
-module GraphQL
-  class Schema
-    class Mutation
-      def self.description: (String) -> void
-    end
-  end
-end

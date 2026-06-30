@@ -84,46 +84,6 @@ class ::TribeUser < ::ApplicationRecord
 
     def created_at_for_database: () -> ::Time
 
-    def updated_at: () -> ::ActiveSupport::TimeWithZone
-
-    def updated_at=: (::ActiveSupport::TimeWithZone) -> ::ActiveSupport::TimeWithZone
-
-    def updated_at?: () -> bool
-
-    def updated_at_changed?: (?from: ::ActiveSupport::TimeWithZone?, ?to: ::ActiveSupport::TimeWithZone?) -> bool
-
-    def updated_at_change: () -> [ ::ActiveSupport::TimeWithZone?, ::ActiveSupport::TimeWithZone? ]
-
-    def updated_at_will_change!: () -> void
-
-    def updated_at_was: () -> ::ActiveSupport::TimeWithZone?
-
-    def updated_at_previously_changed?: (?from: ::ActiveSupport::TimeWithZone?, ?to: ::ActiveSupport::TimeWithZone?) -> bool
-
-    def updated_at_previous_change: () -> ::Array[::ActiveSupport::TimeWithZone?]?
-
-    def updated_at_previously_was: () -> ::ActiveSupport::TimeWithZone?
-
-    def updated_at_before_last_save: () -> ::ActiveSupport::TimeWithZone?
-
-    def updated_at_change_to_be_saved: () -> ::Array[::ActiveSupport::TimeWithZone?]?
-
-    def updated_at_in_database: () -> ::ActiveSupport::TimeWithZone?
-
-    def saved_change_to_updated_at: () -> ::Array[::ActiveSupport::TimeWithZone?]?
-
-    def saved_change_to_updated_at?: (?from: ::ActiveSupport::TimeWithZone?, ?to: ::ActiveSupport::TimeWithZone?) -> bool
-
-    def will_save_change_to_updated_at?: (?from: ::ActiveSupport::TimeWithZone?, ?to: ::ActiveSupport::TimeWithZone?) -> bool
-
-    def restore_updated_at!: () -> void
-
-    def clear_updated_at_change: () -> void
-
-    def updated_at_before_type_cast: () -> ::Time
-
-    def updated_at_for_database: () -> ::Time
-
     def tribe_id: () -> ::String
 
     def tribe_id=: (::String) -> ::String
@@ -163,6 +123,46 @@ class ::TribeUser < ::ApplicationRecord
     def tribe_id_before_type_cast: () -> ::String
 
     def tribe_id_for_database: () -> ::String
+
+    def updated_at: () -> ::ActiveSupport::TimeWithZone
+
+    def updated_at=: (::ActiveSupport::TimeWithZone) -> ::ActiveSupport::TimeWithZone
+
+    def updated_at?: () -> bool
+
+    def updated_at_changed?: (?from: ::ActiveSupport::TimeWithZone?, ?to: ::ActiveSupport::TimeWithZone?) -> bool
+
+    def updated_at_change: () -> [ ::ActiveSupport::TimeWithZone?, ::ActiveSupport::TimeWithZone? ]
+
+    def updated_at_will_change!: () -> void
+
+    def updated_at_was: () -> ::ActiveSupport::TimeWithZone?
+
+    def updated_at_previously_changed?: (?from: ::ActiveSupport::TimeWithZone?, ?to: ::ActiveSupport::TimeWithZone?) -> bool
+
+    def updated_at_previous_change: () -> ::Array[::ActiveSupport::TimeWithZone?]?
+
+    def updated_at_previously_was: () -> ::ActiveSupport::TimeWithZone?
+
+    def updated_at_before_last_save: () -> ::ActiveSupport::TimeWithZone?
+
+    def updated_at_change_to_be_saved: () -> ::Array[::ActiveSupport::TimeWithZone?]?
+
+    def updated_at_in_database: () -> ::ActiveSupport::TimeWithZone?
+
+    def saved_change_to_updated_at: () -> ::Array[::ActiveSupport::TimeWithZone?]?
+
+    def saved_change_to_updated_at?: (?from: ::ActiveSupport::TimeWithZone?, ?to: ::ActiveSupport::TimeWithZone?) -> bool
+
+    def will_save_change_to_updated_at?: (?from: ::ActiveSupport::TimeWithZone?, ?to: ::ActiveSupport::TimeWithZone?) -> bool
+
+    def restore_updated_at!: () -> void
+
+    def clear_updated_at_change: () -> void
+
+    def updated_at_before_type_cast: () -> ::Time
+
+    def updated_at_for_database: () -> ::Time
 
     def user_id: () -> ::String
 
@@ -253,12 +253,18 @@ class ::TribeUser < ::ApplicationRecord
   def tribe: () -> ::Tribe
   def tribe=: (::Tribe?) -> ::Tribe?
   def reload_tribe: () -> ::Tribe?
+  def tribe_changed?: () -> bool
+  def tribe_previously_changed?: () -> bool
+  def reset_tribe: () -> void
   def build_tribe: (?untyped) -> ::Tribe
   def create_tribe: (?untyped) -> ::Tribe
   def create_tribe!: (?untyped) -> ::Tribe
   def user: () -> ::User
   def user=: (::User?) -> ::User?
   def reload_user: () -> ::User?
+  def user_changed?: () -> bool
+  def user_previously_changed?: () -> bool
+  def reset_user: () -> void
   def build_user: (?untyped) -> ::User
   def create_user: (?untyped) -> ::User
   def create_user!: (?untyped) -> ::User

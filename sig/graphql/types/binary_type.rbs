@@ -1,0 +1,7 @@
+module Types
+  class BinaryType < BaseScalar
+    def self.coerce_input: (String, GraphQL::Query::Context) -> void
+
+    def self.coerce_result: (String, GraphQL::Query::Context) -> void
+  end
+end

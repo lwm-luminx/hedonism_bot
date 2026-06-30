@@ -1,5 +1,4 @@
 module Types
   class BaseInputObject < GraphQL::Schema::InputObject
-    def self.argument: (Symbol, Class | [Class], ?required: bool) -> void
   end
 end

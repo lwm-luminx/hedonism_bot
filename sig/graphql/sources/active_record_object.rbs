@@ -1,0 +1,5 @@
+module Sources
+  class ActiveRecordObject < GraphQL::Dataloader::Source
+
+  end
+end

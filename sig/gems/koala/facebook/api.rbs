@@ -1,0 +1,9 @@
+module Koala
+  module Facebook
+    class API
+      def initialize: (String app_id, ?String? app_secret) -> void
+      def get_picture_data: (String path, ?type: Symbol) -> Hash[String, String]
+      def get_object: (String, ?fields: Array[String]) -> Hash[String, String]
+    end
+  end
+end

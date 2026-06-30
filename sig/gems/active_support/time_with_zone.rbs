@@ -1,0 +1,5 @@
+module ActiveSupport
+  class TimeWithZone
+    def self.now: -> instance
+  end
+end

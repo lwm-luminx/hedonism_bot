@@ -1,0 +1,4 @@
+class Face < ApplicationRecord
+  def initialize: (app_id: String, app_secret: String) -> void
+  def photo_count: -> Integer
+end

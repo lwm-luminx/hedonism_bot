@@ -1,0 +1,6037 @@
+module RGeo
+  module Cartesian
+    # This provides includes some spatial analysis algorithms supporting
+    # Cartesian data.
+    module Analysis
+      # Check orientation of a ring, returns `true` if it is counter-clockwise
+      # and false otherwise.
+      #
+      # If the factory used is GEOS based, use the GEOS implementation to
+      # check that. Otherwise, this methods falls back to `ring_direction`.
+      #
+      # == Note
+      #
+      # This method does not ensure a correct result for an invalid geometry.
+      # You should make sure your ring is valid beforehand using `ring?`
+      # if you are using a LineString, or directly `valid?` for a
+      # `linear_ring?`.
+      # This will be subject to changes in v3.
+      def self.ccw?: (untyped ring) -> untyped
+
+      alias self.counter_clockwise? self.ccw?
+
+      def self.ring_direction: (untyped ring) -> (0 | untyped)
+    end
+  end
+end
+
+module RGeo
+  module Cartesian
+    # This is a bounding box for Cartesian data.
+    # The simple cartesian implementation uses this internally to compute
+    # envelopes. You may also use it directly to compute and represent
+    # bounding boxes.
+    #
+    # A bounding box is a set of ranges in each dimension: X, Y, as well
+    # as Z and M if supported. You can compute a bounding box for one or
+    # more geometry objects by creating a new bounding box object, and
+    # adding the geometries to it. You may then query it for the bounds,
+    # or use it to determine whether it encloses other geometries or
+    # bounding boxes.
+    class BoundingBox
+      @factory: untyped
+
+      @has_z: untyped
+
+      @has_m: untyped
+
+      @min_x: untyped
+
+      @max_x: untyped
+
+      @min_y: untyped
+
+      @max_y: untyped
+
+      @min_z: untyped
+
+      @max_z: untyped
+
+      @min_m: untyped
+
+      @max_m: untyped
+
+      # Returns the bounding box's factory.
+      attr_reader factory: untyped
+
+      # Returns true if this bounding box tracks Z coordinates.
+      attr_reader has_z: untyped
+
+      # Returns true if this bounding box tracks M coordinates.
+      attr_reader has_m: untyped
+
+      # Returns the minimum X, or nil if this bounding box is empty.
+      attr_reader min_x: untyped
+
+      # Returns the maximum X, or nil if this bounding box is empty.
+      attr_reader max_x: untyped
+
+      # Returns the minimum Y, or nil if this bounding box is empty.
+      attr_reader min_y: untyped
+
+      # Returns the maximum Y, or nil if this bounding box is empty.
+      attr_reader max_y: untyped
+
+      # Returns the minimum Z, or nil if this bounding box is empty.
+      attr_reader min_z: untyped
+
+      # Returns the maximum Z, or nil if this bounding box is empty.
+      attr_reader max_z: untyped
+
+      # Returns the minimum M, or nil if this bounding box is empty.
+      attr_reader min_m: untyped
+
+      # Returns the maximum M, or nil if this bounding box is empty.
+      attr_reader max_m: untyped
+
+      def self.create_from_points: (untyped point1, untyped point2, ?::Hash[untyped, untyped] opts) -> untyped
+
+      def self.create_from_geometry: (untyped geom, ?::Hash[untyped, untyped] opts) -> untyped
+
+      def initialize: (untyped factory, ?::Hash[untyped, untyped] opts) -> void
+
+      def eql?: (untyped other) -> untyped
+
+      alias == eql?
+
+      def empty?: () -> untyped
+
+      def infinitesimal?: () -> untyped
+
+      def degenerate?: () -> untyped
+
+      def center_x: () -> (untyped | nil)
+
+      def x_span: () -> (untyped | 0)
+
+      def center_y: () -> (untyped | nil)
+
+      def y_span: () -> (untyped | 0)
+
+      def center_z: () -> (untyped | nil)
+
+      def z_span: () -> (nil | 0 | untyped)
+
+      def center_m: () -> (untyped | nil)
+
+      def m_span: () -> (nil | 0 | untyped)
+
+      def min_point: () -> (nil | untyped)
+
+      def max_point: () -> (nil | untyped)
+
+      def add: (untyped geometry) -> self
+
+      def to_geometry: () -> untyped
+
+      def contains?: (untyped rhs, ?::Hash[untyped, untyped] opts) -> (untyped | true | false)
+
+      def subdivide: (?::Hash[untyped, untyped] opts) -> ::Array[untyped]
+
+      def add_geometry: (untyped geometry) -> self
+
+      private
+
+      def add_point: (untyped point) -> untyped
+    end
+  end
+end
+
+module RGeo
+  module Cartesian
+    class Segment
+      @s: untyped
+
+      @e: untyped
+
+      @sx: untyped
+
+      @sy: untyped
+
+      @ex: untyped
+
+      @ey: untyped
+
+      @dx: untyped
+
+      @dy: untyped
+
+      @lensq: untyped
+
+      def initialize: (untyped start, untyped stop) -> void
+
+      attr_reader s: untyped
+
+      attr_reader e: untyped
+
+      attr_reader dx: untyped
+
+      attr_reader dy: untyped
+
+      def to_s: () -> ::String
+
+      def eql?: (untyped other) -> untyped
+
+      alias == eql?
+
+      def degenerate?: () -> untyped
+
+      def side: (untyped point) -> untyped
+
+      def tproj: (untyped point) -> (nil | untyped)
+
+      def contains_point?: (untyped point) -> (untyped | false)
+
+      def intersects_segment?: (untyped seg) -> untyped
+
+      # If this and the other segment intersect, this method will return the coordinate
+      # at which they intersect, otherwise nil.
+      # In the case of a partial overlap (parallel segments), this will return
+      # a single point on the overlapping portion.
+      #
+      # @param seg [Segment]
+      #
+      # @return [RGeo::Feature::Point, nil]
+      def segment_intersection: (untyped seg) -> (untyped | nil)
+
+      def length: () -> untyped
+    end
+  end
+end
+
+module RGeo
+  module Cartesian
+    # This class implements the factory for the simple cartesian
+    # implementation.
+    class Factory
+      @has_z: untyped
+
+      @has_m: untyped
+
+      @coordinate_dimension: untyped
+
+      @spatial_dimension: untyped
+
+      @coord_sys: untyped
+
+      @srid: untyped
+
+      @buffer_resolution: untyped
+
+      @wkt_generator: untyped
+
+      @wkb_generator: untyped
+
+      @wkt_parser: untyped
+
+      @wkb_parser: untyped
+
+      @hash: untyped
+
+      @marshal_wkb_generator: untyped
+
+      @marshal_wkb_parser: untyped
+
+      @psych_wkt_generator: untyped
+
+      @psych_wkt_parser: untyped
+
+      include Feature::Factory::Instance
+
+      include ImplHelper::Utils
+
+      attr_reader coordinate_dimension: untyped
+
+      attr_reader spatial_dimension: untyped
+
+      # Returns the SRID.
+      attr_reader srid: untyped
+
+      # See RGeo::Feature::Factory#coord_sys
+      attr_reader coord_sys: untyped
+
+      def initialize: (?::Hash[untyped, untyped] opts) -> void
+
+      def eql?: (untyped other) -> untyped
+
+      alias == eql?
+
+      def hash: () -> untyped
+
+      def marshal_dump: () -> untyped
+
+      def marshal_load: (untyped data) -> untyped
+
+      def encode_with: (untyped coder) -> untyped
+
+      def init_with: (untyped coder) -> untyped
+
+      def property: (untyped name) -> untyped
+
+      def parse_wkt: (untyped str) -> untyped
+
+      def parse_wkb: (untyped str) -> untyped
+
+      def point: (untyped x, untyped y, *untyped extra) -> untyped
+
+      def line_string: (untyped points) -> untyped
+
+      def line: (untyped start, untyped stop) -> untyped
+
+      def linear_ring: (untyped points) -> untyped
+
+      def polygon: (untyped outer_ring, ?untyped? inner_rings) -> untyped
+
+      def collection: (untyped elems) -> untyped
+
+      def multi_point: (untyped elems) -> untyped
+
+      def multi_line_string: (untyped elems) -> untyped
+
+      def multi_polygon: (untyped elems) -> untyped
+
+      def generate_wkt: (untyped obj) -> untyped
+
+      def generate_wkb: (untyped obj) -> untyped
+
+      def marshal_wkb_generator: () -> untyped
+
+      def marshal_wkb_parser: () -> untyped
+
+      def psych_wkt_generator: () -> untyped
+
+      def psych_wkt_parser: () -> untyped
+    end
+  end
+end
+
+module RGeo
+  module Cartesian
+    class PointImpl
+      include Feature::Point
+
+      include ImplHelper::ValidityCheck
+
+      include ImplHelper::BasicGeometryMethods
+
+      include ImplHelper::BasicPointMethods
+
+      include ImplHelper::ValidOp
+
+      include GeometryMethods
+
+      include PointMethods
+    end
+
+    class LineStringImpl
+      include Feature::LineString
+
+      include ImplHelper::ValidityCheck
+
+      include ImplHelper::BasicGeometryMethods
+
+      include ImplHelper::BasicLineStringMethods
+
+      include ImplHelper::ValidOp
+
+      include GeometryMethods
+
+      include LineStringMethods
+    end
+
+    class LineImpl
+      include Feature::Line
+
+      include ImplHelper::ValidityCheck
+
+      include ImplHelper::BasicGeometryMethods
+
+      include ImplHelper::BasicLineStringMethods
+
+      include ImplHelper::BasicLineMethods
+
+      include ImplHelper::ValidOp
+
+      include GeometryMethods
+
+      include LineStringMethods
+    end
+
+    class LinearRingImpl
+      include Feature::LinearRing
+
+      include ImplHelper::ValidityCheck
+
+      include ImplHelper::BasicGeometryMethods
+
+      include ImplHelper::BasicLineStringMethods
+
+      include ImplHelper::BasicLinearRingMethods
+
+      include ImplHelper::ValidOp
+
+      include GeometryMethods
+
+      include LineStringMethods
+    end
+
+    class PolygonImpl
+      include Feature::Polygon
+
+      include ImplHelper::ValidityCheck
+
+      include ImplHelper::BasicGeometryMethods
+
+      include ImplHelper::BasicPolygonMethods
+
+      include ValidOp
+
+      include GeometryMethods
+    end
+
+    class GeometryCollectionImpl
+      include Feature::GeometryCollection
+
+      include ImplHelper::ValidityCheck
+
+      include ImplHelper::BasicGeometryMethods
+
+      include ImplHelper::BasicGeometryCollectionMethods
+
+      include ImplHelper::ValidOp
+
+      include GeometryMethods
+    end
+
+    class MultiPointImpl
+      include Feature::MultiPoint
+
+      include ImplHelper::ValidityCheck
+
+      include ImplHelper::BasicGeometryMethods
+
+      include ImplHelper::BasicGeometryCollectionMethods
+
+      include ImplHelper::BasicMultiPointMethods
+
+      include ImplHelper::ValidOp
+
+      include GeometryMethods
+    end
+
+    class MultiLineStringImpl
+      include Feature::MultiLineString
+
+      include ImplHelper::ValidityCheck
+
+      include ImplHelper::BasicGeometryMethods
+
+      include ImplHelper::BasicGeometryCollectionMethods
+
+      include ImplHelper::BasicMultiLineStringMethods
+
+      include ImplHelper::ValidOp
+
+      include GeometryMethods
+
+      include MultiLineStringMethods
+    end
+
+    class MultiPolygonImpl
+      include Feature::MultiPolygon
+
+      include ImplHelper::ValidityCheck
+
+      include ImplHelper::BasicGeometryMethods
+
+      include ImplHelper::BasicGeometryCollectionMethods
+
+      include ImplHelper::BasicMultiPolygonMethods
+
+      include ImplHelper::ValidOp
+
+      include GeometryMethods
+    end
+  end
+end
+
+module RGeo
+  module Cartesian
+    module GeometryMethods
+      @graph: untyped
+
+      def srid: () -> untyped
+
+      def envelope: () -> untyped
+
+      def coordinate_dimension: () -> untyped
+
+      def spatial_dimension: () -> untyped
+
+      def is_3d?: () -> untyped
+
+      def measured?: () -> untyped
+
+      private
+
+      def graph: () -> untyped
+    end
+
+    module PointMethods
+      def distance: (untyped rhs) -> untyped
+
+      def buffer: (untyped distance) -> untyped
+    end
+
+    module LineStringMethods
+      @segments: untyped
+
+      def segments: () -> untyped
+
+      def simple?: () -> untyped
+
+      def length: () -> untyped
+
+      def crosses?: (untyped rhs) -> untyped
+
+      private
+
+      # Determines if a cross occurs with another linestring.
+      # Process is to get the number of proper intersections in each geom
+      # then overlay and get the number of proper intersections from that.
+      # If the overlaid number is higher than the sum of individual self-ints
+      # then there is an intersection. Finally, we need to check the intersection
+      # to see that it is not a boundary point of either segment.
+      #
+      # @param rhs [Feature::LineString]
+      #
+      # @return [Boolean]
+      def crosses_line_string?: (untyped rhs) -> (true | false)
+    end
+
+    module MultiLineStringMethods
+      def length: () -> untyped
+    end
+  end
+end
+
+module RGeo
+  module Cartesian
+    def self.preferred_factory: (?::Hash[untyped, untyped] opts) -> untyped
+
+    alias self.factory self.preferred_factory
+
+    def self.simple_factory: (?::Hash[untyped, untyped] opts) -> untyped
+  end
+end
+
+module RGeo
+  module Cartesian
+    # A Doubly Connected Edge List (DCEL) implementation of a Planar Graph.
+    # It represents geometries as vertices and half-edges.
+    #
+    # It includes an incident_edges hash that maps vertices to an array
+    # of half-edges whose origins are that vertex.
+    #
+    # Upon instantiation, the graph will compute the intersections using
+    # the SweeplineIntersector, populate the incident_edges map, and
+    # link all cyclic edges.
+    class PlanarGraph
+      @edges: untyped
+
+      @incident_edges: untyped
+
+      # HalfEdge represents an edge as 2 directed edges.
+      # One half-edge will have it's origin at edge.s, the other
+      # at edge.e. Both half-edges will be linked as each other's twins.
+      #
+      # HalfEdges also contain references to the next and prev half-edges,
+      # where next's origin is this half-edges destination. Prev's destination
+      # is this half-edge's origin.
+      class HalfEdge
+        @origin: untyped
+
+        @twin: untyped
+
+        @next: untyped
+
+        @prev: untyped
+
+        @angle: untyped
+
+        include Comparable
+
+        # Creates 2 half edges from an edge.
+        # They will be assigned as each other's twins.
+        # The Half Edges will be returned in the order of points
+        # of the edge (start, end).
+        #
+        # @param edge [RGeo::Cartesian::Segment]
+        #
+        # @return [Array]
+        def self.from_edge: (untyped edge) -> ::Array[untyped]
+
+        def initialize: (untyped origin) -> void
+
+        attr_reader origin: untyped
+
+        attr_accessor twin: untyped
+
+        attr_accessor next: untyped
+
+        attr_accessor prev: untyped
+
+        # HalfEdges will be sorted around their shared vertex
+        # in a CW fashion. This means that face interiors will be
+        # a CCW.
+        def <=>: (untyped other) -> untyped
+
+        # Will find attempt to find a cycle starting at this
+        # HalfEdge. Will end upon finding the first repeated HalfEdge
+        # or a HalfEdge where +next+ is nil.
+        #
+        # If a block is given, each HalfEdge seen will be yielded to the block.
+        #
+        # @return [Enumerator]
+        def and_connected: () ?{ (untyped) -> untyped } -> untyped
+
+        # Return the destination of the half edge
+        #
+        # @return [RGeo::Feature::Point]
+        def destination: () -> untyped
+
+        # Compute the angle from the positive x-axis.
+        # Used for sorting at each node.
+        #
+        # @return [Float]
+        def angle: () -> untyped
+
+        def inspect: () -> ::String
+
+        def to_s: () -> ::String
+      end
+
+      # Create a new PlanarGraph
+      #
+      # @param edges [Array<RGeo::Cartesian::Segment>] of Segments
+      def initialize: (?untyped edges) -> void
+
+      attr_reader edges: untyped
+
+      attr_reader incident_edges: untyped
+
+      # Insert an edge into the graph. This will automatically
+      # calculate intersections and add new vertices if necessary.
+      #
+      # @param edge [RGeo::Cartesian::Segment]
+      def add_edge: (untyped edge) -> untyped
+
+      # Insert multiple edges into the graph. Like +add_edge+, this automatically
+      # calculates intersections and adds new vertices.
+      #
+      # @param new_edges [Array<RGeo::Cartesian::Segment>]
+      def add_edges: (untyped new_edges) -> untyped
+
+      private
+
+      # Creates a map of +proper_intersections+ for each segment
+      # from a sweepline intersector.
+      #
+      # Can be used to determine which edges need to be split
+      # after adding edges.
+      def intersection_map: () -> untyped
+
+      def create_half_edges: () -> untyped
+
+      def create_half_edge: (untyped edge) -> untyped
+
+      def insert_half_edge: (untyped half_edge) -> untyped
+
+      # Links all half-edges where possible.
+      # Defines +next+ and +prev+ for every half-edge by rotating
+      # through all half-edges originating at a vertex.
+      #
+      # Assuming half-edges are sorted CCW, every sequential pair of
+      # half-edges (e1, e2) can be linked by saying e1.prev = e2.twin
+      # and e2.twin.next = e1.
+      def link_half_edges: () -> untyped
+
+      # It is possible that intersections occur when new edges are added.
+      # This will split those edges into more half-edges while preserving
+      # the existing half-edges when possible since geometries may reference
+      # them.
+      def compute_split_edges: (untyped seg, untyped ints) -> untyped
+    end
+
+    # GeometryGraph is a PlanarGraph that is built by adding
+    # geometries instead of edges. The GeometryGraph will
+    # hold a reference to an arbitrary HalfEdge on the
+    # interior of the geometry for every boundary in the geometry.
+    # For example, a polygon will have a reference to a HalfEdge for its
+    # exterior shell and one for every hole.
+    class GeometryGraph < PlanarGraph
+      @parent_geometry: untyped
+
+      @geom_edges: untyped
+
+      # GeomEdge will be used to store the references to the HalfEdges
+      GeomEdge: untyped
+
+      def initialize: (untyped geom) -> void
+
+      attr_reader parent_geometry: untyped
+
+      attr_reader geom_edges: untyped
+
+      private
+
+      # Adds a geometry to the graph and finds its
+      # reference HalfEdge(s).
+      #
+      # @param geom [RGeo::Feature::Instance]
+      def add_geometry: (untyped geom) -> untyped
+
+      # Adds a LineString or LinearRing
+      # to the graph.
+      #
+      # @param geom [RGeo::Feature::LineString]
+      def add_line_string: (untyped geom) -> untyped
+
+      # Adds a Polygon to the graph.
+      #
+      # Will add each shell seperately and find a CCW half-edge
+      # for the exterior ring and a CW half-edge for interior rings
+      # since these are designated as being on the interior of the polygon.
+      #
+      # It is possible that the half-edge will be nil if a suitable one cannot
+      # be found. This indicates the polygon is likely invalid.
+      #
+      # @param geom [RGeo::Feature::Polygon]
+      def add_polygon: (untyped geom) -> untyped
+
+      # Adds a GeometryCollection to the graph.
+      #
+      # @param col [RGeo::Feature::GeometryCollection]
+      def add_collection: (untyped col) -> untyped
+
+      # Finds a Half-Edge that is part of a CCW or CW rotation
+      # from the input ring. Returns nil if none found.
+      #
+      # Will only consider half-edges that are colinear with
+      # the first or last segments of the ring.
+      #
+      # @param ring [RGeo::Feature::LinearRing]
+      # @param ccw [Boolean] true for CCW, false for CW
+      # @return [HalfEdge, nil]
+      def find_hedge: (untyped ring, ?ccw: bool) -> (nil | untyped)
+    end
+  end
+end
+
+module RGeo
+  module Cartesian
+    # Implements a Sweepline intersector to find all intersections
+    # in a group of segments. The idea is to use a horizontal line starting
+    # at y = +Infinity that sweeps down to y = -Infinity and every time it hits
+    # a new line, it will check if it intersects with any of the segments
+    # the line currently intersects at that y value.
+    # This is a more simplistic implementation that uses an array to hold
+    # observed segments instead of a sorted BST, so performance may be significantly
+    # worse in the case of lots of segments overlapping in y-ranges.
+    class SweeplineIntersector
+      @segments: untyped
+
+      @proper_intersections: untyped
+
+      @intersections: untyped
+
+      @events: untyped
+
+      Event: untyped
+
+      Intersection: untyped
+
+      def initialize: (untyped segments) -> void
+
+      attr_reader segments: untyped
+
+      # Returns the "proper" intersections from the list of segments.
+      #
+      # This will only return intersections that are not the start/end or
+      # end/start of the 2 segments. This could be useful for finding intersections
+      # in a ring for example, because knowing that segments are connected in a linestring
+      # is not always helpful, but those are reported by default.
+      #
+      # Note: This is not the true definition of a proper intersection. A
+      # truly proper intersection does not include colinear intersections and
+      # the intersection must lie in the interior of both segments.
+      #
+      # @return [Array<RGeo::Cartesian::SweeplineIntersector::Intersection>]
+      def proper_intersections: () -> untyped
+
+      # Computes the intersections of the input segments.
+      #
+      # Creates an event queue from the +events+ and adds segments to the
+      # +observed_segments+ array while their ending event has not been popped
+      # from the queue.
+      #
+      # Compares the new segment from the +is_start+ event to each observed segment
+      # then adds it to +observed_segments+. Records any intersections in to the
+      # returned array.
+      #
+      # @return [Array<RGeo::Cartesian::SweeplineIntersector::Intersection>]
+      def intersections: () -> untyped
+
+      # Returns an ordered array of events from the input segments. Events
+      # are the start and endpoints of each segment with an is_start tag to
+      # indicate if this is the starting or ending event for that segment.
+      #
+      # Ordering is done by greatest-y -> smallest-x -> is_start = true.
+      #
+      # @return [Array]
+      def events: () -> untyped
+
+      private
+
+      # Creates a pair of events from a segment
+      #
+      # @param segment [Segment]
+      #
+      # @return [Array]
+      def create_event_pair: (untyped segment) -> ::Array[untyped]
+    end
+  end
+end
+
+module RGeo
+  module Cartesian
+    module ValidOp
+      include ImplHelper::ValidOp
+
+      def validity_helper: () -> untyped
+    end
+
+    module ValidOpHelpers
+      include ImplHelper::ValidOpHelpers
+
+      # Checks that there are no invalid intersections between the components
+      # of a polygon.
+      #
+      # @param [RGeo::Feature::Polygon] poly
+      #
+      # @return [String] invalid_reason
+      def self?.check_consistent_area: (untyped poly) -> (untyped | nil)
+
+      # Checks that the interior of a polygon is connected.
+      #
+      # Process to do this is to walk around an interior cycle of the
+      # exterior shell in the polygon's geometry graph. It will keep track
+      # of all the nodes it visited and if that set is a superset of the
+      # coordinates in the exterior_ring, the interior is connected, otherwise
+      # it is split somewhere.
+      #
+      # @param [RGeo::Feature::Polygon] poly
+      #
+      # @return [String] invalid_reason
+      def self?.check_connected_interiors: (untyped poly) -> (untyped | nil)
+    end
+  end
+end
+
+module RGeo
+  # This module provides data structures and tools related to coordinate
+  # systems and coordinate transforms. It comprises the following parts:
+  #
+  # RGeo::CoordSys::Proj4 is a wrapper around the proj4 library, which
+  # defines a commonly-used syntax for specifying geographic and projected
+  # coordinate systems, and performs coordinate transformations.
+  #
+  # The RGeo::CoordSys::CS module contains an implementation of the CS
+  # (coordinate systems) package of the OGC Coordinate Transform spec.
+  # This includes classes for representing ellipsoids, datums, coordinate
+  # systems, and other related concepts, as well as a parser for the WKT
+  # format for specifying coordinate systems.
+  module CoordSys
+    CONFIG: untyped
+  end
+end
+
+module RGeo
+  module CoordSys
+    module CS
+      # An axis orientation constant for AxisInfo.
+      # Unknown or unspecified axis orientation. This can be used for
+      # local or fitted coordinate systems.
+      AO_OTHER: 0
+
+      # An axis orientation constant for AxisInfo.
+      # Increasing ordinates values go North. This is usually used for
+      # Grid Y coordinates and Latitude.
+      AO_NORTH: 1
+
+      # An axis orientation constant for AxisInfo.
+      # Increasing ordinates values go South. This is rarely used.
+      AO_SOUTH: 2
+
+      # An axis orientation constant for AxisInfo.
+      # Increasing ordinates values go East. This is rarely used.
+      AO_EAST: 3
+
+      # An axis orientation constant for AxisInfo.
+      # Increasing ordinates values go West. This is usually used for
+      # Grid X coordinates and Longitude.
+      AO_WEST: 4
+
+      # An axis orientation constant for AxisInfo.
+      # Increasing ordinates values go up. This is used for vertical
+      # coordinate systems.
+      AO_UP: 5
+
+      # An axis orientation constant for AxisInfo.
+      # Increasing ordinates values go down. This is used for vertical
+      # coordinate systems.
+      AO_DOWN: 6
+
+      # A datum type constant for HorizontalDatum.
+      # Lowest possible value for horizontal datum types.
+      HD_MIN: 1000
+
+      # A datum type constant for HorizontalDatum.
+      # Unspecified horizontal datum type. Horizontal datums with this
+      # type should never supply a conversion to WGS84 using Bursa Wolf
+      # parameters.
+      HD_OTHER: 1000
+
+      # A datum type constant for HorizontalDatum.
+      # These datums, such as ED50, NAD27 and NAD83, have been designed
+      # to support horizontal positions on the ellipsoid as opposed to
+      # positions in 3-D space. These datums were designed mainly to
+      # support a horizontal component of a position in a domain of
+      # limited extent, such as a country, a region or a continent.
+      HD_CLASSIC: 1001
+
+      # A datum type constant for HorizontalDatum.
+      # A geocentric datum is a "satellite age" modern geodetic datum
+      # mainly of global extent, such as WGS84 (used in GPS), PZ90 (used
+      # in GLONASS) and ITRF. These datums were designed to support both
+      # a horizontal component of position and a vertical component of
+      # position (through ellipsoidal heights). The regional realizations
+      # of ITRF, such as ETRF, are also included in this category.
+      HD_GEOCENTRIC: 1002
+
+      # A datum type constant for HorizontalDatum.
+      # Highest possible value for horizontal datum types.
+      HD_MAX: 1999
+
+      # A datum type constant for VerticalDatum.
+      # Lowest possible value for vertical datum types.
+      VD_MIN: 2000
+
+      # A datum type constant for VerticalDatum.
+      # Unspecified vertical datum type.
+      VD_OTHER: 2000
+
+      # A datum type constant for VerticalDatum.
+      # A vertical datum for orthometric heights that are measured along
+      # the plumb line.
+      VD_ORTHOMETRIC: 2001
+
+      # A datum type constant for VerticalDatum.
+      # A vertical datum for ellipsoidal heights that are measured along
+      # the normal to the ellipsoid used in the definition of horizontal
+      # datum.
+      VD_ELLIPSOIDAL: 2002
+
+      # A datum type constant for VerticalDatum.
+      # The vertical datum of altitudes or heights in the atmosphere.
+      # These are approximations of orthometric heights obtained with the
+      # help of a barometer or a barometric altimeter. These values are
+      # usually expressed in one of the following units: meters, feet,
+      # millibars (used to measure pressure levels), or theta value (units
+      # used to measure geopotential height).
+      VD_ALTITUDE_BAROMETRIC: 2003
+
+      # A datum type constant for VerticalDatum.
+      # A normal height system.
+      VD_NORMAL: 2004
+
+      # A datum type constant for VerticalDatum.
+      # A vertical datum of geoid model derived heights, also called
+      # GPS-derived heights. These heights are approximations of
+      # orthometric heights (H), constructed from the ellipsoidal heights
+      # (h) by the use of the given geoid undulation model (N) through
+      # the equation: H=h-N.
+      VD_GEOID_MODE_DERIVED: 2005
+
+      # A datum type constant for VerticalDatum.
+      # This attribute is used to support the set of datums generated for
+      # hydrographic engineering projects where depth measurements below
+      # sea level are needed. It is often called a hydrographic or a
+      # marine datum. Depths are measured in the direction perpendicular
+      # (approximately) to the actual equipotential surfaces of the
+      # earth's gravity field, using such procedures as echo-sounding.
+      VD_DEPTH: 2006
+
+      # A datum type constant for VerticalDatum.
+      # Highest possible value for vertical datum types.
+      VD_MAX: 2999
+
+      # A datum type constant for LocalDatum.
+      # Lowest possible value for local datum types.
+      LD_MIN: 10000
+
+      # A datum type constant for LocalDatum.
+      # Highest possible value for local datum types.
+      LD_MAX: 32767
+
+      # Flags indicating parts of domain covered by a convex hull. These flags can be combined. For
+      # example, the value 3 corresponds to a combination of CT_DF_Inside and MF_DF_Outside, which
+      # means that some parts of the convex hull are inside the domain, and some parts of the convex
+      # hull are outside the domain
+      CT_DF_INSIDE: 1
+
+      CT_DF_OUTSIDE: 2
+
+      CT_DF_DISCONTINUOUS: 4
+
+      # This is a base class for all OGC coordinate system objects.
+      # This includes both interfaces and data types from the OGC
+      # Coordinate Transformation spec.
+      #
+      # This is a non-instantiable abstract class.
+      class Base
+        @hash: untyped
+
+        def inspect: () -> ::String
+
+        def eql?: (untyped other) -> untyped
+
+        alias == eql?
+
+        def hash: () -> untyped
+
+        def to_s: () -> untyped
+
+        # Return the WKT representation.
+        #
+        # <tt>:standard_brackets</tt>
+        #   If true, outputs parentheses rather than square
+        #   brackets. Default is false.
+        def to_wkt: (?standard_brackets: bool) -> ::String
+
+        def marshal_dump: () -> untyped
+
+        def marshal_load: (untyped data) -> untyped
+
+        def encode_with: (untyped coder) -> untyped
+
+        def init_with: (untyped coder) -> untyped
+
+        private
+
+        def brackets: (untyped standard) -> (::Array["(" | ")"] | ::Array["[" | "]"])
+      end
+
+      # == OGC spec description
+      #
+      # Details of axis. This is used to label axes, and indicate the
+      # orientation.
+      class AxisInfo < Base
+        @name: untyped
+
+        @orientation: untyped
+
+        # :stopdoc:
+        NAMES_BY_VALUE: ::Array["OTHER" | "NORTH" | "SOUTH" | "EAST" | "WEST" | "UP" | "DOWN"]
+
+        def initialize: (untyped name, untyped orientation) -> void
+
+        # Human readable name for axis. Possible values are "X", "Y",
+        # "Long", "Lat" or any other short string.
+        attr_reader name: untyped
+
+        # Gets enumerated value for orientation.
+        attr_reader orientation: untyped
+
+        def wkt_typename: () -> "AXIS"
+
+        def self.create: (untyped name, untyped orientation) -> untyped
+
+        private
+
+        def wkt_content: (untyped _) -> ::Array[untyped]
+      end
+
+      # == OGC spec description
+      #
+      # A named projection parameter value. The linear units of
+      # parameters' values match the linear units of the containing
+      # projected coordinate system. The angular units of parameter
+      # values match the angular units of the geographic coordinate
+      # system that the projected coordinate system is based on.
+      class ProjectionParameter < Base
+        @name: untyped
+
+        @value: untyped
+
+        def initialize: (untyped name, untyped value) -> void
+
+        # The parameter name.
+        attr_reader name: untyped
+
+        # The parameter value.
+        attr_reader value: untyped
+
+        def wkt_typename: () -> "PARAMETER"
+
+        def self.create: (untyped name, untyped value) -> untyped
+
+        private
+
+        def wkt_content: (untyped _) -> ::Array[untyped]
+      end
+
+      # == OGC spec description
+      #
+      # Parameters for a geographic transformation into WGS84. The Bursa
+      # Wolf parameters should be applied to geocentric coordinates, where
+      # the X axis points towards the Greenwich Prime Meridian, the Y axis
+      # points East, and the Z axis points North.
+      class WGS84ConversionInfo < Base
+        @dx: untyped
+
+        @dy: untyped
+
+        @dz: untyped
+
+        @ex: untyped
+
+        @ey: untyped
+
+        @ez: untyped
+
+        @ppm: untyped
+
+        def initialize: (untyped dx_meters, untyped dy_meters, untyped dz_meters, untyped ex_arc_seconds, untyped ey_arc_seconds, untyped ez_arc_seconds, untyped ppm) -> void
+
+        # Bursa Wolf shift in meters.
+        attr_reader dx: untyped
+
+        # Bursa Wolf shift in meters.
+        attr_reader dy: untyped
+
+        # Bursa Wolf shift in meters.
+        attr_reader dz: untyped
+
+        # Bursa Wolf rotation in arc seconds.
+        attr_reader ex: untyped
+
+        # Bursa Wolf rotation in arc seconds.
+        attr_reader ey: untyped
+
+        # Bursa Wolf rotation in arc seconds.
+        attr_reader ez: untyped
+
+        # Bursa Wolf scaling in in parts per million.
+        attr_reader ppm: untyped
+
+        def to_wkt: (?standard_brackets: bool) -> ::String
+
+        def self.create: (untyped dx_meters, untyped dy_meters, untyped dz_meters, untyped ex_arc_seconds, untyped ey_arc_seconds, untyped ez_arc_seconds, untyped ppm) -> untyped
+      end
+
+      # == OGC spec description
+      #
+      # A base interface for metadata applicable to coordinate system
+      # objects.
+      #
+      # The metadata items "Abbreviation", "Alias", "Authority",
+      # "AuthorityCode", "Name" and "Remarks" were specified in the Simple
+      # Features interfaces, so they have been kept here.
+      #
+      # This specification does not dictate what the contents of these
+      # items should be. However, the following guidelines are suggested:
+      #
+      # When CS_CoordinateSystemAuthorityFactory is used to create an
+      # object, the "Authority" and "AuthorityCode" values should be set
+      # to the authority name of the factory object, and the authority
+      # code supplied by the client, respectively. The other values may or
+      # may not be set. (If the authority is EPSG, the implementer may
+      # consider using the corresponding metadata values in the EPSG
+      # tables.)
+      #
+      # When CS_CoordinateSystemFactory creates an object, the "Name"
+      # should be set to the value supplied by the client. All of the
+      # other metadata items should be left empty.
+      #
+      # == Notes
+      #
+      # This is a non-instantiable abstract class.
+      #
+      # Most subclasses will have a set of optional parameters in their
+      # "create" method to set the metadata fields. These parameters are,
+      # in order:
+      #
+      # * <b>authority</b>: authority name
+      # * <b>authority_code</b>: authority-specific identification code
+      # * <b>abbreviation</b>: an abbreviation
+      # * <b>alias</b>: an alias
+      # * <b>remarks</b>: provider-supplied remarks.
+      # * <b>extensions</b>: a hash of extension keys and values
+      class Info < Base
+        @name: untyped
+
+        @authority: untyped
+
+        @authority_code: untyped
+
+        @abbreviation: untyped
+
+        @alias: untyped
+
+        @remarks: untyped
+
+        @extensions: untyped
+
+        def initialize: (untyped name, ?untyped? authority, ?untyped? authority_code, ?untyped? abbreviation, ?untyped? init_alias, ?untyped? remarks, ?untyped? extensions) -> void
+
+        # Gets the abbreviation.
+        attr_reader abbreviation: untyped
+
+        # Gets the alias.
+        attr_reader alias: untyped
+
+        # Gets the authority name.
+        # An Authority is an organization that maintains definitions of
+        # Authority Codes. For example the European Petroleum Survey Group
+        # (EPSG) maintains a database of coordinate systems, and other
+        # spatial referencing objects, where each object has a code number
+        # ID. For example, the EPSG code for a WGS84 Lat/Lon coordinate
+        # system is "4326".
+        attr_reader authority: untyped
+
+        # Gets the authority-specific identification code.
+        # The AuthorityCode is a compact string defined by an Authority to
+        # reference a particular spatial reference object. For example,
+        # the European Survey Group (EPSG) authority uses 32 bit integers
+        # to reference coordinate systems, so all their code strings will
+        # consist of a few digits. The EPSG code for WGS84 Lat/Lon is
+        # "4326".
+        attr_reader authority_code: untyped
+
+        # Gets the name.
+        attr_reader name: untyped
+
+        # Gets the provider-supplied remarks.
+        attr_reader remarks: untyped
+
+        # Gets the value of a keyed extension.
+        # This is not part of the OGC spec, but it is supported because
+        # some coordinate system databases (such as the spatial_ref_sys
+        # table for PostGIS 2.0) include it.
+        def extension: (untyped key) -> untyped
+      end
+
+      # == OGC spec description
+      #
+      # Base interface for defining units.
+      #
+      # == Notes
+      #
+      # Normally, you will instantiate one of the subclasses LinearUnit or
+      # AngularUnit. However, it is possible to instantiate Unit if it is
+      # not clear whether the data refers to a LinearUnit or AngularUnit.
+      class Unit < Info
+        @conversion_factor: untyped
+
+        def initialize: (untyped name, untyped conversion_factor, *untyped optional) -> void
+
+        # This field is not part of the OGC CT spec, but is part of the
+        # SFS. It is an alias of the appropriate field in the subclass,
+        # i.e. LinearUnit#meters_per_unit or AngularUnit#radians_per_unit.
+        attr_reader conversion_factor: untyped
+
+        def wkt_typename: () -> "UNIT"
+
+        def self.create: (untyped name, untyped conversion_factor, *untyped optional) -> untyped
+
+        private
+
+        def wkt_content: (untyped _) -> ::Array[untyped]
+      end
+
+      # == OGC spec description
+      #
+      # Definition of linear units.
+      class LinearUnit < Unit
+        def meters_per_unit: () -> untyped
+
+        def self.create: (untyped name, untyped meters_per_unit, *untyped optional) -> untyped
+      end
+
+      # == OGC spec description
+      #
+      # Definition of angular units.
+      class AngularUnit < Unit
+        def radians_per_unit: () -> untyped
+
+        def self.create: (untyped name, untyped radians_per_unit, *untyped optional) -> untyped
+      end
+
+      # == OGC spec description
+      #
+      # A meridian used to take longitude measurements from.
+      class PrimeMeridian < Info
+        @angular_unit: untyped
+
+        @longitude: untyped
+
+        def initialize: (untyped name, untyped angular_unit, untyped longitude, *untyped optional) -> void
+
+        # Returns the AngularUnits.
+        attr_reader angular_unit: untyped
+
+        # Returns the longitude value relative to the Greenwich Meridian.
+        # The longitude is expressed in this objects angular units.
+        attr_reader longitude: untyped
+
+        def wkt_typename: () -> "PRIMEM"
+
+        def self.create: (untyped name, untyped angular_unit, untyped longitude, *untyped optional) -> untyped
+
+        private
+
+        def wkt_content: (untyped _) -> ::Array[untyped]
+      end
+
+      # == OGC spec description
+      #
+      # An approximation of the Earth's surface as a squashed sphere.
+      class Ellipsoid < Info
+        @semi_major_axis: untyped
+
+        @semi_minor_axis: untyped
+
+        @inverse_flattening: untyped
+
+        @ivf_definitive: untyped
+
+        @linear_unit: untyped
+
+        def initialize: (untyped name, untyped semi_major_axis, untyped semi_minor_axis, untyped inverse_flattening, untyped ivf_definitive, untyped linear_unit, *untyped optional) -> void
+
+        # Gets the equatorial radius. The returned length is expressed in
+        # this object's axis units.
+        attr_reader semi_major_axis: untyped
+
+        # Gets the polar radius. The returned length is expressed in this
+        # object's axis units.
+        attr_reader semi_minor_axis: untyped
+
+        # Returns the value of the inverse of the flattening constant. The
+        # inverse flattening is related to the equatorial/polar radius by
+        # the formula ivf=re/(re-rp). For perfect spheres, this formula
+        # breaks down, and a special IVF value of zero is used.
+        attr_reader inverse_flattening: untyped
+
+        # Is the Inverse Flattening definitive for this ellipsoid? Some
+        # ellipsoids use the IVF as the defining value, and calculate the
+        # polar radius whenever asked. Other ellipsoids use the polar
+        # radius to calculate the IVF whenever asked. This distinction can
+        # be important to avoid floating-point rounding errors.
+        attr_reader ivf_definitive: untyped
+
+        # Returns the LinearUnit. The units of the semi-major and
+        # semi-minor axis values.
+        attr_reader axisunit: untyped
+
+        def wkt_typename: () -> "SPHEROID"
+
+        def self.create: (untyped name, untyped semi_major_axis, untyped semi_minor_axis, untyped inverse_flattening, untyped ivf_definitive, untyped linear_unit, *untyped optional) -> untyped
+
+        def self.create_ellipsoid: (untyped name, untyped semi_major_axis, untyped semi_minor_axis, untyped linear_unit, *untyped optional) -> untyped
+
+        def self.create_flattened_sphere: (untyped name, untyped semi_major_axis, untyped inverse_flattening, untyped linear_unit, *untyped optional) -> untyped
+
+        private
+
+        def wkt_content: (untyped _) -> ::Array[untyped]
+      end
+
+      # == OGC spec description
+      #
+      # A set of quantities from which other quantities are calculated.
+      # For the OGC abstract model, it can be defined as a set of real
+      # points on the earth that have coordinates. EG. A datum can be
+      # thought of as a set of parameters defining completely the origin
+      # and orientation of a coordinate system with respect to the earth.
+      # A textual description and/or a set of parameters describing the
+      # relationship of a coordinate system to some predefined physical
+      # locations (such as center of mass) and physical directions (such
+      # as axis of spin). The definition of the datum may also include
+      # the temporal behavior (such as the rate of change of the
+      # orientation of the coordinate axes).
+      #
+      # == Notes
+      #
+      # This is a non-instantiable abstract class. You must instantiate
+      # one of the subclasses HorizontalDatum, VerticalDatum, or
+      # LocalDatum.
+      class Datum < Info
+        @datum_type: untyped
+
+        def initialize: (untyped name, untyped datum_type, *untyped optional) -> void
+
+        # Gets the type of the datum as an enumerated code.
+        attr_reader datum_type: untyped
+
+        private
+
+        def wkt_content: (untyped _) -> ::Array[untyped]
+      end
+
+      # == OGC spec description
+      #
+      # Procedure used to measure vertical distances.
+      class VerticalDatum < Datum
+        def wkt_typename: () -> "VERT_DATUM"
+
+        def self.create: (untyped name, untyped datum_type, *untyped optional) -> untyped
+
+        private
+
+        def wkt_content: (untyped _) -> ::Array[untyped]
+      end
+
+      # == OGC spec description
+      #
+      # Local datum. If two local datum objects have the same datum type
+      # and name, then they can be considered equal. This means that
+      # coordinates can be transformed between two different local
+      # coordinate systems, as long as they are based on the same local
+      # datum.
+      class LocalDatum < Datum
+        def wkt_typename: () -> "LOCAL_DATUM"
+
+        def self.create: (untyped name, untyped datum_type, *untyped optional) -> untyped
+
+        private
+
+        def wkt_content: (untyped _) -> ::Array[untyped]
+      end
+
+      # == OGC spec description
+      #
+      # Procedure used to measure positions on the surface of the Earth.
+      class HorizontalDatum < Datum
+        @ellipsoid: untyped
+
+        @wgs84_parameters: untyped
+
+        def initialize: (untyped name, untyped datum_type, untyped ellipsoid, untyped wgs84_parameters, *untyped optional) -> void
+
+        # Returns the Ellipsoid.
+        attr_reader ellipsoid: untyped
+
+        # Gets preferred parameters for a Bursa Wolf transformation into
+        # WGS84. The 7 returned values correspond to (dx,dy,dz) in meters,
+        # (ex,ey,ez) in arc-seconds, and scaling in parts-per-million.
+        attr_reader wgs84_parameters: untyped
+
+        def wkt_typename: () -> "DATUM"
+
+        def self.create: (untyped name, untyped datum_type, untyped ellipsoid, untyped wgs84_parameters, *untyped optional) -> untyped
+
+        private
+
+        def wkt_content: (untyped standard_brackets) -> untyped
+      end
+
+      # == OGC spec description
+      #
+      # A projection from geographic coordinates to projected coordinates.
+      class Projection < Info
+        @class_name: untyped
+
+        @parameters: untyped
+
+        def initialize: (untyped name, untyped class_name, untyped parameters, *untyped optional) -> void
+
+        # Gets the projection classification name
+        # (e.g. "Transverse_Mercator").
+        attr_reader class_name: untyped
+
+        def num_parameters: () -> untyped
+
+        def get_parameter: (untyped index) -> untyped
+
+        def each_parameter: () { (?) -> untyped } -> untyped
+
+        def wkt_typename: () -> "PROJECTION"
+
+        def self.create: (untyped name, untyped class_name, untyped parameters, *untyped optional) -> untyped
+
+        private
+
+        def wkt_content: (untyped _) -> ::Array[untyped]
+      end
+
+      # == OGC spec description
+      #
+      # Base interface for all coordinate systems.
+      #
+      # A coordinate system is a mathematical space, where the elements
+      # of the space are called positions. Each position is described by
+      # a list of numbers. The length of the list corresponds to the
+      # dimension of the coordinate system. So in a 2D coordinate system
+      # each position is described by a list containing 2 numbers.
+      #
+      # However, in a coordinate system, not all lists of numbers
+      # correspond to a position -- some lists may be outside the domain
+      # of the coordinate system. For example, in a 2D Lat/Lon coordinate
+      # system, the list (91,91) does not correspond to a position.
+      #
+      # Some coordinate systems also have a mapping from the mathematical
+      # space into locations in the real world. So in a Lat/Lon coordinate
+      # system, the mathematical position (lat, long) corresponds to a
+      # location on the surface of the Earth. This mapping from the
+      # mathematical space into real-world locations is called a Datum.
+      #
+      # == Notes
+      #
+      # This is a non-instantiable abstract class. You must instantiate
+      # one of the subclasses GeocentricCoordinateSystem,
+      # GeographicCoordinateSystem, ProjectedCoordinateSystem,
+      # VerticalCoordinateSystem, LocalCoordinateSystem, or
+      # CompoundCoordinateSystem.
+      class CoordinateSystem < Info
+        @dimension: untyped
+
+        def initialize: (untyped name, untyped dimension, *untyped optional) -> void
+
+        # Dimension of the coordinate system
+        attr_reader dimension: untyped
+
+        def get_axis: (untyped _dimension) -> nil
+
+        def get_units: (untyped _dimension) -> nil
+
+        def geographic?: () -> false
+
+        def projected?: () -> false
+
+        def wkt_typename: () -> "CS"
+
+        # Not an OGC method, but useful for being able to
+        # transform directly from a CoordinateSystem object.
+        def transform_coords: (untyped target_cs, untyped x, untyped y, ?untyped? z) -> untyped
+
+        def self.create: (untyped defn, ?::Integer dimension, *untyped optional) -> untyped
+
+        def self.create_from_wkt: (untyped str) -> untyped
+
+        private
+
+        def wkt_content: (untyped _) -> ::Array[untyped]
+      end
+
+      # == OGC spec description
+      #
+      # An aggregate of two coordinate systems (CRS). One of these is
+      # usually a CRS based on a two dimensional coordinate system such
+      # as a geographic or a projected coordinate system with a horizontal
+      # datum. The other is a vertical CRS which is a one-dimensional
+      # coordinate system with a vertical datum.
+      class CompoundCoordinateSystem < CoordinateSystem
+        @head: untyped
+
+        @tail: untyped
+
+        def initialize: (untyped name, untyped head, untyped tail, *untyped optional) -> void
+
+        # Gets first sub-coordinate system.
+        attr_reader head: untyped
+
+        # Gets second sub-coordinate system.
+        attr_reader tail: untyped
+
+        def get_axis: (untyped index) -> untyped
+
+        def get_units: (untyped index) -> untyped
+
+        def wkt_typename: () -> "COMPD_CS"
+
+        def self.create: (untyped name, untyped head, untyped tail, *untyped optional) -> untyped
+
+        private
+
+        def wkt_content: (untyped standard_brackets) -> ::Array[untyped]
+      end
+
+      # == OGC spec description
+      #
+      # A local coordinate system, with uncertain relationship to the
+      # world. In general, a local coordinate system cannot be related to
+      # other coordinate systems. However, if two objects supporting this
+      # interface have the same dimension, axes, units and datum then
+      # client code is permitted to assume that the two coordinate systems
+      # are identical. This allows several datasets from a common source
+      # (e.g. a CAD system) to be overlaid. In addition, some
+      # implementations of the Coordinate Transformation (CT) package may
+      # have a mechanism for correlating local datums. (E.g. from a
+      # database of transformations, which is created and maintained from
+      # real-world measurements.)
+      #
+      # == Notes
+      #
+      # RGeo's implementation does not provide the Coordinate
+      # Transformation (CT) package.
+      class LocalCoordinateSystem < CoordinateSystem
+        @local_datum: untyped
+
+        @unit: untyped
+
+        @axes: untyped
+
+        def initialize: (untyped name, untyped local_datum, untyped unit, untyped axes, *untyped optional) -> void
+
+        # Gets the local datum.
+        attr_reader local_datum: untyped
+
+        def get_axis: (untyped index) -> untyped
+
+        def get_units: (untyped _index) -> untyped
+
+        def wkt_typename: () -> "LOCAL_CS"
+
+        def self.create: (untyped name, untyped local_datum, untyped unit, untyped axes, *untyped optional) -> untyped
+
+        private
+
+        def wkt_content: (untyped standard_brackets) -> untyped
+      end
+
+      # == OGC spec description
+      #
+      # A 3D coordinate system, with its origin at the centre of the
+      # Earth. The X axis points towards the prime meridian. The Y axis
+      # points East or West. The Z axis points North or South. By default
+      # the Z axis will point North, and the Y axis will point East (e.g.
+      # a right handed system), but you should check the axes for
+      # non-default values.
+      class GeocentricCoordinateSystem < CoordinateSystem
+        @horizontal_datum: untyped
+
+        @prime_meridian: untyped
+
+        @linear_unit: untyped
+
+        @axis0: untyped
+
+        @axis1: untyped
+
+        @axis2: untyped
+
+        def initialize: (untyped name, untyped horizontal_datum, untyped prime_meridian, untyped linear_unit, untyped axis0, untyped axis1, untyped axis2, *untyped optional) -> void
+
+        # Returns the HorizontalDatum. The horizontal datum is used to
+        # determine where the centre of the Earth is considered to be.
+        # All coordinate points will be measured from the centre of the
+        # Earth, and not the surface.
+        attr_reader horizontal_datum: untyped
+
+        # Returns the PrimeMeridian.
+        attr_reader prime_meridian: untyped
+
+        # Gets the units used along all the axes.
+        attr_reader linear_unit: untyped
+
+        def get_units: (untyped _index) -> untyped
+
+        def get_axis: (untyped index) -> untyped
+
+        def geographic?: () -> true
+
+        def wkt_typename: () -> "GEOCCS"
+
+        def self.create: (untyped name, untyped horizontal_datum, untyped prime_meridian, untyped linear_unit, untyped axis0, untyped axis1, untyped axis2, *untyped optional) -> untyped
+
+        private
+
+        def wkt_content: (untyped standard_brackets) -> untyped
+      end
+
+      # == OGC spec description
+      #
+      # A one-dimensional coordinate system suitable for vertical
+      # measurements.
+      class VerticalCoordinateSystem < CoordinateSystem
+        @vertical_datum: untyped
+
+        @vertical_unit: untyped
+
+        @axis: untyped
+
+        def initialize: (untyped name, untyped vertical_datum, untyped vertical_unit, untyped axis, *untyped optional) -> void
+
+        # Gets the vertical datum, which indicates the measurement method.
+        attr_reader vertical_datum: untyped
+
+        # Gets the units used along the vertical axis. The vertical units
+        # must be the same as the CS_CoordinateSystem units.
+        attr_reader vertical_unit: untyped
+
+        def get_units: (untyped _index) -> untyped
+
+        def get_axis: (untyped _index) -> untyped
+
+        def wkt_typename: () -> "VERT_CS"
+
+        def self.create: (untyped name, untyped vertical_datum, untyped vertical_unit, untyped axis, *untyped optional) -> untyped
+
+        private
+
+        def wkt_content: (untyped standard_brackets) -> untyped
+      end
+
+      # == OGC spec description
+      #
+      # A 2D coordinate system suitable for positions on the Earth's surface.
+      #
+      # == Notes
+      #
+      # This is a non-instantiable abstract class. You must instantiate
+      # one of the subclasses GeographicCoordinateSystem or
+      # ProjectedCoordinateSystem.
+      class HorizontalCoordinateSystem < CoordinateSystem
+        @horizontal_datum: untyped
+
+        def initialize: (untyped name, untyped horizontal_datum, *untyped optional) -> void
+
+        # Returns the HorizontalDatum.
+        attr_reader horizontal_datum: untyped
+      end
+
+      # == OGC spec description
+      #
+      # A coordinate system based on latitude and longitude. Some
+      # geographic coordinate systems are Lat/Lon, and some are Lon/Lat.
+      # You can find out which this is by examining the axes. You should
+      # also check the angular units, since not all geographic coordinate
+      # systems use degrees.
+      class GeographicCoordinateSystem < HorizontalCoordinateSystem
+        @prime_meridian: untyped
+
+        @angular_unit: untyped
+
+        @axis0: untyped
+
+        @axis1: untyped
+
+        def initialize: (untyped name, untyped angular_unit, untyped horizontal_datum, untyped prime_meridian, untyped axis0, untyped axis1, *untyped optional) -> void
+
+        # Returns the PrimeMeridian.
+        attr_reader prime_meridian: untyped
+
+        # Returns the AngularUnit. The angular unit must be the same as
+        # the CS_CoordinateSystem units.
+        attr_reader angular_unit: untyped
+
+        def get_units: (untyped _index) -> untyped
+
+        def get_axis: (untyped index) -> untyped
+
+        def num_conversion_to_wgs84: () -> (1 | 0)
+
+        def get_wgs84_conversion_info: (untyped _index) -> untyped
+
+        def geographic?: () -> true
+
+        def wkt_typename: () -> "GEOGCS"
+
+        def self.create: (untyped name, untyped angular_unit, untyped horizontal_datum, untyped prime_meridian, untyped axis0, untyped axis1, *untyped optional) -> untyped
+
+        private
+
+        def wkt_content: (untyped standard_brackets) -> untyped
+      end
+
+      # == OGC spec description
+      #
+      # A 2D cartographic coordinate system.
+      class ProjectedCoordinateSystem < HorizontalCoordinateSystem
+        @geographic_coordinate_system: untyped
+
+        @projection: untyped
+
+        @linear_unit: untyped
+
+        @axis0: untyped
+
+        @axis1: untyped
+
+        def initialize: (untyped name, untyped geographic_coordinate_system, untyped projection, untyped linear_unit, untyped axis0, untyped axis1, *untyped optional) -> void
+
+        # Returns the GeographicCoordinateSystem.
+        attr_reader geographic_coordinate_system: untyped
+
+        # Gets the projection.
+        attr_reader projection: untyped
+
+        # Returns the LinearUnits. The linear unit must be the same as
+        # the CS_CoordinateSystem units.
+        attr_reader linear_unit: untyped
+
+        def get_units: (untyped _index) -> untyped
+
+        def get_axis: (untyped index) -> untyped
+
+        def projected?: () -> true
+
+        def wkt_typename: () -> "PROJCS"
+
+        def self.create: (untyped name, untyped geographic_coordinate_system, untyped projection, untyped linear_unit, untyped axis0, untyped axis1, *untyped optional) -> untyped
+
+        private
+
+        def wkt_content: (untyped standard_brackets) -> untyped
+      end
+
+      # CoordinateTransform object. Note it is a combo of
+      # CoordinateTransform and MathTransform as specified in
+      # the OGC standard. This is just to simplify the model
+      # and keep all functionality in this class.
+      #
+      # @see https://portal.ogc.org/files/?artifact_id=999 page 79
+      class CoordinateTransform < Info
+        @source_cs: untyped
+
+        @target_cs: untyped
+
+        # Initialize a new CoordinateTransform
+        #
+        # Note this class should not be used directly since it does not
+        # implement any transformation logic. It merely defines
+        # what methods actual implementations must use.
+        #
+        # @param [CoordinateSystem] source_cs
+        # @param [CoordinateSystem] target_cs
+        # @param [Array] optional any params for Info or Base
+        # @return [CoordinateTransform]
+        def initialize: (untyped source_cs, untyped target_cs, *untyped optional) -> void
+
+        attr_accessor source_cs: untyped
+
+        attr_accessor target_cs: untyped
+
+        # TODO: This changes depending on what type of conversion is done
+        # and we can't know unless we implement the conversion ourselves.
+        # We should delegate all of the wkt generation to the library
+        # if possible.
+        def wkt_typename: () -> "CONVERSION"
+
+        def inspect: () -> ::String
+
+        # Human readable description of domain in source coordinate system.
+        #
+        # @return [String]
+        def area_of_use: () -> untyped
+
+        # Semantic type of transform. For example, a datum transformation or a coordinate conversion.
+        #
+        # @return [String]
+        def transform_type: () -> untyped
+
+        # Dimension of the source_cs
+        #
+        # @return [Integer]
+        def dim_source: () -> untyped
+
+        # Dimension of the target_cs
+        #
+        # @return [Integer]
+        def dim_target: () -> untyped
+
+        # Tests whether this transform does not move any points
+        #
+        # @return [Boolean]
+        def identity?: () -> untyped
+
+        # Gets flags classifying domain points within a convex hull. The supplied ordinates are interpreted
+        # as a sequence of points, which generates a convex hull in the source space. Conceptually, each
+        # of the (usually infinite) points inside the convex hull is then tested against the source domain.
+        # The flags of all these tests are then combined. In practice, implementations of different
+        # transforms will use different short-cuts to avoid doing an infinite number of tests.
+        #
+        # @param [Array<<Array<Integer>>] points in tuples of (x,y,z) with z being optional
+        # @return [Array<Integer>] the domain_flags of the input points
+        def domain_flags: (untyped points) -> untyped
+
+        # Gets transformed convex hull. The supplied ordinates are interpreted as a sequence of points,
+        # which generates a convex hull in the source space. The returned sequence of ordinates
+        # represents a convex hull in the output space. The number of output points will often be different
+        # from the number of input points. Each of the input points should be inside the valid domain (this
+        # can be checked by testing the points' domain flags individually). However, the convex hull of the
+        # input points may go outside the valid domain. The returned convex hull should contain the
+        # transformed image of the intersection of the source convex hull and the source domain.
+        #
+        # @param [Array<<Array<Integer>>] points in tuples of (x,y,z) with z being optional
+        # @return [Array<<Array<Integer>>]
+        def codomain_convex_hull: (untyped points) -> untyped
+
+        # Transforms a coordinate point. The passed parameter point should not be modified.
+        #
+        # @param [Integer] x
+        # @param [Integer] y
+        # @param [Integer] z optional
+        # @return [Array<Integer>] transformed point coordinates in (x,y,z) order
+        def transform_coords: (untyped x, untyped y, ?untyped? z) -> untyped
+
+        # Transforms a coordinate point. The passed parameter point should not be modified.
+        #
+        # @param [Array<Array<Integer>>] points in (x,y,z) tuples where z is optional
+        # @return [Array<Array<Integer>>] list of transformed point coordinates in (x,y,z) order
+        def transform_list: (untyped points) -> untyped
+
+        # Creates the inverse transform of this object. This method may fail if the transform is not one to
+        # one. However, all cartographic projections should succeed.
+        #
+        # @return [CoordinateTransform]
+        def inverse: () -> untyped
+
+        # Initialize a new CoordinateTransform
+        #
+        # Note this class should not be used directly since it does not
+        # implement any transformation logic. It merely defines
+        # what methods actual implementations must use.
+        #
+        # @param [CoordinateSystem] source_cs
+        # @param [CoordinateSystem] target_cs
+        # @param [Array] optional any params for Info or Base
+        # @return [CoordinateTransform]
+        def self.create: (untyped source_cs, untyped target_cs, *untyped optional) -> untyped
+
+        private
+
+        def wkt_content: (untyped standard_brackets) -> ::Array[untyped]
+      end
+    end
+  end
+end
+
+module RGeo
+  module CoordSys
+    # This module contains an implementation of the CS (coordinate
+    # systems) package of the OGC Coordinate Transform spec. It provides
+    # classes for representing ellipsoids, datums, coordinate systems,
+    # and other related concepts, as well as a parser for the WKT format
+    # for specifying coordinate systems.
+    #
+    # Generally, the easiest way to create coordinate system objects is
+    # to use RGeo::CoordSys::CS.create_from_wkt, which parses the WKT
+    # format. You can also use the create methods available for each
+    # object class.
+    #
+    # Most but not all of the spec is implemented here.
+    # Currently missing are:
+    #
+    # * XML format is not implemented. We're assuming that WKT is the
+    #   preferred format.
+    # * The PT and CT packages are not implemented.
+    # * FittedCoordinateSystem is not implemented.
+    # * The defaultEnvelope attribute of CS_CoordinateSystem is not
+    #   implemented.
+    module CS
+      # A class implementing the CS_CoordinateSystemFactory interface.
+      # It provides methods for building up complex objects from simpler
+      # objects or values.
+      #
+      # Note that the methods of CS_CoordinateSystemFactory do not provide
+      # facilities for setting the authority. If you need to set authority
+      # values, use the create methods for the object classes themselves.
+      class CoordinateSystemFactory
+        def create_compound_coordinate_system: (untyped name, untyped head, untyped tail) -> untyped
+
+        def create_ellipsoid: (untyped name, untyped semi_major_axis, untyped semi_minor_axis, untyped linear_unit) -> untyped
+
+        def create_flattened_sphere: (untyped name, untyped semi_major_axis, untyped inverse_flattening, untyped linear_unit) -> untyped
+
+        def create_from_wkt: (untyped str) -> untyped
+
+        def create_geographic_coordinate_system: (untyped name, untyped angular_unit, untyped horizontal_datum, untyped prime_meridian, untyped axis0, untyped axis1) -> untyped
+
+        def create_horizontal_datum: (untyped name, untyped horizontal_datum_type, untyped ellipsoid, untyped to_wgs84) -> untyped
+
+        def create_local_coordinate_system: (untyped name, untyped datum, untyped unit, untyped axes) -> untyped
+
+        def create_local_datum: (untyped _name, untyped local_datum_type) -> untyped
+
+        def create_prime_meridian: (untyped _name, untyped angular_unit, untyped longitude) -> untyped
+
+        def create_projected_coordinate_system: (untyped name, untyped gcs, untyped projection, untyped linear_unit, untyped axis0, untyped axis1) -> untyped
+
+        def create_projection: (untyped name, untyped wkt_projection_class, untyped parameters) -> untyped
+
+        def create_vertical_coordinate_system: (untyped name, untyped vertical_datum, untyped vertical_unit, untyped axis) -> untyped
+
+        def create_vertical_datum: (untyped name, untyped vertical_datum_type) -> untyped
+      end
+
+      def self.create_from_wkt: (untyped str) -> untyped
+    end
+  end
+end
+
+module RGeo
+  module CoordSys
+    module CS
+      class WKTParser
+        @scanner: untyped
+
+        @cur_token: untyped
+
+        def initialize: (untyped str) -> void
+
+        def parse: (?untyped? containing_type) -> untyped
+
+        def consume_tokentype: (untyped type) -> untyped
+
+        def expect_tokentype: (untyped type) -> (nil | untyped)
+
+        def next_token: () -> untyped
+
+        attr_reader cur_token: untyped
+
+        class QuotedString < String
+        end
+
+        class TypeString < String
+        end
+
+        class AuthorityClause
+          @name: untyped
+
+          @code: untyped
+
+          def initialize: (untyped name, untyped code) -> void
+
+          def to_a: () -> ::Array[untyped]
+        end
+
+        class ExtensionClause
+          @key: untyped
+
+          @value: untyped
+
+          attr_reader key: untyped
+
+          attr_reader value: untyped
+
+          def initialize: (untyped key, untyped value) -> void
+        end
+
+        class ArgumentList
+          @values: untyped
+
+          def initialize: () -> void
+
+          def <<: (untyped value) -> untyped
+
+          def assert_empty: () -> (nil | untyped)
+
+          def find_first: (untyped klass) -> (untyped | nil)
+
+          def find_all: (untyped klass) -> untyped
+
+          def create_optionals: () -> untyped
+
+          def shift: (?untyped? klass) -> untyped
+        end
+      end
+    end
+  end
+end
+
+module RGeo
+  module Error
+    # Base class for all RGeo-related exceptions
+    class RGeoError < RuntimeError
+    end
+
+    # RGeo error specific to the GEOS implementation.
+    class GeosError < RGeoError
+    end
+
+    # The specified geometry is invalid
+    class InvalidGeometry < RGeoError
+    end
+
+    # The specified operation is not supported or not implemented
+    class UnsupportedOperation < RGeoError
+    end
+
+    # Parsing failed
+    class ParseError < RGeoError
+    end
+
+    # Standard error messages from
+    # https://github.com/locationtech/jts/blob/0afbfb1956ec24912a8b4dc4edff0f1200442857/modules/core/src/main/java/org/locationtech/jts/operation/valid/TopologyValidationError.java#L98-L110
+    TOPOLOGY_VALIDATION_ERR: "Topology Validation Error"
+
+    REPEATED_POINT: "Repeated Point"
+
+    HOLE_OUTSIDE_SHELL: "Hole lies outside shell"
+
+    NESTED_HOLES: "Holes are nested"
+
+    DISCONNECTED_INTERIOR: "Interior is disconnected"
+
+    SELF_INTERSECTION: "Self-intersection"
+
+    RING_SELF_INTERSECTION: "Ring Self-intersection"
+
+    NESTED_SHELLS: "Nested shells"
+
+    DUPLICATE_RINGS: "Duplicate Rings"
+
+    TOO_FEW_POINTS: "Too few distinct points in geometry component"
+
+    INVALID_COORDINATE: "Invalid Coordinate"
+
+    UNCLOSED_RING: "Ring is not closed"
+  end
+end
+
+module RGeo
+  module Feature
+    # == SFS 1.1 Description
+    #
+    # A Curve is a 1-dimensional geometric object usually stored as a
+    # sequence of Points, with the subtype of Curve specifying the form of
+    # the interpolation between Points. This part of ISO 19125 defines only
+    # one subclass of Curve, LineString, which uses linear interpolation
+    # between Points.
+    #
+    # A Curve is a 1-dimensional geometric object that is the homeomorphic
+    # image of a real, closed interval D=[a,b] under a mapping f:[a,b]->R2.
+    #
+    # A Curve is simple if it does not pass through the same Point twice.
+    #
+    # A Curve is closed if its start Point is equal to its end Point.
+    #
+    # The boundary of a closed Curve is empty.
+    #
+    # A Curve that is simple and closed is a Ring.
+    #
+    # The boundary of a non-closed Curve consists of its two end Points.
+    #
+    # A Curve is defined as topologically closed.
+    #
+    # == Notes
+    #
+    # Curve is defined as a module and is provided primarily
+    # for the sake of documentation. Implementations need not necessarily
+    # include this module itself. Therefore, you should not depend on the
+    # kind_of? method to check type. Instead, use the provided check_type
+    # class method (or === operator) defined in the Type module.
+    #
+    # Some implementations may support higher dimensional points.
+    module Curve
+      include Geometry
+
+      extend Type
+
+      def length: () -> untyped
+
+      def start_point: () -> untyped
+
+      def end_point: () -> untyped
+
+      def closed?: () -> untyped
+
+      def ring?: () -> untyped
+    end
+  end
+end
+
+module RGeo
+  module Feature
+    # A FactoryGenerator is a callable object (usually a Proc) that
+    # takes a configuration as a hash and returns a factory. These are
+    # often used, e.g., by parsers to determine what factory the parsed
+    # geometry should have.
+    #
+    # See the call method for a list of common configuration parameters.
+    # Different generators will support different parameters. There is
+    # no mechanism defined to reflect on the parameters understood by a
+    # factory generator.
+    #
+    # Many of the implementations provide a factory method for creating
+    # factories. For example, RGeo::Cartesian.preferred_factory can be
+    # called to create a factory using the preferred Cartesian
+    # implementation. Thus, to get a corresponding factory generator,
+    # you can use the <tt>method</tt> method. e.g.
+    #
+    #  factory_generator = RGeo::Cartesian.method(:preferred_factory)
+    #
+    # FactoryGenerator is defined as a module and is provided
+    # primarily for the sake of documentation. Implementations need not
+    # necessarily include this module itself. Therefore, you should not
+    # depend on the kind_of? method to determine if an object is a
+    # factory generator.
+    module FactoryGenerator
+      def call: (?::Hash[untyped, untyped] _config) -> nil
+
+      def self.single: (untyped factory) -> untyped
+
+      def self.decorate: (untyped delegate, ?::Hash[untyped, untyped] default_config, ?::Hash[untyped, untyped] force_config) -> untyped
+    end
+  end
+end
+
+module RGeo
+  module Feature
+    # This is a standard interface for factories of features.
+    # Generally, each Feature implementation will implement these
+    # methods as a standard way to create features.
+    #
+    # If the implementation is unable to create the given feature,
+    # it should generally return nil. Implementations may also choose to
+    # raise an exception on failure.
+    #
+    # Some implementations may extend this interface to provide facilities
+    # for creating additional objects according to the capabilities
+    # provided by that implementation. Examples might include
+    # higher-dimensional coordinates or additional subclasses not
+    # explicitly required by the Simple Features Specification.
+    #
+    # Factory is defined as a module and is provided primarily for the
+    # sake of documentation. Implementations need not necessarily include
+    # this module itself. Therefore, you should not depend on the result
+    # of <tt>is_a?(Factory)</tt> to check type. However, to support
+    # testing for factory-ness, the <tt>Factory::Instance</tt> submodule
+    # is provided. All factory implementation classes MUST include
+    # <tt>Factory::Instance</tt>, and you may use it in <tt>is_a?</tt>,
+    # <tt>===</tt>, and case-when constructs.
+    module Factory
+      # All factory implementations MUST include this submodule.
+      # This serves as a marker that may be used to test an object for
+      # factory-ness.
+      module Instance
+      end
+
+      def property: (untyped _name) -> untyped
+
+      def parse_wkt: (untyped _str) -> untyped
+
+      def parse_wkb: (untyped _str) -> untyped
+
+      def point: (untyped _x, untyped _y, *untyped _extra) -> untyped
+
+      def line_string: (untyped _points) -> untyped
+
+      def line: (untyped _start, untyped _stop) -> untyped
+
+      def linear_ring: (untyped _points) -> untyped
+
+      def polygon: (untyped _outer_ring, ?untyped? _inner_rings) -> untyped
+
+      def collection: (untyped _elems) -> untyped
+
+      def multi_point: (untyped _elems) -> untyped
+
+      def multi_line_string: (untyped _elems) -> untyped
+
+      def multi_polygon: (untyped _elems) -> untyped
+
+      def coord_sys: () -> nil
+
+      def override_cast: (untyped _original, untyped _type, untyped _flags) -> false
+    end
+  end
+end
+
+module RGeo
+  module Feature
+    # == SFS 1.1 Description
+    #
+    # A GeometryCollection is a geometric object that is a collection of 1
+    # or more geometric objects.
+    #
+    # All the elements in a GeometryCollection shall be in the same Spatial
+    # Reference. This is also the Spatial Reference for the GeometryCollection.
+    #
+    # GeometryCollection places no other constraints on its elements.
+    # Subclasses of GeometryCollection may restrict membership based on
+    # dimension and may also place other constraints on the degree of spatial
+    # overlap between elements.
+    #
+    # == Notes
+    #
+    # GeometryCollection is defined as a module and is provided primarily
+    # for the sake of documentation. Implementations need not necessarily
+    # include this module itself. Therefore, you should not depend on the
+    # kind_of? method to check type. Instead, use the provided check_type
+    # class method (or === operator) defined in the Type module.
+    module GeometryCollection
+      include Geometry
+
+      extend Type
+
+      include Enumerable[untyped]
+
+      def num_geometries: () -> untyped
+
+      def geometry_n: (untyped _idx) -> untyped
+
+      def size: () -> untyped
+
+      def []: (untyped _idx) -> untyped
+
+      # Nodes the linework in a list of Geometries
+      #
+      def node: () -> untyped
+
+      def each: () { (?) -> untyped } -> untyped
+
+      # Gives a point that is guaranteed to be within the geometry.
+      #
+      # Extends OGC SFS 1.1 and follows PostGIS standards.
+      # @see https://postgis.net/docs/ST_PointOnSurface.html
+      def point_on_surface: () -> untyped
+    end
+  end
+end
+
+module RGeo
+  module Feature
+    # == SFS 1.1 Description
+    #
+    # Geometry is the root class of the hierarchy. Geometry is an abstract
+    # (non-instantiable) class.
+    #
+    # The instantiable subclasses of Geometry defined in this International
+    # Standard are restricted to 0, 1 and 2-dimensional geometric objects
+    # that exist in 2-dimensional coordinate space (R2).
+    #
+    # All instantiable Geometry classes described in this part of ISO 19125
+    # are defined so that valid instances of a Geometry class are
+    # topologically closed, i.e. all defined geometries include their
+    # boundary.
+    #
+    # == Notes
+    #
+    # Geometry is defined as a module and is provided primarily for the
+    # sake of documentation. Implementations need not necessarily include
+    # this module itself. Therefore, you should not depend on the result
+    # of <tt>is_a?(Geometry)</tt> to check type. Instead, use the
+    # provided check_type class method (or === operator) defined in the
+    # Type module.
+    #
+    # Some implementations may support higher dimensional objects or
+    # coordinate systems, despite the limits of the SFS.
+    #
+    # == Forms of equivalence
+    #
+    # The Geometry model defines three forms of equivalence.
+    #
+    # * <b>Spatial equivalence</b> is the weakest form of equivalence,
+    #   indicating that the objects represent the same region of space,
+    #   but may be different representations of that region. For example,
+    #   POINT(0 0) and a MULTIPOINT(0 0) are spatially equivalent, as are
+    #   LINESTRING(0 0, 10 10) and
+    #   GEOMETRYCOLLECTION(POINT(0 0), LINESTRING(0 0, 10 10, 0 0)).
+    #   As a general rule, objects must have factories that are
+    #   Factory#eql? in order to be spatially equivalent.
+    #
+    # * <b>Representational equivalence</b> is a stronger form, indicating
+    #   that the objects have the same representation, but may be
+    #   different objects. All representationally equivalent objects are
+    #   spatially equivalent, but not all spatially equivalent objects are
+    #   representationally equivalent. For example, none of the examples
+    #   in the spatial equivalence section above are representationally
+    #   equivalent. However, two separate objects that both represent
+    #   POINT(1 2) are representationally equivalent as well as spatially
+    #   equivalent.
+    #
+    # * <b>Objective equivalence</b> is the strongest form, indicating
+    #   that the references refer to the same object. Of course, all
+    #   pairs of references with the same objective identity are also
+    #   both representationally and spatially equivalent.
+    #
+    # Different methods test for different types of equivalence:
+    #
+    # * <tt>equals?</tt> and <tt>==</tt> test for spatial equivalence.
+    # * <tt>rep_equals?</tt> and <tt>eql?</tt> test for representational
+    #   equivalence.
+    # * <tt>equal?</tt> tests for objective equivalence.
+    #
+    # All ruby objects must provide a suitable test for objective
+    # equivalence. Normally, this is simply provided by the Ruby Object
+    # base class. Geometry implementations should normally also provide
+    # tests for representational and spatial equivalence, if possible.
+    # The <tt>==</tt> operator and the <tt>eql?</tt> method are standard
+    # Ruby methods that are often expected to be usable for every object.
+    # Therefore, if an implementation cannot provide a suitable test for
+    # their equivalence types, they must degrade to use a stronger form
+    # of equivalence.
+    module Geometry
+      extend Type
+
+      def factory: () -> untyped
+
+      def dimension: () -> untyped
+
+      # === SFS 1.2 Description
+      #
+      # The coordinate dimension is the dimension of direct positions (coordinate tuples) used in
+      # the definition of this geometric object
+      #
+      # === Notes
+      #
+      # Difference between this and dimension is that this is the dimension of the coordinate
+      # not the dimension of the geometry.
+      #
+      # @return [Integer]
+      def coordinate_dimension: () -> untyped
+
+      # === SFS 1.2 Description
+      #
+      # The spatial dimension is the dimension of the spatial portion of the direct positions
+      # (coordinate tuples) used in the definition of this geometric object. If the direct positions
+      # do not carry a measure coordinate, this will be equal to the coordinate dimension.
+      #
+      # === Notes
+      #
+      # Similar to coordinate_dimension except it will ignore the M component always.
+      #
+      # @return [Integer]
+      def spatial_dimension: () -> untyped
+
+      def geometry_type: () -> untyped
+
+      def srid: () -> untyped
+
+      def envelope: () -> untyped
+
+      def as_text: () -> untyped
+
+      def as_binary: () -> untyped
+
+      def empty?: () -> untyped
+
+      def simple?: () -> untyped
+
+      # === SFS 1.2 Description
+      #
+      # Returns 1 (TRUE) if this geometric object has z coordinate values.
+      #
+      # === Notes
+      #
+      # @return [Boolean]
+      def is_3d?: () -> untyped
+
+      # === SFS 1.2 Description
+      #
+      # Returns 1 (TRUE) if this geometric object has m coordinate values.
+      #
+      # === Notes
+      #
+      # @return [Boolean]
+      def measured?: () -> untyped
+
+      def boundary: () -> untyped
+
+      def equals?: (untyped _another_geometry) -> untyped
+
+      def disjoint?: (untyped _another_geometry) -> untyped
+
+      def intersects?: (untyped _another_geometry) -> untyped
+
+      def touches?: (untyped _another_geometry) -> untyped
+
+      def crosses?: (untyped _another_geometry) -> untyped
+
+      def within?: (untyped _another_geometry) -> untyped
+
+      def contains?: (untyped _another_geometry) -> untyped
+
+      def overlaps?: (untyped _another_geometry) -> untyped
+
+      def relate?: (untyped _another_geometry, untyped _intersection_pattern_matrix_) -> untyped
+
+      # === SFS 1.2 Description
+      #
+      # Returns a derived geometry collection value that matches the
+      # specified m coordinate value.
+      #
+      # === Notes
+      #
+      # @param m_value [Float] value to find matches for
+      # @return [RGeo::Feature::GeometryCollection]
+      def locate_along: () -> untyped
+
+      # === SFS 1.2 Description
+      #
+      # Returns a derived geometry collection value
+      # that matches the specified range of m coordinate values inclusively
+      #
+      # === Notes
+      #
+      # @param m_start [Float] lower bound of value range
+      # @param m_end [Float] upper bound of value range
+      # @return [RGeo::Feature::GeometryCollection]
+      def locate_between: () -> untyped
+
+      def distance: (untyped _another_geometry) -> untyped
+
+      def buffer: (untyped _distance_) -> untyped
+
+      def convex_hull: () -> untyped
+
+      def intersection: (untyped _another_geometry) -> untyped
+
+      def union: (untyped _another_geometry) -> untyped
+
+      def difference: (untyped _another_geometry) -> untyped
+
+      def sym_difference: (untyped _another_geometry) -> untyped
+
+      def rep_equals?: (untyped _another_geometry) -> untyped
+
+      # Unions a collection of Geometry or a single Geometry
+      # (which may be a collection) together. By using this
+      # special-purpose operation over a collection of geometries
+      # it is possible to take advantage of various optimizations
+      # to improve performance. Heterogeneous GeometryCollections
+      # are fully supported.
+      #
+      # This is not a standard SFS method, but when it is available
+      # in GEOS, it is a very performant way to union all the
+      # geometries in a collection. GEOS version 3.3 or greater
+      # is required. If the feature is not available, unary_union
+      # returns nil.
+      #
+      def unary_union: () -> untyped
+
+      def eql?: (untyped other) -> (untyped | false)
+
+      def ==: (untyped other) -> (untyped | false)
+
+      def -: (untyped other) -> untyped
+
+      def +: (untyped other) -> untyped
+
+      def *: (untyped other) -> untyped
+
+      # Convenience method to transform/project a geometry
+      # to a different coordinate system from the geometry itself
+      # instead of the cast method.
+      #
+      # @note: Not an OGC SFS method
+      #
+      # @param [RGeo::Feature::Factory] other_factory
+      # @return [RGeo::Feature::Geometry]
+      def transform: (untyped other_factory) -> untyped
+    end
+  end
+end
+
+module RGeo
+  module Feature
+    # == SFS 1.1 Description
+    #
+    # A LineString is a Curve with linear interpolation between Points.
+    # Each consecutive pair of Points defines a Line segment.
+    #
+    # == Notes
+    #
+    # LineString is defined as a module and is provided primarily
+    # for the sake of documentation. Implementations need not necessarily
+    # include this module itself. Therefore, you should not depend on the
+    # kind_of? method to check type. Instead, use the provided check_type
+    # class method (or === operator) defined in the Type module.
+    module LineString
+      include Curve
+
+      extend Type
+
+      def num_points: () -> untyped
+
+      def point_n: (untyped _idx) -> untyped
+
+      def points: () -> untyped
+    end
+  end
+end
+
+module RGeo
+  module Feature
+    module Line
+      include LineString
+
+      extend Type
+    end
+  end
+end
+
+module RGeo
+  module Feature
+    # == SFS 1.1 Description
+    #
+    # A LinearRing is a LineString that is both closed and simple.
+    #
+    # == Notes
+    #
+    # LinearRing is defined as a module and is provided primarily
+    # for the sake of documentation. Implementations need not necessarily
+    # include this module itself. Therefore, you should not depend on the
+    # kind_of? method to check type. Instead, use the provided check_type
+    # class method (or === operator) defined in the Type module.
+    module LinearRing
+      include LineString
+
+      extend Type
+
+      # Returns +true+ if the ring is oriented in a counter clockwise direction
+      # otherwise returns +false+.
+      #
+      # == Notes
+      #
+      # Not a standard SFS method for linear rings, but added for convenience.
+      def ccw?: () -> untyped
+    end
+  end
+end
+
+module RGeo
+  module Feature
+    # == SFS 1.1 Description
+    #
+    # A MultiCurve is a 1-dimensional GeometryCollection whose elements are
+    # Curves.
+    #
+    # MultiCurve is a non-instantiable class in this specification; it
+    # defines a set of methods for its subclasses and is included for
+    # reasons of extensibility.
+    #
+    # A MultiCurve is simple if and only if all of its elements are simple
+    # and the only intersections between any two elements occur at Points
+    # that are on the boundaries of both elements.
+    #
+    # The boundary of a MultiCurve is obtained by applying the "mod 2"
+    # union rule: A Point is in the boundary of a MultiCurve if it is in
+    # the boundaries of an odd number of elements of the MultiCurve.
+    #
+    # A MultiCurve is closed if all of its elements are closed. The
+    # boundary of a closed MultiCurve is always empty.
+    #
+    # A MultiCurve is defined as topologically closed.
+    #
+    # == Notes
+    #
+    # MultiCurve is defined as a module and is provided primarily
+    # for the sake of documentation. Implementations need not necessarily
+    # include this module itself. Therefore, you should not depend on the
+    # kind_of? method to check type. Instead, use the provided check_type
+    # class method (or === operator) defined in the Type module.
+    module MultiCurve
+      include GeometryCollection
+
+      extend Type
+
+      def length: () -> untyped
+
+      def closed?: () -> untyped
+    end
+  end
+end
+
+module RGeo
+  module Feature
+    module MultiLineString
+      include MultiCurve
+
+      extend Type
+    end
+  end
+end
+
+module RGeo
+  module Feature
+    module MultiPoint
+      include GeometryCollection
+
+      extend Type
+    end
+  end
+end
+
+module RGeo
+  module Feature
+    module MultiPolygon
+      include MultiSurface
+
+      extend Type
+    end
+  end
+end
+
+module RGeo
+  module Feature
+    # == SFS 1.1 Description
+    #
+    # A MultiSurface is a 2-dimensional GeometryCollection whose elements
+    # are Surfaces. The interiors of any two Surfaces in a MultiSurface may
+    # not intersect. The boundaries of any two elements in a MultiSurface
+    # may intersect, at most, at a finite number of Points.
+    #
+    # MultiSurface is a non-instantiable class in this International
+    # Standard. It defines a set of methods for its subclasses and is
+    # included for reasons of extensibility. The instantiable subclass of
+    # MultiSurface is MultiPolygon, corresponding to a collection of
+    # Polygons.
+    #
+    # == Notes
+    #
+    # MultiSurface is defined as a module and is provided primarily
+    # for the sake of documentation. Implementations need not necessarily
+    # include this module itself. Therefore, you should not depend on the
+    # kind_of? method to check type. Instead, use the provided check_type
+    # class method (or === operator) defined in the Type module.
+    module MultiSurface
+      include GeometryCollection
+
+      extend Type
+
+      def area: () -> untyped
+
+      def centroid: () -> untyped
+
+      def point_on_surface: () -> untyped
+    end
+  end
+end
+
+module RGeo
+  module Feature
+    # == SFS 1.1 Description
+    #
+    # A Point is a 0-dimensional geometric object and represents a single
+    # location in coordinate space. A Point has an x-coordinate value and
+    # a y-coordinate value.
+    #
+    # The boundary of a Point is the empty set.
+    #
+    # == Notes
+    #
+    # Point is defined as a module and is provided primarily
+    # for the sake of documentation. Implementations need not necessarily
+    # include this module itself. Therefore, you should not depend on the
+    # kind_of? method to check type. Instead, use the provided check_type
+    # class method (or === operator) defined in the Type module.
+    #
+    # Some implementations may support higher dimensional points.
+    #
+    # Some libraries, such as GEOS, support "empty" points. Such objects
+    # might be returned as, for example, the centroid of an empty
+    # MultiPolygon. The SFS does not clearly define or even acknowledge
+    # the existence of such a type, so RGeo will currently generally
+    # replace them with empty GeometryCollection objects. Therefore,
+    # currently, every RGeo Point object represents an actual location
+    # with real coordinates.
+    module Point
+      include Geometry
+
+      extend Type
+
+      def x: () -> untyped
+
+      def y: () -> untyped
+
+      def z: () -> untyped
+
+      def m: () -> untyped
+    end
+  end
+end
+
+module RGeo
+  module Feature
+    # == SFS 1.1 Description
+    #
+    # A Polygon is a planar Surface defined by 1 exterior boundary and 0 or
+    # more interior boundaries. Each interior boundary defines a hole in
+    # the Polygon.
+    #
+    # The assertions for Polygons (the rules that define valid Polygons)
+    # are as follows:
+    #
+    # (a) Polygons are topologically closed;
+    #
+    # (b) The boundary of a Polygon consists of a set of LinearRings that
+    # make up its exterior and interior boundaries;
+    #
+    # (c) No two Rings in the boundary cross and the Rings in the boundary
+    # of a Polygon may intersect at a Point but only as a tangent;
+    #
+    # (d) A Polygon may not have cut lines, spikes or punctures;
+    #
+    # (e) The interior of every Polygon is a connected point set;
+    #
+    # (f) The exterior of a Polygon with 1 or more holes is not connected.
+    # Each hole defines a connected component of the exterior.
+    #
+    # In the above assertions, interior, closure and exterior have the
+    # standard topological definitions. The combination of (a) and (c) make
+    # a Polygon a regular closed Point set.
+    #
+    # Polygons are simple geometric objects.
+    #
+    # == Notes
+    #
+    # Polygon is defined as a module and is provided primarily
+    # for the sake of documentation. Implementations need not necessarily
+    # include this module itself. Therefore, you should not depend on the
+    # kind_of? method to check type. Instead, use the provided check_type
+    # class method (or === operator) defined in the Type module.
+    module Polygon
+      include Surface
+
+      extend Type
+
+      def exterior_ring: () -> untyped
+
+      def num_interior_rings: () -> untyped
+
+      def interior_ring_n: (untyped _idx) -> untyped
+
+      def interior_rings: () -> untyped
+    end
+  end
+end
+
+module RGeo
+  module Feature
+    # == SFS 1.1 Description
+    #
+    # A Surface is a 2-dimensional geometric object.
+    #
+    # A simple Surface consists of a single "patch" that is associated with
+    # one "exterior boundary" and 0 or more "interior" boundaries. Simple
+    # Surfaces in 3-dimensional space are isomorphic to planar Surfaces.
+    # Polyhedral Surfaces are formed by "stitching" together simple
+    # Surfaces along their boundaries, polyhedral Surfaces in 3-dimensional
+    # space may not be planar as a whole.
+    #
+    # The boundary of a simple Surface is the set of closed Curves
+    # corresponding to its "exterior" and "interior" boundaries.
+    #
+    # The only instantiable subclass of Surface defined in this
+    # specification, Polygon, is a simple Surface that is planar.
+    #
+    # == Notes
+    #
+    # Surface is defined as a module and is provided primarily
+    # for the sake of documentation. Implementations need not necessarily
+    # include this module itself. Therefore, you should not depend on the
+    # kind_of? method to check type. Instead, use the provided check_type
+    # class method (or === operator) defined in the Type module.
+    #
+    # Some implementations may support higher dimensional points.
+    module Surface
+      include Geometry
+
+      extend Type
+
+      def area: () -> untyped
+
+      def centroid: () -> untyped
+
+      def point_on_surface: () -> untyped
+    end
+  end
+end
+
+module RGeo
+  module Feature
+    # All geometry implementations MUST include this submodule.
+    # This serves as a marker that may be used to test an object for
+    # feature-ness.
+    module Instance
+    end
+
+    # This module provides the API for geometry type objects. Technically
+    # these objects are modules (such as RGeo::Feature::Point), but as
+    # objects they respond to the methods documented here.
+    #
+    # For example, you may determine whether a feature object is a
+    # point by calling:
+    #
+    #   RGeo::Feature::Point.check_type(object)
+    #
+    # A corresponding === operator is provided so you can use the type
+    # modules in a case-when clause:
+    #
+    #   case object
+    #   when RGeo::Feature::Point
+    #     # do stuff here...
+    #
+    # However, a feature object may not actually include the point module
+    # itself; hence, the following will *not* work:
+    #
+    #   object.is_a?(RGeo::Feature::Point)  # DON'T DO THIS-- DOES NOT WORK
+    #
+    # You may obtain the type of a feature object by calling its
+    # geometry_type method. You may then use the methods in this module to
+    # interrogate that type.
+    #
+    #   # supppose object is a Point
+    #   type = object.geometry_type  # RGeo::Feature::Point
+    #   type.type_name               # "Point"
+    #   type.supertype               # RGeo::Feature::Geometry
+    #
+    # You may also use the presence of this module to determine whether
+    # a particular object is a feature type:
+    #
+    #   RGeo::Feature::Type === object.geometry_type  # true
+    module Type
+      @subtypes: untyped
+
+      def check_type: (untyped rhs) -> untyped
+
+      alias === check_type
+
+      def subtype_of?: (untyped type) -> untyped
+
+      def supertype: () -> untyped
+
+      def each_immediate_subtype: () { (?) -> untyped } -> untyped
+
+      def type_name: () -> untyped
+
+      alias to_s type_name
+
+      def add_subtype: (untyped type) -> untyped
+
+      def self.extended: (untyped type) -> untyped
+    end
+
+    def self.cast: (untyped obj, *untyped params) -> untyped
+  end
+end
+
+module RGeo
+  module Geographic
+    # This class implements the various factories for geography features.
+    # See methods of the RGeo::Geographic module for the API for creating
+    # geography factories.
+    class Factory
+      @impl_prefix: untyped
+
+      @point_class: untyped
+
+      @line_string_class: untyped
+
+      @linear_ring_class: untyped
+
+      @line_class: untyped
+
+      @polygon_class: untyped
+
+      @geometry_collection_class: untyped
+
+      @multi_point_class: untyped
+
+      @multi_line_string_class: untyped
+
+      @multi_polygon_class: untyped
+
+      @support_z: untyped
+
+      @support_m: untyped
+
+      @coordinate_dimension: untyped
+
+      @spatial_dimension: untyped
+
+      @coord_sys: untyped
+
+      @srid: untyped
+
+      @buffer_resolution: untyped
+
+      @wkt_generator: untyped
+
+      @wkb_generator: untyped
+
+      @wkt_parser: untyped
+
+      @wkb_parser: untyped
+
+      @projector: untyped
+
+      @hash: untyped
+
+      @projection_limits_window: untyped
+
+      @marshal_wkb_generator: untyped
+
+      @marshal_wkb_parser: untyped
+
+      @psych_wkt_generator: untyped
+
+      @psych_wkt_parser: untyped
+
+      include Feature::Factory::Instance
+
+      include ImplHelper::Utils
+
+      attr_writer projector: untyped
+
+      attr_reader coordinate_dimension: untyped
+
+      attr_reader spatial_dimension: untyped
+
+      # Returns the srid reported by this factory.
+      attr_reader srid: untyped
+
+      # See RGeo::Feature::Factory#coord_sys
+      attr_reader coord_sys: untyped
+
+      def initialize: (untyped impl_prefix, ?::Hash[untyped, untyped] opts) -> void
+
+      def eql?: (untyped other) -> untyped
+
+      alias == eql?
+
+      def hash: () -> untyped
+
+      def marshal_dump: () -> untyped
+
+      def marshal_load: (untyped data_) -> (nil | untyped)
+
+      def encode_with: (untyped coder) -> (nil | untyped)
+
+      def init_with: (untyped coder) -> (nil | untyped)
+
+      def has_projection?: () -> untyped
+
+      def projection_factory: () -> untyped
+
+      def project: (untyped geometry) -> (nil | untyped)
+
+      def unproject: (untyped geometry) -> (nil | untyped)
+
+      def projection_wraps?: () -> (untyped | nil)
+
+      def projection_limits_window: () -> (untyped | nil)
+
+      def property: (untyped name) -> untyped
+
+      def parse_wkt: (untyped str) -> untyped
+
+      def parse_wkb: (untyped str) -> untyped
+
+      def point: (untyped x, untyped y, *untyped extra) -> untyped
+
+      def line_string: (untyped points) -> untyped
+
+      def line: (untyped start, untyped stop) -> untyped
+
+      def linear_ring: (untyped points) -> untyped
+
+      def polygon: (untyped outer_ring, ?untyped? inner_rings) -> untyped
+
+      def collection: (untyped elems) -> untyped
+
+      def multi_point: (untyped elems) -> untyped
+
+      def multi_line_string: (untyped elems) -> untyped
+
+      def multi_polygon: (untyped elems) -> untyped
+
+      def generate_wkt: (untyped obj) -> untyped
+
+      def generate_wkb: (untyped obj) -> untyped
+
+      def marshal_wkb_generator: () -> untyped
+
+      def marshal_wkb_parser: () -> untyped
+
+      def psych_wkt_generator: () -> untyped
+
+      def psych_wkt_parser: () -> untyped
+    end
+  end
+end
+
+module RGeo
+  module Geographic
+    self.@coord_sys4055: untyped
+
+    self.@coord_sys4326: untyped
+
+    def self.spherical_factory: (?::Hash[untyped, untyped] opts) -> untyped
+
+    def self.simple_mercator_factory: (?::Hash[untyped, untyped] opts) -> untyped
+
+    def self.projected_factory: (?::Hash[untyped, untyped] opts) -> untyped
+
+    private
+
+    def self.coord_sys4055: () -> untyped
+
+    def self.coord_sys4326: () -> untyped
+  end
+end
+
+module RGeo
+  module Geographic
+    class ProjectedPointImpl
+      include Feature::Point
+
+      include ImplHelper::ValidityCheck
+
+      include ImplHelper::BasicGeometryMethods
+
+      include ImplHelper::BasicPointMethods
+
+      include ProjectedGeometryMethods
+
+      include ProjectedPointMethods
+    end
+
+    class ProjectedLineStringImpl
+      include Feature::LineString
+
+      include ImplHelper::ValidityCheck
+
+      include ImplHelper::BasicGeometryMethods
+
+      include ImplHelper::BasicLineStringMethods
+
+      include ProjectedGeometryMethods
+
+      include ProjectedNCurveMethods
+
+      include ProjectedLineStringMethods
+    end
+
+    class ProjectedLinearRingImpl
+      include Feature::LinearRing
+
+      include ImplHelper::ValidityCheck
+
+      include ImplHelper::BasicGeometryMethods
+
+      include ImplHelper::BasicLineStringMethods
+
+      include ImplHelper::BasicLinearRingMethods
+
+      include ProjectedGeometryMethods
+
+      include ProjectedNCurveMethods
+
+      include ProjectedLineStringMethods
+
+      include ProjectedLinearRingMethods
+    end
+
+    class ProjectedLineImpl
+      include Feature::Line
+
+      include ImplHelper::ValidityCheck
+
+      include ImplHelper::BasicGeometryMethods
+
+      include ImplHelper::BasicLineStringMethods
+
+      include ImplHelper::BasicLineMethods
+
+      include ProjectedGeometryMethods
+
+      include ProjectedNCurveMethods
+
+      include ProjectedLineStringMethods
+    end
+
+    class ProjectedPolygonImpl
+      include Feature::Polygon
+
+      include ImplHelper::ValidityCheck
+
+      include ImplHelper::BasicGeometryMethods
+
+      include ImplHelper::BasicPolygonMethods
+
+      include ProjectedGeometryMethods
+
+      include ProjectedNSurfaceMethods
+
+      include ProjectedPolygonMethods
+    end
+
+    class ProjectedGeometryCollectionImpl
+      include Feature::GeometryCollection
+
+      include ImplHelper::ValidityCheck
+
+      include ImplHelper::BasicGeometryMethods
+
+      include ImplHelper::BasicGeometryCollectionMethods
+
+      include ProjectedGeometryMethods
+    end
+
+    class ProjectedMultiPointImpl
+      include Feature::MultiPoint
+
+      include ImplHelper::ValidityCheck
+
+      include ImplHelper::BasicGeometryMethods
+
+      include ImplHelper::BasicGeometryCollectionMethods
+
+      include ImplHelper::BasicMultiPointMethods
+
+      include ProjectedGeometryMethods
+    end
+
+    class ProjectedMultiLineStringImpl
+      include Feature::MultiLineString
+
+      include ImplHelper::ValidityCheck
+
+      include ImplHelper::BasicGeometryMethods
+
+      include ImplHelper::BasicGeometryCollectionMethods
+
+      include ImplHelper::BasicMultiLineStringMethods
+
+      include ProjectedGeometryMethods
+
+      include ProjectedNCurveMethods
+    end
+
+    class ProjectedMultiPolygonImpl
+      include Feature::MultiPolygon
+
+      include ImplHelper::ValidityCheck
+
+      include ImplHelper::BasicGeometryMethods
+
+      include ImplHelper::BasicGeometryCollectionMethods
+
+      include ImplHelper::BasicMultiPolygonMethods
+
+      include ProjectedGeometryMethods
+
+      include ProjectedNSurfaceMethods
+
+      include ProjectedMultiPolygonMethods
+    end
+  end
+end
+
+module RGeo
+  module Geographic
+    module ProjectedGeometryMethods
+      @projection: untyped
+
+      def srid: () -> untyped
+
+      def projection: () -> untyped
+
+      def envelope: () -> untyped
+
+      def coordinate_dimension: () -> untyped
+
+      def spatial_dimension: () -> untyped
+
+      def is_3d?: () -> untyped
+
+      def measured?: () -> untyped
+
+      def empty?: () -> untyped
+
+      def simple?: () -> untyped
+
+      def valid?: () -> untyped
+
+      def invalid_reason: () -> untyped
+
+      # (see RGeo::ImplHelper::ValidityCheck#make_valid)
+      def make_valid: () -> untyped
+
+      def boundary: () -> untyped
+
+      def equals?: (untyped rhs) -> untyped
+
+      def disjoint?: (untyped rhs) -> untyped
+
+      def intersects?: (untyped rhs) -> untyped
+
+      def touches?: (untyped rhs) -> untyped
+
+      def crosses?: (untyped rhs) -> untyped
+
+      def within?: (untyped rhs) -> untyped
+
+      def contains?: (untyped rhs) -> untyped
+
+      def overlaps?: (untyped rhs) -> untyped
+
+      def relate: (untyped rhs, untyped pattern_) -> untyped
+
+      def distance: (untyped rhs) -> untyped
+
+      def buffer: (untyped distance) -> untyped
+
+      def buffer_with_style: (untyped distance, untyped end_cap_style, untyped join_style, untyped mitre_limit) -> untyped
+
+      def simplify: (untyped tolerance) -> untyped
+
+      def simplify_preserve_topology: (untyped tolerance) -> untyped
+
+      def convex_hull: () -> untyped
+
+      def intersection: (untyped rhs) -> untyped
+
+      def union: (untyped rhs) -> untyped
+
+      def difference: (untyped rhs) -> untyped
+
+      def sym_difference: (untyped rhs) -> untyped
+
+      def point_on_surface: () -> untyped
+    end
+
+    module ProjectedPointMethods
+      @y: untyped
+
+      def canonical_x: () -> untyped
+
+      alias canonical_longitude canonical_x
+
+      alias canonical_lon canonical_x
+
+      def canonical_point: () -> (self | untyped)
+
+      def self.included: (untyped klass) -> untyped
+
+      private
+
+      # Ensure coordinates fall within a valid range.
+      def init_geometry: () -> untyped
+    end
+
+    module ProjectedNCurveMethods
+      def length: () -> untyped
+    end
+
+    module ProjectedLineStringMethods
+      @points: untyped
+
+      private
+
+      # Ensure coordinates fall within a valid range.
+      def init_geometry: () -> untyped
+    end
+
+    module ProjectedLinearRingMethods
+      def simple?: () -> untyped
+    end
+
+    module ProjectedNSurfaceMethods
+      def area: () -> untyped
+
+      def centroid: () -> untyped
+    end
+
+    module ProjectedPolygonMethods
+      private
+
+      # Ensure projection is available.
+      def init_geometry: () -> untyped
+    end
+
+    module ProjectedMultiPolygonMethods
+      private
+
+      # Ensure projection is available.
+      def init_geometry: () -> untyped
+    end
+  end
+end
+
+module RGeo
+  module Geographic
+    # This object represents an axis-aligned rectangle in a map projection
+    # coordinate system. It is commonly used to specify the viewport for a
+    # map visualization, an envelope in a projected coordinate system, or
+    # a spatial constraint. It must be attached to a Geographic::Factory
+    # that has a projection.
+    class ProjectedWindow
+      @factory: untyped
+
+      @x_min: untyped
+
+      @y_min: untyped
+
+      @x_max: untyped
+
+      @y_max: untyped
+
+      @sw_point: untyped
+
+      @se_point: untyped
+
+      @nw_point: untyped
+
+      @ne_point: untyped
+
+      @center_point: untyped
+
+      def initialize: (untyped factory_, untyped x_min_, untyped y_min_, untyped x_max_, untyped y_max_, ?::Hash[untyped, untyped] opts_) -> void
+
+      def to_s: () -> ::String
+
+      def inspect: () -> untyped
+
+      def eql?: (untyped other) -> (false | untyped)
+
+      alias == eql?
+
+      def hash: () -> untyped
+
+      # Returns the Geographic::Factory associated with this window.
+      # Note that this factory is the overall geography factory, not the
+      # projected factory (which can be obtained by calling
+      # Geographic::Factory#projection_factory on this factory).
+      attr_reader factory: untyped
+
+      # Returns the lower limit in the x (easting) direction.
+      attr_reader x_min: untyped
+
+      # Returns the upper limit in the x (easting) direction.
+      attr_reader x_max: untyped
+
+      # Returns the lower limit in the y (northing) direction.
+      attr_reader y_min: untyped
+
+      # Returns the upper limit in the y (northing) direction.
+      attr_reader y_max: untyped
+
+      def crosses_seam?: () -> untyped
+
+      def degenerate?: () -> untyped
+
+      def x_span: () -> untyped
+
+      alias width x_span
+
+      def y_span: () -> untyped
+
+      alias height y_span
+
+      def center_xy: () -> ::Array[untyped]
+
+      def sw_point: () -> untyped
+
+      def se_point: () -> untyped
+
+      def nw_point: () -> untyped
+
+      def ne_point: () -> untyped
+
+      def center_point: () -> untyped
+
+      def random_point: () -> untyped
+
+      def contains_point?: (untyped point_) -> untyped
+
+      def contains_window?: (untyped window_) -> (nil | untyped)
+
+      def scaled_by: (untyped x_factor_, ?untyped? y_factor_) -> untyped
+
+      alias * scaled_by
+
+      def clamped_by: (untyped min_width_, untyped min_height_, untyped max_width_, untyped max_height_) -> untyped
+
+      def with_margin: (untyped x_margin_, ?untyped? y_margin_) -> untyped
+
+      def self.for_corners: (untyped sw_, untyped ne_) -> untyped
+
+      def self.surrounding_point: (untyped point_, ?untyped? x_margin_, ?untyped? y_margin_) -> untyped
+
+      def self.bounding_points: (untyped points_) -> (nil | untyped)
+    end
+  end
+end
+
+module RGeo
+  module Geographic
+    class Projector
+      @geography_factory: untyped
+
+      @projection_factory: untyped
+
+      def initialize: (untyped geography_factory, untyped projection_factory) -> void
+
+      def set_factories: (untyped geography_factory, untyped projection_factory) -> untyped
+
+      def project: (untyped geometry) -> untyped
+
+      def unproject: (untyped geometry) -> untyped
+
+      attr_reader projection_factory: untyped
+
+      def wraps?: () -> false
+
+      def limits_window: () -> nil
+
+      def self.create_from_existing_factory: (untyped geography_factory, untyped projection_factory) -> untyped
+
+      def self.create_from_opts: (untyped geography_factory, ?::Hash[untyped, untyped] opts) -> untyped
+    end
+  end
+end
+
+module RGeo
+  module Geographic
+    class SimpleMercatorProjector
+      self.@coordsys3857: untyped
+
+      @geography_factory: untyped
+
+      @projection_factory: untyped
+
+      @limits_window: untyped
+
+      EQUATORIAL_RADIUS: ::Float
+
+      def initialize: (untyped geography_factory, ?::Hash[untyped, untyped] opts) -> void
+
+      def set_factories: (untyped geography_factory, untyped projection_factory) -> untyped
+
+      attr_reader projection_factory: untyped
+
+      def project: (untyped geometry) -> untyped
+
+      def unproject: (untyped geometry) -> untyped
+
+      def wraps?: () -> true
+
+      def limits_window: () -> untyped
+
+      def self._coordsys3857: () -> untyped
+    end
+  end
+end
+
+module RGeo
+  module Geographic
+    class SphericalPointImpl
+      include Feature::Point
+
+      include ImplHelper::ValidityCheck
+
+      include ImplHelper::BasicGeometryMethods
+
+      include ImplHelper::BasicPointMethods
+
+      include ImplHelper::ValidOp
+
+      include SphericalGeometryMethods
+
+      include SphericalPointMethods
+    end
+
+    class SphericalLineStringImpl
+      include Feature::LineString
+
+      include ImplHelper::ValidityCheck
+
+      include ImplHelper::BasicGeometryMethods
+
+      include ImplHelper::BasicLineStringMethods
+
+      include ImplHelper::ValidOp
+
+      include SphericalGeometryMethods
+
+      include SphericalLineStringMethods
+    end
+
+    class SphericalLineImpl
+      include Feature::Line
+
+      include ImplHelper::ValidityCheck
+
+      include ImplHelper::BasicGeometryMethods
+
+      include ImplHelper::BasicLineStringMethods
+
+      include ImplHelper::BasicLineMethods
+
+      include ImplHelper::ValidOp
+
+      include SphericalGeometryMethods
+
+      include SphericalLineStringMethods
+    end
+
+    class SphericalLinearRingImpl
+      include Feature::LinearRing
+
+      include ImplHelper::ValidityCheck
+
+      include ImplHelper::BasicGeometryMethods
+
+      include ImplHelper::BasicLineStringMethods
+
+      include ImplHelper::BasicLinearRingMethods
+
+      include ImplHelper::ValidOp
+
+      include SphericalGeometryMethods
+
+      include SphericalLineStringMethods
+    end
+
+    class SphericalPolygonImpl
+      include Feature::Polygon
+
+      include ImplHelper::ValidityCheck
+
+      include ImplHelper::BasicGeometryMethods
+
+      include ImplHelper::BasicPolygonMethods
+
+      include ImplHelper::ValidOp
+
+      include SphericalGeometryMethods
+
+      include SphericalPolygonMethods
+    end
+
+    class SphericalGeometryCollectionImpl
+      include Feature::GeometryCollection
+
+      include ImplHelper::ValidityCheck
+
+      include ImplHelper::BasicGeometryMethods
+
+      include ImplHelper::BasicGeometryCollectionMethods
+
+      include ImplHelper::ValidOp
+
+      include SphericalGeometryMethods
+    end
+
+    class SphericalMultiPointImpl
+      include Feature::MultiPoint
+
+      include ImplHelper::ValidityCheck
+
+      include ImplHelper::BasicGeometryMethods
+
+      include ImplHelper::BasicGeometryCollectionMethods
+
+      include ImplHelper::BasicMultiPointMethods
+
+      include ImplHelper::ValidOp
+
+      include SphericalGeometryMethods
+    end
+
+    class SphericalMultiLineStringImpl
+      include Feature::MultiLineString
+
+      include ImplHelper::ValidityCheck
+
+      include ImplHelper::BasicGeometryMethods
+
+      include ImplHelper::BasicGeometryCollectionMethods
+
+      include ImplHelper::BasicMultiLineStringMethods
+
+      include ImplHelper::ValidOp
+
+      include SphericalGeometryMethods
+
+      include SphericalMultiLineStringMethods
+    end
+
+    class SphericalMultiPolygonImpl
+      include Feature::MultiPolygon
+
+      include ImplHelper::ValidityCheck
+
+      include ImplHelper::BasicGeometryMethods
+
+      include ImplHelper::BasicGeometryCollectionMethods
+
+      include ImplHelper::BasicMultiPolygonMethods
+
+      include ImplHelper::ValidOp
+
+      include SphericalGeometryMethods
+    end
+  end
+end
+
+module RGeo
+  module Geographic
+    module SphericalGeometryMethods
+      def srid: () -> untyped
+
+      def coordinate_dimension: () -> untyped
+
+      def spatial_dimension: () -> untyped
+
+      def is_3d?: () -> untyped
+
+      def measured?: () -> untyped
+    end
+
+    module SphericalPointMethods
+      @xyz: untyped
+
+      @x: untyped
+
+      @y: untyped
+
+      def xyz: () -> untyped
+
+      def distance: (untyped rhs) -> untyped
+
+      def equals?: (untyped rhs) -> (false | untyped)
+
+      def buffer: (untyped distance) -> untyped
+
+      def self.included: (untyped klass) -> untyped
+
+      private
+
+      # Ensure coordinates fall within a valid range.
+      def init_geometry: () -> untyped
+    end
+
+    module SphericalLineStringMethods
+      @arcs: untyped
+
+      def arcs: () -> untyped
+
+      def simple?: () -> (false | true | untyped)
+
+      def length: () -> untyped
+
+      def intersects?: (untyped rhs) -> untyped
+
+      def crosses?: (untyped rhs) -> untyped
+
+      private
+
+      # TODO: replace with better algorithm (https://github.com/rgeo/rgeo/issues/274)
+      # Very simple algorithm to determine if 2 LineStrings intersect.
+      # Uses a nested for loop to look at each arc in the LineStrings and
+      # check if each arc intersects.
+      #
+      # @param [RGeo::Geographic::SphericalLineStringImpl] rhs
+      #
+      # @return [Boolean]
+      def intersects_line_string?: (untyped rhs) -> (true | false)
+
+      # TODO: replace with better algorithm (https://github.com/rgeo/rgeo/issues/274)
+      # Very simple algorithm to determine if 2 LineStrings cross.
+      # Uses a nested for loop to look at each arc in the LineStrings and
+      # check if each arc crosses.
+      #
+      # @param [RGeo::Geographic::SphericalLineStringImpl] rhs
+      #
+      # @return [Boolean]
+      def crosses_line_string?: (untyped rhs) -> (true | false)
+    end
+
+    module SphericalMultiLineStringMethods
+      def length: () -> untyped
+    end
+
+    module SphericalPolygonMethods
+      def centroid: () -> untyped
+    end
+  end
+end
+
+module RGeo
+  module Geographic
+    module SphericalMath
+      RADIUS: ::Float
+
+      class PointXYZ
+        @x: untyped
+
+        @y: untyped
+
+        @z: untyped
+
+        attr_reader x: untyped
+
+        attr_reader y: untyped
+
+        attr_reader z: untyped
+
+        def initialize: (untyped x, untyped y, untyped z) -> void
+
+        def to_s: () -> ::String
+
+        def eql?: (untyped other) -> untyped
+
+        alias == eql?
+
+        def latlon: () -> ::Array[untyped]
+
+        def lonlat: () -> ::Array[untyped]
+
+        def *: (untyped other) -> untyped
+
+        def %: (untyped other) -> untyped
+
+        def dist_to_point: (untyped rhs) -> untyped
+
+        def create_perpendicular: () -> untyped
+
+        def self.from_latlon: (untyped lat, untyped lon) -> untyped
+
+        def self.weighted_combination: (untyped pt1, untyped wt1, untyped pt2, untyped wt2) -> untyped
+
+        P1: untyped
+
+        P2: untyped
+      end
+
+      class ArcXYZ
+        @s: untyped
+
+        @e: untyped
+
+        @axis: untyped
+
+        attr_reader s: untyped
+
+        attr_reader e: untyped
+
+        def initialize: (untyped start, untyped stop) -> void
+
+        def to_s: () -> ::String
+
+        def eql?: (untyped other) -> untyped
+
+        alias == eql?
+
+        def degenerate?: () -> untyped
+
+        def axis: () -> untyped
+
+        def contains_point?: (untyped obj) -> untyped
+
+        def intersects_arc?: (untyped obj) -> untyped
+
+        def length: () -> untyped
+      end
+    end
+  end
+end
+
+module RGeo
+  module Geos
+    CAPI_SUPPORTED: untyped
+
+    FFI_SUPPORTED: true
+
+    FFI_SUPPORT_EXCEPTION: nil
+
+
+    CAP_ROUND: 1
+
+    CAP_FLAT: 2
+
+    CAP_SQUARE: 3
+
+    JOIN_ROUND: 1
+
+    JOIN_MITRE: 2
+
+    JOIN_BEVEL: 3
+  end
+end
+
+module RGeo
+  module Geos
+    # This the GEOS CAPI implementation of RGeo::Feature::Factory.
+    class CAPIFactory
+      @hash: untyped
+
+      include Feature::Factory::Instance
+
+      include ImplHelper::Utils
+
+      def self.create: (?::Hash[untyped, untyped] opts) -> (nil | untyped)
+
+      alias self.new self.create
+
+      def inspect: () -> ::String
+
+      def eql?: (untyped other) -> untyped
+
+      alias == eql?
+
+      def hash: () -> untyped
+
+      def marshal_dump: () -> untyped
+
+      def marshal_load: (untyped data_) -> untyped
+
+      def encode_with: (untyped coder_) -> (nil | untyped)
+
+      def init_with: (untyped coder_) -> untyped
+
+      def srid: () -> untyped
+
+      def buffer_resolution: () -> untyped
+
+      # See RGeo::Feature::Factory#property
+      def property: (untyped name_) -> untyped
+
+      def parse_wkt: (untyped str_) -> untyped
+
+      def parse_wkb: (untyped str_) -> untyped
+
+      def point: (untyped x, untyped y, *untyped extra) -> untyped
+
+      def line_string: (untyped points_) -> untyped
+
+      def line: (untyped start_, untyped end_) -> untyped
+
+      def linear_ring: (untyped points_) -> untyped
+
+      def polygon: (untyped outer_ring_, ?untyped? inner_rings_) -> untyped
+
+      def collection: (untyped elems_) -> untyped
+
+      def multi_point: (untyped elems_) -> untyped
+
+      def multi_line_string: (untyped elems_) -> untyped
+
+      def multi_polygon: (untyped elems_) -> untyped
+
+      def coord_sys: () -> untyped
+
+      def override_cast: (untyped original, untyped ntype, untyped flags) -> (nil | untyped | false)
+
+      def auto_prepare: () -> (:simple | :disabled)
+
+      IMPL_CLASSES: ::Hash[untyped, untyped]
+    end
+  end
+end
+
+module RGeo
+  module Geos
+    module CAPIGeometryMethods
+      include Feature::Instance
+
+      def coordinate_dimension: () -> untyped
+
+      def spatial_dimension: () -> (3 | 2)
+
+      def is_3d?: () -> untyped
+
+      def measured?: () -> untyped
+
+      def inspect: () -> ::String
+
+      def marshal_dump: () -> ::Array[untyped]
+
+      def marshal_load: (untyped data_) -> untyped
+
+      def encode_with: (untyped coder) -> untyped
+
+      def init_with: (untyped coder) -> untyped
+
+      def as_text: () -> untyped
+
+      alias to_s as_text
+    end
+
+    module CAPIGeometryCollectionMethods
+
+    end
+
+    class CAPIGeometryImpl
+      include Feature::Geometry
+
+      include ImplHelper::ValidityCheck
+
+      include CAPIGeometryMethods
+    end
+
+    class CAPIPointImpl
+      include Feature::Point
+
+      include ImplHelper::ValidityCheck
+
+      include CAPIGeometryMethods
+
+    end
+
+    class CAPILineStringImpl
+      include Feature::LineString
+
+      include ImplHelper::ValidityCheck
+
+      include CAPIGeometryMethods
+    end
+
+    class CAPILinearRingImpl
+      include Feature::LinearRing
+
+      include ImplHelper::ValidityCheck
+
+      include CAPIGeometryMethods
+
+      def ccw?: () -> untyped
+    end
+
+    class CAPILineImpl
+      include Feature::Line
+
+      include ImplHelper::ValidityCheck
+
+      include CAPIGeometryMethods
+    end
+
+    class CAPIPolygonImpl
+      include Feature::Polygon
+
+      include ImplHelper::ValidityCheck
+
+      include CAPIGeometryMethods
+    end
+
+    class CAPIGeometryCollectionImpl
+      include Feature::GeometryCollection
+
+      include ImplHelper::ValidityCheck
+
+      include CAPIGeometryMethods
+
+      include CAPIGeometryCollectionMethods
+    end
+
+    class CAPIMultiPointImpl
+      include Feature::MultiPoint
+
+      include ImplHelper::ValidityCheck
+
+      include CAPIGeometryMethods
+
+      include CAPIGeometryCollectionMethods
+    end
+
+    class CAPIMultiLineStringImpl
+      include Feature::MultiLineString
+
+      include ImplHelper::ValidityCheck
+
+      include CAPIGeometryMethods
+
+      include CAPIGeometryCollectionMethods
+    end
+
+    class CAPIMultiPolygonImpl
+      include Feature::MultiPolygon
+
+      include ImplHelper::ValidityCheck
+
+      include CAPIGeometryMethods
+
+      include CAPIGeometryCollectionMethods
+    end
+  end
+end
+
+module RGeo
+  module Geos
+    # This the FFI-GEOS implementation of RGeo::Feature::Factory.
+    class FFIFactory
+      @has_z: untyped
+
+      @has_m: untyped
+
+      @coordinate_dimension: untyped
+
+      @spatial_dimension: untyped
+
+      @_has_3d: untyped
+
+      @buffer_resolution: untyped
+
+      @_auto_prepare: untyped
+
+      @wkt_generator: untyped
+
+      @wkt_writer: untyped
+
+      @wkb_generator: untyped
+
+      @wkb_writer: untyped
+
+      @srid: untyped
+
+      @coord_sys: untyped
+
+      @wkt_parser: untyped
+
+      @wkt_reader: untyped
+
+      @wkb_parser: untyped
+
+      @wkb_reader: untyped
+
+      @hash: untyped
+
+      include Feature::Factory::Instance
+
+      include ImplHelper::Utils
+
+      attr_reader coordinate_dimension: untyped
+
+      attr_reader spatial_dimension: untyped
+
+      attr_reader _has_3d: untyped
+
+      attr_reader _auto_prepare: untyped
+
+      # Returns the SRID of geometries created by this factory.
+      attr_reader srid: untyped
+
+      # Returns the resolution used by buffer calculations on geometries
+      # created by this factory
+      attr_reader buffer_resolution: untyped
+
+      # See RGeo::Feature::Factory#coord_sys
+      attr_reader coord_sys: untyped
+
+      def initialize: (?::Hash[untyped, untyped] opts) -> void
+
+      def inspect: () -> ::String
+
+      def eql?: (untyped other) -> untyped
+
+      alias == eql?
+
+      def hash: () -> untyped
+
+      def marshal_dump: () -> untyped
+
+      def marshal_load: (untyped data) -> untyped
+
+      def encode_with: (untyped coder) -> untyped
+
+      def init_with: (untyped coder) -> untyped
+
+      # See RGeo::Feature::Factory#property
+      def property: (untyped name_) -> untyped
+
+      # See RGeo::Feature::Factory#parse_wkt
+      def parse_wkt: (untyped str) -> untyped
+
+      def parse_wkb: (untyped str) -> untyped
+
+      def point: (untyped x, untyped y, ?::Integer z) -> untyped
+
+      def line_string: (untyped points) -> untyped
+
+      def line: (untyped start, untyped stop) -> (nil | untyped)
+
+      def linear_ring: (untyped points) -> untyped
+
+      def polygon: (untyped outer_ring, ?untyped? inner_rings) -> (nil | untyped)
+
+      def collection: (untyped elems) -> untyped
+
+      def multi_point: (untyped elems) -> (nil | untyped)
+
+      def multi_line_string: (untyped elems) -> untyped
+
+      def multi_polygon: (untyped elems) -> untyped
+
+      def override_cast: (untyped _original, untyped _ntype, untyped _flags) -> false
+
+      # Create a feature that wraps the given ffi-geos geometry object
+      def wrap_fg_geom: (untyped fg_geom, ?untyped? klass) -> untyped
+
+      def convert_to_fg_geometry: (untyped obj, ?untyped? type) -> untyped
+
+      def generate_wkt: (untyped geom) -> untyped
+
+      def generate_wkb: (untyped geom) -> untyped
+
+      def write_for_marshal: (untyped geom) -> untyped
+
+      def read_for_marshal: (untyped str) -> untyped
+
+      def write_for_psych: (untyped geom) -> untyped
+
+      def read_for_psych: (untyped str) -> untyped
+
+      private
+
+      def create_fg_linear_ring: (untyped points) -> (nil | untyped)
+    end
+  end
+end
+
+module RGeo
+  module Geos
+    class FFIGeometryImpl
+      include Feature::Geometry
+
+      include ImplHelper::ValidityCheck
+
+      include FFIGeometryMethods
+    end
+
+    class FFIPointImpl
+      include Feature::Point
+
+      include ImplHelper::ValidityCheck
+
+      include FFIGeometryMethods
+
+      include FFIPointMethods
+    end
+
+    class FFILineStringImpl
+      include Feature::LineString
+
+      include ImplHelper::ValidityCheck
+
+      include FFIGeometryMethods
+
+      include FFILineStringMethods
+    end
+
+    class FFILinearRingImpl
+      include Feature::LinearRing
+
+      include ImplHelper::ValidityCheck
+
+      include FFIGeometryMethods
+
+      include FFILineStringMethods
+
+      include FFILinearRingMethods
+    end
+
+    class FFILineImpl
+      include Feature::Line
+
+      include ImplHelper::ValidityCheck
+
+      include FFIGeometryMethods
+
+      include FFILineStringMethods
+
+      include FFILineMethods
+    end
+
+    class FFIPolygonImpl
+      include Feature::Polygon
+
+      include ImplHelper::ValidityCheck
+
+      include FFIGeometryMethods
+
+      include FFIPolygonMethods
+    end
+
+    class FFIGeometryCollectionImpl
+      include Feature::GeometryCollection
+
+      include ImplHelper::ValidityCheck
+
+      include FFIGeometryMethods
+
+      include FFIGeometryCollectionMethods
+    end
+
+    class FFIMultiPointImpl
+      include Feature::MultiPoint
+
+      include ImplHelper::ValidityCheck
+
+      include FFIGeometryMethods
+
+      include FFIGeometryCollectionMethods
+
+      include FFIMultiPointMethods
+    end
+
+    class FFIMultiLineStringImpl
+      include Feature::MultiLineString
+
+      include ImplHelper::ValidityCheck
+
+      include FFIGeometryMethods
+
+      include FFIGeometryCollectionMethods
+
+      include FFIMultiLineStringMethods
+    end
+
+    class FFIMultiPolygonImpl
+      include Feature::MultiPolygon
+
+      include ImplHelper::ValidityCheck
+
+      include FFIGeometryMethods
+
+      include FFIGeometryCollectionMethods
+
+      include FFIMultiPolygonMethods
+    end
+  end
+end
+
+module RGeo
+  module Geos
+    module FFIGeometryMethods
+      @factory: untyped
+
+      @fg_geom: untyped
+
+      @_fg_prep: untyped
+
+      @_klasses: untyped
+
+      include Feature::Instance
+
+      attr_reader factory: untyped
+
+      attr_reader fg_geom: untyped
+
+      attr_reader _klasses: untyped
+
+      def initialize: (untyped factory, untyped fg_geom, untyped klasses) -> void
+
+      def inspect: () -> ::String
+
+      def marshal_dump: () -> ::Array[untyped]
+
+      def marshal_load: (untyped data) -> untyped
+
+      def encode_with: (untyped coder) -> untyped
+
+      def init_with: (untyped coder) -> untyped
+
+      def initialize_copy: (untyped orig) -> untyped
+
+      def srid: () -> untyped
+
+      def dimension: () -> untyped
+
+      def coordinate_dimension: () -> untyped
+
+      def spatial_dimension: () -> untyped
+
+      def geometry_type: () -> untyped
+
+      def prepared?: () -> untyped
+
+      def prepare!: () -> self
+
+      def envelope: () -> untyped
+
+      def boundary: () -> untyped
+
+      def as_text: () -> untyped
+
+      alias to_s as_text
+
+      def as_binary: () -> untyped
+
+      def empty?: () -> untyped
+
+      def simple?: () -> untyped
+
+      def is_3d?: () -> untyped
+
+      def measured?: () -> untyped
+
+      def valid?: () -> untyped
+
+      def invalid_reason: () -> untyped
+
+      def make_valid: () -> untyped
+
+      def equals?: (untyped rhs) -> (false | untyped)
+
+      alias == equals?
+
+      def disjoint?: (untyped rhs) -> untyped
+
+      def intersects?: (untyped rhs) -> untyped
+
+      def touches?: (untyped rhs) -> untyped
+
+      def crosses?: (untyped rhs) -> untyped
+
+      def within?: (untyped rhs) -> untyped
+
+      def contains?: (untyped rhs) -> untyped
+
+      def overlaps?: (untyped rhs) -> untyped
+
+      def relate?: (untyped rhs, untyped pattern) -> untyped
+
+      def distance: (untyped rhs) -> untyped
+
+      def buffer: (untyped distance) -> untyped
+
+      def convex_hull: () -> untyped
+
+      def intersection: (untyped rhs) -> untyped
+
+      alias * intersection
+
+      def union: (untyped rhs) -> untyped
+
+      alias + union
+
+      def unary_union: () -> (nil | untyped)
+
+      def difference: (untyped rhs) -> untyped
+
+      alias - difference
+
+      def sym_difference: (untyped rhs) -> untyped
+
+      def eql?: (untyped other) -> untyped
+
+      def detach_fg_geom: () -> untyped
+
+      def point_on_surface: () -> untyped
+
+      private
+
+      def request_prepared: () -> untyped
+    end
+
+    module FFIPointMethods
+      @hash: untyped
+
+      def x: () -> untyped
+
+      def y: () -> untyped
+
+      def z: () -> (untyped | nil)
+
+      def m: () -> (untyped | nil)
+
+      def geometry_type: () -> untyped
+
+      def rep_equals?: (untyped rhs) -> untyped
+
+      def hash: () -> untyped
+
+      def coordinates: () -> untyped
+    end
+
+    module FFILineStringMethods
+      @hash: untyped
+
+      def geometry_type: () -> untyped
+
+      def length: () -> untyped
+
+      def num_points: () -> untyped
+
+      def point_n: (untyped idx) -> (nil | untyped)
+
+      def start_point: () -> untyped
+
+      def end_point: () -> untyped
+
+      def points: () -> untyped
+
+      def closed?: () -> untyped
+
+      def ring?: () -> untyped
+
+      def rep_equals?: (untyped rhs) -> untyped
+
+      def hash: () -> untyped
+
+      def coordinates: () -> untyped
+    end
+
+    module FFILinearRingMethods
+      def geometry_type: () -> untyped
+
+      def ccw?: () -> untyped
+    end
+
+    module FFILineMethods
+      def geometry_type: () -> untyped
+    end
+
+    module FFIPolygonMethods
+      @hash: untyped
+
+      def geometry_type: () -> untyped
+
+      def area: () -> untyped
+
+      def centroid: () -> untyped
+
+      def point_on_surface: () -> untyped
+
+      def exterior_ring: () -> untyped
+
+      def num_interior_rings: () -> untyped
+
+      def interior_ring_n: (untyped idx) -> (nil | untyped)
+
+      def interior_rings: () -> untyped
+
+      def rep_equals?: (untyped rhs) -> (false | true)
+
+      def hash: () -> untyped
+
+      def coordinates: () -> untyped
+    end
+
+    module FFIGeometryCollectionMethods
+      @hash: untyped
+
+      def geometry_type: () -> untyped
+
+      def rep_equals?: (untyped rhs) -> (false | true)
+
+      def num_geometries: () -> untyped
+
+      alias size num_geometries
+
+      def geometry_n: (untyped idx) -> (nil | untyped)
+
+      def []: (untyped idx) -> (nil | untyped)
+
+      def hash: () -> untyped
+
+      def each: () ?{ (untyped) -> untyped } -> (self | untyped)
+
+      include Enumerable[untyped]
+    end
+
+    module FFIMultiPointMethods
+      def geometry_type: () -> untyped
+
+      def coordinates: () -> untyped
+    end
+
+    module FFIMultiLineStringMethods
+      def geometry_type: () -> untyped
+
+      def length: () -> untyped
+
+      def closed?: () -> (false | true)
+
+      def coordinates: () -> untyped
+    end
+
+    module FFIMultiPolygonMethods
+      def geometry_type: () -> untyped
+
+      def area: () -> untyped
+
+      def centroid: () -> untyped
+
+      def coordinates: () -> untyped
+    end
+  end
+end
+
+module RGeo
+  module Geos
+    self.@version: untyped
+
+    def self.capi_supported?: () -> untyped
+
+    def self.ffi_supported?: () -> untyped
+
+    def self.supported?: () -> untyped
+
+    def self.capi_geos?: (untyped object) -> untyped
+
+    def self.ffi_geos?: (untyped object) -> untyped
+
+    def self.geos?: (untyped object) -> untyped
+
+    def self.version: () -> untyped
+
+    attr_accessor self.preferred_native_interface: untyped
+
+    # Returns a factory for the GEOS implementation.
+    # Returns nil if the GEOS implementation is not supported.
+    #
+    # Note that GEOS does not natively support 4-dimensional data
+    # (i.e. both z and m values). However, RGeo's GEOS wrapper does
+    # provide a 4-dimensional factory that utilizes an extra native
+    # GEOS object to handle the extra coordinate. Hence, a factory
+    # configured with both Z and M support will work, but will be
+    # slower than a 2-dimensional or 3-dimensional factory.
+    #
+    # Options include:
+    #
+    # [<tt>:native_interface</tt>]
+    #   Specifies which native interface to use. Possible values are
+    #   <tt>:capi</tt> and <tt>:ffi</tt>. The default is the value
+    #   of the preferred_native_interface.
+    # [<tt>:buffer_resolution</tt>]
+    #   The resolution of buffers around geometries created by this
+    #   factory. This controls the number of line segments used to
+    #   approximate curves. The default is 1, which causes, for
+    #   example, the buffer around a point to be approximated by a
+    #   4-sided polygon. A resolution of 2 would cause that buffer
+    #   to be approximated by an 8-sided polygon. The exact behavior
+    #   for different kinds of buffers is defined by GEOS.
+    # [<tt>:srid</tt>]
+    #   Set the SRID returned by geometries created by this factory.
+    #   Default is 0.
+    # [<tt>:coord_sys</tt>]
+    #   The coordinate system in OGC form, either as a subclass of
+    #   CoordSys::CS::CoordinateSystem, or as a string in WKT format.
+    #   Optional. If not provided, but <tt>:srid</tt> is, a coord_sys
+    #   will be created using the CS::CONFIG.default_coord_sys_class.
+    #  [<tt>:coord_sys_class</tt>]
+    #    The coordinate system implementation to use if you do not want to
+    #    use the CS::CONFIG.default_coord_sys_class. Optional.
+    # [<tt>:has_z_coordinate</tt>]
+    #   Support <tt>z_coordinate</tt>. Default is false.
+    # [<tt>:has_m_coordinate</tt>]
+    #   Support <tt>m_coordinate</tt>. Default is false.
+    # [<tt>:wkt_parser</tt>]
+    #   Configure the parser for WKT. You may either pass a hash of
+    #   configuration parameters for WKRep::WKTParser.new, or the
+    #   special value <tt>:geos</tt>, indicating to use the native
+    #   GEOS parser. Default is the empty hash, indicating the default
+    #   configuration for WKRep::WKTParser.
+    #   Note that the special <tt>:geos</tt> value is not supported for
+    #   ZM factories, since GEOS currently can't handle ZM natively.
+    # [<tt>:wkb_parser</tt>]
+    #   Configure the parser for WKB. You may either pass a hash of
+    #   configuration parameters for WKRep::WKBParser.new, or the
+    #   special value <tt>:geos</tt>, indicating to use the native
+    #   GEOS parser. Default is the empty hash, indicating the default
+    #   configuration for WKRep::WKBParser.
+    #   Note that the special <tt>:geos</tt> value is not supported for
+    #   ZM factories, since GEOS currently can't handle ZM natively.
+    # [<tt>:wkt_generator</tt>]
+    #   Configure the generator for WKT. You may either pass a hash of
+    #   configuration parameters for WKRep::WKTGenerator.new, or the
+    #   special value <tt>:geos</tt>, indicating to use the native
+    #   GEOS generator. Default is <tt>{:convert_case => :upper}</tt>.
+    #   Note that the special <tt>:geos</tt> value is not supported for
+    #   ZM factories, since GEOS currently can't handle ZM natively.
+    # [<tt>:wkb_generator</tt>]
+    #   Configure the generator for WKB. You may either pass a hash of
+    #   configuration parameters for WKRep::WKBGenerator.new, or the
+    #   special value <tt>:geos</tt>, indicating to use the native
+    #   GEOS generator. Default is the empty hash, indicating the
+    #   default configuration for WKRep::WKBGenerator.
+    #   Note that the special <tt>:geos</tt> value is not supported for
+    #   ZM factories, since GEOS currently can't handle ZM natively.
+    # [<tt>:auto_prepare</tt>]
+    #   Request an auto-prepare strategy. Supported values are
+    #   <tt>:simple</tt> and <tt>:disabled</tt>. The former (which is
+    #   the default) generates a prepared geometry the second time an
+    #   operation that would benefit from it is called. The latter
+    #   never automatically generates a prepared geometry (unless you
+    #   generate one explicitly using the <tt>prepare!</tt> method).
+    def self.factory: (?::Hash[untyped, untyped] opts) -> (nil | untyped)
+  end
+end
+
+module RGeo
+  module Geos
+    module Utils
+      def self.ffi_coord_seqs_equal?: (untyped cs1, untyped cs2, untyped check_z) -> (false | untyped)
+
+      def self.ffi_compute_dimension: (untyped geom) -> untyped
+
+      def self.ffi_coord_seq_hash: (untyped coord_seq, ?::Integer init_hash) -> untyped
+
+      def self.ffi_supports_prepared_level1: () -> untyped
+
+      def self.ffi_supports_prepared_level2: () -> untyped
+
+      def self.ffi_supports_set_output_dimension: () -> untyped
+
+      def self.ffi_supports_unary_union: () -> untyped
+
+      def self.psych_wkt_generator: () -> untyped
+
+      def self.marshal_wkb_generator: () -> untyped
+    end
+  end
+end
+
+module RGeo
+  module Geos
+    # A factory for Geos that handles both Z and M.
+    class ZMFactory
+      @zfactory: untyped
+
+      @mfactory: untyped
+
+      @wkt_generator: untyped
+
+      @wkb_generator: untyped
+
+      @wkt_parser: untyped
+
+      @wkb_parser: untyped
+
+      @hash: untyped
+
+      @marshal_wkb_generator: untyped
+
+      @marshal_wkb_parser: untyped
+
+      @psych_wkt_generator: untyped
+
+      @psych_wkt_parser: untyped
+
+      include Feature::Factory::Instance
+
+      include ImplHelper::Utils
+
+      TYPE_KLASSES: ::Hash[untyped, untyped]
+
+      def self.create: (?::Hash[untyped, untyped] opts) -> (nil | untyped)
+
+      def initialize: (?::Hash[untyped, untyped] opts) -> void
+
+      def marshal_dump: () -> untyped
+
+      def marshal_load: (untyped data) -> untyped
+
+      def encode_with: (untyped coder) -> (nil | untyped)
+
+      def init_with: (untyped coder) -> untyped
+
+      def srid: () -> untyped
+
+      def buffer_resolution: () -> untyped
+
+      def z_factory: () -> untyped
+
+      def m_factory: () -> untyped
+
+      def eql?: (untyped other) -> untyped
+
+      alias == eql?
+
+      def hash: () -> untyped
+
+      def property: (untyped name) -> untyped
+
+      def parse_wkt: (untyped str) -> untyped
+
+      def parse_wkb: (untyped str) -> untyped
+
+      def point: (untyped x, untyped y, ?::Integer z, ?::Integer m) -> untyped
+
+      def line_string: (untyped points) -> untyped
+
+      def line: (untyped start, untyped stop) -> untyped
+
+      def linear_ring: (untyped points) -> untyped
+
+      def polygon: (untyped outer_ring, ?untyped? inner_rings) -> untyped
+
+      def collection: (untyped elems) -> untyped
+
+      def multi_point: (untyped elems) -> untyped
+
+      def multi_line_string: (untyped elems) -> untyped
+
+      def multi_polygon: (untyped elems) -> untyped
+
+      def coord_sys: () -> untyped
+
+      def override_cast: (untyped original, untyped ntype, untyped flags) -> (nil | untyped | false)
+
+      def create_feature: (untyped klass, untyped zgeometry, untyped mgeometry) -> untyped
+
+      def marshal_wkb_generator: () -> untyped
+
+      def marshal_wkb_parser: () -> untyped
+
+      def psych_wkt_generator: () -> untyped
+
+      def psych_wkt_parser: () -> untyped
+    end
+  end
+end
+
+module RGeo
+  module Geos
+    class ZMPointImpl
+      include ZMGeometryMethods
+
+      include ZMPointMethods
+    end
+
+    class ZMLineStringImpl
+      include ZMGeometryMethods
+
+      include ZMLineStringMethods
+    end
+
+    class ZMLinearRingImpl
+      include ZMGeometryMethods
+
+      include ZMLineStringMethods
+    end
+
+    class ZMLineImpl
+      include ZMGeometryMethods
+
+      include ZMLineStringMethods
+    end
+
+    class ZMPolygonImpl
+      include ZMGeometryMethods
+
+      include ZMPolygonMethods
+    end
+
+    class ZMGeometryCollectionImpl
+      include ZMGeometryMethods
+
+      include ZMGeometryCollectionMethods
+    end
+
+    class ZMMultiPointImpl
+      include ZMGeometryMethods
+
+      include ZMGeometryCollectionMethods
+    end
+
+    class ZMMultiLineStringImpl
+      include ZMGeometryMethods
+
+      include ZMGeometryCollectionMethods
+
+      include ZMMultiLineStringMethods
+    end
+
+    class ZMMultiPolygonImpl
+      include ZMGeometryMethods
+
+      include ZMGeometryCollectionMethods
+
+      include ZMMultiPolygonMethods
+    end
+
+    class ZMGeometryImpl
+      include ZMGeometryMethods
+    end
+  end
+end
+
+module RGeo
+  module Geos
+    module ZMGeometryMethods
+      @factory: untyped
+
+      @zgeometry: untyped
+
+      @mgeometry: untyped
+
+      include Feature::Instance
+
+      def initialize: (untyped factory, untyped zgeometry, untyped mgeometry) -> void
+
+      def inspect: () -> ::String
+
+      def to_s: () -> untyped
+
+      def hash: () -> untyped
+
+      def factory: () -> untyped
+
+      def z_geometry: () -> untyped
+
+      def m_geometry: () -> untyped
+
+      def dimension: () -> untyped
+
+      def coordinate_dimension: () -> 4
+
+      def spatial_dimension: () -> 3
+
+      def geometry_type: () -> untyped
+
+      def srid: () -> untyped
+
+      def envelope: () -> untyped
+
+      def as_text: () -> untyped
+
+      def as_binary: () -> untyped
+
+      def empty?: () -> untyped
+
+      def simple?: () -> untyped
+
+      def is_3d?: () -> true
+
+      def measured?: () -> true
+
+      def boundary: () -> untyped
+
+      def equals?: (untyped rhs) -> untyped
+
+      def disjoint?: (untyped rhs) -> untyped
+
+      def intersects?: (untyped rhs) -> untyped
+
+      def touches?: (untyped rhs) -> untyped
+
+      def crosses?: (untyped rhs) -> untyped
+
+      def within?: (untyped rhs) -> untyped
+
+      def contains?: (untyped rhs) -> untyped
+
+      def overlaps?: (untyped rhs) -> untyped
+
+      def relate?: (untyped rhs, untyped pattern) -> untyped
+
+      def distance: (untyped rhs) -> untyped
+
+      def buffer: (untyped distance_) -> untyped
+
+      def convex_hull: () -> untyped
+
+      def intersection: (untyped rhs) -> untyped
+
+      def union: (untyped rhs) -> untyped
+
+      def difference: (untyped rhs) -> untyped
+
+      def sym_difference: (untyped rhs) -> untyped
+
+      def rep_equals?: (untyped rhs) -> untyped
+
+      alias eql? rep_equals?
+
+      alias == equals?
+
+      alias - difference
+
+      alias + union
+
+      alias * intersection
+
+      def marshal_dump: () -> ::Array[untyped]
+
+      def marshal_load: (untyped data) -> untyped
+
+      def encode_with: (untyped coder) -> untyped
+
+      def init_with: (untyped coder) -> untyped
+
+      private
+
+      def copy_state_from: (untyped obj) -> untyped
+    end
+
+    module ZMPointMethods
+      def x: () -> untyped
+
+      def y: () -> untyped
+
+      def z: () -> untyped
+
+      def m: () -> untyped
+
+      def coordinates: () -> untyped
+    end
+
+    module ZMLineStringMethods
+      def length: () -> untyped
+
+      def start_point: () -> untyped
+
+      def end_point: () -> untyped
+
+      def closed?: () -> untyped
+
+      def ring?: () -> untyped
+
+      def num_points: () -> untyped
+
+      def point_n: (untyped idx) -> untyped
+
+      def points: () -> untyped
+
+      def coordinates: () -> untyped
+    end
+
+    module ZMPolygonMethods
+      def area: () -> untyped
+
+      def centroid: () -> untyped
+
+      def point_on_surface: () -> untyped
+
+      def exterior_ring: () -> untyped
+
+      def num_interior_rings: () -> untyped
+
+      def interior_ring_n: (untyped idx) -> untyped
+
+      def interior_rings: () -> untyped
+
+      def coordinates: () -> untyped
+    end
+
+    module ZMGeometryCollectionMethods
+      def num_geometries: () -> untyped
+
+      alias size num_geometries
+
+      def geometry_n: (untyped idx) -> untyped
+
+      alias [] geometry_n
+
+      def each: () ?{ (untyped) -> untyped } -> (self | untyped)
+
+      include Enumerable[untyped]
+    end
+
+    module ZMMultiLineStringMethods
+      def length: () -> untyped
+
+      def closed?: () -> untyped
+
+      def coordinates: () -> untyped
+    end
+
+    module ZMMultiPolygonMethods
+      def area: () -> untyped
+
+      def centroid: () -> untyped
+
+      def point_on_surface: () -> untyped
+
+      def coordinates: () -> untyped
+    end
+  end
+end
+
+module RGeo
+  module ImplHelper
+    module BasicGeometryCollectionMethods
+      @elements: untyped
+
+      @dimension: untyped
+
+      @hash: untyped
+
+      include Enumerable[untyped]
+
+      attr_reader elements: untyped
+
+      def initialize: (untyped factory, untyped elements) -> void
+
+      def num_geometries: () -> untyped
+
+      def geometry_n: (untyped idx) -> (nil | untyped)
+
+      def []: (untyped idx) -> untyped
+
+      def each: () { (?) -> untyped } -> untyped
+
+      def geometries: () -> untyped
+
+      def dimension: () -> untyped
+
+      def geometry_type: () -> untyped
+
+      def empty?: () -> untyped
+
+      def rep_equals?: (untyped rhs) -> (untyped | false)
+
+      def hash: () -> untyped
+
+      private
+
+      def copy_state_from: (untyped obj) -> untyped
+    end
+
+    module BasicMultiLineStringMethods
+      @elements: untyped
+
+      def initialize: (untyped factory, untyped elements) -> void
+
+      def geometry_type: () -> untyped
+
+      def closed?: () -> untyped
+
+      def length: () -> untyped
+
+      def boundary: () -> untyped
+
+      def coordinates: () -> untyped
+
+      def contains?: (untyped rhs) -> untyped
+
+      private
+
+      def add_boundary: (untyped hash, untyped point) -> untyped
+    end
+
+    module BasicMultiPointMethods
+      @elements: untyped
+
+      def initialize: (untyped factory, untyped elements) -> void
+
+      def geometry_type: () -> untyped
+
+      def boundary: () -> untyped
+
+      def coordinates: () -> untyped
+    end
+
+    module BasicMultiPolygonMethods
+      @elements: untyped
+
+      def initialize: (untyped factory, untyped elements) -> void
+
+      def geometry_type: () -> untyped
+
+      def area: () -> untyped
+
+      def boundary: () -> untyped
+
+      def coordinates: () -> untyped
+
+      def contains?: (untyped rhs) -> untyped
+    end
+  end
+end
+
+module RGeo
+  module ImplHelper
+    module BasicGeometryMethods
+      @factory: untyped
+
+      include Feature::Instance
+
+      attr_accessor factory: untyped
+
+      def inspect: () -> ::String
+
+      def to_s: () -> untyped
+
+      def as_text: () -> untyped
+
+      def as_binary: () -> untyped
+
+      def marshal_dump: () -> ::Array[untyped]
+
+      def marshal_load: (untyped data) -> untyped
+
+      def encode_with: (untyped coder) -> untyped
+
+      def init_with: (untyped coder) -> untyped
+
+      private
+
+      def copy_state_from: (untyped obj) -> untyped
+
+      def init_geometry: () -> nil
+    end
+  end
+end
+
+module RGeo
+  module ImplHelper
+    module BasicLineStringMethods
+      @points: untyped
+
+      @closed: untyped
+
+      @hash: untyped
+
+      def initialize: (untyped factory, untyped points) -> void
+
+      def num_points: () -> untyped
+
+      def point_n: (untyped idx) -> (nil | untyped)
+
+      def points: () -> untyped
+
+      def dimension: () -> 1
+
+      def geometry_type: () -> untyped
+
+      def empty?: () -> untyped
+
+      def boundary: () -> untyped
+
+      def start_point: () -> untyped
+
+      def end_point: () -> untyped
+
+      def closed?: () -> untyped
+
+      def ring?: () -> untyped
+
+      def rep_equals?: (untyped rhs) -> (untyped | false)
+
+      def hash: () -> untyped
+
+      def coordinates: () -> untyped
+
+      def contains?: (untyped rhs) -> untyped
+
+      private
+
+      def contains_point?: (untyped point) -> (true | false)
+
+      def point_intersect_segment?: (untyped point, untyped start_point, untyped end_point) -> (false | untyped)
+
+      def point_collinear?: (untyped pt1, untyped pt2, untyped pt3) -> untyped
+
+      def between_coordinate?: (untyped coord, untyped start_coord, untyped end_coord) -> untyped
+
+      def copy_state_from: (untyped obj) -> untyped
+    end
+
+    module BasicLineMethods
+      @points: untyped
+
+      def initialize: (untyped factory, untyped start, untyped stop) -> void
+
+      def geometry_type: () -> untyped
+
+      def coordinates: () -> untyped
+    end
+
+    module BasicLinearRingMethods
+      @points: untyped
+
+      def initialize: (untyped factory, untyped points) -> void
+
+      def geometry_type: () -> untyped
+
+      def ccw?: () -> untyped
+
+      private
+
+      # Close ring if necessary.
+      def init_geometry: () -> (nil | untyped)
+    end
+  end
+end
+
+module RGeo
+  module ImplHelper
+    module BasicPointMethods
+      @x: untyped
+
+      @y: untyped
+
+      @z: untyped
+
+      @m: untyped
+
+      @hash: untyped
+
+      def initialize: (untyped factory, untyped x, untyped y, *untyped extra) -> void
+
+      def x: () -> untyped
+
+      def y: () -> untyped
+
+      def z: () -> untyped
+
+      def m: () -> untyped
+
+      def dimension: () -> 0
+
+      def geometry_type: () -> untyped
+
+      def empty?: () -> false
+
+      def simple?: () -> true
+
+      def envelope: () -> self
+
+      def boundary: () -> untyped
+
+      def convex_hull: () -> self
+
+      def equals?: (untyped rhs) -> (false | untyped)
+
+      def rep_equals?: (untyped rhs) -> untyped
+
+      def hash: () -> untyped
+
+      def coordinates: () -> untyped
+
+      private
+
+      def copy_state_from: (untyped obj) -> untyped
+    end
+  end
+end
+
+module RGeo
+  module ImplHelper
+    module BasicPolygonMethods
+      @exterior_ring: untyped
+
+      @interior_rings: untyped
+
+      @hash: untyped
+
+      def initialize: (untyped factory, untyped exterior_ring, untyped interior_rings) -> void
+
+      def exterior_ring: () -> untyped
+
+      def num_interior_rings: () -> untyped
+
+      def interior_ring_n: (untyped idx) -> (nil | untyped)
+
+      def interior_rings: () -> untyped
+
+      def dimension: () -> 2
+
+      def geometry_type: () -> untyped
+
+      def empty?: () -> untyped
+
+      def boundary: () -> untyped
+
+      def rep_equals?: (untyped rhs) -> (false | untyped)
+
+      def hash: () -> untyped
+
+      def coordinates: () -> untyped
+
+      def contains?: (untyped rhs) -> untyped
+
+      private
+
+      def contains_point?: (untyped point) -> untyped
+
+      def ring_encloses_point?: (untyped ring, untyped point, ?on_border_return: bool) -> untyped
+
+      def copy_state_from: (untyped obj) -> untyped
+    end
+  end
+end
+
+module RGeo
+  module ImplHelper
+    module Math
+      RADIANS_PER_DEGREE: untyped
+
+      DEGREES_PER_RADIAN: untyped
+    end
+  end
+end
+
+module RGeo
+  module ImplHelper
+    module Utils
+      # Helper function to create coord_sys from
+      # common options in most factories. Returns
+      # a hash with finalized coord sys info after processing.
+      #
+      # The reason we return the data as a hash instead of assigning
+      # instance variables is because some classes need to do this
+      # multiple times with different values and others pass the data
+      # to a CAPI or FFI.
+      def self.setup_coord_sys: (untyped srid, untyped coord_sys, untyped coord_sys_class) -> { coord_sys: untyped, srid: untyped }
+
+      private
+
+      def symbolize_hash: (untyped hash) -> untyped
+    end
+  end
+end
+
+module RGeo
+  module ImplHelper
+    # Mixin based off of the JTS/GEOS IsValidOp class.
+    # Implements #valid? and #invalid_reason on Features that include this.
+    #
+    # @see https://github.com/locationtech/jts/blob/master/modules/core/src/main/java/org/locationtech/jts/operation/valid/IsValidOp.java
+    module ValidOp
+      @invalid_reason: untyped
+
+      # Validity of geometry
+      #
+      # @return Boolean
+      def valid?: () -> untyped
+
+      # Reason for invalidity or nil if valid
+      #
+      # @return String
+      def invalid_reason: () -> untyped
+
+      private
+
+      def validity_helper: () -> untyped
+
+      # Method that performs validity checking. Just checks the type of geometry
+      # and delegates to the proper validity checker.
+      #
+      # Returns a string describing the error or nil if it's a valid geometry.
+      # In some cases, "Unkown Validity" is returned if a dependent method has
+      # not been implemented.
+      #
+      # @return String
+      def check_valid: () -> untyped
+
+      def check_valid_point: () -> untyped
+
+      def check_valid_line_string: () -> (untyped | nil)
+
+      def check_valid_linear_ring: () -> untyped
+
+      def check_valid_polygon: () -> (untyped | nil)
+
+      def check_valid_multi_point: () -> (untyped | nil)
+
+      def check_valid_multi_polygon: () -> (untyped | nil)
+
+      def check_valid_geometry_collection: () -> (untyped | nil)
+    end
+
+    #
+    # Helper functions for specific validity checks
+    #
+    module ValidOpHelpers
+      # Checks that the given point has valid coordinates.
+      #
+      # @param point [RGeo::Feature::Point]
+      #
+      # @return [String] invalid_reason
+      def self?.check_invalid_coordinate: (untyped point) -> (nil | untyped)
+
+      # Checks that the edges in the polygon form a consistent area.
+      #
+      # Specifically, checks that there are intersections no between the
+      # holes and the shell.
+      #
+      # Also checks that there are no duplicate rings.
+      #
+      # @param poly [RGeo::Feature::Polygon]
+      #
+      # @return [String] invalid_reason
+      def self?.check_consistent_area: (untyped poly) -> (untyped | nil)
+
+      # Checks that the ring does not self-intersect. This is just a simplicity
+      # check on the ring.
+      #
+      # @param ring [RGeo::Feature::LinearRing]
+      #
+      # @return [String] invalid_reason
+      def self?.check_no_self_intersections: (untyped ring) -> (untyped | nil)
+
+      # Check that rings do not self intersect in a polygon
+      #
+      # @param poly [RGeo::Feature::Polygon]
+      #
+      # @return [String] invalid_reason
+      def self?.check_no_self_intersecting_rings: (untyped poly) -> (untyped | nil)
+
+      # Checks holes are contained inside the exterior of a polygon.
+      # Assuming check_consistent_area has already passed on the polygon,
+      # a simple point in polygon check can be done on one of the points
+      # in each hole to verify (since we know none of them intersect).
+      #
+      # @param poly [RGeo::Feature::Polygon]
+      #
+      # @return [String] invalid_reason
+      def self?.check_holes_in_shell: (untyped poly) -> (untyped | nil)
+
+      # Checks that holes are not nested within each other.
+      #
+      # @param poly [RGeo::Feature::Polygon]
+      #
+      # @return [String] invalid_reason
+      def self?.check_holes_not_nested: (untyped poly) -> (untyped | nil)
+
+      # Checks that the interior of the polygon is connected.
+      # A disconnected interior can be described by this polygon for example
+      # POLYGON((0 0, 10 0, 10 10, 0 10, 0 0), (5 0, 10 5, 5 10, 0 5, 5 0))
+      #
+      # Which is a square with a diamond inside of it.
+      #
+      # @param poly [RGeo::Feature::Polygon]
+      #
+      # @return [String] invalid_reason
+      def self?.check_connected_interiors: (untyped poly) -> (untyped | nil)
+
+      # Checks that polygons do not intersect in a multipolygon.
+      #
+      # @param mpoly [RGeo::Feature::MultiPolygon]
+      #
+      # @return [String] invalid_reason
+      def self?.check_consistent_area_mp: (untyped mpoly) -> (untyped | nil)
+
+      # Checks that individual polygons within a multipolygon are not nested.
+      #
+      # @param mpoly [RGeo::Feature::MultiPolygon]
+      #
+      # @return [String] invalid_reason
+      def self?.check_shells_not_nested: (untyped mpoly) -> (untyped | nil)
+    end
+  end
+end
+
+module RGeo
+  module ImplHelper
+    # This helper enforces valid geometry computation, avoiding results such
+    # as a 0 area for a bowtie shaped polygon. Implementations that are part
+    # of RGeo core should all include this.
+    #
+    # You can play around validity checks if needed:
+    #
+    # - {check_validity!} is the method that will raise if your geometry is
+    #   not valid. Its message will be the same as {invalid_reason}.
+    # - {make_valid} is the method you can call to get a valid copy of the
+    #   current geometry.
+    # - finally, you can bypass any checked method by prepending `unsafe_` to
+    #   it. At your own risk.
+    module ValidityCheck
+      self.@classes: untyped
+
+      @invalid_reason_memo: untyped
+
+      # Every method that should not be overriden by the validity check.
+      # Those methods are either accessors or very basic methods not related
+      # to validity checks, or are used to check validity, in which case the
+      # `true/false` gives a correct information, no need to raise).
+      UNCHECKED_METHODS: ::Array[:factory | :geometry_type | :as_text | :as_binary | :srid | :dimension | :coordinate_dimension | :spatial_dimension | :simple? | :closed? | :empty? | :is_3d? | :measured? | :exterior_ring | :interior_rings | :[] | :num_geometries | :num_interior_rings | :geometry_n | :each | :points | :point_n | :start_point | :end_point | :x | :y | :z | :m | :num_points | :locate_along | :locate_between | :equals? | :rep_equals? | :eql? | :== | :!=]
+
+      # Since methods have their unsafe_ counter part, it means that the `+`
+      # method would lead to having an `unsafe_+` method that is not simply
+      # callable. Here's a simple fallback:
+      SYMBOL2NAME: untyped
+
+      # Note for contributors: this should be called after all methods
+      # are loaded for a given feature classe. No worries though, this
+      # is tested.
+      def self.override_classes: () -> untyped
+
+      def self.included: (untyped klass) -> untyped
+
+      private
+
+      def self.classes: () -> untyped
+
+      def self.override: (untyped klass) -> untyped
+
+      def self.feature_methods: (untyped klass) -> untyped
+
+      public
+
+      # Raises {invalid_reason} if the polygon is not valid, does nothing
+      # otherwise.
+      def check_validity!: () -> (nil | untyped)
+
+      # Tell why the geometry is not valid, `nil` means it is valid.
+      def invalid_reason: () -> untyped
+
+      # Try and make the geometry valid, this may change its shape.
+      # Returns a valid copy of the geometry.
+      def make_valid: () -> untyped
+
+      private
+
+      def invalid_reason_memo: () -> untyped
+    end
+  end
+end
+
+module RGeo
+  VERSION: "3.1.0"
+end
+
+module RGeo
+  module WKRep
+    # This class provides the functionality of serializing a geometry as
+    # WKB (well-known binary) format. You may also customize the
+    # serializer to generate PostGIS EWKB extensions to the output, or to
+    # follow the Simple Features Specification 1.2 extensions for Z and M
+    # coordinates.
+    #
+    # To use this class, create an instance with the desired settings and
+    # customizations, and call the generate method.
+    #
+    # === Configuration options
+    #
+    # The following options are recognized. These can be passed to the
+    # constructor, or set on the object afterwards.
+    #
+    # [<tt>:type_format</tt>]
+    #   The format for type codes. Possible values are <tt>:wkb11</tt>,
+    #   indicating SFS 1.1 WKB (i.e. no Z or M values); <tt>:ewkb</tt>,
+    #   indicating the PostGIS EWKB extensions (i.e. Z and M presence
+    #   flagged by the two high bits of the type code, and support for
+    #   embedded SRID); or <tt>:wkb12</tt> (indicating SFS 1.2 WKB
+    #   (i.e. Z and M presence flagged by adding 1000 and/or 2000 to
+    #   the type code.) Default is <tt>:wkb11</tt>.
+    # [<tt>:emit_ewkb_srid</tt>]
+    #   If true, embed the SRID in the toplevel geometry. Available only
+    #   if <tt>:type_format</tt> is <tt>:ewkb</tt>. Default is false.
+    # [<tt>:hex_format</tt>]
+    #   If true, output a hex string instead of a byte string.
+    #   Default is false.
+    # [<tt>:little_endian</tt>]
+    #   If true, output little endian (NDR) byte order. If false, output
+    #   big endian (XDR), or network byte order. Default is false.
+    class WKBGenerator
+      @type_format: untyped
+
+      @emit_ewkb_srid: untyped
+
+      @hex_format: untyped
+
+      @little_endian: untyped
+
+      # :stopdoc:
+      TYPE_CODES: ::Hash[untyped, 1 | 2 | 3 | 4 | 5 | 6 | 7]
+
+      def initialize: (?::Hash[untyped, untyped] opts) -> void
+
+      # Returns the format for type codes. See WKBGenerator for details.
+      attr_reader type_format: untyped
+
+      # Returns whether SRID is embedded. See WKBGenerator for details.
+      def emit_ewkb_srid?: () -> untyped
+
+      # Returns whether output is converted to hex.
+      # See WKBGenerator for details.
+      def hex_format?: () -> untyped
+
+      # Returns whether output is little-endian (NDR).
+      # See WKBGenerator for details.
+      def little_endian?: () -> untyped
+
+      def properties: () -> { "type_format" => untyped, "emit_ewkb_srid" => untyped, "hex_format" => untyped, "little_endian" => untyped }
+
+      def generate: (untyped obj) -> untyped
+
+      private
+
+      class Result
+        @buffer: untyped
+
+        @has_z: untyped
+
+        @has_m: untyped
+
+        def initialize: (untyped has_z, untyped has_m) -> void
+
+        def <<: (untyped data) -> untyped
+
+        def emit: (untyped hex_format) -> untyped
+
+        def z?: () -> untyped
+
+        def m?: () -> untyped
+      end
+
+      def emit_byte: (untyped value, untyped rval) -> untyped
+
+      def emit_integer: (untyped value, untyped rval) -> untyped
+
+      def emit_doubles: (untyped array, untyped rval) -> untyped
+
+      def emit_line_string_coords: (untyped obj, untyped rval) -> untyped
+
+      def point_coords: (untyped obj, untyped rval, ?untyped array) -> untyped
+
+      def generate_feature: (untyped obj, untyped rval, ?toplevel: bool) -> untyped
+    end
+  end
+end
+
+module RGeo
+  module WKRep
+    # This class provides the functionality of parsing a geometry from
+    # WKB (well-known binary) format. You may also customize the parser
+    # to recognize PostGIS EWKB extensions to the input, or Simple
+    # Features Specification 1.2 extensions for Z and M coordinates.
+    #
+    # To use this class, create an instance with the desired settings and
+    # customizations, and call the parse method.
+    #
+    # === Configuration options
+    #
+    # You must provide each parser with an RGeo::Feature::FactoryGenerator.
+    # It should understand the configuration options <tt>:srid</tt>,
+    # <tt>:has_z_coordinate</tt>, and <tt>:has_m_coordinate</tt>.
+    # You may also pass a specific RGeo::Feature::Factory, or nil to
+    # specify the default Cartesian FactoryGenerator.
+    #
+    # The following additional options are recognized. These can be passed
+    # to the constructor, or set on the object afterwards.
+    #
+    # [<tt>:support_ewkb</tt>]
+    #   Activate support for PostGIS EWKB type codes, which use high
+    #   order bits in the type code to signal the presence of Z, M, and
+    #   SRID values in the data. Default is false.
+    # [<tt>:support_wkb12</tt>]
+    #   Activate support for SFS 1.2 extensions to the type codes, which
+    #   use values greater than 1000 to signal the presence of Z and M
+    #   values in the data. SFS 1.2 types such as triangle, tin, and
+    #   polyhedralsurface are NOT yet supported. Default is false.
+    # [<tt>:ignore_extra_bytes</tt>]
+    #   If true, extra bytes at the end of the data are ignored. If
+    #   false (the default), extra bytes will trigger a parse error.
+    # [<tt>:default_srid</tt>]
+    #   A SRID to pass to the factory generator if no SRID is present in
+    #   the input. Defaults to nil (i.e. don't specify a SRID).
+    class WKBParser
+      @factory_generator: untyped
+
+      @exact_factory: untyped
+
+      @support_ewkb: untyped
+
+      @support_wkb12: untyped
+
+      @ignore_extra_bytes: untyped
+
+      @default_srid: untyped
+
+      @mutex: untyped
+
+      @cur_has_z: untyped
+
+      @cur_has_m: untyped
+
+      @cur_dims: untyped
+
+      @cur_srid: untyped
+
+      @cur_factory: untyped
+
+      @data: untyped
+
+      @len: untyped
+
+      @pos: untyped
+
+      def initialize: (?untyped? factory_generator, ?::Hash[untyped, untyped] opts) -> void
+
+      # Returns the factory generator. See WKBParser for details.
+      attr_reader factory_generator: untyped
+
+      # If this parser was given an exact factory, returns it; otherwise
+      # returns nil.
+      attr_reader exact_factory: untyped
+
+      # Returns true if this parser supports EWKB.
+      # See WKBParser for details.
+      def support_ewkb?: () -> untyped
+
+      # Returns true if this parser supports SFS 1.2 extensions.
+      # See WKBParser for details.
+      def support_wkb12?: () -> untyped
+
+      # Returns true if this parser ignores extra bytes.
+      # See WKBParser for details.
+      def ignore_extra_bytes?: () -> untyped
+
+      def properties: () -> { "support_ewkb" => untyped, "support_wkb12" => untyped, "ignore_extra_bytes" => untyped, "default_srid" => untyped }
+
+      def parse: (untyped data) -> untyped
+
+      alias parse_hex parse
+
+      private
+
+      def parse_object: (untyped contained) -> untyped
+
+      def parse_line_string: (untyped little_endian) -> untyped
+
+      def start_scanner: (untyped data) -> untyped
+
+      def bytes_remaining: () -> untyped
+
+      def byte: () -> untyped
+
+      def get_integer: (untyped little_endian) -> untyped
+
+      def get_doubles: (untyped little_endian, untyped count) -> untyped
+    end
+  end
+end
+
+module RGeo
+  module WKRep
+    # This class provides the functionality of serializing a geometry as
+    # WKT (well-known text) format. You may also customize the serializer
+    # to generate PostGIS EWKT extensions to the output, or to follow the
+    # Simple Features Specification 1.2 extensions for Z and M.
+    #
+    # To use this class, create an instance with the desired settings and
+    # customizations, and call the generate method.
+    #
+    # === Configuration options
+    #
+    # The following options are recognized. These can be passed to the
+    # constructor, or set on the object afterwards.
+    #
+    # [<tt>:tag_format</tt>]
+    #   The format for tags. Possible values are <tt>:wkt11</tt>,
+    #   indicating SFS 1.1 WKT (i.e. no Z or M markers in the tags) but
+    #   with Z and/or M values added in if they are present;
+    #   <tt>:wkt11_strict</tt>, indicating SFS 1.1 WKT with Z and M
+    #   dropped from the output (since WKT strictly does not support
+    #   the Z or M dimensions); <tt>:ewkt</tt>, indicating the PostGIS
+    #   EWKT extensions (i.e. "M" appended to tag names if M but not
+    #   Z is present); or <tt>:wkt12</tt>, indicating SFS 1.2 WKT
+    #   tags that indicate the presence of Z and M in a separate token.
+    #   Default is <tt>:wkt11</tt>.
+    #   This option can also be specified as <tt>:type_format</tt>.
+    # [<tt>:emit_ewkt_srid</tt>]
+    #   If true, embed the SRID of the toplevel geometry. Available only
+    #   if <tt>:tag_format</tt> is <tt>:ewkt</tt>. Default is false.
+    # [<tt>:square_brackets</tt>]
+    #   If true, uses square brackets rather than parentheses.
+    #   Default is false.
+    # [<tt>:convert_case</tt>]
+    #   Possible values are <tt>:upper</tt>, which changes all letters
+    #   in the output to ALL CAPS; <tt>:lower</tt>, which changes all
+    #   letters to lower case; or nil, indicating no case changes from
+    #   the default (which is not specified exactly, but is chosen by the
+    #   generator to emphasize readability.) Default is nil.
+    class WKTGenerator
+      @tag_format: untyped
+
+      @emit_ewkt_srid: untyped
+
+      @square_brackets: untyped
+
+      @convert_case: untyped
+
+      @begin_bracket: untyped
+
+      @end_bracket: untyped
+
+      def initialize: (?::Hash[untyped, untyped] opts) -> void
+
+      # Returns the format for type tags. See WKTGenerator for details.
+      attr_reader tag_format: untyped
+
+      alias type_format tag_format
+
+      # Returns whether SRID is embedded. See WKTGenerator for details.
+      def emit_ewkt_srid?: () -> untyped
+
+      # Returns whether square brackets rather than parens are output.
+      # See WKTGenerator for details.
+      def square_brackets?: () -> untyped
+
+      # Returns the case for output. See WKTGenerator for details.
+      attr_reader convert_case: untyped
+
+      def properties: () -> { "tag_format" => untyped, "emit_ewkt_srid" => untyped, "square_brackets" => untyped, "convert_case" => untyped }
+
+      def generate: (untyped obj) -> untyped
+
+      private
+
+      def generate_feature: (untyped obj, untyped support_z, untyped support_m, ?toplevel: bool) -> untyped
+
+      def generate_coords: (untyped obj, untyped support_z, untyped support_m) -> untyped
+
+      def generate_point: (untyped obj, untyped support_z, untyped support_m) -> ::String
+
+      def generate_line_string: (untyped obj, untyped support_z, untyped support_m) -> ("EMPTY" | ::String)
+
+      def generate_polygon: (untyped obj, untyped support_z, untyped support_m) -> ("EMPTY" | ::String)
+
+      def generate_geometry_collection: (untyped obj, untyped support_z, untyped support_m) -> ("EMPTY" | ::String)
+
+      def generate_multi_point: (untyped obj, untyped support_z, untyped support_m) -> ("EMPTY" | ::String)
+
+      def generate_multi_line_string: (untyped obj, untyped support_z, untyped support_m) -> ("EMPTY" | ::String)
+
+      def generate_multi_polygon: (untyped obj, untyped support_z, untyped support_m) -> ("EMPTY" | ::String)
+    end
+  end
+end
+
+module RGeo
+  module WKRep
+    # This class provides the functionality of parsing a geometry from
+    # WKT (well-known text) format. You may also customize the parser
+    # to recognize PostGIS EWKT extensions to the input, or Simple
+    # Features Specification 1.2 extensions for Z and M coordinates.
+    #
+    # To use this class, create an instance with the desired settings and
+    # customizations, and call the parse method.
+    #
+    # === Configuration options
+    #
+    # You must provide each parser with an RGeo::Feature::FactoryGenerator.
+    # It should understand the configuration options <tt>:srid</tt>,
+    # <tt>:has_z_coordinate</tt>, and <tt>:has_m_coordinate</tt>.
+    # You may also pass a specific RGeo::Feature::Factory, or nil to
+    # specify the default Cartesian FactoryGenerator.
+    #
+    # The following additional options are recognized. These can be passed
+    # to the constructor, or set on the object afterwards.
+    #
+    # [<tt>:support_ewkt</tt>]
+    #   Activate support for PostGIS EWKT type tags, which appends an "M"
+    #   to tags to indicate the presence of M but not Z, and also
+    #   recognizes the SRID prefix. Default is false.
+    # [<tt>:support_wkt12</tt>]
+    #   Activate support for SFS 1.2 extensions to the type codes, which
+    #   use a "M", "Z", or "ZM" token to signal the presence of Z and M
+    #   values in the data. SFS 1.2 types such as triangle, tin, and
+    #   polyhedralsurface are NOT yet supported. Default is false.
+    # [<tt>:strict_wkt11</tt>]
+    #   If true, parsing will proceed in SFS 1.1 strict mode, which
+    #   disallows any values other than X or Y. This has no effect if
+    #   support_ewkt or support_wkt12 are active. Default is false.
+    # [<tt>:ignore_extra_tokens</tt>]
+    #   If true, extra tokens at the end of the data are ignored. If
+    #   false (the default), extra tokens will trigger a parse error.
+    # [<tt>:default_srid</tt>]
+    #   A SRID to pass to the factory generator if no SRID is present in
+    #   the input. Defaults to nil (i.e. don't specify a SRID).
+    class WKTParser
+      @factory_generator: untyped
+
+      @exact_factory: untyped
+
+      @support_ewkt: untyped
+
+      @support_wkt12: untyped
+
+      @strict_wkt11: untyped
+
+      @ignore_extra_tokens: untyped
+
+      @default_srid: untyped
+
+      @mutex: untyped
+
+      @cur_factory: untyped
+
+      @cur_factory_support_z: untyped
+
+      @cur_factory_support_m: untyped
+
+      @cur_expect_z: untyped
+
+      @cur_expect_m: untyped
+
+      @scanner: untyped
+
+      @cur_token: untyped
+
+      def initialize: (?untyped? factory_generator, ?::Hash[untyped, untyped] opts) -> void
+
+      # Returns the factory generator. See WKTParser for details.
+      attr_reader factory_generator: untyped
+
+      # If this parser was given an exact factory, returns it; otherwise
+      # returns nil.
+      attr_reader exact_factory: untyped
+
+      # Returns true if this parser supports EWKT.
+      # See WKTParser for details.
+      def support_ewkt?: () -> untyped
+
+      # Returns true if this parser supports SFS 1.2 extensions.
+      # See WKTParser for details.
+      def support_wkt12?: () -> untyped
+
+      # Returns true if this parser strictly adheres to WKT 1.1.
+      # See WKTParser for details.
+      def strict_wkt11?: () -> untyped
+
+      # Returns true if this parser ignores extra tokens.
+      # See WKTParser for details.
+      def ignore_extra_tokens?: () -> untyped
+
+      def properties: () -> { "support_ewkt" => untyped, "support_wkt12" => untyped, "strict_wkt11" => untyped, "ignore_extra_tokens" => untyped, "default_srid" => untyped }
+
+      def parse: (untyped str) -> untyped
+
+      private
+
+      def check_factory_support: () -> (nil | untyped)
+
+      def ensure_factory: () -> untyped
+
+      def parse_type_tag: () -> untyped
+
+      def parse_coords: () -> untyped
+
+      def parse_point: (?convert_empty: bool) -> untyped
+
+      def parse_line_string: () -> untyped
+
+      def parse_polygon: () -> untyped
+
+      def parse_geometry_collection: () -> untyped
+
+      def parse_multi_point: () -> untyped
+
+      def parse_multi_line_string: () -> untyped
+
+      def parse_multi_polygon: () -> untyped
+
+      def start_scanner: (untyped str) -> untyped
+
+      def clean_scanner: () -> untyped
+
+      def expect_token_type: (untyped type) -> (untyped | nil)
+
+      def next_token: () -> untyped
+    end
+  end
+end

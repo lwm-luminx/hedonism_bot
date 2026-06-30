@@ -24,7 +24,7 @@ class CreatePhotos < ActiveRecord::Migration[8.1]
       t.string :name_override
       t.datetime :start_at
       t.datetime :end_at
-      t.jsonb :facebook_graph, null: false
+      t.jsonb :facebook_graph, null: false, default: {}
       t.bigint :facebook_id, null: false
       t.integer :order, default: 1000, null: false
       t.boolean :is_featured, default: false, null: false
@@ -98,10 +98,10 @@ class CreatePhotos < ActiveRecord::Migration[8.1]
       t.datetime :taken_at
       t.string :status, null: false, default: "pending"
 
-      t.jsonb :exif_metadata, null: false, default: {}
-      t.jsonb :facial_metadata, null: true, default: nil
       t.string :caption, null: true, default: nil
       t.string :description, null: true, default: nil
+      t.jsonb :exif_metadata, null: false, default: {}
+      t.jsonb :facial_metadata, null: true, default: nil
     end
   end
 end

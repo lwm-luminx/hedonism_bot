@@ -1,9 +1,0 @@
-class ApplicationController < ActionController::Base
-  attr_reader logger: ActiveSupport::Logger
-
-  private
-
-  def default_photographer: -> Photographer
-
-  def populate_Photographer: -> Photographer
-end

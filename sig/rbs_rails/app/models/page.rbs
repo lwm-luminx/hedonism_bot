@@ -44,6 +44,46 @@ class ::Page < ::ApplicationRecord
 
     def id_for_database: () -> ::String
 
+    def cover_image_id: () -> ::String?
+
+    def cover_image_id=: (::String?) -> ::String?
+
+    def cover_image_id?: () -> bool
+
+    def cover_image_id_changed?: (?from: ::String?, ?to: ::String?) -> bool
+
+    def cover_image_id_change: () -> [ ::String?, ::String? ]
+
+    def cover_image_id_will_change!: () -> void
+
+    def cover_image_id_was: () -> ::String?
+
+    def cover_image_id_previously_changed?: (?from: ::String?, ?to: ::String?) -> bool
+
+    def cover_image_id_previous_change: () -> ::Array[::String?]?
+
+    def cover_image_id_previously_was: () -> ::String?
+
+    def cover_image_id_before_last_save: () -> ::String?
+
+    def cover_image_id_change_to_be_saved: () -> ::Array[::String?]?
+
+    def cover_image_id_in_database: () -> ::String?
+
+    def saved_change_to_cover_image_id: () -> ::Array[::String?]?
+
+    def saved_change_to_cover_image_id?: (?from: ::String?, ?to: ::String?) -> bool
+
+    def will_save_change_to_cover_image_id?: (?from: ::String?, ?to: ::String?) -> bool
+
+    def restore_cover_image_id!: () -> void
+
+    def clear_cover_image_id_change: () -> void
+
+    def cover_image_id_before_type_cast: () -> ::String?
+
+    def cover_image_id_for_database: () -> ::String?
+
     def created_at: () -> ::ActiveSupport::TimeWithZone
 
     def created_at=: (::ActiveSupport::TimeWithZone) -> ::ActiveSupport::TimeWithZone
@@ -84,45 +124,205 @@ class ::Page < ::ApplicationRecord
 
     def created_at_for_database: () -> ::Time
 
-    def updated_at: () -> ::ActiveSupport::TimeWithZone
+    def facebook_access_token: () -> ::String?
 
-    def updated_at=: (::ActiveSupport::TimeWithZone) -> ::ActiveSupport::TimeWithZone
+    def facebook_access_token=: (::String?) -> ::String?
 
-    def updated_at?: () -> bool
+    def facebook_access_token?: () -> bool
 
-    def updated_at_changed?: (?from: ::ActiveSupport::TimeWithZone?, ?to: ::ActiveSupport::TimeWithZone?) -> bool
+    def facebook_access_token_changed?: (?from: ::String?, ?to: ::String?) -> bool
 
-    def updated_at_change: () -> [ ::ActiveSupport::TimeWithZone?, ::ActiveSupport::TimeWithZone? ]
+    def facebook_access_token_change: () -> [ ::String?, ::String? ]
 
-    def updated_at_will_change!: () -> void
+    def facebook_access_token_will_change!: () -> void
 
-    def updated_at_was: () -> ::ActiveSupport::TimeWithZone?
+    def facebook_access_token_was: () -> ::String?
 
-    def updated_at_previously_changed?: (?from: ::ActiveSupport::TimeWithZone?, ?to: ::ActiveSupport::TimeWithZone?) -> bool
+    def facebook_access_token_previously_changed?: (?from: ::String?, ?to: ::String?) -> bool
 
-    def updated_at_previous_change: () -> ::Array[::ActiveSupport::TimeWithZone?]?
+    def facebook_access_token_previous_change: () -> ::Array[::String?]?
 
-    def updated_at_previously_was: () -> ::ActiveSupport::TimeWithZone?
+    def facebook_access_token_previously_was: () -> ::String?
 
-    def updated_at_before_last_save: () -> ::ActiveSupport::TimeWithZone?
+    def facebook_access_token_before_last_save: () -> ::String?
 
-    def updated_at_change_to_be_saved: () -> ::Array[::ActiveSupport::TimeWithZone?]?
+    def facebook_access_token_change_to_be_saved: () -> ::Array[::String?]?
 
-    def updated_at_in_database: () -> ::ActiveSupport::TimeWithZone?
+    def facebook_access_token_in_database: () -> ::String?
 
-    def saved_change_to_updated_at: () -> ::Array[::ActiveSupport::TimeWithZone?]?
+    def saved_change_to_facebook_access_token: () -> ::Array[::String?]?
 
-    def saved_change_to_updated_at?: (?from: ::ActiveSupport::TimeWithZone?, ?to: ::ActiveSupport::TimeWithZone?) -> bool
+    def saved_change_to_facebook_access_token?: (?from: ::String?, ?to: ::String?) -> bool
 
-    def will_save_change_to_updated_at?: (?from: ::ActiveSupport::TimeWithZone?, ?to: ::ActiveSupport::TimeWithZone?) -> bool
+    def will_save_change_to_facebook_access_token?: (?from: ::String?, ?to: ::String?) -> bool
 
-    def restore_updated_at!: () -> void
+    def restore_facebook_access_token!: () -> void
 
-    def clear_updated_at_change: () -> void
+    def clear_facebook_access_token_change: () -> void
 
-    def updated_at_before_type_cast: () -> ::Time
+    def facebook_access_token_before_type_cast: () -> ::String?
 
-    def updated_at_for_database: () -> ::Time
+    def facebook_access_token_for_database: () -> ::String?
+
+    def facebook_graph: () -> untyped
+
+    def facebook_graph=: (untyped) -> untyped
+
+    def facebook_graph?: () -> bool
+
+    def facebook_graph_changed?: (?from: untyped, ?to: untyped) -> bool
+
+    def facebook_graph_change: () -> [ untyped, untyped ]
+
+    def facebook_graph_will_change!: () -> void
+
+    def facebook_graph_was: () -> untyped
+
+    def facebook_graph_previously_changed?: (?from: untyped, ?to: untyped) -> bool
+
+    def facebook_graph_previous_change: () -> ::Array[untyped]?
+
+    def facebook_graph_previously_was: () -> untyped
+
+    def facebook_graph_before_last_save: () -> untyped
+
+    def facebook_graph_change_to_be_saved: () -> ::Array[untyped]?
+
+    def facebook_graph_in_database: () -> untyped
+
+    def saved_change_to_facebook_graph: () -> ::Array[untyped]?
+
+    def saved_change_to_facebook_graph?: (?from: untyped, ?to: untyped) -> bool
+
+    def will_save_change_to_facebook_graph?: (?from: untyped, ?to: untyped) -> bool
+
+    def restore_facebook_graph!: () -> void
+
+    def clear_facebook_graph_change: () -> void
+
+    def facebook_graph_before_type_cast: () -> untyped
+
+    def facebook_graph_for_database: () -> untyped
+
+    def facebook_id: () -> ::Integer
+
+    def facebook_id=: (::Integer) -> ::Integer
+
+    def facebook_id?: () -> bool
+
+    def facebook_id_changed?: (?from: ::Integer?, ?to: ::Integer?) -> bool
+
+    def facebook_id_change: () -> [ ::Integer?, ::Integer? ]
+
+    def facebook_id_will_change!: () -> void
+
+    def facebook_id_was: () -> ::Integer?
+
+    def facebook_id_previously_changed?: (?from: ::Integer?, ?to: ::Integer?) -> bool
+
+    def facebook_id_previous_change: () -> ::Array[::Integer?]?
+
+    def facebook_id_previously_was: () -> ::Integer?
+
+    def facebook_id_before_last_save: () -> ::Integer?
+
+    def facebook_id_change_to_be_saved: () -> ::Array[::Integer?]?
+
+    def facebook_id_in_database: () -> ::Integer?
+
+    def saved_change_to_facebook_id: () -> ::Array[::Integer?]?
+
+    def saved_change_to_facebook_id?: (?from: ::Integer?, ?to: ::Integer?) -> bool
+
+    def will_save_change_to_facebook_id?: (?from: ::Integer?, ?to: ::Integer?) -> bool
+
+    def restore_facebook_id!: () -> void
+
+    def clear_facebook_id_change: () -> void
+
+    def facebook_id_before_type_cast: () -> ::Integer
+
+    def facebook_id_for_database: () -> ::Integer
+
+    def facets: () -> ::Array[::String]?
+
+    def facets=: (::Array[::String]?) -> ::Array[::String]?
+
+    def facets?: () -> bool
+
+    def facets_changed?: (?from: ::Array[::String]?, ?to: ::Array[::String]?) -> bool
+
+    def facets_change: () -> [ ::Array[::String]?, ::Array[::String]? ]
+
+    def facets_will_change!: () -> void
+
+    def facets_was: () -> ::Array[::String]?
+
+    def facets_previously_changed?: (?from: ::Array[::String]?, ?to: ::Array[::String]?) -> bool
+
+    def facets_previous_change: () -> ::Array[::Array[::String]?]?
+
+    def facets_previously_was: () -> ::Array[::String]?
+
+    def facets_before_last_save: () -> ::Array[::String]?
+
+    def facets_change_to_be_saved: () -> ::Array[::Array[::String]?]?
+
+    def facets_in_database: () -> ::Array[::String]?
+
+    def saved_change_to_facets: () -> ::Array[::Array[::String]?]?
+
+    def saved_change_to_facets?: (?from: ::Array[::String]?, ?to: ::Array[::String]?) -> bool
+
+    def will_save_change_to_facets?: (?from: ::Array[::String]?, ?to: ::Array[::String]?) -> bool
+
+    def restore_facets!: () -> void
+
+    def clear_facets_change: () -> void
+
+    def facets_before_type_cast: () -> ::Array[::String]?
+
+    def facets_for_database: () -> ::Array[::String]?
+
+    def hidden: () -> bool
+
+    def hidden=: (bool) -> bool
+
+    def hidden?: () -> bool
+
+    def hidden_changed?: (?from: bool?, ?to: bool?) -> bool
+
+    def hidden_change: () -> [ bool?, bool? ]
+
+    def hidden_will_change!: () -> void
+
+    def hidden_was: () -> bool?
+
+    def hidden_previously_changed?: (?from: bool?, ?to: bool?) -> bool
+
+    def hidden_previous_change: () -> ::Array[bool?]?
+
+    def hidden_previously_was: () -> bool?
+
+    def hidden_before_last_save: () -> bool?
+
+    def hidden_change_to_be_saved: () -> ::Array[bool?]?
+
+    def hidden_in_database: () -> bool?
+
+    def saved_change_to_hidden: () -> ::Array[bool?]?
+
+    def saved_change_to_hidden?: (?from: bool?, ?to: bool?) -> bool
+
+    def will_save_change_to_hidden?: (?from: bool?, ?to: bool?) -> bool
+
+    def restore_hidden!: () -> void
+
+    def clear_hidden_change: () -> void
+
+    def hidden_before_type_cast: () -> bool
+
+    def hidden_for_database: () -> bool
 
     def image_id: () -> ::String?
 
@@ -164,45 +364,45 @@ class ::Page < ::ApplicationRecord
 
     def image_id_for_database: () -> ::String?
 
-    def cover_image_id: () -> ::String?
+    def last_update_error: () -> ::String?
 
-    def cover_image_id=: (::String?) -> ::String?
+    def last_update_error=: (::String?) -> ::String?
 
-    def cover_image_id?: () -> bool
+    def last_update_error?: () -> bool
 
-    def cover_image_id_changed?: (?from: ::String?, ?to: ::String?) -> bool
+    def last_update_error_changed?: (?from: ::String?, ?to: ::String?) -> bool
 
-    def cover_image_id_change: () -> [ ::String?, ::String? ]
+    def last_update_error_change: () -> [ ::String?, ::String? ]
 
-    def cover_image_id_will_change!: () -> void
+    def last_update_error_will_change!: () -> void
 
-    def cover_image_id_was: () -> ::String?
+    def last_update_error_was: () -> ::String?
 
-    def cover_image_id_previously_changed?: (?from: ::String?, ?to: ::String?) -> bool
+    def last_update_error_previously_changed?: (?from: ::String?, ?to: ::String?) -> bool
 
-    def cover_image_id_previous_change: () -> ::Array[::String?]?
+    def last_update_error_previous_change: () -> ::Array[::String?]?
 
-    def cover_image_id_previously_was: () -> ::String?
+    def last_update_error_previously_was: () -> ::String?
 
-    def cover_image_id_before_last_save: () -> ::String?
+    def last_update_error_before_last_save: () -> ::String?
 
-    def cover_image_id_change_to_be_saved: () -> ::Array[::String?]?
+    def last_update_error_change_to_be_saved: () -> ::Array[::String?]?
 
-    def cover_image_id_in_database: () -> ::String?
+    def last_update_error_in_database: () -> ::String?
 
-    def saved_change_to_cover_image_id: () -> ::Array[::String?]?
+    def saved_change_to_last_update_error: () -> ::Array[::String?]?
 
-    def saved_change_to_cover_image_id?: (?from: ::String?, ?to: ::String?) -> bool
+    def saved_change_to_last_update_error?: (?from: ::String?, ?to: ::String?) -> bool
 
-    def will_save_change_to_cover_image_id?: (?from: ::String?, ?to: ::String?) -> bool
+    def will_save_change_to_last_update_error?: (?from: ::String?, ?to: ::String?) -> bool
 
-    def restore_cover_image_id!: () -> void
+    def restore_last_update_error!: () -> void
 
-    def clear_cover_image_id_change: () -> void
+    def clear_last_update_error_change: () -> void
 
-    def cover_image_id_before_type_cast: () -> ::String?
+    def last_update_error_before_type_cast: () -> ::String?
 
-    def cover_image_id_for_database: () -> ::String?
+    def last_update_error_for_database: () -> ::String?
 
     def name: () -> ::String
 
@@ -284,166 +484,6 @@ class ::Page < ::ApplicationRecord
 
     def name_override_for_database: () -> ::String?
 
-    def facebook_id: () -> ::Integer
-
-    def facebook_id=: (::Integer) -> ::Integer
-
-    def facebook_id?: () -> bool
-
-    def facebook_id_changed?: (?from: ::Integer?, ?to: ::Integer?) -> bool
-
-    def facebook_id_change: () -> [ ::Integer?, ::Integer? ]
-
-    def facebook_id_will_change!: () -> void
-
-    def facebook_id_was: () -> ::Integer?
-
-    def facebook_id_previously_changed?: (?from: ::Integer?, ?to: ::Integer?) -> bool
-
-    def facebook_id_previous_change: () -> ::Array[::Integer?]?
-
-    def facebook_id_previously_was: () -> ::Integer?
-
-    def facebook_id_before_last_save: () -> ::Integer?
-
-    def facebook_id_change_to_be_saved: () -> ::Array[::Integer?]?
-
-    def facebook_id_in_database: () -> ::Integer?
-
-    def saved_change_to_facebook_id: () -> ::Array[::Integer?]?
-
-    def saved_change_to_facebook_id?: (?from: ::Integer?, ?to: ::Integer?) -> bool
-
-    def will_save_change_to_facebook_id?: (?from: ::Integer?, ?to: ::Integer?) -> bool
-
-    def restore_facebook_id!: () -> void
-
-    def clear_facebook_id_change: () -> void
-
-    def facebook_id_before_type_cast: () -> ::Integer
-
-    def facebook_id_for_database: () -> ::Integer
-
-    def facebook_graph: () -> untyped
-
-    def facebook_graph=: (untyped) -> untyped
-
-    def facebook_graph?: () -> bool
-
-    def facebook_graph_changed?: (?from: untyped, ?to: untyped) -> bool
-
-    def facebook_graph_change: () -> [ untyped, untyped ]
-
-    def facebook_graph_will_change!: () -> void
-
-    def facebook_graph_was: () -> untyped
-
-    def facebook_graph_previously_changed?: (?from: untyped, ?to: untyped) -> bool
-
-    def facebook_graph_previous_change: () -> ::Array[untyped]?
-
-    def facebook_graph_previously_was: () -> untyped
-
-    def facebook_graph_before_last_save: () -> untyped
-
-    def facebook_graph_change_to_be_saved: () -> ::Array[untyped]?
-
-    def facebook_graph_in_database: () -> untyped
-
-    def saved_change_to_facebook_graph: () -> ::Array[untyped]?
-
-    def saved_change_to_facebook_graph?: (?from: untyped, ?to: untyped) -> bool
-
-    def will_save_change_to_facebook_graph?: (?from: untyped, ?to: untyped) -> bool
-
-    def restore_facebook_graph!: () -> void
-
-    def clear_facebook_graph_change: () -> void
-
-    def facebook_graph_before_type_cast: () -> untyped
-
-    def facebook_graph_for_database: () -> untyped
-
-    def facebook_access_token: () -> ::String?
-
-    def facebook_access_token=: (::String?) -> ::String?
-
-    def facebook_access_token?: () -> bool
-
-    def facebook_access_token_changed?: (?from: ::String?, ?to: ::String?) -> bool
-
-    def facebook_access_token_change: () -> [ ::String?, ::String? ]
-
-    def facebook_access_token_will_change!: () -> void
-
-    def facebook_access_token_was: () -> ::String?
-
-    def facebook_access_token_previously_changed?: (?from: ::String?, ?to: ::String?) -> bool
-
-    def facebook_access_token_previous_change: () -> ::Array[::String?]?
-
-    def facebook_access_token_previously_was: () -> ::String?
-
-    def facebook_access_token_before_last_save: () -> ::String?
-
-    def facebook_access_token_change_to_be_saved: () -> ::Array[::String?]?
-
-    def facebook_access_token_in_database: () -> ::String?
-
-    def saved_change_to_facebook_access_token: () -> ::Array[::String?]?
-
-    def saved_change_to_facebook_access_token?: (?from: ::String?, ?to: ::String?) -> bool
-
-    def will_save_change_to_facebook_access_token?: (?from: ::String?, ?to: ::String?) -> bool
-
-    def restore_facebook_access_token!: () -> void
-
-    def clear_facebook_access_token_change: () -> void
-
-    def facebook_access_token_before_type_cast: () -> ::String?
-
-    def facebook_access_token_for_database: () -> ::String?
-
-    def facets: () -> ::String?
-
-    def facets=: (::String?) -> ::String?
-
-    def facets?: () -> bool
-
-    def facets_changed?: (?from: ::String?, ?to: ::String?) -> bool
-
-    def facets_change: () -> [ ::String?, ::String? ]
-
-    def facets_will_change!: () -> void
-
-    def facets_was: () -> ::String?
-
-    def facets_previously_changed?: (?from: ::String?, ?to: ::String?) -> bool
-
-    def facets_previous_change: () -> ::Array[::String?]?
-
-    def facets_previously_was: () -> ::String?
-
-    def facets_before_last_save: () -> ::String?
-
-    def facets_change_to_be_saved: () -> ::Array[::String?]?
-
-    def facets_in_database: () -> ::String?
-
-    def saved_change_to_facets: () -> ::Array[::String?]?
-
-    def saved_change_to_facets?: (?from: ::String?, ?to: ::String?) -> bool
-
-    def will_save_change_to_facets?: (?from: ::String?, ?to: ::String?) -> bool
-
-    def restore_facets!: () -> void
-
-    def clear_facets_change: () -> void
-
-    def facets_before_type_cast: () -> ::String?
-
-    def facets_for_database: () -> ::String?
-
     def requires_user_token: () -> bool
 
     def requires_user_token=: (bool) -> bool
@@ -484,85 +524,45 @@ class ::Page < ::ApplicationRecord
 
     def requires_user_token_for_database: () -> bool
 
-    def hidden: () -> bool
+    def updated_at: () -> ::ActiveSupport::TimeWithZone
 
-    def hidden=: (bool) -> bool
+    def updated_at=: (::ActiveSupport::TimeWithZone) -> ::ActiveSupport::TimeWithZone
 
-    def hidden?: () -> bool
+    def updated_at?: () -> bool
 
-    def hidden_changed?: (?from: bool?, ?to: bool?) -> bool
+    def updated_at_changed?: (?from: ::ActiveSupport::TimeWithZone?, ?to: ::ActiveSupport::TimeWithZone?) -> bool
 
-    def hidden_change: () -> [ bool?, bool? ]
+    def updated_at_change: () -> [ ::ActiveSupport::TimeWithZone?, ::ActiveSupport::TimeWithZone? ]
 
-    def hidden_will_change!: () -> void
+    def updated_at_will_change!: () -> void
 
-    def hidden_was: () -> bool?
+    def updated_at_was: () -> ::ActiveSupport::TimeWithZone?
 
-    def hidden_previously_changed?: (?from: bool?, ?to: bool?) -> bool
+    def updated_at_previously_changed?: (?from: ::ActiveSupport::TimeWithZone?, ?to: ::ActiveSupport::TimeWithZone?) -> bool
 
-    def hidden_previous_change: () -> ::Array[bool?]?
+    def updated_at_previous_change: () -> ::Array[::ActiveSupport::TimeWithZone?]?
 
-    def hidden_previously_was: () -> bool?
+    def updated_at_previously_was: () -> ::ActiveSupport::TimeWithZone?
 
-    def hidden_before_last_save: () -> bool?
+    def updated_at_before_last_save: () -> ::ActiveSupport::TimeWithZone?
 
-    def hidden_change_to_be_saved: () -> ::Array[bool?]?
+    def updated_at_change_to_be_saved: () -> ::Array[::ActiveSupport::TimeWithZone?]?
 
-    def hidden_in_database: () -> bool?
+    def updated_at_in_database: () -> ::ActiveSupport::TimeWithZone?
 
-    def saved_change_to_hidden: () -> ::Array[bool?]?
+    def saved_change_to_updated_at: () -> ::Array[::ActiveSupport::TimeWithZone?]?
 
-    def saved_change_to_hidden?: (?from: bool?, ?to: bool?) -> bool
+    def saved_change_to_updated_at?: (?from: ::ActiveSupport::TimeWithZone?, ?to: ::ActiveSupport::TimeWithZone?) -> bool
 
-    def will_save_change_to_hidden?: (?from: bool?, ?to: bool?) -> bool
+    def will_save_change_to_updated_at?: (?from: ::ActiveSupport::TimeWithZone?, ?to: ::ActiveSupport::TimeWithZone?) -> bool
 
-    def restore_hidden!: () -> void
+    def restore_updated_at!: () -> void
 
-    def clear_hidden_change: () -> void
+    def clear_updated_at_change: () -> void
 
-    def hidden_before_type_cast: () -> bool
+    def updated_at_before_type_cast: () -> ::Time
 
-    def hidden_for_database: () -> bool
-
-    def last_update_error: () -> ::String?
-
-    def last_update_error=: (::String?) -> ::String?
-
-    def last_update_error?: () -> bool
-
-    def last_update_error_changed?: (?from: ::String?, ?to: ::String?) -> bool
-
-    def last_update_error_change: () -> [ ::String?, ::String? ]
-
-    def last_update_error_will_change!: () -> void
-
-    def last_update_error_was: () -> ::String?
-
-    def last_update_error_previously_changed?: (?from: ::String?, ?to: ::String?) -> bool
-
-    def last_update_error_previous_change: () -> ::Array[::String?]?
-
-    def last_update_error_previously_was: () -> ::String?
-
-    def last_update_error_before_last_save: () -> ::String?
-
-    def last_update_error_change_to_be_saved: () -> ::Array[::String?]?
-
-    def last_update_error_in_database: () -> ::String?
-
-    def saved_change_to_last_update_error: () -> ::Array[::String?]?
-
-    def saved_change_to_last_update_error?: (?from: ::String?, ?to: ::String?) -> bool
-
-    def will_save_change_to_last_update_error?: (?from: ::String?, ?to: ::String?) -> bool
-
-    def restore_last_update_error!: () -> void
-
-    def clear_last_update_error_change: () -> void
-
-    def last_update_error_before_type_cast: () -> ::String?
-
-    def last_update_error_for_database: () -> ::String?
+    def updated_at_for_database: () -> ::Time
   end
   include ::Page::GeneratedAttributeMethods
   module ::Page::GeneratedAliasAttributeMethods
@@ -626,9 +626,21 @@ class ::Page < ::ApplicationRecord
   def event_ids: () -> ::Array[::String]
   def event_ids=: (::Array[::String]) -> ::Array[::String]
 
+  def image: () -> ::Image
+  def image=: (::Image?) -> ::Image?
+  def reload_image: () -> ::Image?
+  def image_changed?: () -> bool
+  def image_previously_changed?: () -> bool
+  def reset_image: () -> void
+  def build_image: (?untyped) -> ::Image
+  def create_image: (?untyped) -> ::Image
+  def create_image!: (?untyped) -> ::Image
   def cover_image: () -> ::Image
   def cover_image=: (::Image?) -> ::Image?
   def reload_cover_image: () -> ::Image?
+  def cover_image_changed?: () -> bool
+  def cover_image_previously_changed?: () -> bool
+  def reset_cover_image: () -> void
   def build_cover_image: (?untyped) -> ::Image
   def create_cover_image: (?untyped) -> ::Image
   def create_cover_image!: (?untyped) -> ::Image

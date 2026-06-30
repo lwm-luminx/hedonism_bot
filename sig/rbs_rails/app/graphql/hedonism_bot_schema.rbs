@@ -1,7 +1,0 @@
-class HedonismBotSchema < GraphQL::Schema
-  def self.max_query_string_tokens: (int) -> void
-
-  def self.execute: (string, ?operation_name: string, ?variables: Hash[Symbol, untyped], ?context: Hash[Symbol, untyped]) -> ::GraphQL::Query::Result
-
-  def object_from_id: (top, GraphQL::Query::Context) -> Types::BaseObject
-end

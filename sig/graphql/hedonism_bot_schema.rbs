@@ -10,4 +10,6 @@ class HedonismBotSchema < GraphQL::Schema
 
   # Given a string UUID, find the object
   def self.object_from_id: (untyped global_id, untyped query_ctx) -> untyped
+
+  def self.detailed_trace?: (String) -> bool
 end

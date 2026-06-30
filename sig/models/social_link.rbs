@@ -1,0 +1,3 @@
+class SocialLink < ApplicationRecord
+  def url: -> String
+end

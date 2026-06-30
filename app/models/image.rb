@@ -1,11 +1,10 @@
 # frozen_string_literal: true
 
 class Image < ApplicationRecord
+  has_one_attached :image_file
   validates :content_hash, :mime_type, :source_url, :cdn_url, presence: true
 
   def self.for_url(url)
-    return nil unless url
-
     photo = Image.find_by(source_url: url)
 
     unless photo
@@ -14,21 +13,22 @@ class Image < ApplicationRecord
       hash_url_safe = Base64.urlsafe_encode64 hash, padding: false
 
       photo = Image.find_or_create_by(content_hash: hash) do |p|
-        p.mime = response["Content-Type"]
+        mime_type = response["Content-Type"]
+        raise "Response lacks a mime type" unless mime_type
+        p.mime_type = mime_type
         p.source_url = url
         p.cdn_url = "https://noncesoft.azureedge.net/photos/#{hash_url_safe}"
       end
 
-      photo.store(hash_url_safe, response.body)
+      response.read_body do |body|
+        photo.store(hash_url_safe, body)
+      end
     end
 
     photo
   end
 
   def store(name, data)
-    client = Azure::Storage::Blob::BlobService.create(storage_account_name: AZURE_STORAGE_NAME,
-                                                      storage_access_key: Rails.application.secrets[:cdn_storage_key])
-
-    client.create_block_blob("photos", name, data, content_type: mime)
+    self.image_file.attach(io: StringIO.new(data), filename: name, content_type: mime_type)
   end
 end

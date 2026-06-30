@@ -1,0 +1,5 @@
+module Mutations
+  class UpdatePhotoFacialRecognition < BaseMutation
+    def resolve: (id: GlobalID, faces: [ ::Types::FaceDataInputType ]) -> untyped
+  end
+end

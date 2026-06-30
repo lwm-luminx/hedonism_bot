@@ -84,85 +84,125 @@ class ::User < ::ApplicationRecord
 
     def created_at_for_database: () -> ::Time
 
-    def updated_at: () -> ::ActiveSupport::TimeWithZone
+    def culture: () -> ::String?
 
-    def updated_at=: (::ActiveSupport::TimeWithZone) -> ::ActiveSupport::TimeWithZone
+    def culture=: (::String?) -> ::String?
 
-    def updated_at?: () -> bool
+    def culture?: () -> bool
 
-    def updated_at_changed?: (?from: ::ActiveSupport::TimeWithZone?, ?to: ::ActiveSupport::TimeWithZone?) -> bool
+    def culture_changed?: (?from: ::String?, ?to: ::String?) -> bool
 
-    def updated_at_change: () -> [ ::ActiveSupport::TimeWithZone?, ::ActiveSupport::TimeWithZone? ]
+    def culture_change: () -> [ ::String?, ::String? ]
 
-    def updated_at_will_change!: () -> void
+    def culture_will_change!: () -> void
 
-    def updated_at_was: () -> ::ActiveSupport::TimeWithZone?
+    def culture_was: () -> ::String?
 
-    def updated_at_previously_changed?: (?from: ::ActiveSupport::TimeWithZone?, ?to: ::ActiveSupport::TimeWithZone?) -> bool
+    def culture_previously_changed?: (?from: ::String?, ?to: ::String?) -> bool
 
-    def updated_at_previous_change: () -> ::Array[::ActiveSupport::TimeWithZone?]?
+    def culture_previous_change: () -> ::Array[::String?]?
 
-    def updated_at_previously_was: () -> ::ActiveSupport::TimeWithZone?
+    def culture_previously_was: () -> ::String?
 
-    def updated_at_before_last_save: () -> ::ActiveSupport::TimeWithZone?
+    def culture_before_last_save: () -> ::String?
 
-    def updated_at_change_to_be_saved: () -> ::Array[::ActiveSupport::TimeWithZone?]?
+    def culture_change_to_be_saved: () -> ::Array[::String?]?
 
-    def updated_at_in_database: () -> ::ActiveSupport::TimeWithZone?
+    def culture_in_database: () -> ::String?
 
-    def saved_change_to_updated_at: () -> ::Array[::ActiveSupport::TimeWithZone?]?
+    def saved_change_to_culture: () -> ::Array[::String?]?
 
-    def saved_change_to_updated_at?: (?from: ::ActiveSupport::TimeWithZone?, ?to: ::ActiveSupport::TimeWithZone?) -> bool
+    def saved_change_to_culture?: (?from: ::String?, ?to: ::String?) -> bool
 
-    def will_save_change_to_updated_at?: (?from: ::ActiveSupport::TimeWithZone?, ?to: ::ActiveSupport::TimeWithZone?) -> bool
+    def will_save_change_to_culture?: (?from: ::String?, ?to: ::String?) -> bool
 
-    def restore_updated_at!: () -> void
+    def restore_culture!: () -> void
 
-    def clear_updated_at_change: () -> void
+    def clear_culture_change: () -> void
 
-    def updated_at_before_type_cast: () -> ::Time
+    def culture_before_type_cast: () -> ::String?
 
-    def updated_at_for_database: () -> ::Time
+    def culture_for_database: () -> ::String?
 
-    def image_id: () -> ::String?
+    def email_address: () -> ::String?
 
-    def image_id=: (::String?) -> ::String?
+    def email_address=: (::String?) -> ::String?
 
-    def image_id?: () -> bool
+    def email_address?: () -> bool
 
-    def image_id_changed?: (?from: ::String?, ?to: ::String?) -> bool
+    def email_address_changed?: (?from: ::String?, ?to: ::String?) -> bool
 
-    def image_id_change: () -> [ ::String?, ::String? ]
+    def email_address_change: () -> [ ::String?, ::String? ]
 
-    def image_id_will_change!: () -> void
+    def email_address_will_change!: () -> void
 
-    def image_id_was: () -> ::String?
+    def email_address_was: () -> ::String?
 
-    def image_id_previously_changed?: (?from: ::String?, ?to: ::String?) -> bool
+    def email_address_previously_changed?: (?from: ::String?, ?to: ::String?) -> bool
 
-    def image_id_previous_change: () -> ::Array[::String?]?
+    def email_address_previous_change: () -> ::Array[::String?]?
 
-    def image_id_previously_was: () -> ::String?
+    def email_address_previously_was: () -> ::String?
 
-    def image_id_before_last_save: () -> ::String?
+    def email_address_before_last_save: () -> ::String?
 
-    def image_id_change_to_be_saved: () -> ::Array[::String?]?
+    def email_address_change_to_be_saved: () -> ::Array[::String?]?
 
-    def image_id_in_database: () -> ::String?
+    def email_address_in_database: () -> ::String?
 
-    def saved_change_to_image_id: () -> ::Array[::String?]?
+    def saved_change_to_email_address: () -> ::Array[::String?]?
 
-    def saved_change_to_image_id?: (?from: ::String?, ?to: ::String?) -> bool
+    def saved_change_to_email_address?: (?from: ::String?, ?to: ::String?) -> bool
 
-    def will_save_change_to_image_id?: (?from: ::String?, ?to: ::String?) -> bool
+    def will_save_change_to_email_address?: (?from: ::String?, ?to: ::String?) -> bool
 
-    def restore_image_id!: () -> void
+    def restore_email_address!: () -> void
 
-    def clear_image_id_change: () -> void
+    def clear_email_address_change: () -> void
 
-    def image_id_before_type_cast: () -> ::String?
+    def email_address_before_type_cast: () -> ::String?
 
-    def image_id_for_database: () -> ::String?
+    def email_address_for_database: () -> ::String?
+
+    def facebook_graph: () -> untyped
+
+    def facebook_graph=: (untyped) -> untyped
+
+    def facebook_graph?: () -> bool
+
+    def facebook_graph_changed?: (?from: untyped, ?to: untyped) -> bool
+
+    def facebook_graph_change: () -> [ untyped, untyped ]
+
+    def facebook_graph_will_change!: () -> void
+
+    def facebook_graph_was: () -> untyped
+
+    def facebook_graph_previously_changed?: (?from: untyped, ?to: untyped) -> bool
+
+    def facebook_graph_previous_change: () -> ::Array[untyped]?
+
+    def facebook_graph_previously_was: () -> untyped
+
+    def facebook_graph_before_last_save: () -> untyped
+
+    def facebook_graph_change_to_be_saved: () -> ::Array[untyped]?
+
+    def facebook_graph_in_database: () -> untyped
+
+    def saved_change_to_facebook_graph: () -> ::Array[untyped]?
+
+    def saved_change_to_facebook_graph?: (?from: untyped, ?to: untyped) -> bool
+
+    def will_save_change_to_facebook_graph?: (?from: untyped, ?to: untyped) -> bool
+
+    def restore_facebook_graph!: () -> void
+
+    def clear_facebook_graph_change: () -> void
+
+    def facebook_graph_before_type_cast: () -> untyped?
+
+    def facebook_graph_for_database: () -> untyped?
 
     def facebook_id: () -> ::String
 
@@ -204,85 +244,45 @@ class ::User < ::ApplicationRecord
 
     def facebook_id_for_database: () -> ::String
 
-    def twitter_id: () -> ::String?
+    def facebook_scopes: () -> ::Array[::String]?
 
-    def twitter_id=: (::String?) -> ::String?
+    def facebook_scopes=: (::Array[::String]?) -> ::Array[::String]?
 
-    def twitter_id?: () -> bool
+    def facebook_scopes?: () -> bool
 
-    def twitter_id_changed?: (?from: ::String?, ?to: ::String?) -> bool
+    def facebook_scopes_changed?: (?from: ::Array[::String]?, ?to: ::Array[::String]?) -> bool
 
-    def twitter_id_change: () -> [ ::String?, ::String? ]
+    def facebook_scopes_change: () -> [ ::Array[::String]?, ::Array[::String]? ]
 
-    def twitter_id_will_change!: () -> void
+    def facebook_scopes_will_change!: () -> void
 
-    def twitter_id_was: () -> ::String?
+    def facebook_scopes_was: () -> ::Array[::String]?
 
-    def twitter_id_previously_changed?: (?from: ::String?, ?to: ::String?) -> bool
+    def facebook_scopes_previously_changed?: (?from: ::Array[::String]?, ?to: ::Array[::String]?) -> bool
 
-    def twitter_id_previous_change: () -> ::Array[::String?]?
+    def facebook_scopes_previous_change: () -> ::Array[::Array[::String]?]?
 
-    def twitter_id_previously_was: () -> ::String?
+    def facebook_scopes_previously_was: () -> ::Array[::String]?
 
-    def twitter_id_before_last_save: () -> ::String?
+    def facebook_scopes_before_last_save: () -> ::Array[::String]?
 
-    def twitter_id_change_to_be_saved: () -> ::Array[::String?]?
+    def facebook_scopes_change_to_be_saved: () -> ::Array[::Array[::String]?]?
 
-    def twitter_id_in_database: () -> ::String?
+    def facebook_scopes_in_database: () -> ::Array[::String]?
 
-    def saved_change_to_twitter_id: () -> ::Array[::String?]?
+    def saved_change_to_facebook_scopes: () -> ::Array[::Array[::String]?]?
 
-    def saved_change_to_twitter_id?: (?from: ::String?, ?to: ::String?) -> bool
+    def saved_change_to_facebook_scopes?: (?from: ::Array[::String]?, ?to: ::Array[::String]?) -> bool
 
-    def will_save_change_to_twitter_id?: (?from: ::String?, ?to: ::String?) -> bool
+    def will_save_change_to_facebook_scopes?: (?from: ::Array[::String]?, ?to: ::Array[::String]?) -> bool
 
-    def restore_twitter_id!: () -> void
+    def restore_facebook_scopes!: () -> void
 
-    def clear_twitter_id_change: () -> void
+    def clear_facebook_scopes_change: () -> void
 
-    def twitter_id_before_type_cast: () -> ::String?
+    def facebook_scopes_before_type_cast: () -> ::Array[::String]?
 
-    def twitter_id_for_database: () -> ::String?
-
-    def instagram_id: () -> ::String?
-
-    def instagram_id=: (::String?) -> ::String?
-
-    def instagram_id?: () -> bool
-
-    def instagram_id_changed?: (?from: ::String?, ?to: ::String?) -> bool
-
-    def instagram_id_change: () -> [ ::String?, ::String? ]
-
-    def instagram_id_will_change!: () -> void
-
-    def instagram_id_was: () -> ::String?
-
-    def instagram_id_previously_changed?: (?from: ::String?, ?to: ::String?) -> bool
-
-    def instagram_id_previous_change: () -> ::Array[::String?]?
-
-    def instagram_id_previously_was: () -> ::String?
-
-    def instagram_id_before_last_save: () -> ::String?
-
-    def instagram_id_change_to_be_saved: () -> ::Array[::String?]?
-
-    def instagram_id_in_database: () -> ::String?
-
-    def saved_change_to_instagram_id: () -> ::Array[::String?]?
-
-    def saved_change_to_instagram_id?: (?from: ::String?, ?to: ::String?) -> bool
-
-    def will_save_change_to_instagram_id?: (?from: ::String?, ?to: ::String?) -> bool
-
-    def restore_instagram_id!: () -> void
-
-    def clear_instagram_id_change: () -> void
-
-    def instagram_id_before_type_cast: () -> ::String?
-
-    def instagram_id_for_database: () -> ::String?
+    def facebook_scopes_for_database: () -> ::Array[::String]?
 
     def facebook_token: () -> ::String?
 
@@ -364,85 +364,45 @@ class ::User < ::ApplicationRecord
 
     def facebook_token_issued_at_for_database: () -> ::Time?
 
-    def name: () -> ::String?
+    def first_name: () -> ::String?
 
-    def name=: (::String?) -> ::String?
+    def first_name=: (::String?) -> ::String?
 
-    def name?: () -> bool
+    def first_name?: () -> bool
 
-    def name_changed?: (?from: ::String?, ?to: ::String?) -> bool
+    def first_name_changed?: (?from: ::String?, ?to: ::String?) -> bool
 
-    def name_change: () -> [ ::String?, ::String? ]
+    def first_name_change: () -> [ ::String?, ::String? ]
 
-    def name_will_change!: () -> void
+    def first_name_will_change!: () -> void
 
-    def name_was: () -> ::String?
+    def first_name_was: () -> ::String?
 
-    def name_previously_changed?: (?from: ::String?, ?to: ::String?) -> bool
+    def first_name_previously_changed?: (?from: ::String?, ?to: ::String?) -> bool
 
-    def name_previous_change: () -> ::Array[::String?]?
+    def first_name_previous_change: () -> ::Array[::String?]?
 
-    def name_previously_was: () -> ::String?
+    def first_name_previously_was: () -> ::String?
 
-    def name_before_last_save: () -> ::String?
+    def first_name_before_last_save: () -> ::String?
 
-    def name_change_to_be_saved: () -> ::Array[::String?]?
+    def first_name_change_to_be_saved: () -> ::Array[::String?]?
 
-    def name_in_database: () -> ::String?
+    def first_name_in_database: () -> ::String?
 
-    def saved_change_to_name: () -> ::Array[::String?]?
+    def saved_change_to_first_name: () -> ::Array[::String?]?
 
-    def saved_change_to_name?: (?from: ::String?, ?to: ::String?) -> bool
+    def saved_change_to_first_name?: (?from: ::String?, ?to: ::String?) -> bool
 
-    def will_save_change_to_name?: (?from: ::String?, ?to: ::String?) -> bool
+    def will_save_change_to_first_name?: (?from: ::String?, ?to: ::String?) -> bool
 
-    def restore_name!: () -> void
+    def restore_first_name!: () -> void
 
-    def clear_name_change: () -> void
+    def clear_first_name_change: () -> void
 
-    def name_before_type_cast: () -> ::String?
+    def first_name_before_type_cast: () -> ::String?
 
-    def name_for_database: () -> ::String?
-
-    def email_address: () -> ::String?
-
-    def email_address=: (::String?) -> ::String?
-
-    def email_address?: () -> bool
-
-    def email_address_changed?: (?from: ::String?, ?to: ::String?) -> bool
-
-    def email_address_change: () -> [ ::String?, ::String? ]
-
-    def email_address_will_change!: () -> void
-
-    def email_address_was: () -> ::String?
-
-    def email_address_previously_changed?: (?from: ::String?, ?to: ::String?) -> bool
-
-    def email_address_previous_change: () -> ::Array[::String?]?
-
-    def email_address_previously_was: () -> ::String?
-
-    def email_address_before_last_save: () -> ::String?
-
-    def email_address_change_to_be_saved: () -> ::Array[::String?]?
-
-    def email_address_in_database: () -> ::String?
-
-    def saved_change_to_email_address: () -> ::Array[::String?]?
-
-    def saved_change_to_email_address?: (?from: ::String?, ?to: ::String?) -> bool
-
-    def will_save_change_to_email_address?: (?from: ::String?, ?to: ::String?) -> bool
-
-    def restore_email_address!: () -> void
-
-    def clear_email_address_change: () -> void
-
-    def email_address_before_type_cast: () -> ::String?
-
-    def email_address_for_database: () -> ::String?
+    def first_name_for_database: () -> ::String?
 
     def gender: () -> ::String?
 
@@ -484,45 +444,125 @@ class ::User < ::ApplicationRecord
 
     def gender_for_database: () -> ::String?
 
-    def first_name: () -> ::String?
+    def god_mode: () -> bool
 
-    def first_name=: (::String?) -> ::String?
+    def god_mode=: (bool) -> bool
 
-    def first_name?: () -> bool
+    def god_mode?: () -> bool
 
-    def first_name_changed?: (?from: ::String?, ?to: ::String?) -> bool
+    def god_mode_changed?: (?from: bool?, ?to: bool?) -> bool
 
-    def first_name_change: () -> [ ::String?, ::String? ]
+    def god_mode_change: () -> [ bool?, bool? ]
 
-    def first_name_will_change!: () -> void
+    def god_mode_will_change!: () -> void
 
-    def first_name_was: () -> ::String?
+    def god_mode_was: () -> bool?
 
-    def first_name_previously_changed?: (?from: ::String?, ?to: ::String?) -> bool
+    def god_mode_previously_changed?: (?from: bool?, ?to: bool?) -> bool
 
-    def first_name_previous_change: () -> ::Array[::String?]?
+    def god_mode_previous_change: () -> ::Array[bool?]?
 
-    def first_name_previously_was: () -> ::String?
+    def god_mode_previously_was: () -> bool?
 
-    def first_name_before_last_save: () -> ::String?
+    def god_mode_before_last_save: () -> bool?
 
-    def first_name_change_to_be_saved: () -> ::Array[::String?]?
+    def god_mode_change_to_be_saved: () -> ::Array[bool?]?
 
-    def first_name_in_database: () -> ::String?
+    def god_mode_in_database: () -> bool?
 
-    def saved_change_to_first_name: () -> ::Array[::String?]?
+    def saved_change_to_god_mode: () -> ::Array[bool?]?
 
-    def saved_change_to_first_name?: (?from: ::String?, ?to: ::String?) -> bool
+    def saved_change_to_god_mode?: (?from: bool?, ?to: bool?) -> bool
 
-    def will_save_change_to_first_name?: (?from: ::String?, ?to: ::String?) -> bool
+    def will_save_change_to_god_mode?: (?from: bool?, ?to: bool?) -> bool
 
-    def restore_first_name!: () -> void
+    def restore_god_mode!: () -> void
 
-    def clear_first_name_change: () -> void
+    def clear_god_mode_change: () -> void
 
-    def first_name_before_type_cast: () -> ::String?
+    def god_mode_before_type_cast: () -> bool
 
-    def first_name_for_database: () -> ::String?
+    def god_mode_for_database: () -> bool
+
+    def image_id: () -> ::String?
+
+    def image_id=: (::String?) -> ::String?
+
+    def image_id?: () -> bool
+
+    def image_id_changed?: (?from: ::String?, ?to: ::String?) -> bool
+
+    def image_id_change: () -> [ ::String?, ::String? ]
+
+    def image_id_will_change!: () -> void
+
+    def image_id_was: () -> ::String?
+
+    def image_id_previously_changed?: (?from: ::String?, ?to: ::String?) -> bool
+
+    def image_id_previous_change: () -> ::Array[::String?]?
+
+    def image_id_previously_was: () -> ::String?
+
+    def image_id_before_last_save: () -> ::String?
+
+    def image_id_change_to_be_saved: () -> ::Array[::String?]?
+
+    def image_id_in_database: () -> ::String?
+
+    def saved_change_to_image_id: () -> ::Array[::String?]?
+
+    def saved_change_to_image_id?: (?from: ::String?, ?to: ::String?) -> bool
+
+    def will_save_change_to_image_id?: (?from: ::String?, ?to: ::String?) -> bool
+
+    def restore_image_id!: () -> void
+
+    def clear_image_id_change: () -> void
+
+    def image_id_before_type_cast: () -> ::String?
+
+    def image_id_for_database: () -> ::String?
+
+    def instagram_id: () -> ::String?
+
+    def instagram_id=: (::String?) -> ::String?
+
+    def instagram_id?: () -> bool
+
+    def instagram_id_changed?: (?from: ::String?, ?to: ::String?) -> bool
+
+    def instagram_id_change: () -> [ ::String?, ::String? ]
+
+    def instagram_id_will_change!: () -> void
+
+    def instagram_id_was: () -> ::String?
+
+    def instagram_id_previously_changed?: (?from: ::String?, ?to: ::String?) -> bool
+
+    def instagram_id_previous_change: () -> ::Array[::String?]?
+
+    def instagram_id_previously_was: () -> ::String?
+
+    def instagram_id_before_last_save: () -> ::String?
+
+    def instagram_id_change_to_be_saved: () -> ::Array[::String?]?
+
+    def instagram_id_in_database: () -> ::String?
+
+    def saved_change_to_instagram_id: () -> ::Array[::String?]?
+
+    def saved_change_to_instagram_id?: (?from: ::String?, ?to: ::String?) -> bool
+
+    def will_save_change_to_instagram_id?: (?from: ::String?, ?to: ::String?) -> bool
+
+    def restore_instagram_id!: () -> void
+
+    def clear_instagram_id_change: () -> void
+
+    def instagram_id_before_type_cast: () -> ::String?
+
+    def instagram_id_for_database: () -> ::String?
 
     def last_name: () -> ::String?
 
@@ -564,165 +604,125 @@ class ::User < ::ApplicationRecord
 
     def last_name_for_database: () -> ::String?
 
-    def culture: () -> ::String?
+    def name: () -> ::String?
 
-    def culture=: (::String?) -> ::String?
+    def name=: (::String?) -> ::String?
 
-    def culture?: () -> bool
+    def name?: () -> bool
 
-    def culture_changed?: (?from: ::String?, ?to: ::String?) -> bool
+    def name_changed?: (?from: ::String?, ?to: ::String?) -> bool
 
-    def culture_change: () -> [ ::String?, ::String? ]
+    def name_change: () -> [ ::String?, ::String? ]
 
-    def culture_will_change!: () -> void
+    def name_will_change!: () -> void
 
-    def culture_was: () -> ::String?
+    def name_was: () -> ::String?
 
-    def culture_previously_changed?: (?from: ::String?, ?to: ::String?) -> bool
+    def name_previously_changed?: (?from: ::String?, ?to: ::String?) -> bool
 
-    def culture_previous_change: () -> ::Array[::String?]?
+    def name_previous_change: () -> ::Array[::String?]?
 
-    def culture_previously_was: () -> ::String?
+    def name_previously_was: () -> ::String?
 
-    def culture_before_last_save: () -> ::String?
+    def name_before_last_save: () -> ::String?
 
-    def culture_change_to_be_saved: () -> ::Array[::String?]?
+    def name_change_to_be_saved: () -> ::Array[::String?]?
 
-    def culture_in_database: () -> ::String?
+    def name_in_database: () -> ::String?
 
-    def saved_change_to_culture: () -> ::Array[::String?]?
+    def saved_change_to_name: () -> ::Array[::String?]?
 
-    def saved_change_to_culture?: (?from: ::String?, ?to: ::String?) -> bool
+    def saved_change_to_name?: (?from: ::String?, ?to: ::String?) -> bool
 
-    def will_save_change_to_culture?: (?from: ::String?, ?to: ::String?) -> bool
+    def will_save_change_to_name?: (?from: ::String?, ?to: ::String?) -> bool
 
-    def restore_culture!: () -> void
+    def restore_name!: () -> void
 
-    def clear_culture_change: () -> void
+    def clear_name_change: () -> void
 
-    def culture_before_type_cast: () -> ::String?
+    def name_before_type_cast: () -> ::String?
 
-    def culture_for_database: () -> ::String?
+    def name_for_database: () -> ::String?
 
-    def facebook_graph: () -> untyped
+    def twitter_id: () -> ::String?
 
-    def facebook_graph=: (untyped) -> untyped
+    def twitter_id=: (::String?) -> ::String?
 
-    def facebook_graph?: () -> bool
+    def twitter_id?: () -> bool
 
-    def facebook_graph_changed?: (?from: untyped, ?to: untyped) -> bool
+    def twitter_id_changed?: (?from: ::String?, ?to: ::String?) -> bool
 
-    def facebook_graph_change: () -> [ untyped, untyped ]
+    def twitter_id_change: () -> [ ::String?, ::String? ]
 
-    def facebook_graph_will_change!: () -> void
+    def twitter_id_will_change!: () -> void
 
-    def facebook_graph_was: () -> untyped
+    def twitter_id_was: () -> ::String?
 
-    def facebook_graph_previously_changed?: (?from: untyped, ?to: untyped) -> bool
+    def twitter_id_previously_changed?: (?from: ::String?, ?to: ::String?) -> bool
 
-    def facebook_graph_previous_change: () -> ::Array[untyped]?
+    def twitter_id_previous_change: () -> ::Array[::String?]?
 
-    def facebook_graph_previously_was: () -> untyped
+    def twitter_id_previously_was: () -> ::String?
 
-    def facebook_graph_before_last_save: () -> untyped
+    def twitter_id_before_last_save: () -> ::String?
 
-    def facebook_graph_change_to_be_saved: () -> ::Array[untyped]?
+    def twitter_id_change_to_be_saved: () -> ::Array[::String?]?
 
-    def facebook_graph_in_database: () -> untyped
+    def twitter_id_in_database: () -> ::String?
 
-    def saved_change_to_facebook_graph: () -> ::Array[untyped]?
+    def saved_change_to_twitter_id: () -> ::Array[::String?]?
 
-    def saved_change_to_facebook_graph?: (?from: untyped, ?to: untyped) -> bool
+    def saved_change_to_twitter_id?: (?from: ::String?, ?to: ::String?) -> bool
 
-    def will_save_change_to_facebook_graph?: (?from: untyped, ?to: untyped) -> bool
+    def will_save_change_to_twitter_id?: (?from: ::String?, ?to: ::String?) -> bool
 
-    def restore_facebook_graph!: () -> void
+    def restore_twitter_id!: () -> void
 
-    def clear_facebook_graph_change: () -> void
+    def clear_twitter_id_change: () -> void
 
-    def facebook_graph_before_type_cast: () -> untyped?
+    def twitter_id_before_type_cast: () -> ::String?
 
-    def facebook_graph_for_database: () -> untyped?
+    def twitter_id_for_database: () -> ::String?
 
-    def facebook_scopes: () -> ::String?
+    def updated_at: () -> ::ActiveSupport::TimeWithZone
 
-    def facebook_scopes=: (::String?) -> ::String?
+    def updated_at=: (::ActiveSupport::TimeWithZone) -> ::ActiveSupport::TimeWithZone
 
-    def facebook_scopes?: () -> bool
+    def updated_at?: () -> bool
 
-    def facebook_scopes_changed?: (?from: ::String?, ?to: ::String?) -> bool
+    def updated_at_changed?: (?from: ::ActiveSupport::TimeWithZone?, ?to: ::ActiveSupport::TimeWithZone?) -> bool
 
-    def facebook_scopes_change: () -> [ ::String?, ::String? ]
+    def updated_at_change: () -> [ ::ActiveSupport::TimeWithZone?, ::ActiveSupport::TimeWithZone? ]
 
-    def facebook_scopes_will_change!: () -> void
+    def updated_at_will_change!: () -> void
 
-    def facebook_scopes_was: () -> ::String?
+    def updated_at_was: () -> ::ActiveSupport::TimeWithZone?
 
-    def facebook_scopes_previously_changed?: (?from: ::String?, ?to: ::String?) -> bool
+    def updated_at_previously_changed?: (?from: ::ActiveSupport::TimeWithZone?, ?to: ::ActiveSupport::TimeWithZone?) -> bool
 
-    def facebook_scopes_previous_change: () -> ::Array[::String?]?
+    def updated_at_previous_change: () -> ::Array[::ActiveSupport::TimeWithZone?]?
 
-    def facebook_scopes_previously_was: () -> ::String?
+    def updated_at_previously_was: () -> ::ActiveSupport::TimeWithZone?
 
-    def facebook_scopes_before_last_save: () -> ::String?
+    def updated_at_before_last_save: () -> ::ActiveSupport::TimeWithZone?
 
-    def facebook_scopes_change_to_be_saved: () -> ::Array[::String?]?
+    def updated_at_change_to_be_saved: () -> ::Array[::ActiveSupport::TimeWithZone?]?
 
-    def facebook_scopes_in_database: () -> ::String?
+    def updated_at_in_database: () -> ::ActiveSupport::TimeWithZone?
 
-    def saved_change_to_facebook_scopes: () -> ::Array[::String?]?
+    def saved_change_to_updated_at: () -> ::Array[::ActiveSupport::TimeWithZone?]?
 
-    def saved_change_to_facebook_scopes?: (?from: ::String?, ?to: ::String?) -> bool
+    def saved_change_to_updated_at?: (?from: ::ActiveSupport::TimeWithZone?, ?to: ::ActiveSupport::TimeWithZone?) -> bool
 
-    def will_save_change_to_facebook_scopes?: (?from: ::String?, ?to: ::String?) -> bool
+    def will_save_change_to_updated_at?: (?from: ::ActiveSupport::TimeWithZone?, ?to: ::ActiveSupport::TimeWithZone?) -> bool
 
-    def restore_facebook_scopes!: () -> void
+    def restore_updated_at!: () -> void
 
-    def clear_facebook_scopes_change: () -> void
+    def clear_updated_at_change: () -> void
 
-    def facebook_scopes_before_type_cast: () -> ::String?
+    def updated_at_before_type_cast: () -> ::Time
 
-    def facebook_scopes_for_database: () -> ::String?
-
-    def god_mode: () -> bool
-
-    def god_mode=: (bool) -> bool
-
-    def god_mode?: () -> bool
-
-    def god_mode_changed?: (?from: bool?, ?to: bool?) -> bool
-
-    def god_mode_change: () -> [ bool?, bool? ]
-
-    def god_mode_will_change!: () -> void
-
-    def god_mode_was: () -> bool?
-
-    def god_mode_previously_changed?: (?from: bool?, ?to: bool?) -> bool
-
-    def god_mode_previous_change: () -> ::Array[bool?]?
-
-    def god_mode_previously_was: () -> bool?
-
-    def god_mode_before_last_save: () -> bool?
-
-    def god_mode_change_to_be_saved: () -> ::Array[bool?]?
-
-    def god_mode_in_database: () -> bool?
-
-    def saved_change_to_god_mode: () -> ::Array[bool?]?
-
-    def saved_change_to_god_mode?: (?from: bool?, ?to: bool?) -> bool
-
-    def will_save_change_to_god_mode?: (?from: bool?, ?to: bool?) -> bool
-
-    def restore_god_mode!: () -> void
-
-    def clear_god_mode_change: () -> void
-
-    def god_mode_before_type_cast: () -> bool
-
-    def god_mode_for_database: () -> bool
+    def updated_at_for_database: () -> ::Time
   end
   include ::User::GeneratedAttributeMethods
   module ::User::GeneratedAliasAttributeMethods
@@ -800,6 +800,7 @@ class ::User < ::ApplicationRecord
   def create_photo_take: (?untyped) -> ::PhotoTake
   def create_photo_take!: (?untyped) -> ::PhotoTake
   def reload_photo_take: () -> ::PhotoTake?
+  def reset_photo_take: () -> void
 
   module ::User::GeneratedAssociationMethods
   end

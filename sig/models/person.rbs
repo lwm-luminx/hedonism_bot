@@ -2,4 +2,10 @@ class ::Person < ::ApplicationRecord
   def self.cluster: -> void
 
   def photo_count: -> int
+
+  def self.from_page_id: (Integer) -> Person
+
+  def tracks: () -> Array[::Track::ActiveRecord_Associations_CollectionProxy]
+
+  def social_links: -> ::SocialLink::ActiveRecord_Relation
 end

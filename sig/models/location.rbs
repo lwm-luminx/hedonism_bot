@@ -1,0 +1,6 @@
+class Location < ApplicationRecord
+  def update_location: (Float, Float) -> void
+  def self.from_name: (String) -> instance
+  def self.from_google_place_id: (String) -> instance
+  def name: -> String
+end

@@ -1,0 +1,3 @@
+class GlobalID
+  def model_id: () -> String
+end

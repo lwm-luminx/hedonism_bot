@@ -1,0 +1,821 @@
+# Google Maps Web Service API.
+module GoogleMapsService
+  # Global key.
+  # @see Client#key
+  # @return [String]
+  attr_accessor self.key: untyped
+
+  # Global client_id.
+  # @see Client#client_id
+  # @return [String]
+  attr_accessor self.client_id: untyped
+
+  # Global client_secret.
+  # @see Client#client_secret
+  # @return [String]
+  attr_accessor self.client_secret: untyped
+
+  # Global retry_timeout.
+  # @see Client#retry_timeout
+  # @return [Integer]
+  attr_accessor self.retry_timeout: untyped
+
+  # Global queries_per_second.
+  # @see Client#queries_per_second
+  # @return [Integer]
+  attr_accessor self.queries_per_second: untyped
+
+  # Global request_options.
+  # @see Client#initialize-instance_method
+  # @return [Hurley::RequestOptions]
+  attr_accessor self.request_options: untyped
+
+  # Global ssl_options.
+  # @see Client#initialize-instance_method
+  # @return [Hurley::SslOptions]
+  attr_accessor self.ssl_options: untyped
+
+  # Global connection.
+  # @see Client#initialize-instance_method
+  # @return [Object]
+  attr_accessor self.connection: untyped
+
+  # Configure global parameters.
+  # @yield [config]
+  def self.configure: () { (untyped) -> untyped } -> true
+end
+
+module GoogleMapsService
+  # Collections of Google Maps Web Services
+  module Apis
+  end
+end
+
+module GoogleMapsService::Apis
+  # Performs requests to the Google Maps Directions API.
+  module Directions
+    # Get directions between an origin point and a destination point.
+    #
+    # @example Simple directions
+    #   routes = client.directions('Sydney', 'Melbourne')
+    #
+    # @example Complex bicycling directions
+    #   routes = client.directions('Sydney', 'Melbourne',
+    #       mode: 'bicycling',
+    #       avoid: ['highways', 'tolls', 'ferries'],
+    #       units: 'metric',
+    #       region: 'au')
+    #
+    # @example Public transportation directions
+    #    an_hour_from_now = Time.now - (1.0/24)
+    #    routes = client.directions('Sydney Town Hall', 'Parramatta, NSW',
+    #        mode: 'transit',
+    #        arrival_time: an_hour_from_now)
+    #
+    # @example Walking with alternative routes
+    #    routes = client.directions('Sydney Town Hall', 'Parramatta, NSW',
+    #       mode: 'walking',
+    #       alternatives: true)
+    #
+    # @param [String, Hash, Array] origin The address or latitude/longitude value from which you wish
+    #         to calculate directions.
+    # @param [String, Hash, Array] destination The address or latitude/longitude value from which
+    #     you wish to calculate directions.
+    # @param [String] mode Specifies the mode of transport to use when calculating
+    #     directions. One of `driving`, `walking`, `bicycling` or `transit`.
+    # @param [Array<String>, Array<Hash>, Array<Array>] waypoints Specifies an array of waypoints. Waypoints alter a
+    #     route by routing it through the specified location(s).
+    # @param [Boolean] alternatives If True, more than one route may be returned in the
+    #     response.
+    # @param [Array, String] avoid Indicates that the calculated route(s) should avoid the
+    #     indicated features.
+    # @param [String] language The language in which to return results.
+    # @param [String] units Specifies the unit system to use when displaying results.
+    #     `metric` or `imperial`.
+    # @param [String] region The region code, specified as a ccTLD (_top-level domain_)
+    #     two-character value.
+    # @param [Integer, DateTime] departure_time Specifies the desired time of departure.
+    # @param [Integer, DateTime] arrival_time Specifies the desired time of arrival for transit
+    #     directions. Note: you can not specify both `departure_time` and
+    #     `arrival_time`.
+    # @param [Boolean] optimize_waypoints Optimize the provided route by rearranging the
+    #     waypoints in a more efficient order.
+    # @param [String, Array<String>] transit_mode Specifies one or more preferred modes of transit.
+    #     This parameter may only be specified for requests where the mode is
+    #     transit. Valid values are `bus`, `subway`, `train`, `tram` or `rail`.
+    #     `rail` is equivalent to `["train", "tram", "subway"]`.
+    # @param [String] transit_routing_preference Specifies preferences for transit
+    #     requests. Valid values are `less_walking` or `fewer_transfers`.
+    #
+    # @return [Array] Array of routes.
+    def directions: (untyped origin, untyped destination, ?mode: untyped?, ?waypoints: untyped?, ?alternatives: bool, ?avoid: untyped?, ?language: untyped?, ?units: untyped?, ?region: untyped?, ?departure_time: untyped?, ?arrival_time: untyped?, ?optimize_waypoints: bool, ?transit_mode: untyped?, ?transit_routing_preference: untyped?) -> untyped
+  end
+end
+
+module GoogleMapsService::Apis
+  # Performs requests to the Google Maps Distance Matrix API.
+  module DistanceMatrix
+    # Gets travel distance and time for a matrix of origins and destinations.
+    #
+    # @example Simple distance matrix
+    #   origins = ["Perth, Australia", "Sydney, Australia",
+    #              "Melbourne, Australia", "Adelaide, Australia",
+    #              "Brisbane, Australia", "Darwin, Australia",
+    #              "Hobart, Australia", "Canberra, Australia"]
+    #   destinations = ["Uluru, Australia",
+    #                   "Kakadu, Australia",
+    #                   "Blue Mountains, Australia",
+    #                   "Bungle Bungles, Australia",
+    #                   "The Pinnacles, Australia"]
+    #   matrix = client.distance_matrix(origins, destinations)
+    #
+    # @example Complex distance matrix
+    #   origins = ["Bobcaygeon ON", [41.43206, -81.38992]]
+    #   destinations = [[43.012486, -83.6964149], {lat: 42.8863855, lng: -78.8781627}]
+    #   matrix = client.distance_matrix(origins, destinations,
+    #       mode: 'driving',
+    #       language: 'en-AU',
+    #       avoid: 'tolls',
+    #       units: 'imperial')
+    #
+    # @param [Array] origins One or more addresses and/or lat/lon pairs,
+    #         from which to calculate distance and time. If you pass an address
+    #         as a string, the service will geocode the string and convert it to
+    #         a lat/lon coordinate to calculate directions.
+    # @param [Array] destinations One or more addresses and/or lat/lon pairs, to
+    #         which to calculate distance and time. If you pass an address as a
+    #         string, the service will geocode the string and convert it to a
+    #         lat/lon coordinate to calculate directions.
+    # @param [String] mode Specifies the mode of transport to use when calculating
+    #         directions. Valid values are `driving`, `walking`, `transit` or `bicycling`.
+    # @param [String] language The language in which to return results.
+    # @param [String] avoid Indicates that the calculated route(s) should avoid the
+    #     indicated features. Valid values are `tolls`, `highways` or `ferries`.
+    # @param [String] units Specifies the unit system to use when displaying results.
+    #     Valid values are `metric` or `imperial`.
+    # @param [Integer, DateTime] departure_time Specifies the desired time of departure.
+    # @param [Integer, DateTime] arrival_time Specifies the desired time of arrival for transit
+    #     directions. Note: you can not specify both `departure_time` and `arrival_time`.
+    # @param [String, Array<String>] transit_mode Specifies one or more preferred modes of transit.
+    #     This parameter may only be specified for requests where the mode is
+    #     transit. Valid values are `bus`, `subway`, `train`, `tram`, or `rail`.
+    #     `rail` is equivalent to `["train", "tram", "subway"]`.
+    # @param [String] transit_routing_preference Specifies preferences for transit
+    #     requests. Valid values are `less_walking` or `fewer_transfers`.
+    #
+    # @return [Hash] Matrix of distances. Results are returned in rows, each row
+    #     containing one origin paired with each destination.
+    def distance_matrix: (untyped origins, untyped destinations, ?mode: untyped?, ?language: untyped?, ?avoid: untyped?, ?units: untyped?, ?departure_time: untyped?, ?arrival_time: untyped?, ?transit_mode: untyped?, ?transit_routing_preference: untyped?) -> untyped
+  end
+end
+
+module GoogleMapsService::Apis
+  # Performs requests to the Google Maps Elevation API.
+  module Elevation
+    # Provides elevation data for locations provided on the surface of the
+    # earth, including depth locations on the ocean floor (which return negative
+    # values).
+    #
+    # @example Single point elevation
+    #   results = client.elevation({latitude: 40.714728, longitude: -73.998672})
+    #
+    # @example Multiple points elevation
+    #   locations = [[40.714728, -73.998672], [-34.397, 150.644]]
+    #   results = client.elevation(locations)
+    #
+    # @param [Array] locations A single latitude/longitude hash, or an array of
+    #         latitude/longitude hash from which you wish to calculate
+    #         elevation data.
+    #
+    # @return [Array] Array of elevation data responses
+    def elevation: (untyped locations) -> untyped
+
+    # Provides elevation data sampled along a path on the surface of the earth.
+    #
+    # @example Elevation along path
+    #   locations = [[40.714728, -73.998672], [-34.397, 150.644]]
+    #   results = client.elevation_along_path(locations, 5)
+    #
+    # @param [String, Array] path A encoded polyline string, or a list of
+    #         latitude/longitude pairs from which you wish to calculate
+    #         elevation data.
+    # @param [Integer] samples The number of sample points along a path for which to
+    #         return elevation data.
+    #
+    # @return [Array] Array of elevation data responses
+    def elevation_along_path: (untyped path, untyped samples) -> untyped
+  end
+end
+
+module GoogleMapsService::Apis
+  # Performs requests to the Google Maps Geocoding API.
+  module Geocoding
+    # Geocoding is the process of converting addresses
+    # (like `"1600 Amphitheatre Parkway, Mountain View, CA"`) into geographic
+    # coordinates (like latitude 37.423021 and longitude -122.083739), which you
+    # can use to place markers or position the map.
+    #
+    # @example Geocode an address
+    #   results = client.geocode('Sydney')
+    #
+    # @example Geocode a component only
+    #   results = client.geocode(nil, components: {administrative_area: 'TX', country: 'US'})
+    #
+    # @example Geocode an address and component
+    #   results = client.geocode('Sydney', components: {administrative_area: 'TX', country: 'US'})
+    #
+    # @example Multiple parameters
+    #   results = client.geocode('Sydney',
+    #       components: {administrative_area: 'TX', country: 'US'},
+    #       bounds: {
+    #         northeast: {lat: 32.7183997, lng: -97.26864001970849},
+    #         southwest: {lat: 32.7052583, lng: -97.27133798029149}
+    #       },
+    #       region: 'us')
+    #
+    # @param [String] address The address to geocode. You must specify either this value and/or `components`.
+    # @param [Hash] components A component filter for which you wish to obtain a geocode,
+    #                    for example: `{'administrative_area': 'TX','country': 'US'}`
+    # @param [String, Hash] bounds The bounding box of the viewport within which to bias geocode
+    #                results more prominently. Accept string or hash with `northeast` and `southwest` keys.
+    # @param [String] region The region code, specified as a ccTLD (_top-level domain_)
+    #                two-character value.
+    # @param [String] language The language in which to return results.
+    #
+    # @return [Array] Array of geocoding results.
+    def geocode: (untyped address, ?components: untyped?, ?bounds: untyped?, ?region: untyped?, ?language: untyped?) -> untyped
+
+    # Reverse geocoding is the process of converting geographic coordinates into a
+    # human-readable address.
+    #
+    # @example Simple lat/lon pair
+    #   client.reverse_geocode({lat: 40.714224, lng: -73.961452})
+    #
+    # @example Multiple parameters
+    #   client.reverse_geocode([40.714224, -73.961452],
+    #       location_type: ['ROOFTOP', 'RANGE_INTERPOLATED'],
+    #       result_type: ['street_address', 'route'],
+    #       language: 'es')
+    #
+    # @param [Hash, Array] latlng The latitude/longitude value for which you wish to obtain
+    #                the closest, human-readable address.
+    # @param [String, Array<String>] location_type One or more location types to restrict results to.
+    # @param [String, Array<String>] result_type One or more address types to restrict results to.
+    # @param [String] language The language in which to return results.
+    #
+    # @return [Array] Array of reverse geocoding results.
+    def reverse_geocode: (untyped latlng, ?location_type: untyped?, ?result_type: untyped?, ?language: untyped?) -> untyped
+  end
+end
+
+module GoogleMapsService::Apis
+  # Performs requests to the Google Maps Roads API.
+  module Roads
+    # Base URL of Google Maps Roads API
+    ROADS_BASE_URL: "https://roads.googleapis.com"
+
+    # Snaps a path to the most likely roads travelled.
+    #
+    # Takes up to 100 GPS points collected along a route, and returns a similar
+    # set of data with the points snapped to the most likely roads the vehicle
+    # was traveling along.
+    #
+    # @example Single point snap
+    #   results = client.snap_to_roads([40.714728, -73.998672])
+    #
+    # @example Multi points snap
+    #   path = [
+    #       [-33.8671, 151.20714],
+    #       [-33.86708, 151.20683000000002],
+    #       [-33.867070000000005, 151.20674000000002],
+    #       [-33.86703, 151.20625]
+    #   ]
+    #   results = client.snap_to_roads(path, interpolate: true)
+    #
+    # @param [Array] path The path to be snapped. Array of latitude/longitude pairs.
+    # @param [Boolean] interpolate Whether to interpolate a path to include all points
+    #         forming the full road-geometry. When true, additional interpolated
+    #         points will also be returned, resulting in a path that smoothly
+    #         follows the geometry of the road, even around corners and through
+    #         tunnels.  Interpolated paths may contain more points than the
+    #         original path.
+    #
+    # @return [Array] Array of snapped points.
+    def snap_to_roads: (untyped path, ?interpolate: bool) -> untyped
+
+    # Returns the posted speed limit (in km/h) for given road segments.
+    #
+    # @example Multi places snap
+    #   place_ids = [
+    #     'ChIJ0wawjUCuEmsRgfqC5Wd9ARM',
+    #     'ChIJ6cs2kkCuEmsRUfqC5Wd9ARM'
+    #   ]
+    #   results = client.speed_limits(place_ids)
+    #
+    # @param [String, Array<String>] place_ids The Place ID of the road segment. Place IDs are returned
+    #         by the snap_to_roads function. You can pass up to 100 Place IDs.
+    #
+    # @return [Array] Array of speed limits.
+    def speed_limits: (untyped place_ids) -> untyped
+
+    # Returns the posted speed limit (in km/h) for given road segments.
+    #
+    # The provided points will first be snapped to the most likely roads the
+    # vehicle was traveling along.
+    #
+    # @example Multi points snap
+    #   path = [
+    #       [-33.8671, 151.20714],
+    #       [-33.86708, 151.20683000000002],
+    #       [-33.867070000000005, 151.20674000000002],
+    #       [-33.86703, 151.20625]
+    #   ]
+    #   results = client.snapped_speed_limits(path)
+    #
+    # @param [Hash, Array] path The path of points to be snapped. A list of (or single)
+    #         latitude/longitude tuples.
+    #
+    # @return [Hash] A hash with both a list of speed limits and a list of the snapped
+    #         points.
+    def snapped_speed_limits: (untyped path) -> untyped
+
+    def nearest_roads: (untyped points) -> untyped
+
+    private
+
+    # Extracts a result from a Roads API HTTP response.
+    def extract_roads_body: (untyped response) -> untyped
+
+    # Check response body for error status.
+    #
+    # @param [Hurley::Response] response Response object.
+    # @param [Hash] body Response body.
+    def check_roads_body_error: (untyped response, untyped body) -> (nil | untyped)
+  end
+end
+
+module GoogleMapsService::Apis
+  # Performs requests to the Google Maps TimeZone API."""
+  module TimeZone
+    # Get time zone for a location on the earth, as well as that location's
+    # time offset from UTC.
+    #
+    # @example Current time zone
+    #   timezone = client.timezone([39.603481, -119.682251])
+    #
+    # @example Time zone at certain time
+    #   timezone = client.timezone([39.603481, -119.682251], timestamp: Time.at(1608))
+    #
+    # @param [Hash, Array] location The latitude/longitude value representing the location to
+    #     look up.
+    # @param [Integer, DateTime] timestamp Timestamp specifies the desired time as seconds since
+    #     midnight, January 1, 1970 UTC. The Time Zone API uses the timestamp to
+    #     determine whether or not Daylight Savings should be applied. Times
+    #     before 1970 can be expressed as negative values. Optional. Defaults to
+    #     `Time.now`.
+    # @param [String] language The language in which to return results.
+    #
+    # @return [Hash] Time zone object.
+    def timezone: (untyped location, ?timestamp: untyped, ?language: untyped?) -> untyped
+  end
+end
+
+module GoogleMapsService
+  # Core client functionality, common across all API requests (including performing
+  # HTTP requests).
+  class Client
+    @client: untyped
+
+    @qps_queue: untyped
+
+    # Default Google Maps Web Service base endpoints
+    DEFAULT_BASE_URL: "https://maps.googleapis.com"
+
+    # Errors those could be retriable.
+    RETRIABLE_ERRORS: ::Array[untyped]
+
+    include GoogleMapsService::Apis::Directions
+
+    include GoogleMapsService::Apis::DistanceMatrix
+
+    include GoogleMapsService::Apis::Elevation
+
+    include GoogleMapsService::Apis::Geocoding
+
+    include GoogleMapsService::Apis::Roads
+
+    include GoogleMapsService::Apis::TimeZone
+
+    # Secret key for accessing Google Maps Web Service.
+    # Can be obtained at https://developers.google.com/maps/documentation/geocoding/get-api-key#key.
+    # @return [String]
+    attr_accessor key: untyped
+
+    # Client id for using Maps API for Work services.
+    # @return [String]
+    attr_accessor client_id: untyped
+
+    # Client secret for using Maps API for Work services.
+    # @return [String]
+    attr_accessor client_secret: untyped
+
+    # Timeout across multiple retriable requests, in seconds.
+    # @return [Integer]
+    attr_accessor retry_timeout: untyped
+
+    # Number of queries per second permitted.
+    # If the rate limit is reached, the client will sleep for
+    # the appropriate amount of time before it runs the current query.
+    # @return [Integer]
+    attr_reader queries_per_second: untyped
+
+    # Construct Google Maps Web Service API client.
+    #
+    # This gem uses [Hurley](https://github.com/lostisland/hurley) as internal HTTP client.
+    # You can configure `Hurley::Client` through `request_options` and `ssl_options` parameters.
+    # You can also directly get the `Hurley::Client` object via {#client} method.
+    #
+    # @example Setup API keys
+    #   gmaps = GoogleMapsService::Client.new(key: 'Add your key here')
+    #
+    # @example Setup client IDs
+    #   gmaps = GoogleMapsService::Client.new(
+    #       client_id: 'Add your client id here',
+    #       client_secret: 'Add your client secret here'
+    #   )
+    #
+    # @example Setup time out and QPS limit
+    #   gmaps = GoogleMapsService::Client.new(
+    #       key: 'Add your key here',
+    #       retry_timeout: 20,
+    #       queries_per_second: 10
+    #   )
+    #
+    # @example Request behind proxy
+    #   request_options = Hurley::RequestOptions.new
+    #   request_options.proxy = Hurley::Url.parse 'http://user:password@proxy.example.com:3128'
+    #
+    #   gmaps = GoogleMapsService::Client.new(
+    #       key: 'Add your key here',
+    #       request_options: request_options
+    #   )
+    #
+    # @example Using Excon and Http Cache
+    #  require 'hurley-excon'       # https://github.com/lostisland/hurley-excon
+    #  require 'hurley/http_cache'  # https://github.com/plataformatec/hurley-http-cache
+    #
+    #  gmaps = GoogleMapsService::Client.new(
+    #      key: 'Add your key here',
+    #      connection: Hurley::HttpCache.new(HurleyExcon::Connection.new)
+    #  )
+    #
+    # @option options [String] :key Secret key for accessing Google Maps Web Service.
+    #   Can be obtained at https://developers.google.com/maps/documentation/geocoding/get-api-key#key.
+    # @option options [String] :client_id Client id for using Maps API for Work services.
+    # @option options [String] :client_secret Client secret for using Maps API for Work services.
+    # @option options [Integer] :retry_timeout Timeout across multiple retriable requests, in seconds.
+    # @option options [Integer] :queries_per_second Number of queries per second permitted.
+    #
+    # @option options [Hurley::RequestOptions] :request_options HTTP client request options.
+    #     See https://github.com/lostisland/hurley/blob/master/lib/hurley/options.rb.
+    # @option options [Hurley::SslOptions] :ssl_options HTTP client SSL options.
+    #     See https://github.com/lostisland/hurley/blob/master/lib/hurley/options.rb.
+    # @option options [Object] :connection HTTP client connection.
+    #     By default, the default Hurley's HTTP client connection (Net::Http) will be used.
+    #     See https://github.com/lostisland/hurley/blob/master/README.md#connections.
+    def initialize: (**untyped options) -> void
+
+    # Get the current HTTP client.
+    # @return [Hurley::Client]
+    def client: () -> untyped
+
+    # Initialize QPS queue. QPS queue is a "tickets" for calling API
+    def initialize_query_tickets: () -> (untyped | nil)
+
+    # Create a new HTTP client.
+    # @return [Hurley::Client]
+    def new_client: () -> untyped
+
+    # Build the user agent header
+    # @return [String]
+    def user_agent: () -> untyped
+
+    # Make API call.
+    #
+    # @param [String] path Url path.
+    # @param [String] params Request parameters.
+    # @param [String] base_url Base Google Maps Web Service API endpoint url.
+    # @param [Boolean] accepts_client_id Sign the request using API {#keys} instead of {#client_id}.
+    # @param [Method] custom_response_decoder Custom method to decode raw API response.
+    #
+    # @return [Object] Decoded response body.
+    def get: (untyped path, untyped params, ?base_url: untyped, ?accepts_client_id: bool, ?custom_response_decoder: untyped?) -> untyped
+
+    # Get/wait the request "ticket" if QPS is configured.
+    # Check for previous request time, it must be more than a second ago before calling new request.
+    #
+    # @return [void]
+    def request_query_ticket: () -> (untyped | nil)
+
+    # Release request "ticket".
+    #
+    # @return [void]
+    def release_query_ticket: () -> (untyped | nil)
+
+    # Returns the path and query string portion of the request URL,
+    # first adding any necessary parameters.
+    #
+    # @param [String] path The path portion of the URL.
+    # @param [Hash] params URL parameters.
+    # @param [Boolean] accepts_client_id Sign the request using API {#keys} instead of {#client_id}.
+    #
+    # @return [String]
+    def generate_auth_url: (untyped path, untyped params, untyped accepts_client_id) -> untyped
+
+    # Extract and parse body response as hash. Throw an error if there is something wrong with the response.
+    #
+    # @param [Hurley::Response] response Web API response.
+    #
+    # @return [Hash] Response body as hash. The hash key will be symbolized.
+    def decode_response_body: (untyped response) -> untyped
+
+    # Check HTTP response status code. Raise error if the status is not 2xx.
+    #
+    # @param [Hurley::Response] response Web API response.
+    def check_response_status_code: (untyped response) -> untyped
+
+    # Check response body for error status.
+    #
+    # @param [Hurley::Response] response Response object.
+    # @param [Hash] body Response body.
+    #
+    # @return [void]
+    def check_body_error: (untyped response, untyped body) -> untyped
+  end
+end
+
+module GoogleMapsService
+  # Converts Ruby types to string representations suitable for Maps API server.
+  module Convert
+    # Converts a lat/lon pair to a comma-separated string.
+    #
+    # @example
+    #   >> GoogleMapsService::Convert.latlng({"lat": -33.8674869, "lng": 151.2069902})
+    #   => "-33.867487,151.206990"
+    #
+    # @param [Hash, Array] arg The lat/lon hash or array pair.
+    #
+    # @return [String] Comma-separated lat/lng.
+    #
+    # @raise [ArgumentError] When argument is not lat/lng hash or array.
+    def self?.latlng: (untyped arg) -> untyped
+
+    # Take the various lat/lng representations and return a tuple.
+    #
+    # Accepts various representations:
+    #
+    # 1. Hash with two entries - `lat` and `lng`
+    # 2. Array or list - e.g. `[-33, 151]`
+    #
+    # @param [Hash, Array] arg The lat/lon hash or array pair.
+    #
+    # @return [Array] Pair of lat and lng array.
+    def self?.normalize_latlng: (untyped arg) -> (::Array[untyped] | untyped)
+
+    # If arg is list-like, then joins it with sep.
+    #
+    # @param [String] sep Separator string.
+    # @param [Array, String] arg Value to coerce into a list.
+    #
+    # @return [String]
+    def self?.join_list: (untyped sep, untyped arg) -> untyped
+
+    # Coerces arg into a list. If arg is already list-like, returns arg.
+    # Otherwise, returns a one-element list containing arg.
+    #
+    # @param [Object] arg
+    #
+    # @return [Array]
+    def self?.as_list: (untyped arg) -> (untyped | ::Array[untyped])
+
+    # Converts the value into a unix time (seconds since unix epoch).
+    #
+    # @example
+    #   >> GoogleMapsService::Convert.time(datetime.now())
+    #   => "1409810596"
+    #
+    # @param [Time, Date, DateTime, Integer] arg The time.
+    #
+    # @return [String] String representation of epoch time
+    def self?.time: (untyped arg) -> untyped
+
+    # Converts a dict of components to the format expected by the Google Maps
+    # server.
+    #
+    # @example
+    #   >> GoogleMapsService::Convert.components({"country": "US", "postal_code": "94043"})
+    #   => "country:US|postal_code:94043"
+    #
+    # @param [Hash] arg The component filter.
+    #
+    # @return [String]
+    def self?.components: (untyped arg) -> untyped
+
+    # Converts a lat/lon bounds to a comma- and pipe-separated string.
+    #
+    # Accepts two representations:
+    #
+    # 1. String: pipe-separated pair of comma-separated lat/lon pairs.
+    # 2. Hash with two entries - "southwest" and "northeast". See {.latlng}
+    # for information on how these can be represented.
+    #
+    # For example:
+    #
+    #   >> sydney_bounds = {
+    #   ?>   "northeast": {
+    #   ?>     "lat": -33.4245981,
+    #   ?>     "lng": 151.3426361
+    #   ?>   },
+    #   ?>   "southwest": {
+    #   ?>     "lat": -34.1692489,
+    #   ?>     "lng": 150.502229
+    #   ?>   }
+    #   ?> }
+    #   >> GoogleMapsService::Convert.bounds(sydney_bounds)
+    #   => '-34.169249,150.502229|-33.424598,151.342636'
+    #
+    # @param [Hash] arg The bounds.
+    #
+    # @return [String]
+    def self?.bounds: (untyped arg) -> (::String | untyped)
+
+    # Converts a waypoints to the format expected by the Google Maps server.
+    #
+    # Accept two representation of waypoint:
+    #
+    # 1. String: Name of place or comma-separated lat/lon pair.
+    # 2. Hash/Array: Lat/lon pair.
+    #
+    # @param [Array, String, Hash] waypoint Path.
+    #
+    # @return [String]
+    def self?.waypoint: (untyped waypoint) -> untyped
+
+    # Converts an array of waypoints (path) to the format expected by the Google Maps
+    # server.
+    #
+    # Accept two representation of waypoint:
+    #
+    # 1. String: Name of place or comma-separated lat/lon pair.
+    # 2. Hash/Array: Lat/lon pair.
+    #
+    # @param [Array, String, Hash] waypoints Path.
+    #
+    # @return [String]
+    def self?.waypoints: (untyped waypoints) -> untyped
+  end
+end
+
+module GoogleMapsService
+  # Specific Google Maps Service error
+  module Error
+    # Base error, capable of wrapping another
+    class BaseError < StandardError
+      @response: untyped
+
+      # HTTP response object
+      # @return [Hurley::Response]
+      attr_reader response: untyped
+
+      # Initialize error
+      #
+      # @param [Hurley::Response] response HTTP response.
+      def initialize: (?untyped? response) -> void
+    end
+
+    # The response redirects to another URL.
+    class RedirectError < BaseError
+    end
+
+    # A 4xx class HTTP error occurred.
+    # The request is invalid and should not be retried without modification.
+    class ClientError < BaseError
+    end
+
+    # A 5xx class HTTP error occurred.
+    # An error occurred on the server and the request can be retried.
+    class ServerError < BaseError
+    end
+
+    # An unknown error occured.
+    class UnknownError < BaseError
+    end
+
+    # General Google Maps Web Service API error occured.
+    class ApiError < BaseError
+    end
+
+    # Requiered query is missing
+    class InvalidRequestError < ApiError
+    end
+
+    # The quota for the credential is over limit.
+    class RateLimitError < ApiError
+    end
+
+    # An unathorized error occurred. It might be caused by invalid key/secret or invalid access.
+    class RequestDeniedError < ApiError
+    end
+  end
+end
+
+module GoogleMapsService
+  # Encoder/decoder for [Google Encoded Polyline](https://developers.google.com/maps/documentation/utilities/polylinealgorithm).
+  module Polyline
+    # Decodes a Polyline string into a list of lat/lng hash.
+    #
+    # See the developer docs for a detailed description of this encoding:
+    # https://developers.google.com/maps/documentation/utilities/polylinealgorithm
+    #
+    # @example
+    #   encoded_path = '_p~iF~ps|U_ulLnnqC_mqNvxq`@'
+    #   path = GoogleMapsService::Polyline.decode(encoded_path)
+    #   #=> [{:lat=>38.5, :lng=>-120.2}, {:lat=>40.7, :lng=>-120.95}, {:lat=>43.252, :lng=>-126.45300000000002}]
+    #
+    # @param [String] polyline An encoded polyline
+    #
+    # @return [Array] Array of hash with lat/lng keys
+    def self?.decode: (untyped polyline) -> untyped
+
+    # Encodes a list of points into a polyline string.
+    #
+    # See the developer docs for a detailed description of this encoding:
+    # https://developers.google.com/maps/documentation/utilities/polylinealgorithm
+    #
+    # @param [Array<Hash>, Array<Array>] points A list of lat/lng pairs.
+    #
+    # @return [String]
+    def self?.encode: (untyped points) -> untyped
+  end
+end
+
+module GoogleMapsService
+  # Helper for handling URL.
+  module Url
+    # Returns a base64-encoded HMAC-SHA1 signature of a given string.
+    #
+    # @param [String] secret The key used for the signature, base64 encoded.
+    # @param [String] payload The payload to sign.
+    #
+    # @return [String] Base64-encoded HMAC-SHA1 signature
+    def self?.sign_hmac: (untyped secret, untyped payload) -> untyped
+
+    # URL encodes the parameters.
+    # @param [Hash, Array<Array>] params The parameters
+    # @return [String]
+    def self?.urlencode_params: (untyped params) -> untyped
+
+    # Un-escape any percent-escape sequences in a URI that are unreserved
+    # characters. This leaves all reserved, illegal and non-ASCII bytes encoded.
+    #
+    # @param [String] uri
+    #
+    # @return [String]
+    def self?.unquote_unreserved: (untyped uri) -> untyped
+
+    # The unreserved URI characters (RFC 3986)
+    UNRESERVED_SET: "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789-._~"
+  end
+end
+
+module GoogleMapsService
+  # Validate value that is accepted by Google Maps.
+  module Validator
+    # Validate travel mode. The valid value of travel mode are `driving`, `walking`, `bicycling` or `transit`.
+    #
+    # @param [String, Symbol] mode Travel mode to be validated.
+    #
+    # @raise ArgumentError The travel mode is invalid.
+    #
+    # @return [String] Valid travel mode.
+    def self?.travel_mode: (untyped mode) -> untyped
+
+    # Validate route restriction. The valid value of route restriction are `tolls`, `highways` or `ferries`.
+    #
+    # @param [String, Symbol] avoid Route restriction to be validated.
+    #
+    # @raise ArgumentError The route restriction is invalid.
+    #
+    # @return [String] Valid route restriction.
+    def self?.avoid: (untyped avoid) -> untyped
+  end
+end
+
+module GoogleMapsService
+  # GoogleMapsService gem version
+  VERSION: "0.4.2"
+
+  # Current operating system
+  # @private
+  OS_VERSION: untyped
+end

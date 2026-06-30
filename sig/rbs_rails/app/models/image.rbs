@@ -44,125 +44,45 @@ class ::Image < ::ApplicationRecord
 
     def id_for_database: () -> ::String
 
-    def created_at: () -> ::ActiveSupport::TimeWithZone
+    def cdn_url: () -> ::String
 
-    def created_at=: (::ActiveSupport::TimeWithZone) -> ::ActiveSupport::TimeWithZone
+    def cdn_url=: (::String) -> ::String
 
-    def created_at?: () -> bool
+    def cdn_url?: () -> bool
 
-    def created_at_changed?: (?from: ::ActiveSupport::TimeWithZone?, ?to: ::ActiveSupport::TimeWithZone?) -> bool
+    def cdn_url_changed?: (?from: ::String?, ?to: ::String?) -> bool
 
-    def created_at_change: () -> [ ::ActiveSupport::TimeWithZone?, ::ActiveSupport::TimeWithZone? ]
+    def cdn_url_change: () -> [ ::String?, ::String? ]
 
-    def created_at_will_change!: () -> void
+    def cdn_url_will_change!: () -> void
 
-    def created_at_was: () -> ::ActiveSupport::TimeWithZone?
+    def cdn_url_was: () -> ::String?
 
-    def created_at_previously_changed?: (?from: ::ActiveSupport::TimeWithZone?, ?to: ::ActiveSupport::TimeWithZone?) -> bool
+    def cdn_url_previously_changed?: (?from: ::String?, ?to: ::String?) -> bool
 
-    def created_at_previous_change: () -> ::Array[::ActiveSupport::TimeWithZone?]?
+    def cdn_url_previous_change: () -> ::Array[::String?]?
 
-    def created_at_previously_was: () -> ::ActiveSupport::TimeWithZone?
+    def cdn_url_previously_was: () -> ::String?
 
-    def created_at_before_last_save: () -> ::ActiveSupport::TimeWithZone?
+    def cdn_url_before_last_save: () -> ::String?
 
-    def created_at_change_to_be_saved: () -> ::Array[::ActiveSupport::TimeWithZone?]?
+    def cdn_url_change_to_be_saved: () -> ::Array[::String?]?
 
-    def created_at_in_database: () -> ::ActiveSupport::TimeWithZone?
+    def cdn_url_in_database: () -> ::String?
 
-    def saved_change_to_created_at: () -> ::Array[::ActiveSupport::TimeWithZone?]?
+    def saved_change_to_cdn_url: () -> ::Array[::String?]?
 
-    def saved_change_to_created_at?: (?from: ::ActiveSupport::TimeWithZone?, ?to: ::ActiveSupport::TimeWithZone?) -> bool
+    def saved_change_to_cdn_url?: (?from: ::String?, ?to: ::String?) -> bool
 
-    def will_save_change_to_created_at?: (?from: ::ActiveSupport::TimeWithZone?, ?to: ::ActiveSupport::TimeWithZone?) -> bool
+    def will_save_change_to_cdn_url?: (?from: ::String?, ?to: ::String?) -> bool
 
-    def restore_created_at!: () -> void
+    def restore_cdn_url!: () -> void
 
-    def clear_created_at_change: () -> void
+    def clear_cdn_url_change: () -> void
 
-    def created_at_before_type_cast: () -> ::Time
+    def cdn_url_before_type_cast: () -> ::String
 
-    def created_at_for_database: () -> ::Time
-
-    def updated_at: () -> ::ActiveSupport::TimeWithZone
-
-    def updated_at=: (::ActiveSupport::TimeWithZone) -> ::ActiveSupport::TimeWithZone
-
-    def updated_at?: () -> bool
-
-    def updated_at_changed?: (?from: ::ActiveSupport::TimeWithZone?, ?to: ::ActiveSupport::TimeWithZone?) -> bool
-
-    def updated_at_change: () -> [ ::ActiveSupport::TimeWithZone?, ::ActiveSupport::TimeWithZone? ]
-
-    def updated_at_will_change!: () -> void
-
-    def updated_at_was: () -> ::ActiveSupport::TimeWithZone?
-
-    def updated_at_previously_changed?: (?from: ::ActiveSupport::TimeWithZone?, ?to: ::ActiveSupport::TimeWithZone?) -> bool
-
-    def updated_at_previous_change: () -> ::Array[::ActiveSupport::TimeWithZone?]?
-
-    def updated_at_previously_was: () -> ::ActiveSupport::TimeWithZone?
-
-    def updated_at_before_last_save: () -> ::ActiveSupport::TimeWithZone?
-
-    def updated_at_change_to_be_saved: () -> ::Array[::ActiveSupport::TimeWithZone?]?
-
-    def updated_at_in_database: () -> ::ActiveSupport::TimeWithZone?
-
-    def saved_change_to_updated_at: () -> ::Array[::ActiveSupport::TimeWithZone?]?
-
-    def saved_change_to_updated_at?: (?from: ::ActiveSupport::TimeWithZone?, ?to: ::ActiveSupport::TimeWithZone?) -> bool
-
-    def will_save_change_to_updated_at?: (?from: ::ActiveSupport::TimeWithZone?, ?to: ::ActiveSupport::TimeWithZone?) -> bool
-
-    def restore_updated_at!: () -> void
-
-    def clear_updated_at_change: () -> void
-
-    def updated_at_before_type_cast: () -> ::Time
-
-    def updated_at_for_database: () -> ::Time
-
-    def source_url: () -> ::String
-
-    def source_url=: (::String) -> ::String
-
-    def source_url?: () -> bool
-
-    def source_url_changed?: (?from: ::String?, ?to: ::String?) -> bool
-
-    def source_url_change: () -> [ ::String?, ::String? ]
-
-    def source_url_will_change!: () -> void
-
-    def source_url_was: () -> ::String?
-
-    def source_url_previously_changed?: (?from: ::String?, ?to: ::String?) -> bool
-
-    def source_url_previous_change: () -> ::Array[::String?]?
-
-    def source_url_previously_was: () -> ::String?
-
-    def source_url_before_last_save: () -> ::String?
-
-    def source_url_change_to_be_saved: () -> ::Array[::String?]?
-
-    def source_url_in_database: () -> ::String?
-
-    def saved_change_to_source_url: () -> ::Array[::String?]?
-
-    def saved_change_to_source_url?: (?from: ::String?, ?to: ::String?) -> bool
-
-    def will_save_change_to_source_url?: (?from: ::String?, ?to: ::String?) -> bool
-
-    def restore_source_url!: () -> void
-
-    def clear_source_url_change: () -> void
-
-    def source_url_before_type_cast: () -> ::String
-
-    def source_url_for_database: () -> ::String
+    def cdn_url_for_database: () -> ::String
 
     def content_hash: () -> ::String
 
@@ -204,6 +124,46 @@ class ::Image < ::ApplicationRecord
 
     def content_hash_for_database: () -> ::String
 
+    def created_at: () -> ::ActiveSupport::TimeWithZone
+
+    def created_at=: (::ActiveSupport::TimeWithZone) -> ::ActiveSupport::TimeWithZone
+
+    def created_at?: () -> bool
+
+    def created_at_changed?: (?from: ::ActiveSupport::TimeWithZone?, ?to: ::ActiveSupport::TimeWithZone?) -> bool
+
+    def created_at_change: () -> [ ::ActiveSupport::TimeWithZone?, ::ActiveSupport::TimeWithZone? ]
+
+    def created_at_will_change!: () -> void
+
+    def created_at_was: () -> ::ActiveSupport::TimeWithZone?
+
+    def created_at_previously_changed?: (?from: ::ActiveSupport::TimeWithZone?, ?to: ::ActiveSupport::TimeWithZone?) -> bool
+
+    def created_at_previous_change: () -> ::Array[::ActiveSupport::TimeWithZone?]?
+
+    def created_at_previously_was: () -> ::ActiveSupport::TimeWithZone?
+
+    def created_at_before_last_save: () -> ::ActiveSupport::TimeWithZone?
+
+    def created_at_change_to_be_saved: () -> ::Array[::ActiveSupport::TimeWithZone?]?
+
+    def created_at_in_database: () -> ::ActiveSupport::TimeWithZone?
+
+    def saved_change_to_created_at: () -> ::Array[::ActiveSupport::TimeWithZone?]?
+
+    def saved_change_to_created_at?: (?from: ::ActiveSupport::TimeWithZone?, ?to: ::ActiveSupport::TimeWithZone?) -> bool
+
+    def will_save_change_to_created_at?: (?from: ::ActiveSupport::TimeWithZone?, ?to: ::ActiveSupport::TimeWithZone?) -> bool
+
+    def restore_created_at!: () -> void
+
+    def clear_created_at_change: () -> void
+
+    def created_at_before_type_cast: () -> ::Time
+
+    def created_at_for_database: () -> ::Time
+
     def mime_type: () -> ::String
 
     def mime_type=: (::String) -> ::String
@@ -244,45 +204,85 @@ class ::Image < ::ApplicationRecord
 
     def mime_type_for_database: () -> ::String
 
-    def cdn_url: () -> ::String
+    def source_url: () -> ::String
 
-    def cdn_url=: (::String) -> ::String
+    def source_url=: (::String) -> ::String
 
-    def cdn_url?: () -> bool
+    def source_url?: () -> bool
 
-    def cdn_url_changed?: (?from: ::String?, ?to: ::String?) -> bool
+    def source_url_changed?: (?from: ::String?, ?to: ::String?) -> bool
 
-    def cdn_url_change: () -> [ ::String?, ::String? ]
+    def source_url_change: () -> [ ::String?, ::String? ]
 
-    def cdn_url_will_change!: () -> void
+    def source_url_will_change!: () -> void
 
-    def cdn_url_was: () -> ::String?
+    def source_url_was: () -> ::String?
 
-    def cdn_url_previously_changed?: (?from: ::String?, ?to: ::String?) -> bool
+    def source_url_previously_changed?: (?from: ::String?, ?to: ::String?) -> bool
 
-    def cdn_url_previous_change: () -> ::Array[::String?]?
+    def source_url_previous_change: () -> ::Array[::String?]?
 
-    def cdn_url_previously_was: () -> ::String?
+    def source_url_previously_was: () -> ::String?
 
-    def cdn_url_before_last_save: () -> ::String?
+    def source_url_before_last_save: () -> ::String?
 
-    def cdn_url_change_to_be_saved: () -> ::Array[::String?]?
+    def source_url_change_to_be_saved: () -> ::Array[::String?]?
 
-    def cdn_url_in_database: () -> ::String?
+    def source_url_in_database: () -> ::String?
 
-    def saved_change_to_cdn_url: () -> ::Array[::String?]?
+    def saved_change_to_source_url: () -> ::Array[::String?]?
 
-    def saved_change_to_cdn_url?: (?from: ::String?, ?to: ::String?) -> bool
+    def saved_change_to_source_url?: (?from: ::String?, ?to: ::String?) -> bool
 
-    def will_save_change_to_cdn_url?: (?from: ::String?, ?to: ::String?) -> bool
+    def will_save_change_to_source_url?: (?from: ::String?, ?to: ::String?) -> bool
 
-    def restore_cdn_url!: () -> void
+    def restore_source_url!: () -> void
 
-    def clear_cdn_url_change: () -> void
+    def clear_source_url_change: () -> void
 
-    def cdn_url_before_type_cast: () -> ::String
+    def source_url_before_type_cast: () -> ::String
 
-    def cdn_url_for_database: () -> ::String
+    def source_url_for_database: () -> ::String
+
+    def updated_at: () -> ::ActiveSupport::TimeWithZone
+
+    def updated_at=: (::ActiveSupport::TimeWithZone) -> ::ActiveSupport::TimeWithZone
+
+    def updated_at?: () -> bool
+
+    def updated_at_changed?: (?from: ::ActiveSupport::TimeWithZone?, ?to: ::ActiveSupport::TimeWithZone?) -> bool
+
+    def updated_at_change: () -> [ ::ActiveSupport::TimeWithZone?, ::ActiveSupport::TimeWithZone? ]
+
+    def updated_at_will_change!: () -> void
+
+    def updated_at_was: () -> ::ActiveSupport::TimeWithZone?
+
+    def updated_at_previously_changed?: (?from: ::ActiveSupport::TimeWithZone?, ?to: ::ActiveSupport::TimeWithZone?) -> bool
+
+    def updated_at_previous_change: () -> ::Array[::ActiveSupport::TimeWithZone?]?
+
+    def updated_at_previously_was: () -> ::ActiveSupport::TimeWithZone?
+
+    def updated_at_before_last_save: () -> ::ActiveSupport::TimeWithZone?
+
+    def updated_at_change_to_be_saved: () -> ::Array[::ActiveSupport::TimeWithZone?]?
+
+    def updated_at_in_database: () -> ::ActiveSupport::TimeWithZone?
+
+    def saved_change_to_updated_at: () -> ::Array[::ActiveSupport::TimeWithZone?]?
+
+    def saved_change_to_updated_at?: (?from: ::ActiveSupport::TimeWithZone?, ?to: ::ActiveSupport::TimeWithZone?) -> bool
+
+    def will_save_change_to_updated_at?: (?from: ::ActiveSupport::TimeWithZone?, ?to: ::ActiveSupport::TimeWithZone?) -> bool
+
+    def restore_updated_at!: () -> void
+
+    def clear_updated_at_change: () -> void
+
+    def updated_at_before_type_cast: () -> ::Time
+
+    def updated_at_for_database: () -> ::Time
   end
   include ::Image::GeneratedAttributeMethods
   module ::Image::GeneratedAliasAttributeMethods
@@ -330,11 +330,37 @@ class ::Image < ::ApplicationRecord
   end
   include ::Image::GeneratedAliasAttributeMethods
 
+  def image_file_attachment: () -> ::ActiveStorage::Attachment?
+  def image_file_attachment=: (::ActiveStorage::Attachment?) -> ::ActiveStorage::Attachment?
+  def build_image_file_attachment: (?untyped) -> ::ActiveStorage::Attachment
+  def create_image_file_attachment: (?untyped) -> ::ActiveStorage::Attachment
+  def create_image_file_attachment!: (?untyped) -> ::ActiveStorage::Attachment
+  def reload_image_file_attachment: () -> ::ActiveStorage::Attachment?
+  def reset_image_file_attachment: () -> void
+  def image_file_blob: () -> ::ActiveStorage::Blob?
+  def image_file_blob=: (::ActiveStorage::Blob?) -> ::ActiveStorage::Blob?
+  def build_image_file_blob: (?untyped) -> ::ActiveStorage::Blob
+  def create_image_file_blob: (?untyped) -> ::ActiveStorage::Blob
+  def create_image_file_blob!: (?untyped) -> ::ActiveStorage::Blob
+  def reload_image_file_blob: () -> ::ActiveStorage::Blob?
+  def reset_image_file_blob: () -> void
+
   module ::Image::GeneratedAssociationMethods
+    def image_file: () -> ::ActiveStorage::Attached::One
+
+    def image_file=: (::ActionDispatch::Http::UploadedFile) -> ::ActionDispatch::Http::UploadedFile
+                   | (::Rack::Test::UploadedFile) -> ::Rack::Test::UploadedFile
+                   | (::ActiveStorage::Blob) -> ::ActiveStorage::Blob
+                   | (::String) -> ::String
+                   | ({ io: ::IO, filename: ::String, content_type: ::String? }) -> { io: ::IO, filename: ::String, content_type: ::String? }
+                   | (nil) -> nil
   end
   include ::Image::GeneratedAssociationMethods
 
+  def self.with_attached_image_file: () -> ::Image::ActiveRecord_Relation
+
   module ::Image::GeneratedRelationMethods
+    def with_attached_image_file: () -> ::Image::ActiveRecord_Relation
   end
 
   class ::Image::ActiveRecord_Relation < ::ActiveRecord::Relation

@@ -16,7 +16,7 @@ class Event < ApplicationRecord
   has_many :ticket_types, dependent: :destroy
   has_many :people, through: :event_people
   has_many :user_rsvps, dependent: :destroy
-  belongs_to :cover_photo, class_name: "PhotoTake"
+  belongs_to :cover_image, class_name: "Image"
 
   delegate :locale, to: :venue
 
@@ -44,15 +44,15 @@ class Event < ApplicationRecord
     url = facebook_graph["ticket_uri"]
 
     if EVYY_URI.match? url
-      parsed_uri = Rack::Utils.parse_query(URI(url).query)
+      parsed_uri = Rack::Utils.parse_nested_query(URI(url).query)
       url = parsed_uri["u"]
     end
 
     case url
     when TICKETMASTER_URI
-      update_ticketmaster($LAST_MATCH_INFO[1])
+      update_ticketmaster($1) unless $1.nil?
     when EVENTBRITE_URI
-      update_eventbrite($LAST_MATCH_INFO[1])
+      update_eventbrite($1) unless $1.nil?
     end
   end
 
@@ -72,14 +72,14 @@ class Event < ApplicationRecord
   end
 
   def to_english
-    "starting at <say-as interpret-as='time'>#{start_at.strftime('%H:%M')}</say-as>, #{name} hosted by #{venue.name}"
+    "starting at <say-as interpret-as='time'>#{start_at&.strftime('%H:%M')}</say-as>, #{name} hosted by #{venue.page&.name}"
   end
 
   def to_layout(featured: false)
     event = LayoutItem.new featured ? :featured_event : :event
     event.id = id
     event.title = display_name
-    event.photo_url = cover_photo&.cdn_url
+    event.image_url = cover_image.cdn_url
     event.link_url = "https://hotmess.social/events/#{id}"
     event.height = 60
     event.start_at = start_at

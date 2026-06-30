@@ -1,0 +1,5 @@
+module Types
+  class PhotoPromiseFileType < Types::BaseObject
+
+  end
+end

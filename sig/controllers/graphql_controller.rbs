@@ -1,3 +1,11 @@
 class GraphqlController < ApplicationController
+  attr_reader logger: Logger
+
   def execute: () -> untyped
+
+  def prepare_variables: (untyped) -> untyped
+
+  def self.execute: (GraphQL::Schema, query_string?: String, query?: GraphQL::Query, document: nil, context: GraphQL::Query::Context, variables?: Hash[String, untyped], multiplex: nil, validate: true, static_validator: nil, visibility_profile: nil, subscription_topic?: String, operation_name?: String, root_value?: Object, max_depth?: Integer, max_complexity?: Integer, warden: nil, use_visibility_profile: nil) -> GraphQL::Query::Result
+
+  def handle_error_in_development: (StandardError) -> void
 end

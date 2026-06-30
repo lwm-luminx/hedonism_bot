@@ -44,6 +44,46 @@ class ::TicketType < ::ApplicationRecord
 
     def id_for_database: () -> ::String
 
+    def available: () -> bool
+
+    def available=: (bool) -> bool
+
+    def available?: () -> bool
+
+    def available_changed?: (?from: bool?, ?to: bool?) -> bool
+
+    def available_change: () -> [ bool?, bool? ]
+
+    def available_will_change!: () -> void
+
+    def available_was: () -> bool?
+
+    def available_previously_changed?: (?from: bool?, ?to: bool?) -> bool
+
+    def available_previous_change: () -> ::Array[bool?]?
+
+    def available_previously_was: () -> bool?
+
+    def available_before_last_save: () -> bool?
+
+    def available_change_to_be_saved: () -> ::Array[bool?]?
+
+    def available_in_database: () -> bool?
+
+    def saved_change_to_available: () -> ::Array[bool?]?
+
+    def saved_change_to_available?: (?from: bool?, ?to: bool?) -> bool
+
+    def will_save_change_to_available?: (?from: bool?, ?to: bool?) -> bool
+
+    def restore_available!: () -> void
+
+    def clear_available_change: () -> void
+
+    def available_before_type_cast: () -> bool
+
+    def available_for_database: () -> bool
+
     def created_at: () -> ::ActiveSupport::TimeWithZone
 
     def created_at=: (::ActiveSupport::TimeWithZone) -> ::ActiveSupport::TimeWithZone
@@ -83,86 +123,6 @@ class ::TicketType < ::ApplicationRecord
     def created_at_before_type_cast: () -> ::Time
 
     def created_at_for_database: () -> ::Time
-
-    def updated_at: () -> ::ActiveSupport::TimeWithZone
-
-    def updated_at=: (::ActiveSupport::TimeWithZone) -> ::ActiveSupport::TimeWithZone
-
-    def updated_at?: () -> bool
-
-    def updated_at_changed?: (?from: ::ActiveSupport::TimeWithZone?, ?to: ::ActiveSupport::TimeWithZone?) -> bool
-
-    def updated_at_change: () -> [ ::ActiveSupport::TimeWithZone?, ::ActiveSupport::TimeWithZone? ]
-
-    def updated_at_will_change!: () -> void
-
-    def updated_at_was: () -> ::ActiveSupport::TimeWithZone?
-
-    def updated_at_previously_changed?: (?from: ::ActiveSupport::TimeWithZone?, ?to: ::ActiveSupport::TimeWithZone?) -> bool
-
-    def updated_at_previous_change: () -> ::Array[::ActiveSupport::TimeWithZone?]?
-
-    def updated_at_previously_was: () -> ::ActiveSupport::TimeWithZone?
-
-    def updated_at_before_last_save: () -> ::ActiveSupport::TimeWithZone?
-
-    def updated_at_change_to_be_saved: () -> ::Array[::ActiveSupport::TimeWithZone?]?
-
-    def updated_at_in_database: () -> ::ActiveSupport::TimeWithZone?
-
-    def saved_change_to_updated_at: () -> ::Array[::ActiveSupport::TimeWithZone?]?
-
-    def saved_change_to_updated_at?: (?from: ::ActiveSupport::TimeWithZone?, ?to: ::ActiveSupport::TimeWithZone?) -> bool
-
-    def will_save_change_to_updated_at?: (?from: ::ActiveSupport::TimeWithZone?, ?to: ::ActiveSupport::TimeWithZone?) -> bool
-
-    def restore_updated_at!: () -> void
-
-    def clear_updated_at_change: () -> void
-
-    def updated_at_before_type_cast: () -> ::Time
-
-    def updated_at_for_database: () -> ::Time
-
-    def event_id: () -> ::String
-
-    def event_id=: (::String) -> ::String
-
-    def event_id?: () -> bool
-
-    def event_id_changed?: (?from: ::String?, ?to: ::String?) -> bool
-
-    def event_id_change: () -> [ ::String?, ::String? ]
-
-    def event_id_will_change!: () -> void
-
-    def event_id_was: () -> ::String?
-
-    def event_id_previously_changed?: (?from: ::String?, ?to: ::String?) -> bool
-
-    def event_id_previous_change: () -> ::Array[::String?]?
-
-    def event_id_previously_was: () -> ::String?
-
-    def event_id_before_last_save: () -> ::String?
-
-    def event_id_change_to_be_saved: () -> ::Array[::String?]?
-
-    def event_id_in_database: () -> ::String?
-
-    def saved_change_to_event_id: () -> ::Array[::String?]?
-
-    def saved_change_to_event_id?: (?from: ::String?, ?to: ::String?) -> bool
-
-    def will_save_change_to_event_id?: (?from: ::String?, ?to: ::String?) -> bool
-
-    def restore_event_id!: () -> void
-
-    def clear_event_id_change: () -> void
-
-    def event_id_before_type_cast: () -> ::String
-
-    def event_id_for_database: () -> ::String
 
     def description: () -> ::String?
 
@@ -204,6 +164,46 @@ class ::TicketType < ::ApplicationRecord
 
     def description_for_database: () -> ::String?
 
+    def event_id: () -> ::String
+
+    def event_id=: (::String) -> ::String
+
+    def event_id?: () -> bool
+
+    def event_id_changed?: (?from: ::String?, ?to: ::String?) -> bool
+
+    def event_id_change: () -> [ ::String?, ::String? ]
+
+    def event_id_will_change!: () -> void
+
+    def event_id_was: () -> ::String?
+
+    def event_id_previously_changed?: (?from: ::String?, ?to: ::String?) -> bool
+
+    def event_id_previous_change: () -> ::Array[::String?]?
+
+    def event_id_previously_was: () -> ::String?
+
+    def event_id_before_last_save: () -> ::String?
+
+    def event_id_change_to_be_saved: () -> ::Array[::String?]?
+
+    def event_id_in_database: () -> ::String?
+
+    def saved_change_to_event_id: () -> ::Array[::String?]?
+
+    def saved_change_to_event_id?: (?from: ::String?, ?to: ::String?) -> bool
+
+    def will_save_change_to_event_id?: (?from: ::String?, ?to: ::String?) -> bool
+
+    def restore_event_id!: () -> void
+
+    def clear_event_id_change: () -> void
+
+    def event_id_before_type_cast: () -> ::String
+
+    def event_id_for_database: () -> ::String
+
     def price: () -> ::BigDecimal?
 
     def price=: (::BigDecimal?) -> ::BigDecimal?
@@ -243,46 +243,6 @@ class ::TicketType < ::ApplicationRecord
     def price_before_type_cast: () -> ::BigDecimal?
 
     def price_for_database: () -> ::BigDecimal?
-
-    def available: () -> bool
-
-    def available=: (bool) -> bool
-
-    def available?: () -> bool
-
-    def available_changed?: (?from: bool?, ?to: bool?) -> bool
-
-    def available_change: () -> [ bool?, bool? ]
-
-    def available_will_change!: () -> void
-
-    def available_was: () -> bool?
-
-    def available_previously_changed?: (?from: bool?, ?to: bool?) -> bool
-
-    def available_previous_change: () -> ::Array[bool?]?
-
-    def available_previously_was: () -> bool?
-
-    def available_before_last_save: () -> bool?
-
-    def available_change_to_be_saved: () -> ::Array[bool?]?
-
-    def available_in_database: () -> bool?
-
-    def saved_change_to_available: () -> ::Array[bool?]?
-
-    def saved_change_to_available?: (?from: bool?, ?to: bool?) -> bool
-
-    def will_save_change_to_available?: (?from: bool?, ?to: bool?) -> bool
-
-    def restore_available!: () -> void
-
-    def clear_available_change: () -> void
-
-    def available_before_type_cast: () -> bool
-
-    def available_for_database: () -> bool
 
     def provider: () -> ::String
 
@@ -363,6 +323,46 @@ class ::TicketType < ::ApplicationRecord
     def provider_id_before_type_cast: () -> ::String
 
     def provider_id_for_database: () -> ::String
+
+    def updated_at: () -> ::ActiveSupport::TimeWithZone
+
+    def updated_at=: (::ActiveSupport::TimeWithZone) -> ::ActiveSupport::TimeWithZone
+
+    def updated_at?: () -> bool
+
+    def updated_at_changed?: (?from: ::ActiveSupport::TimeWithZone?, ?to: ::ActiveSupport::TimeWithZone?) -> bool
+
+    def updated_at_change: () -> [ ::ActiveSupport::TimeWithZone?, ::ActiveSupport::TimeWithZone? ]
+
+    def updated_at_will_change!: () -> void
+
+    def updated_at_was: () -> ::ActiveSupport::TimeWithZone?
+
+    def updated_at_previously_changed?: (?from: ::ActiveSupport::TimeWithZone?, ?to: ::ActiveSupport::TimeWithZone?) -> bool
+
+    def updated_at_previous_change: () -> ::Array[::ActiveSupport::TimeWithZone?]?
+
+    def updated_at_previously_was: () -> ::ActiveSupport::TimeWithZone?
+
+    def updated_at_before_last_save: () -> ::ActiveSupport::TimeWithZone?
+
+    def updated_at_change_to_be_saved: () -> ::Array[::ActiveSupport::TimeWithZone?]?
+
+    def updated_at_in_database: () -> ::ActiveSupport::TimeWithZone?
+
+    def saved_change_to_updated_at: () -> ::Array[::ActiveSupport::TimeWithZone?]?
+
+    def saved_change_to_updated_at?: (?from: ::ActiveSupport::TimeWithZone?, ?to: ::ActiveSupport::TimeWithZone?) -> bool
+
+    def will_save_change_to_updated_at?: (?from: ::ActiveSupport::TimeWithZone?, ?to: ::ActiveSupport::TimeWithZone?) -> bool
+
+    def restore_updated_at!: () -> void
+
+    def clear_updated_at_change: () -> void
+
+    def updated_at_before_type_cast: () -> ::Time
+
+    def updated_at_for_database: () -> ::Time
   end
   include ::TicketType::GeneratedAttributeMethods
   module ::TicketType::GeneratedAliasAttributeMethods
@@ -417,6 +417,9 @@ class ::TicketType < ::ApplicationRecord
   def event: () -> ::Event
   def event=: (::Event?) -> ::Event?
   def reload_event: () -> ::Event?
+  def event_changed?: () -> bool
+  def event_previously_changed?: () -> bool
+  def reset_event: () -> void
   def build_event: (?untyped) -> ::Event
   def create_event: (?untyped) -> ::Event
   def create_event!: (?untyped) -> ::Event

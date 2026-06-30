@@ -44,6 +44,46 @@ class ::UserPage < ::ApplicationRecord
 
     def id_for_database: () -> ::String
 
+    def administrator: () -> bool
+
+    def administrator=: (bool) -> bool
+
+    def administrator?: () -> bool
+
+    def administrator_changed?: (?from: bool?, ?to: bool?) -> bool
+
+    def administrator_change: () -> [ bool?, bool? ]
+
+    def administrator_will_change!: () -> void
+
+    def administrator_was: () -> bool?
+
+    def administrator_previously_changed?: (?from: bool?, ?to: bool?) -> bool
+
+    def administrator_previous_change: () -> ::Array[bool?]?
+
+    def administrator_previously_was: () -> bool?
+
+    def administrator_before_last_save: () -> bool?
+
+    def administrator_change_to_be_saved: () -> ::Array[bool?]?
+
+    def administrator_in_database: () -> bool?
+
+    def saved_change_to_administrator: () -> ::Array[bool?]?
+
+    def saved_change_to_administrator?: (?from: bool?, ?to: bool?) -> bool
+
+    def will_save_change_to_administrator?: (?from: bool?, ?to: bool?) -> bool
+
+    def restore_administrator!: () -> void
+
+    def clear_administrator_change: () -> void
+
+    def administrator_before_type_cast: () -> bool
+
+    def administrator_for_database: () -> bool
+
     def created_at: () -> ::ActiveSupport::TimeWithZone
 
     def created_at=: (::ActiveSupport::TimeWithZone) -> ::ActiveSupport::TimeWithZone
@@ -83,6 +123,86 @@ class ::UserPage < ::ApplicationRecord
     def created_at_before_type_cast: () -> ::Time
 
     def created_at_for_database: () -> ::Time
+
+    def facebook_token: () -> ::String
+
+    def facebook_token=: (::String) -> ::String
+
+    def facebook_token?: () -> bool
+
+    def facebook_token_changed?: (?from: ::String?, ?to: ::String?) -> bool
+
+    def facebook_token_change: () -> [ ::String?, ::String? ]
+
+    def facebook_token_will_change!: () -> void
+
+    def facebook_token_was: () -> ::String?
+
+    def facebook_token_previously_changed?: (?from: ::String?, ?to: ::String?) -> bool
+
+    def facebook_token_previous_change: () -> ::Array[::String?]?
+
+    def facebook_token_previously_was: () -> ::String?
+
+    def facebook_token_before_last_save: () -> ::String?
+
+    def facebook_token_change_to_be_saved: () -> ::Array[::String?]?
+
+    def facebook_token_in_database: () -> ::String?
+
+    def saved_change_to_facebook_token: () -> ::Array[::String?]?
+
+    def saved_change_to_facebook_token?: (?from: ::String?, ?to: ::String?) -> bool
+
+    def will_save_change_to_facebook_token?: (?from: ::String?, ?to: ::String?) -> bool
+
+    def restore_facebook_token!: () -> void
+
+    def clear_facebook_token_change: () -> void
+
+    def facebook_token_before_type_cast: () -> ::String
+
+    def facebook_token_for_database: () -> ::String
+
+    def page_id: () -> ::String
+
+    def page_id=: (::String) -> ::String
+
+    def page_id?: () -> bool
+
+    def page_id_changed?: (?from: ::String?, ?to: ::String?) -> bool
+
+    def page_id_change: () -> [ ::String?, ::String? ]
+
+    def page_id_will_change!: () -> void
+
+    def page_id_was: () -> ::String?
+
+    def page_id_previously_changed?: (?from: ::String?, ?to: ::String?) -> bool
+
+    def page_id_previous_change: () -> ::Array[::String?]?
+
+    def page_id_previously_was: () -> ::String?
+
+    def page_id_before_last_save: () -> ::String?
+
+    def page_id_change_to_be_saved: () -> ::Array[::String?]?
+
+    def page_id_in_database: () -> ::String?
+
+    def saved_change_to_page_id: () -> ::Array[::String?]?
+
+    def saved_change_to_page_id?: (?from: ::String?, ?to: ::String?) -> bool
+
+    def will_save_change_to_page_id?: (?from: ::String?, ?to: ::String?) -> bool
+
+    def restore_page_id!: () -> void
+
+    def clear_page_id_change: () -> void
+
+    def page_id_before_type_cast: () -> ::String
+
+    def page_id_for_database: () -> ::String
 
     def updated_at: () -> ::ActiveSupport::TimeWithZone
 
@@ -163,126 +283,6 @@ class ::UserPage < ::ApplicationRecord
     def user_id_before_type_cast: () -> ::String
 
     def user_id_for_database: () -> ::String
-
-    def page_id: () -> ::String
-
-    def page_id=: (::String) -> ::String
-
-    def page_id?: () -> bool
-
-    def page_id_changed?: (?from: ::String?, ?to: ::String?) -> bool
-
-    def page_id_change: () -> [ ::String?, ::String? ]
-
-    def page_id_will_change!: () -> void
-
-    def page_id_was: () -> ::String?
-
-    def page_id_previously_changed?: (?from: ::String?, ?to: ::String?) -> bool
-
-    def page_id_previous_change: () -> ::Array[::String?]?
-
-    def page_id_previously_was: () -> ::String?
-
-    def page_id_before_last_save: () -> ::String?
-
-    def page_id_change_to_be_saved: () -> ::Array[::String?]?
-
-    def page_id_in_database: () -> ::String?
-
-    def saved_change_to_page_id: () -> ::Array[::String?]?
-
-    def saved_change_to_page_id?: (?from: ::String?, ?to: ::String?) -> bool
-
-    def will_save_change_to_page_id?: (?from: ::String?, ?to: ::String?) -> bool
-
-    def restore_page_id!: () -> void
-
-    def clear_page_id_change: () -> void
-
-    def page_id_before_type_cast: () -> ::String
-
-    def page_id_for_database: () -> ::String
-
-    def facebook_token: () -> ::String
-
-    def facebook_token=: (::String) -> ::String
-
-    def facebook_token?: () -> bool
-
-    def facebook_token_changed?: (?from: ::String?, ?to: ::String?) -> bool
-
-    def facebook_token_change: () -> [ ::String?, ::String? ]
-
-    def facebook_token_will_change!: () -> void
-
-    def facebook_token_was: () -> ::String?
-
-    def facebook_token_previously_changed?: (?from: ::String?, ?to: ::String?) -> bool
-
-    def facebook_token_previous_change: () -> ::Array[::String?]?
-
-    def facebook_token_previously_was: () -> ::String?
-
-    def facebook_token_before_last_save: () -> ::String?
-
-    def facebook_token_change_to_be_saved: () -> ::Array[::String?]?
-
-    def facebook_token_in_database: () -> ::String?
-
-    def saved_change_to_facebook_token: () -> ::Array[::String?]?
-
-    def saved_change_to_facebook_token?: (?from: ::String?, ?to: ::String?) -> bool
-
-    def will_save_change_to_facebook_token?: (?from: ::String?, ?to: ::String?) -> bool
-
-    def restore_facebook_token!: () -> void
-
-    def clear_facebook_token_change: () -> void
-
-    def facebook_token_before_type_cast: () -> ::String
-
-    def facebook_token_for_database: () -> ::String
-
-    def administrator: () -> bool
-
-    def administrator=: (bool) -> bool
-
-    def administrator?: () -> bool
-
-    def administrator_changed?: (?from: bool?, ?to: bool?) -> bool
-
-    def administrator_change: () -> [ bool?, bool? ]
-
-    def administrator_will_change!: () -> void
-
-    def administrator_was: () -> bool?
-
-    def administrator_previously_changed?: (?from: bool?, ?to: bool?) -> bool
-
-    def administrator_previous_change: () -> ::Array[bool?]?
-
-    def administrator_previously_was: () -> bool?
-
-    def administrator_before_last_save: () -> bool?
-
-    def administrator_change_to_be_saved: () -> ::Array[bool?]?
-
-    def administrator_in_database: () -> bool?
-
-    def saved_change_to_administrator: () -> ::Array[bool?]?
-
-    def saved_change_to_administrator?: (?from: bool?, ?to: bool?) -> bool
-
-    def will_save_change_to_administrator?: (?from: bool?, ?to: bool?) -> bool
-
-    def restore_administrator!: () -> void
-
-    def clear_administrator_change: () -> void
-
-    def administrator_before_type_cast: () -> bool
-
-    def administrator_for_database: () -> bool
   end
   include ::UserPage::GeneratedAttributeMethods
   module ::UserPage::GeneratedAliasAttributeMethods
@@ -333,12 +333,18 @@ class ::UserPage < ::ApplicationRecord
   def user: () -> ::User
   def user=: (::User?) -> ::User?
   def reload_user: () -> ::User?
+  def user_changed?: () -> bool
+  def user_previously_changed?: () -> bool
+  def reset_user: () -> void
   def build_user: (?untyped) -> ::User
   def create_user: (?untyped) -> ::User
   def create_user!: (?untyped) -> ::User
   def page: () -> ::Page
   def page=: (::Page?) -> ::Page?
   def reload_page: () -> ::Page?
+  def page_changed?: () -> bool
+  def page_previously_changed?: () -> bool
+  def reset_page: () -> void
   def build_page: (?untyped) -> ::Page
   def create_page: (?untyped) -> ::Page
   def create_page!: (?untyped) -> ::Page

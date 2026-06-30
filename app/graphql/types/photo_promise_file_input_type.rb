@@ -2,9 +2,9 @@
 
 module Types
   class PhotoPromiseFileInputType < Types::BaseInputObject
-    argument :file_name, String, required: true
+    argument :original_filename, String, required: true
     argument :content_type, String, required: true
     argument :file_size_bytes, Integer, required: true
-    argument :image_hash, String, required: true
+    argument :image_hash, BinaryType, required: true
   end
 end

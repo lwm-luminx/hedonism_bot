@@ -1,0 +1,21 @@
+module LocationConcern
+  module LocationConcernCollectionProxy
+    def joins: (Symbol) -> instance
+    def order: (String) -> instance
+  end
+
+  extend ActiveSupport::Concern
+  extend LocationConcernCollectionProxy
+
+  attr_reader location: Location
+
+  def self.belongs_to: (Symbol) -> void
+  def display_name: -> String
+  def populate_from_google: -> void
+  def update_location_geocode: (String, String) -> void
+  def update_location: (Float, Float) -> void
+
+  def self.from_google_place_id: (String) -> instance
+
+  def self.closest: (RGeo::Feature::Point, ?within: int) -> instance
+end

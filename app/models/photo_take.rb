@@ -36,7 +36,6 @@ class PhotoTake < ApplicationRecord
   has_many_attached :images
 
   validates :status, inclusion: { in: STATUSES }
-  validates_uniqueness_of :image_hash
 
   validates :original_filename, :content_type, :file_size_bytes, presence: true
 
@@ -46,33 +45,17 @@ class PhotoTake < ApplicationRecord
   scope :with_face, ->(face_id) { includes(:faces).where(faces: { id: face_id }) }
   scope :with_preview_image, -> { includes(images_attachments: :blob).joins(images_attachments: :blob).where(blob: { content_type: "image/jpeg" }) }
 
-  # Group photos by the date they were taken (folder_date), newest day first.
-  # Returns an ordered hash of { Date => [PhotoTake, ...] }.
-  def self.grouped_by_folder_date
-    order(folder_date: :desc, created_at: :desc)
-      .group_by { |p| p.folder_date.to_s || p.created_at.to_date.to_s }
-  end
-
   def mark_processing!
     update!(status: "processing")
   end
 
-  def mark_processed!(faces_detected:, face_data: {}, folder_date: nil, taken_at: nil)
-    update!(
-      status: "processed",
-      faces_detected: faces_detected,
-      face_data: face_data,
-      folder_date: folder_date || self.folder_date || (taken_at || created_at).to_date,
-      taken_at: taken_at || self.taken_at
-    )
-  end
 
   def mark_failed!(error)
-    update!(status: "failed", processing_error: error.to_str.first(500))
+    update!(status: "failed", processing_error: error.detailed_message.first(500))
   end
 
   def self.configuration_for_extension(extension)
-    config = CONFIGURATIONS[extension.downcase.to_sym]
+    config = CONFIGURATIONS[extension.to_s.downcase.to_sym]
 
     config.reverse_merge raw: false
 
@@ -115,14 +98,14 @@ class PhotoTake < ApplicationRecord
   end
 
   def update_faces(faces)
-    self.photo_people.clear
+    self.photo_faces.clear
     faces.each do |face|
-      person_photo = photo_people.create(
-        arc_face_embedding: face.embedding,
-        confidence: face.face_confidence,
-        bounding_box: face.facial_area
+      person_photo = photo_faces.create(
+        arc_face_embedding: face.arc_face_embedding,
+        confidence: face.confidence,
+        bounding_box: face.bounding_box
       )
-      person = Person.nearest_neighbors(:arc_face_embedding, face.embedding, distance: "cosine", threshold: 0.1).first
+      person = Person.nearest_neighbors(:arc_face_embedding, face.arc_face_embedding, distance: "cosine", threshold: 0.1).first
 
       FacePreviewExtractJob.perform_now person_photo
     end

@@ -6,9 +6,9 @@ module Mutations
 
     field :photo, Types::PhotoType, null: false
 
-    argument :id, ID, required: true
-    argument :caption, String, required: true
-    argument :description, String, required: true
+    argument :id, ID, "The ID of the photo to update", required: true
+    argument :caption, String, "The new caption for the photo", required: true
+    argument :description, String, "The new description for the photo", required: true
 
     def resolve(id:, caption:, description:)
       caption_photo = GlobalID::Locator.locate(id) #: PhotoTake

@@ -1,0 +1,5 @@
+module Types
+  class EventType < BaseObject
+
+  end
+end

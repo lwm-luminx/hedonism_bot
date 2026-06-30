@@ -1,0 +1,83 @@
+# TypeProf 0.32.0
+
+# /Users/rickmark/.rbenv/versions/4.0.5/lib/ruby/4.0.0/ipaddr.rb
+class IPAddr
+  include Comparable
+  VERSION: String
+  IN4MASK: Integer
+  IN6MASK: Integer
+  IN6FORMAT: String
+  RE_IPV4ADDRLIKE: Regexp
+  RE_IPV6ADDRLIKE_FULL: Regexp
+  RE_IPV6ADDRLIKE_COMPRESSED: Regexp
+  class Error < ArgumentError
+  end
+  class InvalidAddressError < IPAddr::Error
+  end
+  class AddressFamilyError < IPAddr::Error
+  end
+  class InvalidPrefixError < IPAddr::InvalidAddressError
+  end
+  def family: -> (Integer | Object)?
+  def self.new_ntoh: (untyped) -> IPAddr
+  def self.ntop: (untyped) -> bot
+  def &: (untyped) -> IPAddr
+  def |: (untyped) -> IPAddr
+  def >>: (untyped) -> IPAddr
+  def <<: (untyped) -> IPAddr
+  def ~: -> IPAddr
+  def +: (untyped) -> IPAddr
+  def -: (untyped) -> IPAddr
+  def ==: (untyped) -> (IPAddr | bool)
+  def mask: (untyped) -> IPAddr
+  def include?: (untyped) -> bool
+  def to_i: -> (Integer | bool)?
+  def to_s: -> String?
+  def to_string: -> String?
+  def as_json: (*untyped) -> String?
+  def to_json: (*untyped) -> String
+  def cidr: -> String
+  def hton: -> String
+  def ipv4?: -> bool
+  def ipv6?: -> bool
+  def loopback?: -> bool
+  def private?: -> bool
+  def link_local?: -> bool
+  def ipv4_mapped?: -> bool
+  def ipv4_compat?: -> bool
+  def _ipv4_compat?: -> bool
+  def ipv4_mapped: -> IPAddr
+  def ipv4_compat: -> IPAddr
+  def native: -> IPAddr
+  def reverse: -> String
+  def ip6_arpa: -> String
+  def ip6_int: -> String
+  def succ: -> IPAddr
+  def <=>: (untyped) -> (IPAddr | Integer)?
+  def eql?: (untyped) -> (IPAddr | bool)
+  def hash: -> Integer
+  def to_range: -> Range[IPAddr]
+  def prefix: -> Integer
+  def prefix=: (untyped) -> IPAddr
+  def inspect: -> String
+  def netmask: -> String?
+  def wildcard_mask: -> String?
+  def zone_id: -> String?
+  def zone_id=: (untyped) -> bot
+  def begin_addr: -> (Integer | bool)
+  def end_addr: -> (Integer | bool)
+  def set: ((Integer | bool)?, *(Integer | Object)?) -> IPAddr
+  def mask!: (String) -> IPAddr
+  def initialize: (?Integer | String | bool, ?(Integer | Object)?) -> void
+  def coerce_other: (untyped) -> IPAddr
+  def in_addr: (Array[String?] | String) -> Integer?
+  def in6_addr: (String) -> Integer?
+  def addr_mask: (Integer) -> Integer
+  def _reverse: -> String?
+  def _to_string: ((Integer | bool)?) -> String?
+end
+
+class IPSocket < BasicSocket
+  def self.valid_v6?: (String) -> bool
+  def self.getaddress: (String) -> String
+end

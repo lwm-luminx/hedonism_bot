@@ -6,6 +6,7 @@ FactoryBot.define do
       { description: Faker::Lorem.sentence }
     end
 
-    cover_image { build(:image) }
+    image { create(:image) }
+    cover_image { create(:image) }
   end
 end

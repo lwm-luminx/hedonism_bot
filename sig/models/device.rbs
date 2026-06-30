@@ -1,0 +1,3 @@
+class Device < ApplicationRecord
+  def self.from_identifier: (String, type: String) -> instance
+end

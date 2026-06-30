@@ -44,6 +44,46 @@ class ::AudienceUser < ::ApplicationRecord
 
     def id_for_database: () -> ::String
 
+    def audience_id: () -> ::String
+
+    def audience_id=: (::String) -> ::String
+
+    def audience_id?: () -> bool
+
+    def audience_id_changed?: (?from: ::String?, ?to: ::String?) -> bool
+
+    def audience_id_change: () -> [ ::String?, ::String? ]
+
+    def audience_id_will_change!: () -> void
+
+    def audience_id_was: () -> ::String?
+
+    def audience_id_previously_changed?: (?from: ::String?, ?to: ::String?) -> bool
+
+    def audience_id_previous_change: () -> ::Array[::String?]?
+
+    def audience_id_previously_was: () -> ::String?
+
+    def audience_id_before_last_save: () -> ::String?
+
+    def audience_id_change_to_be_saved: () -> ::Array[::String?]?
+
+    def audience_id_in_database: () -> ::String?
+
+    def saved_change_to_audience_id: () -> ::Array[::String?]?
+
+    def saved_change_to_audience_id?: (?from: ::String?, ?to: ::String?) -> bool
+
+    def will_save_change_to_audience_id?: (?from: ::String?, ?to: ::String?) -> bool
+
+    def restore_audience_id!: () -> void
+
+    def clear_audience_id_change: () -> void
+
+    def audience_id_before_type_cast: () -> ::String
+
+    def audience_id_for_database: () -> ::String
+
     def created_at: () -> ::ActiveSupport::TimeWithZone
 
     def created_at=: (::ActiveSupport::TimeWithZone) -> ::ActiveSupport::TimeWithZone
@@ -83,6 +123,46 @@ class ::AudienceUser < ::ApplicationRecord
     def created_at_before_type_cast: () -> ::Time
 
     def created_at_for_database: () -> ::Time
+
+    def facebook_id: () -> ::Integer
+
+    def facebook_id=: (::Integer) -> ::Integer
+
+    def facebook_id?: () -> bool
+
+    def facebook_id_changed?: (?from: ::Integer?, ?to: ::Integer?) -> bool
+
+    def facebook_id_change: () -> [ ::Integer?, ::Integer? ]
+
+    def facebook_id_will_change!: () -> void
+
+    def facebook_id_was: () -> ::Integer?
+
+    def facebook_id_previously_changed?: (?from: ::Integer?, ?to: ::Integer?) -> bool
+
+    def facebook_id_previous_change: () -> ::Array[::Integer?]?
+
+    def facebook_id_previously_was: () -> ::Integer?
+
+    def facebook_id_before_last_save: () -> ::Integer?
+
+    def facebook_id_change_to_be_saved: () -> ::Array[::Integer?]?
+
+    def facebook_id_in_database: () -> ::Integer?
+
+    def saved_change_to_facebook_id: () -> ::Array[::Integer?]?
+
+    def saved_change_to_facebook_id?: (?from: ::Integer?, ?to: ::Integer?) -> bool
+
+    def will_save_change_to_facebook_id?: (?from: ::Integer?, ?to: ::Integer?) -> bool
+
+    def restore_facebook_id!: () -> void
+
+    def clear_facebook_id_change: () -> void
+
+    def facebook_id_before_type_cast: () -> ::Integer
+
+    def facebook_id_for_database: () -> ::Integer
 
     def updated_at: () -> ::ActiveSupport::TimeWithZone
 
@@ -124,46 +204,6 @@ class ::AudienceUser < ::ApplicationRecord
 
     def updated_at_for_database: () -> ::Time
 
-    def audience_id: () -> ::String
-
-    def audience_id=: (::String) -> ::String
-
-    def audience_id?: () -> bool
-
-    def audience_id_changed?: (?from: ::String?, ?to: ::String?) -> bool
-
-    def audience_id_change: () -> [ ::String?, ::String? ]
-
-    def audience_id_will_change!: () -> void
-
-    def audience_id_was: () -> ::String?
-
-    def audience_id_previously_changed?: (?from: ::String?, ?to: ::String?) -> bool
-
-    def audience_id_previous_change: () -> ::Array[::String?]?
-
-    def audience_id_previously_was: () -> ::String?
-
-    def audience_id_before_last_save: () -> ::String?
-
-    def audience_id_change_to_be_saved: () -> ::Array[::String?]?
-
-    def audience_id_in_database: () -> ::String?
-
-    def saved_change_to_audience_id: () -> ::Array[::String?]?
-
-    def saved_change_to_audience_id?: (?from: ::String?, ?to: ::String?) -> bool
-
-    def will_save_change_to_audience_id?: (?from: ::String?, ?to: ::String?) -> bool
-
-    def restore_audience_id!: () -> void
-
-    def clear_audience_id_change: () -> void
-
-    def audience_id_before_type_cast: () -> ::String
-
-    def audience_id_for_database: () -> ::String
-
     def user_id: () -> ::String
 
     def user_id=: (::String) -> ::String
@@ -203,46 +243,6 @@ class ::AudienceUser < ::ApplicationRecord
     def user_id_before_type_cast: () -> ::String
 
     def user_id_for_database: () -> ::String
-
-    def facebook_id: () -> ::Integer
-
-    def facebook_id=: (::Integer) -> ::Integer
-
-    def facebook_id?: () -> bool
-
-    def facebook_id_changed?: (?from: ::Integer?, ?to: ::Integer?) -> bool
-
-    def facebook_id_change: () -> [ ::Integer?, ::Integer? ]
-
-    def facebook_id_will_change!: () -> void
-
-    def facebook_id_was: () -> ::Integer?
-
-    def facebook_id_previously_changed?: (?from: ::Integer?, ?to: ::Integer?) -> bool
-
-    def facebook_id_previous_change: () -> ::Array[::Integer?]?
-
-    def facebook_id_previously_was: () -> ::Integer?
-
-    def facebook_id_before_last_save: () -> ::Integer?
-
-    def facebook_id_change_to_be_saved: () -> ::Array[::Integer?]?
-
-    def facebook_id_in_database: () -> ::Integer?
-
-    def saved_change_to_facebook_id: () -> ::Array[::Integer?]?
-
-    def saved_change_to_facebook_id?: (?from: ::Integer?, ?to: ::Integer?) -> bool
-
-    def will_save_change_to_facebook_id?: (?from: ::Integer?, ?to: ::Integer?) -> bool
-
-    def restore_facebook_id!: () -> void
-
-    def clear_facebook_id_change: () -> void
-
-    def facebook_id_before_type_cast: () -> ::Integer
-
-    def facebook_id_for_database: () -> ::Integer
   end
   include ::AudienceUser::GeneratedAttributeMethods
   module ::AudienceUser::GeneratedAliasAttributeMethods
@@ -293,12 +293,18 @@ class ::AudienceUser < ::ApplicationRecord
   def audience: () -> ::Audience
   def audience=: (::Audience?) -> ::Audience?
   def reload_audience: () -> ::Audience?
+  def audience_changed?: () -> bool
+  def audience_previously_changed?: () -> bool
+  def reset_audience: () -> void
   def build_audience: (?untyped) -> ::Audience
   def create_audience: (?untyped) -> ::Audience
   def create_audience!: (?untyped) -> ::Audience
   def user: () -> ::User
   def user=: (::User?) -> ::User?
   def reload_user: () -> ::User?
+  def user_changed?: () -> bool
+  def user_previously_changed?: () -> bool
+  def reset_user: () -> void
   def build_user: (?untyped) -> ::User
   def create_user: (?untyped) -> ::User
   def create_user!: (?untyped) -> ::User

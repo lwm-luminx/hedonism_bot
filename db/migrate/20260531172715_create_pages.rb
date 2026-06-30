@@ -6,9 +6,9 @@ class CreatePages < ActiveRecord::Migration[8.1]
       t.references :image, null: true, type: :uuid, foreign_key: true
 
       t.string :google_place_id, null: false
-      t.jsonb :google_location, null: false
-      t.geography :point, limit: { srid: 4326, type: "st_point", geographic: true }
-      t.geography :envelope, limit: { srid: 4326, type: "st_polygon", geographic: true }
+      t.jsonb :google_location, null: false, default: {}
+      t.st_point :point, limit: { srid: 4326, geographic: true }
+      t.st_polygon :envelope, limit: { srid: 4326, type: "st_polygon", geographic: true }
 
       t.index [ :google_place_id ], name: "index_locations_on_google_place_id", unique: true
     end
@@ -46,7 +46,7 @@ class CreatePages < ActiveRecord::Migration[8.1]
       t.string :name, null: false
       t.string :name_override
       t.bigint :facebook_id, null: false
-      t.jsonb :facebook_graph, null: false
+      t.jsonb :facebook_graph, null: false, default: {}
       t.string :facebook_access_token
       t.string :facets, array: true
       t.boolean :requires_user_token, default: false, null: false

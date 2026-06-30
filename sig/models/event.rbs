@@ -1,0 +1,21 @@
+class Event < ApplicationRecord
+  EVENT_FIELDS: [String]
+  EVYY_URI: Regexp
+  TICKETMASTER_URI: Regexp
+  EVENTBRITE_URI: Regexp
+
+  def update_eventbrite: (String) -> void
+  def update_ticketmaster: (String) -> void
+
+  def update_details_from_facebook: () -> void
+
+  def display_name: () -> String?
+
+  def person: () -> Person?
+
+  def update_tickets: () -> void
+
+  def to_english: () -> String
+
+  def to_layout: (?featured: bool) -> void
+end

@@ -6,7 +6,7 @@ class Device < ApplicationRecord
   validates :vendor_identifier, uniqueness: { scope: :device_type }
   validates :vendor_identifier, :device_type, presence: true
 
-  def self.from_identifier(id, options = {})
-    Device.find_or_create_by(vendor_identifier: id, device_type: options[:type])
+  def self.from_identifier(id, type:)
+    Device.find_or_create_by(vendor_identifier: id, device_type: type)
   end
 end

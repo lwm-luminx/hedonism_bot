@@ -1,0 +1,5 @@
+module Types
+  class VenueType < BaseObject
+
+  end
+end

@@ -84,86 +84,6 @@ class ::FriendshipLink < ::ApplicationRecord
 
     def created_at_for_database: () -> ::Time
 
-    def updated_at: () -> ::ActiveSupport::TimeWithZone
-
-    def updated_at=: (::ActiveSupport::TimeWithZone) -> ::ActiveSupport::TimeWithZone
-
-    def updated_at?: () -> bool
-
-    def updated_at_changed?: (?from: ::ActiveSupport::TimeWithZone?, ?to: ::ActiveSupport::TimeWithZone?) -> bool
-
-    def updated_at_change: () -> [ ::ActiveSupport::TimeWithZone?, ::ActiveSupport::TimeWithZone? ]
-
-    def updated_at_will_change!: () -> void
-
-    def updated_at_was: () -> ::ActiveSupport::TimeWithZone?
-
-    def updated_at_previously_changed?: (?from: ::ActiveSupport::TimeWithZone?, ?to: ::ActiveSupport::TimeWithZone?) -> bool
-
-    def updated_at_previous_change: () -> ::Array[::ActiveSupport::TimeWithZone?]?
-
-    def updated_at_previously_was: () -> ::ActiveSupport::TimeWithZone?
-
-    def updated_at_before_last_save: () -> ::ActiveSupport::TimeWithZone?
-
-    def updated_at_change_to_be_saved: () -> ::Array[::ActiveSupport::TimeWithZone?]?
-
-    def updated_at_in_database: () -> ::ActiveSupport::TimeWithZone?
-
-    def saved_change_to_updated_at: () -> ::Array[::ActiveSupport::TimeWithZone?]?
-
-    def saved_change_to_updated_at?: (?from: ::ActiveSupport::TimeWithZone?, ?to: ::ActiveSupport::TimeWithZone?) -> bool
-
-    def will_save_change_to_updated_at?: (?from: ::ActiveSupport::TimeWithZone?, ?to: ::ActiveSupport::TimeWithZone?) -> bool
-
-    def restore_updated_at!: () -> void
-
-    def clear_updated_at_change: () -> void
-
-    def updated_at_before_type_cast: () -> ::Time
-
-    def updated_at_for_database: () -> ::Time
-
-    def user_id: () -> ::String
-
-    def user_id=: (::String) -> ::String
-
-    def user_id?: () -> bool
-
-    def user_id_changed?: (?from: ::String?, ?to: ::String?) -> bool
-
-    def user_id_change: () -> [ ::String?, ::String? ]
-
-    def user_id_will_change!: () -> void
-
-    def user_id_was: () -> ::String?
-
-    def user_id_previously_changed?: (?from: ::String?, ?to: ::String?) -> bool
-
-    def user_id_previous_change: () -> ::Array[::String?]?
-
-    def user_id_previously_was: () -> ::String?
-
-    def user_id_before_last_save: () -> ::String?
-
-    def user_id_change_to_be_saved: () -> ::Array[::String?]?
-
-    def user_id_in_database: () -> ::String?
-
-    def saved_change_to_user_id: () -> ::Array[::String?]?
-
-    def saved_change_to_user_id?: (?from: ::String?, ?to: ::String?) -> bool
-
-    def will_save_change_to_user_id?: (?from: ::String?, ?to: ::String?) -> bool
-
-    def restore_user_id!: () -> void
-
-    def clear_user_id_change: () -> void
-
-    def user_id_before_type_cast: () -> ::String
-
-    def user_id_for_database: () -> ::String
-
     def friend_id: () -> ::String
 
     def friend_id=: (::String) -> ::String
@@ -243,6 +163,86 @@ class ::FriendshipLink < ::ApplicationRecord
     def friendship_id_before_type_cast: () -> ::String
 
     def friendship_id_for_database: () -> ::String
+
+    def updated_at: () -> ::ActiveSupport::TimeWithZone
+
+    def updated_at=: (::ActiveSupport::TimeWithZone) -> ::ActiveSupport::TimeWithZone
+
+    def updated_at?: () -> bool
+
+    def updated_at_changed?: (?from: ::ActiveSupport::TimeWithZone?, ?to: ::ActiveSupport::TimeWithZone?) -> bool
+
+    def updated_at_change: () -> [ ::ActiveSupport::TimeWithZone?, ::ActiveSupport::TimeWithZone? ]
+
+    def updated_at_will_change!: () -> void
+
+    def updated_at_was: () -> ::ActiveSupport::TimeWithZone?
+
+    def updated_at_previously_changed?: (?from: ::ActiveSupport::TimeWithZone?, ?to: ::ActiveSupport::TimeWithZone?) -> bool
+
+    def updated_at_previous_change: () -> ::Array[::ActiveSupport::TimeWithZone?]?
+
+    def updated_at_previously_was: () -> ::ActiveSupport::TimeWithZone?
+
+    def updated_at_before_last_save: () -> ::ActiveSupport::TimeWithZone?
+
+    def updated_at_change_to_be_saved: () -> ::Array[::ActiveSupport::TimeWithZone?]?
+
+    def updated_at_in_database: () -> ::ActiveSupport::TimeWithZone?
+
+    def saved_change_to_updated_at: () -> ::Array[::ActiveSupport::TimeWithZone?]?
+
+    def saved_change_to_updated_at?: (?from: ::ActiveSupport::TimeWithZone?, ?to: ::ActiveSupport::TimeWithZone?) -> bool
+
+    def will_save_change_to_updated_at?: (?from: ::ActiveSupport::TimeWithZone?, ?to: ::ActiveSupport::TimeWithZone?) -> bool
+
+    def restore_updated_at!: () -> void
+
+    def clear_updated_at_change: () -> void
+
+    def updated_at_before_type_cast: () -> ::Time
+
+    def updated_at_for_database: () -> ::Time
+
+    def user_id: () -> ::String
+
+    def user_id=: (::String) -> ::String
+
+    def user_id?: () -> bool
+
+    def user_id_changed?: (?from: ::String?, ?to: ::String?) -> bool
+
+    def user_id_change: () -> [ ::String?, ::String? ]
+
+    def user_id_will_change!: () -> void
+
+    def user_id_was: () -> ::String?
+
+    def user_id_previously_changed?: (?from: ::String?, ?to: ::String?) -> bool
+
+    def user_id_previous_change: () -> ::Array[::String?]?
+
+    def user_id_previously_was: () -> ::String?
+
+    def user_id_before_last_save: () -> ::String?
+
+    def user_id_change_to_be_saved: () -> ::Array[::String?]?
+
+    def user_id_in_database: () -> ::String?
+
+    def saved_change_to_user_id: () -> ::Array[::String?]?
+
+    def saved_change_to_user_id?: (?from: ::String?, ?to: ::String?) -> bool
+
+    def will_save_change_to_user_id?: (?from: ::String?, ?to: ::String?) -> bool
+
+    def restore_user_id!: () -> void
+
+    def clear_user_id_change: () -> void
+
+    def user_id_before_type_cast: () -> ::String
+
+    def user_id_for_database: () -> ::String
   end
   include ::FriendshipLink::GeneratedAttributeMethods
   module ::FriendshipLink::GeneratedAliasAttributeMethods
@@ -293,18 +293,27 @@ class ::FriendshipLink < ::ApplicationRecord
   def friendship: () -> ::Friendship
   def friendship=: (::Friendship?) -> ::Friendship?
   def reload_friendship: () -> ::Friendship?
+  def friendship_changed?: () -> bool
+  def friendship_previously_changed?: () -> bool
+  def reset_friendship: () -> void
   def build_friendship: (?untyped) -> ::Friendship
   def create_friendship: (?untyped) -> ::Friendship
   def create_friendship!: (?untyped) -> ::Friendship
   def user: () -> ::User
   def user=: (::User?) -> ::User?
   def reload_user: () -> ::User?
+  def user_changed?: () -> bool
+  def user_previously_changed?: () -> bool
+  def reset_user: () -> void
   def build_user: (?untyped) -> ::User
   def create_user: (?untyped) -> ::User
   def create_user!: (?untyped) -> ::User
   def friend: () -> ::User
   def friend=: (::User?) -> ::User?
   def reload_friend: () -> ::User?
+  def friend_changed?: () -> bool
+  def friend_previously_changed?: () -> bool
+  def reset_friend: () -> void
   def build_friend: (?untyped) -> ::User
   def create_friend: (?untyped) -> ::User
   def create_friend!: (?untyped) -> ::User

@@ -44,6 +44,46 @@ class ::Face < ::ApplicationRecord
 
     def id_for_database: () -> ::String
 
+    def arc_face_embedding: () -> untyped
+
+    def arc_face_embedding=: (untyped) -> untyped
+
+    def arc_face_embedding?: () -> bool
+
+    def arc_face_embedding_changed?: (?from: untyped, ?to: untyped) -> bool
+
+    def arc_face_embedding_change: () -> [ untyped, untyped ]
+
+    def arc_face_embedding_will_change!: () -> void
+
+    def arc_face_embedding_was: () -> untyped
+
+    def arc_face_embedding_previously_changed?: (?from: untyped, ?to: untyped) -> bool
+
+    def arc_face_embedding_previous_change: () -> ::Array[untyped]?
+
+    def arc_face_embedding_previously_was: () -> untyped
+
+    def arc_face_embedding_before_last_save: () -> untyped
+
+    def arc_face_embedding_change_to_be_saved: () -> ::Array[untyped]?
+
+    def arc_face_embedding_in_database: () -> untyped
+
+    def saved_change_to_arc_face_embedding: () -> ::Array[untyped]?
+
+    def saved_change_to_arc_face_embedding?: (?from: untyped, ?to: untyped) -> bool
+
+    def will_save_change_to_arc_face_embedding?: (?from: untyped, ?to: untyped) -> bool
+
+    def restore_arc_face_embedding!: () -> void
+
+    def clear_arc_face_embedding_change: () -> void
+
+    def arc_face_embedding_before_type_cast: () -> untyped?
+
+    def arc_face_embedding_for_database: () -> untyped?
+
     def created_at: () -> ::ActiveSupport::TimeWithZone
 
     def created_at=: (::ActiveSupport::TimeWithZone) -> ::ActiveSupport::TimeWithZone
@@ -83,46 +123,6 @@ class ::Face < ::ApplicationRecord
     def created_at_before_type_cast: () -> ::Time
 
     def created_at_for_database: () -> ::Time
-
-    def updated_at: () -> ::ActiveSupport::TimeWithZone
-
-    def updated_at=: (::ActiveSupport::TimeWithZone) -> ::ActiveSupport::TimeWithZone
-
-    def updated_at?: () -> bool
-
-    def updated_at_changed?: (?from: ::ActiveSupport::TimeWithZone?, ?to: ::ActiveSupport::TimeWithZone?) -> bool
-
-    def updated_at_change: () -> [ ::ActiveSupport::TimeWithZone?, ::ActiveSupport::TimeWithZone? ]
-
-    def updated_at_will_change!: () -> void
-
-    def updated_at_was: () -> ::ActiveSupport::TimeWithZone?
-
-    def updated_at_previously_changed?: (?from: ::ActiveSupport::TimeWithZone?, ?to: ::ActiveSupport::TimeWithZone?) -> bool
-
-    def updated_at_previous_change: () -> ::Array[::ActiveSupport::TimeWithZone?]?
-
-    def updated_at_previously_was: () -> ::ActiveSupport::TimeWithZone?
-
-    def updated_at_before_last_save: () -> ::ActiveSupport::TimeWithZone?
-
-    def updated_at_change_to_be_saved: () -> ::Array[::ActiveSupport::TimeWithZone?]?
-
-    def updated_at_in_database: () -> ::ActiveSupport::TimeWithZone?
-
-    def saved_change_to_updated_at: () -> ::Array[::ActiveSupport::TimeWithZone?]?
-
-    def saved_change_to_updated_at?: (?from: ::ActiveSupport::TimeWithZone?, ?to: ::ActiveSupport::TimeWithZone?) -> bool
-
-    def will_save_change_to_updated_at?: (?from: ::ActiveSupport::TimeWithZone?, ?to: ::ActiveSupport::TimeWithZone?) -> bool
-
-    def restore_updated_at!: () -> void
-
-    def clear_updated_at_change: () -> void
-
-    def updated_at_before_type_cast: () -> ::Time
-
-    def updated_at_for_database: () -> ::Time
 
     def photographer_id: () -> ::String
 
@@ -164,6 +164,46 @@ class ::Face < ::ApplicationRecord
 
     def photographer_id_for_database: () -> ::String
 
+    def updated_at: () -> ::ActiveSupport::TimeWithZone
+
+    def updated_at=: (::ActiveSupport::TimeWithZone) -> ::ActiveSupport::TimeWithZone
+
+    def updated_at?: () -> bool
+
+    def updated_at_changed?: (?from: ::ActiveSupport::TimeWithZone?, ?to: ::ActiveSupport::TimeWithZone?) -> bool
+
+    def updated_at_change: () -> [ ::ActiveSupport::TimeWithZone?, ::ActiveSupport::TimeWithZone? ]
+
+    def updated_at_will_change!: () -> void
+
+    def updated_at_was: () -> ::ActiveSupport::TimeWithZone?
+
+    def updated_at_previously_changed?: (?from: ::ActiveSupport::TimeWithZone?, ?to: ::ActiveSupport::TimeWithZone?) -> bool
+
+    def updated_at_previous_change: () -> ::Array[::ActiveSupport::TimeWithZone?]?
+
+    def updated_at_previously_was: () -> ::ActiveSupport::TimeWithZone?
+
+    def updated_at_before_last_save: () -> ::ActiveSupport::TimeWithZone?
+
+    def updated_at_change_to_be_saved: () -> ::Array[::ActiveSupport::TimeWithZone?]?
+
+    def updated_at_in_database: () -> ::ActiveSupport::TimeWithZone?
+
+    def saved_change_to_updated_at: () -> ::Array[::ActiveSupport::TimeWithZone?]?
+
+    def saved_change_to_updated_at?: (?from: ::ActiveSupport::TimeWithZone?, ?to: ::ActiveSupport::TimeWithZone?) -> bool
+
+    def will_save_change_to_updated_at?: (?from: ::ActiveSupport::TimeWithZone?, ?to: ::ActiveSupport::TimeWithZone?) -> bool
+
+    def restore_updated_at!: () -> void
+
+    def clear_updated_at_change: () -> void
+
+    def updated_at_before_type_cast: () -> ::Time
+
+    def updated_at_for_database: () -> ::Time
+
     def user_id: () -> ::String?
 
     def user_id=: (::String?) -> ::String?
@@ -203,46 +243,6 @@ class ::Face < ::ApplicationRecord
     def user_id_before_type_cast: () -> ::String?
 
     def user_id_for_database: () -> ::String?
-
-    def arc_face_embedding: () -> untyped
-
-    def arc_face_embedding=: (untyped) -> untyped
-
-    def arc_face_embedding?: () -> bool
-
-    def arc_face_embedding_changed?: (?from: untyped, ?to: untyped) -> bool
-
-    def arc_face_embedding_change: () -> [ untyped, untyped ]
-
-    def arc_face_embedding_will_change!: () -> void
-
-    def arc_face_embedding_was: () -> untyped
-
-    def arc_face_embedding_previously_changed?: (?from: untyped, ?to: untyped) -> bool
-
-    def arc_face_embedding_previous_change: () -> ::Array[untyped]?
-
-    def arc_face_embedding_previously_was: () -> untyped
-
-    def arc_face_embedding_before_last_save: () -> untyped
-
-    def arc_face_embedding_change_to_be_saved: () -> ::Array[untyped]?
-
-    def arc_face_embedding_in_database: () -> untyped
-
-    def saved_change_to_arc_face_embedding: () -> ::Array[untyped]?
-
-    def saved_change_to_arc_face_embedding?: (?from: untyped, ?to: untyped) -> bool
-
-    def will_save_change_to_arc_face_embedding?: (?from: untyped, ?to: untyped) -> bool
-
-    def restore_arc_face_embedding!: () -> void
-
-    def clear_arc_face_embedding_change: () -> void
-
-    def arc_face_embedding_before_type_cast: () -> untyped?
-
-    def arc_face_embedding_for_database: () -> untyped?
   end
   include ::Face::GeneratedAttributeMethods
   module ::Face::GeneratedAliasAttributeMethods
@@ -301,6 +301,9 @@ class ::Face < ::ApplicationRecord
   def photographer: () -> ::Photographer
   def photographer=: (::Photographer?) -> ::Photographer?
   def reload_photographer: () -> ::Photographer?
+  def photographer_changed?: () -> bool
+  def photographer_previously_changed?: () -> bool
+  def reset_photographer: () -> void
   def build_photographer: (?untyped) -> ::Photographer
   def create_photographer: (?untyped) -> ::Photographer
   def create_photographer!: (?untyped) -> ::Photographer

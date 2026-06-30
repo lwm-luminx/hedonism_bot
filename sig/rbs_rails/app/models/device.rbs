@@ -44,6 +44,46 @@ class ::Device < ::ApplicationRecord
 
     def id_for_database: () -> ::String
 
+    def bluetooth_address: () -> untyped
+
+    def bluetooth_address=: (untyped) -> untyped
+
+    def bluetooth_address?: () -> bool
+
+    def bluetooth_address_changed?: (?from: untyped, ?to: untyped) -> bool
+
+    def bluetooth_address_change: () -> [ untyped, untyped ]
+
+    def bluetooth_address_will_change!: () -> void
+
+    def bluetooth_address_was: () -> untyped
+
+    def bluetooth_address_previously_changed?: (?from: untyped, ?to: untyped) -> bool
+
+    def bluetooth_address_previous_change: () -> ::Array[untyped]?
+
+    def bluetooth_address_previously_was: () -> untyped
+
+    def bluetooth_address_before_last_save: () -> untyped
+
+    def bluetooth_address_change_to_be_saved: () -> ::Array[untyped]?
+
+    def bluetooth_address_in_database: () -> untyped
+
+    def saved_change_to_bluetooth_address: () -> ::Array[untyped]?
+
+    def saved_change_to_bluetooth_address?: (?from: untyped, ?to: untyped) -> bool
+
+    def will_save_change_to_bluetooth_address?: (?from: untyped, ?to: untyped) -> bool
+
+    def restore_bluetooth_address!: () -> void
+
+    def clear_bluetooth_address_change: () -> void
+
+    def bluetooth_address_before_type_cast: () -> untyped?
+
+    def bluetooth_address_for_database: () -> untyped?
+
     def created_at: () -> ::ActiveSupport::TimeWithZone
 
     def created_at=: (::ActiveSupport::TimeWithZone) -> ::ActiveSupport::TimeWithZone
@@ -83,46 +123,6 @@ class ::Device < ::ApplicationRecord
     def created_at_before_type_cast: () -> ::Time
 
     def created_at_for_database: () -> ::Time
-
-    def updated_at: () -> ::ActiveSupport::TimeWithZone
-
-    def updated_at=: (::ActiveSupport::TimeWithZone) -> ::ActiveSupport::TimeWithZone
-
-    def updated_at?: () -> bool
-
-    def updated_at_changed?: (?from: ::ActiveSupport::TimeWithZone?, ?to: ::ActiveSupport::TimeWithZone?) -> bool
-
-    def updated_at_change: () -> [ ::ActiveSupport::TimeWithZone?, ::ActiveSupport::TimeWithZone? ]
-
-    def updated_at_will_change!: () -> void
-
-    def updated_at_was: () -> ::ActiveSupport::TimeWithZone?
-
-    def updated_at_previously_changed?: (?from: ::ActiveSupport::TimeWithZone?, ?to: ::ActiveSupport::TimeWithZone?) -> bool
-
-    def updated_at_previous_change: () -> ::Array[::ActiveSupport::TimeWithZone?]?
-
-    def updated_at_previously_was: () -> ::ActiveSupport::TimeWithZone?
-
-    def updated_at_before_last_save: () -> ::ActiveSupport::TimeWithZone?
-
-    def updated_at_change_to_be_saved: () -> ::Array[::ActiveSupport::TimeWithZone?]?
-
-    def updated_at_in_database: () -> ::ActiveSupport::TimeWithZone?
-
-    def saved_change_to_updated_at: () -> ::Array[::ActiveSupport::TimeWithZone?]?
-
-    def saved_change_to_updated_at?: (?from: ::ActiveSupport::TimeWithZone?, ?to: ::ActiveSupport::TimeWithZone?) -> bool
-
-    def will_save_change_to_updated_at?: (?from: ::ActiveSupport::TimeWithZone?, ?to: ::ActiveSupport::TimeWithZone?) -> bool
-
-    def restore_updated_at!: () -> void
-
-    def clear_updated_at_change: () -> void
-
-    def updated_at_before_type_cast: () -> ::Time
-
-    def updated_at_for_database: () -> ::Time
 
     def device_type: () -> ::String?
 
@@ -164,6 +164,86 @@ class ::Device < ::ApplicationRecord
 
     def device_type_for_database: () -> ::String?
 
+    def model: () -> ::String?
+
+    def model=: (::String?) -> ::String?
+
+    def model?: () -> bool
+
+    def model_changed?: (?from: ::String?, ?to: ::String?) -> bool
+
+    def model_change: () -> [ ::String?, ::String? ]
+
+    def model_will_change!: () -> void
+
+    def model_was: () -> ::String?
+
+    def model_previously_changed?: (?from: ::String?, ?to: ::String?) -> bool
+
+    def model_previous_change: () -> ::Array[::String?]?
+
+    def model_previously_was: () -> ::String?
+
+    def model_before_last_save: () -> ::String?
+
+    def model_change_to_be_saved: () -> ::Array[::String?]?
+
+    def model_in_database: () -> ::String?
+
+    def saved_change_to_model: () -> ::Array[::String?]?
+
+    def saved_change_to_model?: (?from: ::String?, ?to: ::String?) -> bool
+
+    def will_save_change_to_model?: (?from: ::String?, ?to: ::String?) -> bool
+
+    def restore_model!: () -> void
+
+    def clear_model_change: () -> void
+
+    def model_before_type_cast: () -> ::String?
+
+    def model_for_database: () -> ::String?
+
+    def updated_at: () -> ::ActiveSupport::TimeWithZone
+
+    def updated_at=: (::ActiveSupport::TimeWithZone) -> ::ActiveSupport::TimeWithZone
+
+    def updated_at?: () -> bool
+
+    def updated_at_changed?: (?from: ::ActiveSupport::TimeWithZone?, ?to: ::ActiveSupport::TimeWithZone?) -> bool
+
+    def updated_at_change: () -> [ ::ActiveSupport::TimeWithZone?, ::ActiveSupport::TimeWithZone? ]
+
+    def updated_at_will_change!: () -> void
+
+    def updated_at_was: () -> ::ActiveSupport::TimeWithZone?
+
+    def updated_at_previously_changed?: (?from: ::ActiveSupport::TimeWithZone?, ?to: ::ActiveSupport::TimeWithZone?) -> bool
+
+    def updated_at_previous_change: () -> ::Array[::ActiveSupport::TimeWithZone?]?
+
+    def updated_at_previously_was: () -> ::ActiveSupport::TimeWithZone?
+
+    def updated_at_before_last_save: () -> ::ActiveSupport::TimeWithZone?
+
+    def updated_at_change_to_be_saved: () -> ::Array[::ActiveSupport::TimeWithZone?]?
+
+    def updated_at_in_database: () -> ::ActiveSupport::TimeWithZone?
+
+    def saved_change_to_updated_at: () -> ::Array[::ActiveSupport::TimeWithZone?]?
+
+    def saved_change_to_updated_at?: (?from: ::ActiveSupport::TimeWithZone?, ?to: ::ActiveSupport::TimeWithZone?) -> bool
+
+    def will_save_change_to_updated_at?: (?from: ::ActiveSupport::TimeWithZone?, ?to: ::ActiveSupport::TimeWithZone?) -> bool
+
+    def restore_updated_at!: () -> void
+
+    def clear_updated_at_change: () -> void
+
+    def updated_at_before_type_cast: () -> ::Time
+
+    def updated_at_for_database: () -> ::Time
+
     def vendor_identifier: () -> ::String?
 
     def vendor_identifier=: (::String?) -> ::String?
@@ -204,46 +284,6 @@ class ::Device < ::ApplicationRecord
 
     def vendor_identifier_for_database: () -> ::String?
 
-    def bluetooth_address: () -> untyped
-
-    def bluetooth_address=: (untyped) -> untyped
-
-    def bluetooth_address?: () -> bool
-
-    def bluetooth_address_changed?: (?from: untyped, ?to: untyped) -> bool
-
-    def bluetooth_address_change: () -> [ untyped, untyped ]
-
-    def bluetooth_address_will_change!: () -> void
-
-    def bluetooth_address_was: () -> untyped
-
-    def bluetooth_address_previously_changed?: (?from: untyped, ?to: untyped) -> bool
-
-    def bluetooth_address_previous_change: () -> ::Array[untyped]?
-
-    def bluetooth_address_previously_was: () -> untyped
-
-    def bluetooth_address_before_last_save: () -> untyped
-
-    def bluetooth_address_change_to_be_saved: () -> ::Array[untyped]?
-
-    def bluetooth_address_in_database: () -> untyped
-
-    def saved_change_to_bluetooth_address: () -> ::Array[untyped]?
-
-    def saved_change_to_bluetooth_address?: (?from: untyped, ?to: untyped) -> bool
-
-    def will_save_change_to_bluetooth_address?: (?from: untyped, ?to: untyped) -> bool
-
-    def restore_bluetooth_address!: () -> void
-
-    def clear_bluetooth_address_change: () -> void
-
-    def bluetooth_address_before_type_cast: () -> untyped?
-
-    def bluetooth_address_for_database: () -> untyped?
-
     def wifi_address: () -> untyped
 
     def wifi_address=: (untyped) -> untyped
@@ -283,46 +323,6 @@ class ::Device < ::ApplicationRecord
     def wifi_address_before_type_cast: () -> untyped?
 
     def wifi_address_for_database: () -> untyped?
-
-    def model: () -> ::String?
-
-    def model=: (::String?) -> ::String?
-
-    def model?: () -> bool
-
-    def model_changed?: (?from: ::String?, ?to: ::String?) -> bool
-
-    def model_change: () -> [ ::String?, ::String? ]
-
-    def model_will_change!: () -> void
-
-    def model_was: () -> ::String?
-
-    def model_previously_changed?: (?from: ::String?, ?to: ::String?) -> bool
-
-    def model_previous_change: () -> ::Array[::String?]?
-
-    def model_previously_was: () -> ::String?
-
-    def model_before_last_save: () -> ::String?
-
-    def model_change_to_be_saved: () -> ::Array[::String?]?
-
-    def model_in_database: () -> ::String?
-
-    def saved_change_to_model: () -> ::Array[::String?]?
-
-    def saved_change_to_model?: (?from: ::String?, ?to: ::String?) -> bool
-
-    def will_save_change_to_model?: (?from: ::String?, ?to: ::String?) -> bool
-
-    def restore_model!: () -> void
-
-    def clear_model_change: () -> void
-
-    def model_before_type_cast: () -> ::String?
-
-    def model_for_database: () -> ::String?
   end
   include ::Device::GeneratedAttributeMethods
   module ::Device::GeneratedAliasAttributeMethods

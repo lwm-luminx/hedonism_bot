@@ -1,0 +1,9 @@
+class LayoutSection
+  @title: String
+  @items: Array[LayoutItem]
+
+  attr_accessor title: String
+  attr_accessor items: Array[LayoutItem]
+
+  def initialize: (String) -> void
+end

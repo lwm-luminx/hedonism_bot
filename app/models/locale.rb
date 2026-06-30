@@ -23,9 +23,10 @@ class Locale < ApplicationRecord
     self.envelope = envelope
   end
 
-  def from_locale_name(name)
+  def from_locale_name(name, locale:)
     location = Geocoder.search(name).first if ZIP_EXPRESSION =~ name
-    location ||= Locale.where("? = ANY(city_names)", params[:locale]).first.location.point
+    location ||= Locale.where("? = ANY(city_names)", locale).first&.location&.point
+    raise "Location not able to be found" unless location
 
     point = RGeo::Geographic.simple_mercator_factory.point location.longitude, location.latitude
 

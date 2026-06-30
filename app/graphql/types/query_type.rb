@@ -24,7 +24,7 @@ module Types
     end
 
     def faces(folder_id: nil)
-      @photos = Person.for_photographer(photographer).with_preview_image
+      @photos = Face.for_photographer(photographer).with_preview_image
 
       if folder_id
         folder = GlobalID.parse(folder_id).model_id
@@ -37,8 +37,7 @@ module Types
     def folders(face_id: nil)
       if face_id
         face = HedonismBotSchema.object_from_id(face_id, context)
-        photos = face.photos.group_by(&:folder_date)
-        photos.map { |folder, photos| Folder.new(folder, photos) }
+        face.photos.map(&:album).uniq
       else
         photographer.folders
       end

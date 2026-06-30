@@ -84,6 +84,86 @@ class ::Ping < ::ApplicationRecord
 
     def created_at_for_database: () -> ::Time
 
+    def is_safety: () -> bool
+
+    def is_safety=: (bool) -> bool
+
+    def is_safety?: () -> bool
+
+    def is_safety_changed?: (?from: bool?, ?to: bool?) -> bool
+
+    def is_safety_change: () -> [ bool?, bool? ]
+
+    def is_safety_will_change!: () -> void
+
+    def is_safety_was: () -> bool?
+
+    def is_safety_previously_changed?: (?from: bool?, ?to: bool?) -> bool
+
+    def is_safety_previous_change: () -> ::Array[bool?]?
+
+    def is_safety_previously_was: () -> bool?
+
+    def is_safety_before_last_save: () -> bool?
+
+    def is_safety_change_to_be_saved: () -> ::Array[bool?]?
+
+    def is_safety_in_database: () -> bool?
+
+    def saved_change_to_is_safety: () -> ::Array[bool?]?
+
+    def saved_change_to_is_safety?: (?from: bool?, ?to: bool?) -> bool
+
+    def will_save_change_to_is_safety?: (?from: bool?, ?to: bool?) -> bool
+
+    def restore_is_safety!: () -> void
+
+    def clear_is_safety_change: () -> void
+
+    def is_safety_before_type_cast: () -> bool
+
+    def is_safety_for_database: () -> bool
+
+    def locale_id: () -> ::String
+
+    def locale_id=: (::String) -> ::String
+
+    def locale_id?: () -> bool
+
+    def locale_id_changed?: (?from: ::String?, ?to: ::String?) -> bool
+
+    def locale_id_change: () -> [ ::String?, ::String? ]
+
+    def locale_id_will_change!: () -> void
+
+    def locale_id_was: () -> ::String?
+
+    def locale_id_previously_changed?: (?from: ::String?, ?to: ::String?) -> bool
+
+    def locale_id_previous_change: () -> ::Array[::String?]?
+
+    def locale_id_previously_was: () -> ::String?
+
+    def locale_id_before_last_save: () -> ::String?
+
+    def locale_id_change_to_be_saved: () -> ::Array[::String?]?
+
+    def locale_id_in_database: () -> ::String?
+
+    def saved_change_to_locale_id: () -> ::Array[::String?]?
+
+    def saved_change_to_locale_id?: (?from: ::String?, ?to: ::String?) -> bool
+
+    def will_save_change_to_locale_id?: (?from: ::String?, ?to: ::String?) -> bool
+
+    def restore_locale_id!: () -> void
+
+    def clear_locale_id_change: () -> void
+
+    def locale_id_before_type_cast: () -> ::String
+
+    def locale_id_for_database: () -> ::String
+
     def updated_at: () -> ::ActiveSupport::TimeWithZone
 
     def updated_at=: (::ActiveSupport::TimeWithZone) -> ::ActiveSupport::TimeWithZone
@@ -163,86 +243,6 @@ class ::Ping < ::ApplicationRecord
     def user_id_before_type_cast: () -> ::String
 
     def user_id_for_database: () -> ::String
-
-    def locale_id: () -> ::String
-
-    def locale_id=: (::String) -> ::String
-
-    def locale_id?: () -> bool
-
-    def locale_id_changed?: (?from: ::String?, ?to: ::String?) -> bool
-
-    def locale_id_change: () -> [ ::String?, ::String? ]
-
-    def locale_id_will_change!: () -> void
-
-    def locale_id_was: () -> ::String?
-
-    def locale_id_previously_changed?: (?from: ::String?, ?to: ::String?) -> bool
-
-    def locale_id_previous_change: () -> ::Array[::String?]?
-
-    def locale_id_previously_was: () -> ::String?
-
-    def locale_id_before_last_save: () -> ::String?
-
-    def locale_id_change_to_be_saved: () -> ::Array[::String?]?
-
-    def locale_id_in_database: () -> ::String?
-
-    def saved_change_to_locale_id: () -> ::Array[::String?]?
-
-    def saved_change_to_locale_id?: (?from: ::String?, ?to: ::String?) -> bool
-
-    def will_save_change_to_locale_id?: (?from: ::String?, ?to: ::String?) -> bool
-
-    def restore_locale_id!: () -> void
-
-    def clear_locale_id_change: () -> void
-
-    def locale_id_before_type_cast: () -> ::String
-
-    def locale_id_for_database: () -> ::String
-
-    def is_safety: () -> bool
-
-    def is_safety=: (bool) -> bool
-
-    def is_safety?: () -> bool
-
-    def is_safety_changed?: (?from: bool?, ?to: bool?) -> bool
-
-    def is_safety_change: () -> [ bool?, bool? ]
-
-    def is_safety_will_change!: () -> void
-
-    def is_safety_was: () -> bool?
-
-    def is_safety_previously_changed?: (?from: bool?, ?to: bool?) -> bool
-
-    def is_safety_previous_change: () -> ::Array[bool?]?
-
-    def is_safety_previously_was: () -> bool?
-
-    def is_safety_before_last_save: () -> bool?
-
-    def is_safety_change_to_be_saved: () -> ::Array[bool?]?
-
-    def is_safety_in_database: () -> bool?
-
-    def saved_change_to_is_safety: () -> ::Array[bool?]?
-
-    def saved_change_to_is_safety?: (?from: bool?, ?to: bool?) -> bool
-
-    def will_save_change_to_is_safety?: (?from: bool?, ?to: bool?) -> bool
-
-    def restore_is_safety!: () -> void
-
-    def clear_is_safety_change: () -> void
-
-    def is_safety_before_type_cast: () -> bool
-
-    def is_safety_for_database: () -> bool
   end
   include ::Ping::GeneratedAttributeMethods
   module ::Ping::GeneratedAliasAttributeMethods

@@ -1,0 +1,7 @@
+module GraphQL
+  module Tracing
+    class DetailedTrace
+      def self.detailed_trace?: (untyped) -> bool
+    end
+  end
+end

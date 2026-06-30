@@ -44,126 +44,6 @@ class ::Locale < ::ApplicationRecord
 
     def id_for_database: () -> ::String
 
-    def created_at: () -> ::ActiveSupport::TimeWithZone
-
-    def created_at=: (::ActiveSupport::TimeWithZone) -> ::ActiveSupport::TimeWithZone
-
-    def created_at?: () -> bool
-
-    def created_at_changed?: (?from: ::ActiveSupport::TimeWithZone?, ?to: ::ActiveSupport::TimeWithZone?) -> bool
-
-    def created_at_change: () -> [ ::ActiveSupport::TimeWithZone?, ::ActiveSupport::TimeWithZone? ]
-
-    def created_at_will_change!: () -> void
-
-    def created_at_was: () -> ::ActiveSupport::TimeWithZone?
-
-    def created_at_previously_changed?: (?from: ::ActiveSupport::TimeWithZone?, ?to: ::ActiveSupport::TimeWithZone?) -> bool
-
-    def created_at_previous_change: () -> ::Array[::ActiveSupport::TimeWithZone?]?
-
-    def created_at_previously_was: () -> ::ActiveSupport::TimeWithZone?
-
-    def created_at_before_last_save: () -> ::ActiveSupport::TimeWithZone?
-
-    def created_at_change_to_be_saved: () -> ::Array[::ActiveSupport::TimeWithZone?]?
-
-    def created_at_in_database: () -> ::ActiveSupport::TimeWithZone?
-
-    def saved_change_to_created_at: () -> ::Array[::ActiveSupport::TimeWithZone?]?
-
-    def saved_change_to_created_at?: (?from: ::ActiveSupport::TimeWithZone?, ?to: ::ActiveSupport::TimeWithZone?) -> bool
-
-    def will_save_change_to_created_at?: (?from: ::ActiveSupport::TimeWithZone?, ?to: ::ActiveSupport::TimeWithZone?) -> bool
-
-    def restore_created_at!: () -> void
-
-    def clear_created_at_change: () -> void
-
-    def created_at_before_type_cast: () -> ::Time
-
-    def created_at_for_database: () -> ::Time
-
-    def updated_at: () -> ::ActiveSupport::TimeWithZone
-
-    def updated_at=: (::ActiveSupport::TimeWithZone) -> ::ActiveSupport::TimeWithZone
-
-    def updated_at?: () -> bool
-
-    def updated_at_changed?: (?from: ::ActiveSupport::TimeWithZone?, ?to: ::ActiveSupport::TimeWithZone?) -> bool
-
-    def updated_at_change: () -> [ ::ActiveSupport::TimeWithZone?, ::ActiveSupport::TimeWithZone? ]
-
-    def updated_at_will_change!: () -> void
-
-    def updated_at_was: () -> ::ActiveSupport::TimeWithZone?
-
-    def updated_at_previously_changed?: (?from: ::ActiveSupport::TimeWithZone?, ?to: ::ActiveSupport::TimeWithZone?) -> bool
-
-    def updated_at_previous_change: () -> ::Array[::ActiveSupport::TimeWithZone?]?
-
-    def updated_at_previously_was: () -> ::ActiveSupport::TimeWithZone?
-
-    def updated_at_before_last_save: () -> ::ActiveSupport::TimeWithZone?
-
-    def updated_at_change_to_be_saved: () -> ::Array[::ActiveSupport::TimeWithZone?]?
-
-    def updated_at_in_database: () -> ::ActiveSupport::TimeWithZone?
-
-    def saved_change_to_updated_at: () -> ::Array[::ActiveSupport::TimeWithZone?]?
-
-    def saved_change_to_updated_at?: (?from: ::ActiveSupport::TimeWithZone?, ?to: ::ActiveSupport::TimeWithZone?) -> bool
-
-    def will_save_change_to_updated_at?: (?from: ::ActiveSupport::TimeWithZone?, ?to: ::ActiveSupport::TimeWithZone?) -> bool
-
-    def restore_updated_at!: () -> void
-
-    def clear_updated_at_change: () -> void
-
-    def updated_at_before_type_cast: () -> ::Time
-
-    def updated_at_for_database: () -> ::Time
-
-    def location_id: () -> ::String?
-
-    def location_id=: (::String?) -> ::String?
-
-    def location_id?: () -> bool
-
-    def location_id_changed?: (?from: ::String?, ?to: ::String?) -> bool
-
-    def location_id_change: () -> [ ::String?, ::String? ]
-
-    def location_id_will_change!: () -> void
-
-    def location_id_was: () -> ::String?
-
-    def location_id_previously_changed?: (?from: ::String?, ?to: ::String?) -> bool
-
-    def location_id_previous_change: () -> ::Array[::String?]?
-
-    def location_id_previously_was: () -> ::String?
-
-    def location_id_before_last_save: () -> ::String?
-
-    def location_id_change_to_be_saved: () -> ::Array[::String?]?
-
-    def location_id_in_database: () -> ::String?
-
-    def saved_change_to_location_id: () -> ::Array[::String?]?
-
-    def saved_change_to_location_id?: (?from: ::String?, ?to: ::String?) -> bool
-
-    def will_save_change_to_location_id?: (?from: ::String?, ?to: ::String?) -> bool
-
-    def restore_location_id!: () -> void
-
-    def clear_location_id_change: () -> void
-
-    def location_id_before_type_cast: () -> ::String?
-
-    def location_id_for_database: () -> ::String?
-
     def audience_id: () -> ::String
 
     def audience_id=: (::String) -> ::String
@@ -203,86 +83,6 @@ class ::Locale < ::ApplicationRecord
     def audience_id_before_type_cast: () -> ::String
 
     def audience_id_for_database: () -> ::String
-
-    def label: () -> ::String?
-
-    def label=: (::String?) -> ::String?
-
-    def label?: () -> bool
-
-    def label_changed?: (?from: ::String?, ?to: ::String?) -> bool
-
-    def label_change: () -> [ ::String?, ::String? ]
-
-    def label_will_change!: () -> void
-
-    def label_was: () -> ::String?
-
-    def label_previously_changed?: (?from: ::String?, ?to: ::String?) -> bool
-
-    def label_previous_change: () -> ::Array[::String?]?
-
-    def label_previously_was: () -> ::String?
-
-    def label_before_last_save: () -> ::String?
-
-    def label_change_to_be_saved: () -> ::Array[::String?]?
-
-    def label_in_database: () -> ::String?
-
-    def saved_change_to_label: () -> ::Array[::String?]?
-
-    def saved_change_to_label?: (?from: ::String?, ?to: ::String?) -> bool
-
-    def will_save_change_to_label?: (?from: ::String?, ?to: ::String?) -> bool
-
-    def restore_label!: () -> void
-
-    def clear_label_change: () -> void
-
-    def label_before_type_cast: () -> ::String?
-
-    def label_for_database: () -> ::String?
-
-    def name: () -> ::String?
-
-    def name=: (::String?) -> ::String?
-
-    def name?: () -> bool
-
-    def name_changed?: (?from: ::String?, ?to: ::String?) -> bool
-
-    def name_change: () -> [ ::String?, ::String? ]
-
-    def name_will_change!: () -> void
-
-    def name_was: () -> ::String?
-
-    def name_previously_changed?: (?from: ::String?, ?to: ::String?) -> bool
-
-    def name_previous_change: () -> ::Array[::String?]?
-
-    def name_previously_was: () -> ::String?
-
-    def name_before_last_save: () -> ::String?
-
-    def name_change_to_be_saved: () -> ::Array[::String?]?
-
-    def name_in_database: () -> ::String?
-
-    def saved_change_to_name: () -> ::Array[::String?]?
-
-    def saved_change_to_name?: (?from: ::String?, ?to: ::String?) -> bool
-
-    def will_save_change_to_name?: (?from: ::String?, ?to: ::String?) -> bool
-
-    def restore_name!: () -> void
-
-    def clear_name_change: () -> void
-
-    def name_before_type_cast: () -> ::String?
-
-    def name_for_database: () -> ::String?
 
     def beacon_major: () -> ::Integer?
 
@@ -324,6 +124,86 @@ class ::Locale < ::ApplicationRecord
 
     def beacon_major_for_database: () -> ::Integer?
 
+    def city_names: () -> ::Array[::String]?
+
+    def city_names=: (::Array[::String]?) -> ::Array[::String]?
+
+    def city_names?: () -> bool
+
+    def city_names_changed?: (?from: ::Array[::String]?, ?to: ::Array[::String]?) -> bool
+
+    def city_names_change: () -> [ ::Array[::String]?, ::Array[::String]? ]
+
+    def city_names_will_change!: () -> void
+
+    def city_names_was: () -> ::Array[::String]?
+
+    def city_names_previously_changed?: (?from: ::Array[::String]?, ?to: ::Array[::String]?) -> bool
+
+    def city_names_previous_change: () -> ::Array[::Array[::String]?]?
+
+    def city_names_previously_was: () -> ::Array[::String]?
+
+    def city_names_before_last_save: () -> ::Array[::String]?
+
+    def city_names_change_to_be_saved: () -> ::Array[::Array[::String]?]?
+
+    def city_names_in_database: () -> ::Array[::String]?
+
+    def saved_change_to_city_names: () -> ::Array[::Array[::String]?]?
+
+    def saved_change_to_city_names?: (?from: ::Array[::String]?, ?to: ::Array[::String]?) -> bool
+
+    def will_save_change_to_city_names?: (?from: ::Array[::String]?, ?to: ::Array[::String]?) -> bool
+
+    def restore_city_names!: () -> void
+
+    def clear_city_names_change: () -> void
+
+    def city_names_before_type_cast: () -> ::Array[::String]?
+
+    def city_names_for_database: () -> ::Array[::String]?
+
+    def created_at: () -> ::ActiveSupport::TimeWithZone
+
+    def created_at=: (::ActiveSupport::TimeWithZone) -> ::ActiveSupport::TimeWithZone
+
+    def created_at?: () -> bool
+
+    def created_at_changed?: (?from: ::ActiveSupport::TimeWithZone?, ?to: ::ActiveSupport::TimeWithZone?) -> bool
+
+    def created_at_change: () -> [ ::ActiveSupport::TimeWithZone?, ::ActiveSupport::TimeWithZone? ]
+
+    def created_at_will_change!: () -> void
+
+    def created_at_was: () -> ::ActiveSupport::TimeWithZone?
+
+    def created_at_previously_changed?: (?from: ::ActiveSupport::TimeWithZone?, ?to: ::ActiveSupport::TimeWithZone?) -> bool
+
+    def created_at_previous_change: () -> ::Array[::ActiveSupport::TimeWithZone?]?
+
+    def created_at_previously_was: () -> ::ActiveSupport::TimeWithZone?
+
+    def created_at_before_last_save: () -> ::ActiveSupport::TimeWithZone?
+
+    def created_at_change_to_be_saved: () -> ::Array[::ActiveSupport::TimeWithZone?]?
+
+    def created_at_in_database: () -> ::ActiveSupport::TimeWithZone?
+
+    def saved_change_to_created_at: () -> ::Array[::ActiveSupport::TimeWithZone?]?
+
+    def saved_change_to_created_at?: (?from: ::ActiveSupport::TimeWithZone?, ?to: ::ActiveSupport::TimeWithZone?) -> bool
+
+    def will_save_change_to_created_at?: (?from: ::ActiveSupport::TimeWithZone?, ?to: ::ActiveSupport::TimeWithZone?) -> bool
+
+    def restore_created_at!: () -> void
+
+    def clear_created_at_change: () -> void
+
+    def created_at_before_type_cast: () -> ::Time
+
+    def created_at_for_database: () -> ::Time
+
     def envelope: () -> untyped
 
     def envelope=: (untyped) -> untyped
@@ -363,6 +243,126 @@ class ::Locale < ::ApplicationRecord
     def envelope_before_type_cast: () -> untyped?
 
     def envelope_for_database: () -> untyped?
+
+    def label: () -> ::String?
+
+    def label=: (::String?) -> ::String?
+
+    def label?: () -> bool
+
+    def label_changed?: (?from: ::String?, ?to: ::String?) -> bool
+
+    def label_change: () -> [ ::String?, ::String? ]
+
+    def label_will_change!: () -> void
+
+    def label_was: () -> ::String?
+
+    def label_previously_changed?: (?from: ::String?, ?to: ::String?) -> bool
+
+    def label_previous_change: () -> ::Array[::String?]?
+
+    def label_previously_was: () -> ::String?
+
+    def label_before_last_save: () -> ::String?
+
+    def label_change_to_be_saved: () -> ::Array[::String?]?
+
+    def label_in_database: () -> ::String?
+
+    def saved_change_to_label: () -> ::Array[::String?]?
+
+    def saved_change_to_label?: (?from: ::String?, ?to: ::String?) -> bool
+
+    def will_save_change_to_label?: (?from: ::String?, ?to: ::String?) -> bool
+
+    def restore_label!: () -> void
+
+    def clear_label_change: () -> void
+
+    def label_before_type_cast: () -> ::String?
+
+    def label_for_database: () -> ::String?
+
+    def location_id: () -> ::String?
+
+    def location_id=: (::String?) -> ::String?
+
+    def location_id?: () -> bool
+
+    def location_id_changed?: (?from: ::String?, ?to: ::String?) -> bool
+
+    def location_id_change: () -> [ ::String?, ::String? ]
+
+    def location_id_will_change!: () -> void
+
+    def location_id_was: () -> ::String?
+
+    def location_id_previously_changed?: (?from: ::String?, ?to: ::String?) -> bool
+
+    def location_id_previous_change: () -> ::Array[::String?]?
+
+    def location_id_previously_was: () -> ::String?
+
+    def location_id_before_last_save: () -> ::String?
+
+    def location_id_change_to_be_saved: () -> ::Array[::String?]?
+
+    def location_id_in_database: () -> ::String?
+
+    def saved_change_to_location_id: () -> ::Array[::String?]?
+
+    def saved_change_to_location_id?: (?from: ::String?, ?to: ::String?) -> bool
+
+    def will_save_change_to_location_id?: (?from: ::String?, ?to: ::String?) -> bool
+
+    def restore_location_id!: () -> void
+
+    def clear_location_id_change: () -> void
+
+    def location_id_before_type_cast: () -> ::String?
+
+    def location_id_for_database: () -> ::String?
+
+    def name: () -> ::String?
+
+    def name=: (::String?) -> ::String?
+
+    def name?: () -> bool
+
+    def name_changed?: (?from: ::String?, ?to: ::String?) -> bool
+
+    def name_change: () -> [ ::String?, ::String? ]
+
+    def name_will_change!: () -> void
+
+    def name_was: () -> ::String?
+
+    def name_previously_changed?: (?from: ::String?, ?to: ::String?) -> bool
+
+    def name_previous_change: () -> ::Array[::String?]?
+
+    def name_previously_was: () -> ::String?
+
+    def name_before_last_save: () -> ::String?
+
+    def name_change_to_be_saved: () -> ::Array[::String?]?
+
+    def name_in_database: () -> ::String?
+
+    def saved_change_to_name: () -> ::Array[::String?]?
+
+    def saved_change_to_name?: (?from: ::String?, ?to: ::String?) -> bool
+
+    def will_save_change_to_name?: (?from: ::String?, ?to: ::String?) -> bool
+
+    def restore_name!: () -> void
+
+    def clear_name_change: () -> void
+
+    def name_before_type_cast: () -> ::String?
+
+    def name_for_database: () -> ::String?
 
     def timezone_zulu_delta: () -> ::Integer?
 
@@ -404,45 +404,45 @@ class ::Locale < ::ApplicationRecord
 
     def timezone_zulu_delta_for_database: () -> ::Integer?
 
-    def city_names: () -> ::String?
+    def updated_at: () -> ::ActiveSupport::TimeWithZone
 
-    def city_names=: (::String?) -> ::String?
+    def updated_at=: (::ActiveSupport::TimeWithZone) -> ::ActiveSupport::TimeWithZone
 
-    def city_names?: () -> bool
+    def updated_at?: () -> bool
 
-    def city_names_changed?: (?from: ::String?, ?to: ::String?) -> bool
+    def updated_at_changed?: (?from: ::ActiveSupport::TimeWithZone?, ?to: ::ActiveSupport::TimeWithZone?) -> bool
 
-    def city_names_change: () -> [ ::String?, ::String? ]
+    def updated_at_change: () -> [ ::ActiveSupport::TimeWithZone?, ::ActiveSupport::TimeWithZone? ]
 
-    def city_names_will_change!: () -> void
+    def updated_at_will_change!: () -> void
 
-    def city_names_was: () -> ::String?
+    def updated_at_was: () -> ::ActiveSupport::TimeWithZone?
 
-    def city_names_previously_changed?: (?from: ::String?, ?to: ::String?) -> bool
+    def updated_at_previously_changed?: (?from: ::ActiveSupport::TimeWithZone?, ?to: ::ActiveSupport::TimeWithZone?) -> bool
 
-    def city_names_previous_change: () -> ::Array[::String?]?
+    def updated_at_previous_change: () -> ::Array[::ActiveSupport::TimeWithZone?]?
 
-    def city_names_previously_was: () -> ::String?
+    def updated_at_previously_was: () -> ::ActiveSupport::TimeWithZone?
 
-    def city_names_before_last_save: () -> ::String?
+    def updated_at_before_last_save: () -> ::ActiveSupport::TimeWithZone?
 
-    def city_names_change_to_be_saved: () -> ::Array[::String?]?
+    def updated_at_change_to_be_saved: () -> ::Array[::ActiveSupport::TimeWithZone?]?
 
-    def city_names_in_database: () -> ::String?
+    def updated_at_in_database: () -> ::ActiveSupport::TimeWithZone?
 
-    def saved_change_to_city_names: () -> ::Array[::String?]?
+    def saved_change_to_updated_at: () -> ::Array[::ActiveSupport::TimeWithZone?]?
 
-    def saved_change_to_city_names?: (?from: ::String?, ?to: ::String?) -> bool
+    def saved_change_to_updated_at?: (?from: ::ActiveSupport::TimeWithZone?, ?to: ::ActiveSupport::TimeWithZone?) -> bool
 
-    def will_save_change_to_city_names?: (?from: ::String?, ?to: ::String?) -> bool
+    def will_save_change_to_updated_at?: (?from: ::ActiveSupport::TimeWithZone?, ?to: ::ActiveSupport::TimeWithZone?) -> bool
 
-    def restore_city_names!: () -> void
+    def restore_updated_at!: () -> void
 
-    def clear_city_names_change: () -> void
+    def clear_updated_at_change: () -> void
 
-    def city_names_before_type_cast: () -> ::String?
+    def updated_at_before_type_cast: () -> ::Time
 
-    def city_names_for_database: () -> ::String?
+    def updated_at_for_database: () -> ::Time
   end
   include ::Locale::GeneratedAttributeMethods
   module ::Locale::GeneratedAliasAttributeMethods
@@ -506,15 +506,21 @@ class ::Locale < ::ApplicationRecord
   def location_ids: () -> ::Array[::String]
   def location_ids=: (::Array[::String]) -> ::Array[::String]
 
-  def photo: () -> ::Photo
-  def photo=: (::Photo?) -> ::Photo?
-  def reload_photo: () -> ::Photo?
-  def build_photo: (?untyped) -> ::Photo
-  def create_photo: (?untyped) -> ::Photo
-  def create_photo!: (?untyped) -> ::Photo
+  def image: () -> ::Image
+  def image=: (::Image?) -> ::Image?
+  def reload_image: () -> ::Image?
+  def image_changed?: () -> bool
+  def image_previously_changed?: () -> bool
+  def reset_image: () -> void
+  def build_image: (?untyped) -> ::Image
+  def create_image: (?untyped) -> ::Image
+  def create_image!: (?untyped) -> ::Image
   def location: () -> ::Location
   def location=: (::Location?) -> ::Location?
   def reload_location: () -> ::Location?
+  def location_changed?: () -> bool
+  def location_previously_changed?: () -> bool
+  def reset_location: () -> void
   def build_location: (?untyped) -> ::Location
   def create_location: (?untyped) -> ::Location
   def create_location!: (?untyped) -> ::Location
@@ -571,5 +577,5 @@ class ::Location < ::ApplicationRecord
 end
 class ::Location::ActiveRecord_Associations_CollectionProxy < ::ActiveRecord::Associations::CollectionProxy
 end
-class ::Photo < ::ApplicationRecord
+class ::Image < ::ApplicationRecord
 end

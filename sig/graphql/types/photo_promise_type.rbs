@@ -1,0 +1,5 @@
+module Types
+  class PhotoPromiseType < BaseObject
+    def files: -> Array[PhotoPromiseType]
+  end
+end

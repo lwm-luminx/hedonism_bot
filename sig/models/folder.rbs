@@ -1,12 +1,12 @@
-class Folder
+class Folder < ApplicationRecord
   @id: string
 
   attr_accessor name: String
-  attr_accessor photos: [Photo]
+  attr_accessor photos: Array[Photo]
 
   def to_gid_param: () -> String
 
-  def initialize: (string, Array[Photo]) -> void
+  def initialize: (String, Array[Photo]) -> void
 
   def self.find: (string) -> Folder
 end

@@ -44,86 +44,6 @@ class ::Person < ::ApplicationRecord
 
     def id_for_database: () -> ::String
 
-    def created_at: () -> ::ActiveSupport::TimeWithZone
-
-    def created_at=: (::ActiveSupport::TimeWithZone) -> ::ActiveSupport::TimeWithZone
-
-    def created_at?: () -> bool
-
-    def created_at_changed?: (?from: ::ActiveSupport::TimeWithZone?, ?to: ::ActiveSupport::TimeWithZone?) -> bool
-
-    def created_at_change: () -> [ ::ActiveSupport::TimeWithZone?, ::ActiveSupport::TimeWithZone? ]
-
-    def created_at_will_change!: () -> void
-
-    def created_at_was: () -> ::ActiveSupport::TimeWithZone?
-
-    def created_at_previously_changed?: (?from: ::ActiveSupport::TimeWithZone?, ?to: ::ActiveSupport::TimeWithZone?) -> bool
-
-    def created_at_previous_change: () -> ::Array[::ActiveSupport::TimeWithZone?]?
-
-    def created_at_previously_was: () -> ::ActiveSupport::TimeWithZone?
-
-    def created_at_before_last_save: () -> ::ActiveSupport::TimeWithZone?
-
-    def created_at_change_to_be_saved: () -> ::Array[::ActiveSupport::TimeWithZone?]?
-
-    def created_at_in_database: () -> ::ActiveSupport::TimeWithZone?
-
-    def saved_change_to_created_at: () -> ::Array[::ActiveSupport::TimeWithZone?]?
-
-    def saved_change_to_created_at?: (?from: ::ActiveSupport::TimeWithZone?, ?to: ::ActiveSupport::TimeWithZone?) -> bool
-
-    def will_save_change_to_created_at?: (?from: ::ActiveSupport::TimeWithZone?, ?to: ::ActiveSupport::TimeWithZone?) -> bool
-
-    def restore_created_at!: () -> void
-
-    def clear_created_at_change: () -> void
-
-    def created_at_before_type_cast: () -> ::Time
-
-    def created_at_for_database: () -> ::Time
-
-    def updated_at: () -> ::ActiveSupport::TimeWithZone
-
-    def updated_at=: (::ActiveSupport::TimeWithZone) -> ::ActiveSupport::TimeWithZone
-
-    def updated_at?: () -> bool
-
-    def updated_at_changed?: (?from: ::ActiveSupport::TimeWithZone?, ?to: ::ActiveSupport::TimeWithZone?) -> bool
-
-    def updated_at_change: () -> [ ::ActiveSupport::TimeWithZone?, ::ActiveSupport::TimeWithZone? ]
-
-    def updated_at_will_change!: () -> void
-
-    def updated_at_was: () -> ::ActiveSupport::TimeWithZone?
-
-    def updated_at_previously_changed?: (?from: ::ActiveSupport::TimeWithZone?, ?to: ::ActiveSupport::TimeWithZone?) -> bool
-
-    def updated_at_previous_change: () -> ::Array[::ActiveSupport::TimeWithZone?]?
-
-    def updated_at_previously_was: () -> ::ActiveSupport::TimeWithZone?
-
-    def updated_at_before_last_save: () -> ::ActiveSupport::TimeWithZone?
-
-    def updated_at_change_to_be_saved: () -> ::Array[::ActiveSupport::TimeWithZone?]?
-
-    def updated_at_in_database: () -> ::ActiveSupport::TimeWithZone?
-
-    def saved_change_to_updated_at: () -> ::Array[::ActiveSupport::TimeWithZone?]?
-
-    def saved_change_to_updated_at?: (?from: ::ActiveSupport::TimeWithZone?, ?to: ::ActiveSupport::TimeWithZone?) -> bool
-
-    def will_save_change_to_updated_at?: (?from: ::ActiveSupport::TimeWithZone?, ?to: ::ActiveSupport::TimeWithZone?) -> bool
-
-    def restore_updated_at!: () -> void
-
-    def clear_updated_at_change: () -> void
-
-    def updated_at_before_type_cast: () -> ::Time
-
-    def updated_at_for_database: () -> ::Time
-
     def audience_id: () -> ::String
 
     def audience_id=: (::String) -> ::String
@@ -164,85 +84,45 @@ class ::Person < ::ApplicationRecord
 
     def audience_id_for_database: () -> ::String
 
-    def page_id: () -> ::String
+    def created_at: () -> ::ActiveSupport::TimeWithZone
 
-    def page_id=: (::String) -> ::String
+    def created_at=: (::ActiveSupport::TimeWithZone) -> ::ActiveSupport::TimeWithZone
 
-    def page_id?: () -> bool
+    def created_at?: () -> bool
 
-    def page_id_changed?: (?from: ::String?, ?to: ::String?) -> bool
+    def created_at_changed?: (?from: ::ActiveSupport::TimeWithZone?, ?to: ::ActiveSupport::TimeWithZone?) -> bool
 
-    def page_id_change: () -> [ ::String?, ::String? ]
+    def created_at_change: () -> [ ::ActiveSupport::TimeWithZone?, ::ActiveSupport::TimeWithZone? ]
 
-    def page_id_will_change!: () -> void
+    def created_at_will_change!: () -> void
 
-    def page_id_was: () -> ::String?
+    def created_at_was: () -> ::ActiveSupport::TimeWithZone?
 
-    def page_id_previously_changed?: (?from: ::String?, ?to: ::String?) -> bool
+    def created_at_previously_changed?: (?from: ::ActiveSupport::TimeWithZone?, ?to: ::ActiveSupport::TimeWithZone?) -> bool
 
-    def page_id_previous_change: () -> ::Array[::String?]?
+    def created_at_previous_change: () -> ::Array[::ActiveSupport::TimeWithZone?]?
 
-    def page_id_previously_was: () -> ::String?
+    def created_at_previously_was: () -> ::ActiveSupport::TimeWithZone?
 
-    def page_id_before_last_save: () -> ::String?
+    def created_at_before_last_save: () -> ::ActiveSupport::TimeWithZone?
 
-    def page_id_change_to_be_saved: () -> ::Array[::String?]?
+    def created_at_change_to_be_saved: () -> ::Array[::ActiveSupport::TimeWithZone?]?
 
-    def page_id_in_database: () -> ::String?
+    def created_at_in_database: () -> ::ActiveSupport::TimeWithZone?
 
-    def saved_change_to_page_id: () -> ::Array[::String?]?
+    def saved_change_to_created_at: () -> ::Array[::ActiveSupport::TimeWithZone?]?
 
-    def saved_change_to_page_id?: (?from: ::String?, ?to: ::String?) -> bool
+    def saved_change_to_created_at?: (?from: ::ActiveSupport::TimeWithZone?, ?to: ::ActiveSupport::TimeWithZone?) -> bool
 
-    def will_save_change_to_page_id?: (?from: ::String?, ?to: ::String?) -> bool
+    def will_save_change_to_created_at?: (?from: ::ActiveSupport::TimeWithZone?, ?to: ::ActiveSupport::TimeWithZone?) -> bool
 
-    def restore_page_id!: () -> void
+    def restore_created_at!: () -> void
 
-    def clear_page_id_change: () -> void
+    def clear_created_at_change: () -> void
 
-    def page_id_before_type_cast: () -> ::String
+    def created_at_before_type_cast: () -> ::Time
 
-    def page_id_for_database: () -> ::String
-
-    def order: () -> ::Integer
-
-    def order=: (::Integer) -> ::Integer
-
-    def order?: () -> bool
-
-    def order_changed?: (?from: ::Integer?, ?to: ::Integer?) -> bool
-
-    def order_change: () -> [ ::Integer?, ::Integer? ]
-
-    def order_will_change!: () -> void
-
-    def order_was: () -> ::Integer?
-
-    def order_previously_changed?: (?from: ::Integer?, ?to: ::Integer?) -> bool
-
-    def order_previous_change: () -> ::Array[::Integer?]?
-
-    def order_previously_was: () -> ::Integer?
-
-    def order_before_last_save: () -> ::Integer?
-
-    def order_change_to_be_saved: () -> ::Array[::Integer?]?
-
-    def order_in_database: () -> ::Integer?
-
-    def saved_change_to_order: () -> ::Array[::Integer?]?
-
-    def saved_change_to_order?: (?from: ::Integer?, ?to: ::Integer?) -> bool
-
-    def will_save_change_to_order?: (?from: ::Integer?, ?to: ::Integer?) -> bool
-
-    def restore_order!: () -> void
-
-    def clear_order_change: () -> void
-
-    def order_before_type_cast: () -> ::Integer
-
-    def order_for_database: () -> ::Integer
+    def created_at_for_database: () -> ::Time
 
     def global: () -> bool
 
@@ -323,6 +203,126 @@ class ::Person < ::ApplicationRecord
     def like_required_before_type_cast: () -> bool
 
     def like_required_for_database: () -> bool
+
+    def order: () -> ::Integer
+
+    def order=: (::Integer) -> ::Integer
+
+    def order?: () -> bool
+
+    def order_changed?: (?from: ::Integer?, ?to: ::Integer?) -> bool
+
+    def order_change: () -> [ ::Integer?, ::Integer? ]
+
+    def order_will_change!: () -> void
+
+    def order_was: () -> ::Integer?
+
+    def order_previously_changed?: (?from: ::Integer?, ?to: ::Integer?) -> bool
+
+    def order_previous_change: () -> ::Array[::Integer?]?
+
+    def order_previously_was: () -> ::Integer?
+
+    def order_before_last_save: () -> ::Integer?
+
+    def order_change_to_be_saved: () -> ::Array[::Integer?]?
+
+    def order_in_database: () -> ::Integer?
+
+    def saved_change_to_order: () -> ::Array[::Integer?]?
+
+    def saved_change_to_order?: (?from: ::Integer?, ?to: ::Integer?) -> bool
+
+    def will_save_change_to_order?: (?from: ::Integer?, ?to: ::Integer?) -> bool
+
+    def restore_order!: () -> void
+
+    def clear_order_change: () -> void
+
+    def order_before_type_cast: () -> ::Integer
+
+    def order_for_database: () -> ::Integer
+
+    def page_id: () -> ::String
+
+    def page_id=: (::String) -> ::String
+
+    def page_id?: () -> bool
+
+    def page_id_changed?: (?from: ::String?, ?to: ::String?) -> bool
+
+    def page_id_change: () -> [ ::String?, ::String? ]
+
+    def page_id_will_change!: () -> void
+
+    def page_id_was: () -> ::String?
+
+    def page_id_previously_changed?: (?from: ::String?, ?to: ::String?) -> bool
+
+    def page_id_previous_change: () -> ::Array[::String?]?
+
+    def page_id_previously_was: () -> ::String?
+
+    def page_id_before_last_save: () -> ::String?
+
+    def page_id_change_to_be_saved: () -> ::Array[::String?]?
+
+    def page_id_in_database: () -> ::String?
+
+    def saved_change_to_page_id: () -> ::Array[::String?]?
+
+    def saved_change_to_page_id?: (?from: ::String?, ?to: ::String?) -> bool
+
+    def will_save_change_to_page_id?: (?from: ::String?, ?to: ::String?) -> bool
+
+    def restore_page_id!: () -> void
+
+    def clear_page_id_change: () -> void
+
+    def page_id_before_type_cast: () -> ::String
+
+    def page_id_for_database: () -> ::String
+
+    def updated_at: () -> ::ActiveSupport::TimeWithZone
+
+    def updated_at=: (::ActiveSupport::TimeWithZone) -> ::ActiveSupport::TimeWithZone
+
+    def updated_at?: () -> bool
+
+    def updated_at_changed?: (?from: ::ActiveSupport::TimeWithZone?, ?to: ::ActiveSupport::TimeWithZone?) -> bool
+
+    def updated_at_change: () -> [ ::ActiveSupport::TimeWithZone?, ::ActiveSupport::TimeWithZone? ]
+
+    def updated_at_will_change!: () -> void
+
+    def updated_at_was: () -> ::ActiveSupport::TimeWithZone?
+
+    def updated_at_previously_changed?: (?from: ::ActiveSupport::TimeWithZone?, ?to: ::ActiveSupport::TimeWithZone?) -> bool
+
+    def updated_at_previous_change: () -> ::Array[::ActiveSupport::TimeWithZone?]?
+
+    def updated_at_previously_was: () -> ::ActiveSupport::TimeWithZone?
+
+    def updated_at_before_last_save: () -> ::ActiveSupport::TimeWithZone?
+
+    def updated_at_change_to_be_saved: () -> ::Array[::ActiveSupport::TimeWithZone?]?
+
+    def updated_at_in_database: () -> ::ActiveSupport::TimeWithZone?
+
+    def saved_change_to_updated_at: () -> ::Array[::ActiveSupport::TimeWithZone?]?
+
+    def saved_change_to_updated_at?: (?from: ::ActiveSupport::TimeWithZone?, ?to: ::ActiveSupport::TimeWithZone?) -> bool
+
+    def will_save_change_to_updated_at?: (?from: ::ActiveSupport::TimeWithZone?, ?to: ::ActiveSupport::TimeWithZone?) -> bool
+
+    def restore_updated_at!: () -> void
+
+    def clear_updated_at_change: () -> void
+
+    def updated_at_before_type_cast: () -> ::Time
+
+    def updated_at_for_database: () -> ::Time
   end
   include ::Person::GeneratedAttributeMethods
   module ::Person::GeneratedAliasAttributeMethods
@@ -381,6 +381,9 @@ class ::Person < ::ApplicationRecord
   def page: () -> ::Page
   def page=: (::Page?) -> ::Page?
   def reload_page: () -> ::Page?
+  def page_changed?: () -> bool
+  def page_previously_changed?: () -> bool
+  def reset_page: () -> void
   def build_page: (?untyped) -> ::Page
   def create_page: (?untyped) -> ::Page
   def create_page!: (?untyped) -> ::Page

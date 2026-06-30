@@ -1,0 +1,3 @@
+module FacebookConcern
+  def self.oauth: -> ::Koala::Facebook::OAuth
+end

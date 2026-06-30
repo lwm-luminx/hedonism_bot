@@ -44,6 +44,46 @@ class ::SocialUpdate < ::ApplicationRecord
 
     def id_for_database: () -> ::String
 
+    def body: () -> ::String
+
+    def body=: (::String) -> ::String
+
+    def body?: () -> bool
+
+    def body_changed?: (?from: ::String?, ?to: ::String?) -> bool
+
+    def body_change: () -> [ ::String?, ::String? ]
+
+    def body_will_change!: () -> void
+
+    def body_was: () -> ::String?
+
+    def body_previously_changed?: (?from: ::String?, ?to: ::String?) -> bool
+
+    def body_previous_change: () -> ::Array[::String?]?
+
+    def body_previously_was: () -> ::String?
+
+    def body_before_last_save: () -> ::String?
+
+    def body_change_to_be_saved: () -> ::Array[::String?]?
+
+    def body_in_database: () -> ::String?
+
+    def saved_change_to_body: () -> ::Array[::String?]?
+
+    def saved_change_to_body?: (?from: ::String?, ?to: ::String?) -> bool
+
+    def will_save_change_to_body?: (?from: ::String?, ?to: ::String?) -> bool
+
+    def restore_body!: () -> void
+
+    def clear_body_change: () -> void
+
+    def body_before_type_cast: () -> ::String
+
+    def body_for_database: () -> ::String
+
     def created_at: () -> ::ActiveSupport::TimeWithZone
 
     def created_at=: (::ActiveSupport::TimeWithZone) -> ::ActiveSupport::TimeWithZone
@@ -83,46 +123,6 @@ class ::SocialUpdate < ::ApplicationRecord
     def created_at_before_type_cast: () -> ::Time
 
     def created_at_for_database: () -> ::Time
-
-    def updated_at: () -> ::ActiveSupport::TimeWithZone
-
-    def updated_at=: (::ActiveSupport::TimeWithZone) -> ::ActiveSupport::TimeWithZone
-
-    def updated_at?: () -> bool
-
-    def updated_at_changed?: (?from: ::ActiveSupport::TimeWithZone?, ?to: ::ActiveSupport::TimeWithZone?) -> bool
-
-    def updated_at_change: () -> [ ::ActiveSupport::TimeWithZone?, ::ActiveSupport::TimeWithZone? ]
-
-    def updated_at_will_change!: () -> void
-
-    def updated_at_was: () -> ::ActiveSupport::TimeWithZone?
-
-    def updated_at_previously_changed?: (?from: ::ActiveSupport::TimeWithZone?, ?to: ::ActiveSupport::TimeWithZone?) -> bool
-
-    def updated_at_previous_change: () -> ::Array[::ActiveSupport::TimeWithZone?]?
-
-    def updated_at_previously_was: () -> ::ActiveSupport::TimeWithZone?
-
-    def updated_at_before_last_save: () -> ::ActiveSupport::TimeWithZone?
-
-    def updated_at_change_to_be_saved: () -> ::Array[::ActiveSupport::TimeWithZone?]?
-
-    def updated_at_in_database: () -> ::ActiveSupport::TimeWithZone?
-
-    def saved_change_to_updated_at: () -> ::Array[::ActiveSupport::TimeWithZone?]?
-
-    def saved_change_to_updated_at?: (?from: ::ActiveSupport::TimeWithZone?, ?to: ::ActiveSupport::TimeWithZone?) -> bool
-
-    def will_save_change_to_updated_at?: (?from: ::ActiveSupport::TimeWithZone?, ?to: ::ActiveSupport::TimeWithZone?) -> bool
-
-    def restore_updated_at!: () -> void
-
-    def clear_updated_at_change: () -> void
-
-    def updated_at_before_type_cast: () -> ::Time
-
-    def updated_at_for_database: () -> ::Time
 
     def social_link_id: () -> ::String
 
@@ -164,45 +164,45 @@ class ::SocialUpdate < ::ApplicationRecord
 
     def social_link_id_for_database: () -> ::String
 
-    def body: () -> ::String
+    def updated_at: () -> ::ActiveSupport::TimeWithZone
 
-    def body=: (::String) -> ::String
+    def updated_at=: (::ActiveSupport::TimeWithZone) -> ::ActiveSupport::TimeWithZone
 
-    def body?: () -> bool
+    def updated_at?: () -> bool
 
-    def body_changed?: (?from: ::String?, ?to: ::String?) -> bool
+    def updated_at_changed?: (?from: ::ActiveSupport::TimeWithZone?, ?to: ::ActiveSupport::TimeWithZone?) -> bool
 
-    def body_change: () -> [ ::String?, ::String? ]
+    def updated_at_change: () -> [ ::ActiveSupport::TimeWithZone?, ::ActiveSupport::TimeWithZone? ]
 
-    def body_will_change!: () -> void
+    def updated_at_will_change!: () -> void
 
-    def body_was: () -> ::String?
+    def updated_at_was: () -> ::ActiveSupport::TimeWithZone?
 
-    def body_previously_changed?: (?from: ::String?, ?to: ::String?) -> bool
+    def updated_at_previously_changed?: (?from: ::ActiveSupport::TimeWithZone?, ?to: ::ActiveSupport::TimeWithZone?) -> bool
 
-    def body_previous_change: () -> ::Array[::String?]?
+    def updated_at_previous_change: () -> ::Array[::ActiveSupport::TimeWithZone?]?
 
-    def body_previously_was: () -> ::String?
+    def updated_at_previously_was: () -> ::ActiveSupport::TimeWithZone?
 
-    def body_before_last_save: () -> ::String?
+    def updated_at_before_last_save: () -> ::ActiveSupport::TimeWithZone?
 
-    def body_change_to_be_saved: () -> ::Array[::String?]?
+    def updated_at_change_to_be_saved: () -> ::Array[::ActiveSupport::TimeWithZone?]?
 
-    def body_in_database: () -> ::String?
+    def updated_at_in_database: () -> ::ActiveSupport::TimeWithZone?
 
-    def saved_change_to_body: () -> ::Array[::String?]?
+    def saved_change_to_updated_at: () -> ::Array[::ActiveSupport::TimeWithZone?]?
 
-    def saved_change_to_body?: (?from: ::String?, ?to: ::String?) -> bool
+    def saved_change_to_updated_at?: (?from: ::ActiveSupport::TimeWithZone?, ?to: ::ActiveSupport::TimeWithZone?) -> bool
 
-    def will_save_change_to_body?: (?from: ::String?, ?to: ::String?) -> bool
+    def will_save_change_to_updated_at?: (?from: ::ActiveSupport::TimeWithZone?, ?to: ::ActiveSupport::TimeWithZone?) -> bool
 
-    def restore_body!: () -> void
+    def restore_updated_at!: () -> void
 
-    def clear_body_change: () -> void
+    def clear_updated_at_change: () -> void
 
-    def body_before_type_cast: () -> ::String
+    def updated_at_before_type_cast: () -> ::Time
 
-    def body_for_database: () -> ::String
+    def updated_at_for_database: () -> ::Time
   end
   include ::SocialUpdate::GeneratedAttributeMethods
   module ::SocialUpdate::GeneratedAliasAttributeMethods
@@ -253,6 +253,9 @@ class ::SocialUpdate < ::ApplicationRecord
   def social_link: () -> ::SocialLink
   def social_link=: (::SocialLink?) -> ::SocialLink?
   def reload_social_link: () -> ::SocialLink?
+  def social_link_changed?: () -> bool
+  def social_link_previously_changed?: () -> bool
+  def reset_social_link: () -> void
   def build_social_link: (?untyped) -> ::SocialLink
   def create_social_link: (?untyped) -> ::SocialLink
   def create_social_link!: (?untyped) -> ::SocialLink

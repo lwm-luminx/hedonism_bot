@@ -19,7 +19,7 @@ class CreateFaces < ActiveRecord::Migration[8.1]
 
       t.float :confidence
       t.jsonb :bounding_box, null: false, default: {}
-      t.vector :arc_face_embedding, limit: 512
+      t.vector :arc_face_embedding, limit: 512, null: true
 
       t.index [ :arc_face_embedding ], using: :hnsw, opclass: :vector_cosine_ops
       t.index [ :face_id, :photo_take_id ], name: "photo_faces_takes_face_id_index", unique: true

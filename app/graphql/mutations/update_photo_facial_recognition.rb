@@ -6,8 +6,8 @@ module Mutations
 
     field :photo, ::Types::PhotoType, null: false
 
-    argument :id, ID, required: true
-    argument :faces, [ ::Types::FaceDataInputType ], required: true
+    argument :id, ID, "The ID of the photo to update", required: true
+    argument :faces, [ ::Types::FaceDataInputType ], "The new facial recognition data for the photo", required: true
 
     def resolve(id:, faces:)
       photo = Photo.find(GlobalID.parse(id).model_id)

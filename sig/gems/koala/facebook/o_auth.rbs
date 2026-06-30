@@ -1,0 +1,7 @@
+module Koala
+  module Facebook
+    class OAuth
+      def initialize: (String, String) -> void
+    end
+  end
+end

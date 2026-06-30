@@ -22,10 +22,10 @@ class CreateSessions < ActiveRecord::Migration[8.1]
       t.references :device, type: :uuid, null: true, foreign_key: true, index: true
       t.references :user, type: :uuid, null: true, foreign_key: true, index: true
 
-      t.inet "origin_ip"
-      t.geography "location", limit: { srid: 4326, type: "st_point", geographic: true }
-      t.string "version"
-      t.integer "build"
+      t.inet :origin_ip
+      t.geography :location, limit: { srid: 4326, type: "st_point", geographic: true }
+      t.string :version
+      t.integer :build
 
       t.index [ :token_key ], name: "index_sessions_on_token_id"
       t.index [ :audience_id, :device_id, :user_id ], name: "sessions_takes_audience_device_user_index", unique: true

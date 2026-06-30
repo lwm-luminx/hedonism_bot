@@ -1,0 +1,10 @@
+class Locale < ApplicationRecord
+  include LocationConcern
+
+  ZIP_EXPRESSION: Regexp
+
+  def update_envelope: -> void
+  def from_locale_name: (String, ?locale: String) -> instance
+  def self.from_seed: (String, String) -> instance
+  def self.closest: (RGeo::Feature::Point, ?within: int) -> instance
+end

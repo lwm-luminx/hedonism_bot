@@ -1,0 +1,5 @@
+class User < ApplicationRecord
+  def admin?: -> bool
+  def update_from: (Hash[String, untyped]) -> void
+  def self.from_facebook_graph: (Hash[String, untyped], ?token: String?) -> instance?
+end

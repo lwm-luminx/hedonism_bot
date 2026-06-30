@@ -84,6 +84,46 @@ class ::VenueMessage < ::ApplicationRecord
 
     def created_at_for_database: () -> ::Time
 
+    def message: () -> ::String?
+
+    def message=: (::String?) -> ::String?
+
+    def message?: () -> bool
+
+    def message_changed?: (?from: ::String?, ?to: ::String?) -> bool
+
+    def message_change: () -> [ ::String?, ::String? ]
+
+    def message_will_change!: () -> void
+
+    def message_was: () -> ::String?
+
+    def message_previously_changed?: (?from: ::String?, ?to: ::String?) -> bool
+
+    def message_previous_change: () -> ::Array[::String?]?
+
+    def message_previously_was: () -> ::String?
+
+    def message_before_last_save: () -> ::String?
+
+    def message_change_to_be_saved: () -> ::Array[::String?]?
+
+    def message_in_database: () -> ::String?
+
+    def saved_change_to_message: () -> ::Array[::String?]?
+
+    def saved_change_to_message?: (?from: ::String?, ?to: ::String?) -> bool
+
+    def will_save_change_to_message?: (?from: ::String?, ?to: ::String?) -> bool
+
+    def restore_message!: () -> void
+
+    def clear_message_change: () -> void
+
+    def message_before_type_cast: () -> ::String?
+
+    def message_for_database: () -> ::String?
+
     def updated_at: () -> ::ActiveSupport::TimeWithZone
 
     def updated_at=: (::ActiveSupport::TimeWithZone) -> ::ActiveSupport::TimeWithZone
@@ -123,46 +163,6 @@ class ::VenueMessage < ::ApplicationRecord
     def updated_at_before_type_cast: () -> ::Time
 
     def updated_at_for_database: () -> ::Time
-
-    def venue_id: () -> ::String
-
-    def venue_id=: (::String) -> ::String
-
-    def venue_id?: () -> bool
-
-    def venue_id_changed?: (?from: ::String?, ?to: ::String?) -> bool
-
-    def venue_id_change: () -> [ ::String?, ::String? ]
-
-    def venue_id_will_change!: () -> void
-
-    def venue_id_was: () -> ::String?
-
-    def venue_id_previously_changed?: (?from: ::String?, ?to: ::String?) -> bool
-
-    def venue_id_previous_change: () -> ::Array[::String?]?
-
-    def venue_id_previously_was: () -> ::String?
-
-    def venue_id_before_last_save: () -> ::String?
-
-    def venue_id_change_to_be_saved: () -> ::Array[::String?]?
-
-    def venue_id_in_database: () -> ::String?
-
-    def saved_change_to_venue_id: () -> ::Array[::String?]?
-
-    def saved_change_to_venue_id?: (?from: ::String?, ?to: ::String?) -> bool
-
-    def will_save_change_to_venue_id?: (?from: ::String?, ?to: ::String?) -> bool
-
-    def restore_venue_id!: () -> void
-
-    def clear_venue_id_change: () -> void
-
-    def venue_id_before_type_cast: () -> ::String
-
-    def venue_id_for_database: () -> ::String
 
     def user_id: () -> ::String
 
@@ -204,45 +204,45 @@ class ::VenueMessage < ::ApplicationRecord
 
     def user_id_for_database: () -> ::String
 
-    def message: () -> ::String?
+    def venue_id: () -> ::String
 
-    def message=: (::String?) -> ::String?
+    def venue_id=: (::String) -> ::String
 
-    def message?: () -> bool
+    def venue_id?: () -> bool
 
-    def message_changed?: (?from: ::String?, ?to: ::String?) -> bool
+    def venue_id_changed?: (?from: ::String?, ?to: ::String?) -> bool
 
-    def message_change: () -> [ ::String?, ::String? ]
+    def venue_id_change: () -> [ ::String?, ::String? ]
 
-    def message_will_change!: () -> void
+    def venue_id_will_change!: () -> void
 
-    def message_was: () -> ::String?
+    def venue_id_was: () -> ::String?
 
-    def message_previously_changed?: (?from: ::String?, ?to: ::String?) -> bool
+    def venue_id_previously_changed?: (?from: ::String?, ?to: ::String?) -> bool
 
-    def message_previous_change: () -> ::Array[::String?]?
+    def venue_id_previous_change: () -> ::Array[::String?]?
 
-    def message_previously_was: () -> ::String?
+    def venue_id_previously_was: () -> ::String?
 
-    def message_before_last_save: () -> ::String?
+    def venue_id_before_last_save: () -> ::String?
 
-    def message_change_to_be_saved: () -> ::Array[::String?]?
+    def venue_id_change_to_be_saved: () -> ::Array[::String?]?
 
-    def message_in_database: () -> ::String?
+    def venue_id_in_database: () -> ::String?
 
-    def saved_change_to_message: () -> ::Array[::String?]?
+    def saved_change_to_venue_id: () -> ::Array[::String?]?
 
-    def saved_change_to_message?: (?from: ::String?, ?to: ::String?) -> bool
+    def saved_change_to_venue_id?: (?from: ::String?, ?to: ::String?) -> bool
 
-    def will_save_change_to_message?: (?from: ::String?, ?to: ::String?) -> bool
+    def will_save_change_to_venue_id?: (?from: ::String?, ?to: ::String?) -> bool
 
-    def restore_message!: () -> void
+    def restore_venue_id!: () -> void
 
-    def clear_message_change: () -> void
+    def clear_venue_id_change: () -> void
 
-    def message_before_type_cast: () -> ::String?
+    def venue_id_before_type_cast: () -> ::String
 
-    def message_for_database: () -> ::String?
+    def venue_id_for_database: () -> ::String
   end
   include ::VenueMessage::GeneratedAttributeMethods
   module ::VenueMessage::GeneratedAliasAttributeMethods
@@ -293,12 +293,18 @@ class ::VenueMessage < ::ApplicationRecord
   def user: () -> ::User
   def user=: (::User?) -> ::User?
   def reload_user: () -> ::User?
+  def user_changed?: () -> bool
+  def user_previously_changed?: () -> bool
+  def reset_user: () -> void
   def build_user: (?untyped) -> ::User
   def create_user: (?untyped) -> ::User
   def create_user!: (?untyped) -> ::User
   def venue: () -> ::Venue
   def venue=: (::Venue?) -> ::Venue?
   def reload_venue: () -> ::Venue?
+  def venue_changed?: () -> bool
+  def venue_previously_changed?: () -> bool
+  def reset_venue: () -> void
   def build_venue: (?untyped) -> ::Venue
   def create_venue: (?untyped) -> ::Venue
   def create_venue!: (?untyped) -> ::Venue

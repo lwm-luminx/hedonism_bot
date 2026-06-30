@@ -1,5 +1,7 @@
 class Photographer < ApplicationRecord
   has_many :photo_takes, dependent: :destroy
+  has_many :photos
+  has_many :albums, dependent: :destroy
   has_many :venues, dependent: :destroy
   has_many :faces, dependent: :destroy
 
@@ -7,10 +9,10 @@ class Photographer < ApplicationRecord
   validates :subdomain, presence: true, uniqueness: true,
             format: { with: /\A[a-z0-9][a-z0-9-]*\z/, message: "must be lowercase alphanumeric/hyphen" }
 
-  scope :active, -> { where(active: true) }
+  scope :active, -> { where("active IS TRUE") }
 
   def folders
-    self.photos.where.not(folder_date: nil).group_by(&:folder_date).map { |folder, photos| Folder.new(folder.to_s, photos) }
+    self.albums
   end
 
   def self.default_photographer

@@ -13,5 +13,9 @@ module Types
     def photos: (?face_id: untyped?, ?folder_id: untyped?) -> untyped
 
     def photo: (id: untyped) -> untyped
+
+    def venues: -> Array[VenueType]
+
+    def events: -> Array[EventType]
   end
 end

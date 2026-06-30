@@ -44,6 +44,46 @@ class ::Review < ::ApplicationRecord
 
     def id_for_database: () -> ::String
 
+    def content: () -> ::String
+
+    def content=: (::String) -> ::String
+
+    def content?: () -> bool
+
+    def content_changed?: (?from: ::String?, ?to: ::String?) -> bool
+
+    def content_change: () -> [ ::String?, ::String? ]
+
+    def content_will_change!: () -> void
+
+    def content_was: () -> ::String?
+
+    def content_previously_changed?: (?from: ::String?, ?to: ::String?) -> bool
+
+    def content_previous_change: () -> ::Array[::String?]?
+
+    def content_previously_was: () -> ::String?
+
+    def content_before_last_save: () -> ::String?
+
+    def content_change_to_be_saved: () -> ::Array[::String?]?
+
+    def content_in_database: () -> ::String?
+
+    def saved_change_to_content: () -> ::Array[::String?]?
+
+    def saved_change_to_content?: (?from: ::String?, ?to: ::String?) -> bool
+
+    def will_save_change_to_content?: (?from: ::String?, ?to: ::String?) -> bool
+
+    def restore_content!: () -> void
+
+    def clear_content_change: () -> void
+
+    def content_before_type_cast: () -> ::String
+
+    def content_for_database: () -> ::String
+
     def created_at: () -> ::ActiveSupport::TimeWithZone
 
     def created_at=: (::ActiveSupport::TimeWithZone) -> ::ActiveSupport::TimeWithZone
@@ -83,6 +123,46 @@ class ::Review < ::ApplicationRecord
     def created_at_before_type_cast: () -> ::Time
 
     def created_at_for_database: () -> ::Time
+
+    def page_id: () -> ::String
+
+    def page_id=: (::String) -> ::String
+
+    def page_id?: () -> bool
+
+    def page_id_changed?: (?from: ::String?, ?to: ::String?) -> bool
+
+    def page_id_change: () -> [ ::String?, ::String? ]
+
+    def page_id_will_change!: () -> void
+
+    def page_id_was: () -> ::String?
+
+    def page_id_previously_changed?: (?from: ::String?, ?to: ::String?) -> bool
+
+    def page_id_previous_change: () -> ::Array[::String?]?
+
+    def page_id_previously_was: () -> ::String?
+
+    def page_id_before_last_save: () -> ::String?
+
+    def page_id_change_to_be_saved: () -> ::Array[::String?]?
+
+    def page_id_in_database: () -> ::String?
+
+    def saved_change_to_page_id: () -> ::Array[::String?]?
+
+    def saved_change_to_page_id?: (?from: ::String?, ?to: ::String?) -> bool
+
+    def will_save_change_to_page_id?: (?from: ::String?, ?to: ::String?) -> bool
+
+    def restore_page_id!: () -> void
+
+    def clear_page_id_change: () -> void
+
+    def page_id_before_type_cast: () -> ::String
+
+    def page_id_for_database: () -> ::String
 
     def updated_at: () -> ::ActiveSupport::TimeWithZone
 
@@ -163,86 +243,6 @@ class ::Review < ::ApplicationRecord
     def user_id_before_type_cast: () -> ::String
 
     def user_id_for_database: () -> ::String
-
-    def page_id: () -> ::String
-
-    def page_id=: (::String) -> ::String
-
-    def page_id?: () -> bool
-
-    def page_id_changed?: (?from: ::String?, ?to: ::String?) -> bool
-
-    def page_id_change: () -> [ ::String?, ::String? ]
-
-    def page_id_will_change!: () -> void
-
-    def page_id_was: () -> ::String?
-
-    def page_id_previously_changed?: (?from: ::String?, ?to: ::String?) -> bool
-
-    def page_id_previous_change: () -> ::Array[::String?]?
-
-    def page_id_previously_was: () -> ::String?
-
-    def page_id_before_last_save: () -> ::String?
-
-    def page_id_change_to_be_saved: () -> ::Array[::String?]?
-
-    def page_id_in_database: () -> ::String?
-
-    def saved_change_to_page_id: () -> ::Array[::String?]?
-
-    def saved_change_to_page_id?: (?from: ::String?, ?to: ::String?) -> bool
-
-    def will_save_change_to_page_id?: (?from: ::String?, ?to: ::String?) -> bool
-
-    def restore_page_id!: () -> void
-
-    def clear_page_id_change: () -> void
-
-    def page_id_before_type_cast: () -> ::String
-
-    def page_id_for_database: () -> ::String
-
-    def content: () -> ::String
-
-    def content=: (::String) -> ::String
-
-    def content?: () -> bool
-
-    def content_changed?: (?from: ::String?, ?to: ::String?) -> bool
-
-    def content_change: () -> [ ::String?, ::String? ]
-
-    def content_will_change!: () -> void
-
-    def content_was: () -> ::String?
-
-    def content_previously_changed?: (?from: ::String?, ?to: ::String?) -> bool
-
-    def content_previous_change: () -> ::Array[::String?]?
-
-    def content_previously_was: () -> ::String?
-
-    def content_before_last_save: () -> ::String?
-
-    def content_change_to_be_saved: () -> ::Array[::String?]?
-
-    def content_in_database: () -> ::String?
-
-    def saved_change_to_content: () -> ::Array[::String?]?
-
-    def saved_change_to_content?: (?from: ::String?, ?to: ::String?) -> bool
-
-    def will_save_change_to_content?: (?from: ::String?, ?to: ::String?) -> bool
-
-    def restore_content!: () -> void
-
-    def clear_content_change: () -> void
-
-    def content_before_type_cast: () -> ::String
-
-    def content_for_database: () -> ::String
   end
   include ::Review::GeneratedAttributeMethods
   module ::Review::GeneratedAliasAttributeMethods
@@ -293,6 +293,9 @@ class ::Review < ::ApplicationRecord
   def page: () -> ::Page
   def page=: (::Page?) -> ::Page?
   def reload_page: () -> ::Page?
+  def page_changed?: () -> bool
+  def page_previously_changed?: () -> bool
+  def reset_page: () -> void
   def build_page: (?untyped) -> ::Page
   def create_page: (?untyped) -> ::Page
   def create_page!: (?untyped) -> ::Page

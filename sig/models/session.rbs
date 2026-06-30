@@ -1,0 +1,3 @@
+class Session < ApplicationRecord
+  def to_jwt: (ActionDispatch::Request) -> void
+end

@@ -1,7 +1,0 @@
-module GraphQL
-  class Query
-    module Member
-      def argument: (interned, Class | Array[Class], **hash[interned, untyped]) { () -> void } -> void
-    end
-  end
-end

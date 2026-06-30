@@ -1,0 +1,18 @@
+class Page < ApplicationRecord
+  PAGE_FIELDS: Array[String]
+
+  attr_reader id: Integer
+  attr_accessor title: String
+  attr_accessor slug: String
+  attr_accessor content: String?
+  attr_accessor published_at: Time?
+  attr_reader created_at: Time
+  attr_reader updated_at: Time
+  attr_reader cover_iamge: Image
+  attr_reader display_name: String
+
+  def update_graph: (Hash[String, String], ?photo: Hash[String, String]) -> self
+  def self.page_for_facebook_id: (Koala::Facebook::API, String) -> Page
+  def update_photo: ({"url" => String }) -> void
+  def self.default_client: () -> Koala::Facebook::API
+end

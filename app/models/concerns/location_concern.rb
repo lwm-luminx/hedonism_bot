@@ -5,7 +5,7 @@ module LocationConcern
 
   included do
     belongs_to :location
-    belongs_to :photo
+    belongs_to :image
 
     def display_name
       location.google_location["name"]
@@ -21,10 +21,10 @@ module LocationConcern
     def update_location_geocode(street, zip)
       return if location.google_place_id || street.nil? || zip.nil?
 
-      location = "#{street}, #{zip}, USA"
+      address = "#{street}, #{zip}, USA"
       Rails.logger.debug { "Geocoding => #{location}" }
 
-      spot = Geocoder.coordinates location
+      spot = Geocoder.coordinates address
 
       location.update_location spot[0], spot[1] if spot
       # self.google_place_id = spot['place_id']
@@ -34,14 +34,13 @@ module LocationConcern
   end
 
   class_methods do
-    def closest(point, options = {})
-      if options[:within]
-        condition = "ST_Within(ST_GeomFromText('#{point.as_text}')::geography::geometry, locations.envelope::geometry)"
-        within = joins(:location).where(condition)
-        return within.order("st_distance(locations.point, '#{point.as_text}')").first
+    def closest(point, within: nil)
+      if within
+        close = joins(:location).where("ST_Within(?, locations.envelope::geometry)", point)
+        return close.order("st_distance(locations.point, ?)", point).first
       end
 
-      joins(:location).order("st_distance(locations.point, '#{point.as_text}')").first
+      joins(:location).order("locations.point <-> ?", point).first
     end
   end
 end

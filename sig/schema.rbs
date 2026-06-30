@@ -1,0 +1,5 @@
+class CreateActiveStorageTables
+  private
+
+  def primary_and_foreign_key_types: -> [Symbol, Symbol]
+end

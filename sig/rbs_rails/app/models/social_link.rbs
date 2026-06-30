@@ -84,45 +84,45 @@ class ::SocialLink < ::ApplicationRecord
 
     def created_at_for_database: () -> ::Time
 
-    def updated_at: () -> ::ActiveSupport::TimeWithZone
+    def handle: () -> ::String
 
-    def updated_at=: (::ActiveSupport::TimeWithZone) -> ::ActiveSupport::TimeWithZone
+    def handle=: (::String) -> ::String
 
-    def updated_at?: () -> bool
+    def handle?: () -> bool
 
-    def updated_at_changed?: (?from: ::ActiveSupport::TimeWithZone?, ?to: ::ActiveSupport::TimeWithZone?) -> bool
+    def handle_changed?: (?from: ::String?, ?to: ::String?) -> bool
 
-    def updated_at_change: () -> [ ::ActiveSupport::TimeWithZone?, ::ActiveSupport::TimeWithZone? ]
+    def handle_change: () -> [ ::String?, ::String? ]
 
-    def updated_at_will_change!: () -> void
+    def handle_will_change!: () -> void
 
-    def updated_at_was: () -> ::ActiveSupport::TimeWithZone?
+    def handle_was: () -> ::String?
 
-    def updated_at_previously_changed?: (?from: ::ActiveSupport::TimeWithZone?, ?to: ::ActiveSupport::TimeWithZone?) -> bool
+    def handle_previously_changed?: (?from: ::String?, ?to: ::String?) -> bool
 
-    def updated_at_previous_change: () -> ::Array[::ActiveSupport::TimeWithZone?]?
+    def handle_previous_change: () -> ::Array[::String?]?
 
-    def updated_at_previously_was: () -> ::ActiveSupport::TimeWithZone?
+    def handle_previously_was: () -> ::String?
 
-    def updated_at_before_last_save: () -> ::ActiveSupport::TimeWithZone?
+    def handle_before_last_save: () -> ::String?
 
-    def updated_at_change_to_be_saved: () -> ::Array[::ActiveSupport::TimeWithZone?]?
+    def handle_change_to_be_saved: () -> ::Array[::String?]?
 
-    def updated_at_in_database: () -> ::ActiveSupport::TimeWithZone?
+    def handle_in_database: () -> ::String?
 
-    def saved_change_to_updated_at: () -> ::Array[::ActiveSupport::TimeWithZone?]?
+    def saved_change_to_handle: () -> ::Array[::String?]?
 
-    def saved_change_to_updated_at?: (?from: ::ActiveSupport::TimeWithZone?, ?to: ::ActiveSupport::TimeWithZone?) -> bool
+    def saved_change_to_handle?: (?from: ::String?, ?to: ::String?) -> bool
 
-    def will_save_change_to_updated_at?: (?from: ::ActiveSupport::TimeWithZone?, ?to: ::ActiveSupport::TimeWithZone?) -> bool
+    def will_save_change_to_handle?: (?from: ::String?, ?to: ::String?) -> bool
 
-    def restore_updated_at!: () -> void
+    def restore_handle!: () -> void
 
-    def clear_updated_at_change: () -> void
+    def clear_handle_change: () -> void
 
-    def updated_at_before_type_cast: () -> ::Time
+    def handle_before_type_cast: () -> ::String
 
-    def updated_at_for_database: () -> ::Time
+    def handle_for_database: () -> ::String
 
     def object_id: () -> ::String
 
@@ -164,6 +164,46 @@ class ::SocialLink < ::ApplicationRecord
 
     def object_id_for_database: () -> ::String
 
+    def primary: () -> bool
+
+    def primary=: (bool) -> bool
+
+    def primary?: () -> bool
+
+    def primary_changed?: (?from: bool?, ?to: bool?) -> bool
+
+    def primary_change: () -> [ bool?, bool? ]
+
+    def primary_will_change!: () -> void
+
+    def primary_was: () -> bool?
+
+    def primary_previously_changed?: (?from: bool?, ?to: bool?) -> bool
+
+    def primary_previous_change: () -> ::Array[bool?]?
+
+    def primary_previously_was: () -> bool?
+
+    def primary_before_last_save: () -> bool?
+
+    def primary_change_to_be_saved: () -> ::Array[bool?]?
+
+    def primary_in_database: () -> bool?
+
+    def saved_change_to_primary: () -> ::Array[bool?]?
+
+    def saved_change_to_primary?: (?from: bool?, ?to: bool?) -> bool
+
+    def will_save_change_to_primary?: (?from: bool?, ?to: bool?) -> bool
+
+    def restore_primary!: () -> void
+
+    def clear_primary_change: () -> void
+
+    def primary_before_type_cast: () -> bool
+
+    def primary_for_database: () -> bool
+
     def provider: () -> ::String
 
     def provider=: (::String) -> ::String
@@ -204,85 +244,45 @@ class ::SocialLink < ::ApplicationRecord
 
     def provider_for_database: () -> ::String
 
-    def handle: () -> ::String
+    def updated_at: () -> ::ActiveSupport::TimeWithZone
 
-    def handle=: (::String) -> ::String
+    def updated_at=: (::ActiveSupport::TimeWithZone) -> ::ActiveSupport::TimeWithZone
 
-    def handle?: () -> bool
+    def updated_at?: () -> bool
 
-    def handle_changed?: (?from: ::String?, ?to: ::String?) -> bool
+    def updated_at_changed?: (?from: ::ActiveSupport::TimeWithZone?, ?to: ::ActiveSupport::TimeWithZone?) -> bool
 
-    def handle_change: () -> [ ::String?, ::String? ]
+    def updated_at_change: () -> [ ::ActiveSupport::TimeWithZone?, ::ActiveSupport::TimeWithZone? ]
 
-    def handle_will_change!: () -> void
+    def updated_at_will_change!: () -> void
 
-    def handle_was: () -> ::String?
+    def updated_at_was: () -> ::ActiveSupport::TimeWithZone?
 
-    def handle_previously_changed?: (?from: ::String?, ?to: ::String?) -> bool
+    def updated_at_previously_changed?: (?from: ::ActiveSupport::TimeWithZone?, ?to: ::ActiveSupport::TimeWithZone?) -> bool
 
-    def handle_previous_change: () -> ::Array[::String?]?
+    def updated_at_previous_change: () -> ::Array[::ActiveSupport::TimeWithZone?]?
 
-    def handle_previously_was: () -> ::String?
+    def updated_at_previously_was: () -> ::ActiveSupport::TimeWithZone?
 
-    def handle_before_last_save: () -> ::String?
+    def updated_at_before_last_save: () -> ::ActiveSupport::TimeWithZone?
 
-    def handle_change_to_be_saved: () -> ::Array[::String?]?
+    def updated_at_change_to_be_saved: () -> ::Array[::ActiveSupport::TimeWithZone?]?
 
-    def handle_in_database: () -> ::String?
+    def updated_at_in_database: () -> ::ActiveSupport::TimeWithZone?
 
-    def saved_change_to_handle: () -> ::Array[::String?]?
+    def saved_change_to_updated_at: () -> ::Array[::ActiveSupport::TimeWithZone?]?
 
-    def saved_change_to_handle?: (?from: ::String?, ?to: ::String?) -> bool
+    def saved_change_to_updated_at?: (?from: ::ActiveSupport::TimeWithZone?, ?to: ::ActiveSupport::TimeWithZone?) -> bool
 
-    def will_save_change_to_handle?: (?from: ::String?, ?to: ::String?) -> bool
+    def will_save_change_to_updated_at?: (?from: ::ActiveSupport::TimeWithZone?, ?to: ::ActiveSupport::TimeWithZone?) -> bool
 
-    def restore_handle!: () -> void
+    def restore_updated_at!: () -> void
 
-    def clear_handle_change: () -> void
+    def clear_updated_at_change: () -> void
 
-    def handle_before_type_cast: () -> ::String
+    def updated_at_before_type_cast: () -> ::Time
 
-    def handle_for_database: () -> ::String
-
-    def primary: () -> bool
-
-    def primary=: (bool) -> bool
-
-    def primary?: () -> bool
-
-    def primary_changed?: (?from: bool?, ?to: bool?) -> bool
-
-    def primary_change: () -> [ bool?, bool? ]
-
-    def primary_will_change!: () -> void
-
-    def primary_was: () -> bool?
-
-    def primary_previously_changed?: (?from: bool?, ?to: bool?) -> bool
-
-    def primary_previous_change: () -> ::Array[bool?]?
-
-    def primary_previously_was: () -> bool?
-
-    def primary_before_last_save: () -> bool?
-
-    def primary_change_to_be_saved: () -> ::Array[bool?]?
-
-    def primary_in_database: () -> bool?
-
-    def saved_change_to_primary: () -> ::Array[bool?]?
-
-    def saved_change_to_primary?: (?from: bool?, ?to: bool?) -> bool
-
-    def will_save_change_to_primary?: (?from: bool?, ?to: bool?) -> bool
-
-    def restore_primary!: () -> void
-
-    def clear_primary_change: () -> void
-
-    def primary_before_type_cast: () -> bool
-
-    def primary_for_database: () -> bool
+    def updated_at_for_database: () -> ::Time
   end
   include ::SocialLink::GeneratedAttributeMethods
   module ::SocialLink::GeneratedAliasAttributeMethods

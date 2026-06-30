@@ -44,166 +44,6 @@ class ::Session < ::ApplicationRecord
 
     def id_for_database: () -> ::String
 
-    def created_at: () -> ::ActiveSupport::TimeWithZone
-
-    def created_at=: (::ActiveSupport::TimeWithZone) -> ::ActiveSupport::TimeWithZone
-
-    def created_at?: () -> bool
-
-    def created_at_changed?: (?from: ::ActiveSupport::TimeWithZone?, ?to: ::ActiveSupport::TimeWithZone?) -> bool
-
-    def created_at_change: () -> [ ::ActiveSupport::TimeWithZone?, ::ActiveSupport::TimeWithZone? ]
-
-    def created_at_will_change!: () -> void
-
-    def created_at_was: () -> ::ActiveSupport::TimeWithZone?
-
-    def created_at_previously_changed?: (?from: ::ActiveSupport::TimeWithZone?, ?to: ::ActiveSupport::TimeWithZone?) -> bool
-
-    def created_at_previous_change: () -> ::Array[::ActiveSupport::TimeWithZone?]?
-
-    def created_at_previously_was: () -> ::ActiveSupport::TimeWithZone?
-
-    def created_at_before_last_save: () -> ::ActiveSupport::TimeWithZone?
-
-    def created_at_change_to_be_saved: () -> ::Array[::ActiveSupport::TimeWithZone?]?
-
-    def created_at_in_database: () -> ::ActiveSupport::TimeWithZone?
-
-    def saved_change_to_created_at: () -> ::Array[::ActiveSupport::TimeWithZone?]?
-
-    def saved_change_to_created_at?: (?from: ::ActiveSupport::TimeWithZone?, ?to: ::ActiveSupport::TimeWithZone?) -> bool
-
-    def will_save_change_to_created_at?: (?from: ::ActiveSupport::TimeWithZone?, ?to: ::ActiveSupport::TimeWithZone?) -> bool
-
-    def restore_created_at!: () -> void
-
-    def clear_created_at_change: () -> void
-
-    def created_at_before_type_cast: () -> ::Time
-
-    def created_at_for_database: () -> ::Time
-
-    def updated_at: () -> ::ActiveSupport::TimeWithZone
-
-    def updated_at=: (::ActiveSupport::TimeWithZone) -> ::ActiveSupport::TimeWithZone
-
-    def updated_at?: () -> bool
-
-    def updated_at_changed?: (?from: ::ActiveSupport::TimeWithZone?, ?to: ::ActiveSupport::TimeWithZone?) -> bool
-
-    def updated_at_change: () -> [ ::ActiveSupport::TimeWithZone?, ::ActiveSupport::TimeWithZone? ]
-
-    def updated_at_will_change!: () -> void
-
-    def updated_at_was: () -> ::ActiveSupport::TimeWithZone?
-
-    def updated_at_previously_changed?: (?from: ::ActiveSupport::TimeWithZone?, ?to: ::ActiveSupport::TimeWithZone?) -> bool
-
-    def updated_at_previous_change: () -> ::Array[::ActiveSupport::TimeWithZone?]?
-
-    def updated_at_previously_was: () -> ::ActiveSupport::TimeWithZone?
-
-    def updated_at_before_last_save: () -> ::ActiveSupport::TimeWithZone?
-
-    def updated_at_change_to_be_saved: () -> ::Array[::ActiveSupport::TimeWithZone?]?
-
-    def updated_at_in_database: () -> ::ActiveSupport::TimeWithZone?
-
-    def saved_change_to_updated_at: () -> ::Array[::ActiveSupport::TimeWithZone?]?
-
-    def saved_change_to_updated_at?: (?from: ::ActiveSupport::TimeWithZone?, ?to: ::ActiveSupport::TimeWithZone?) -> bool
-
-    def will_save_change_to_updated_at?: (?from: ::ActiveSupport::TimeWithZone?, ?to: ::ActiveSupport::TimeWithZone?) -> bool
-
-    def restore_updated_at!: () -> void
-
-    def clear_updated_at_change: () -> void
-
-    def updated_at_before_type_cast: () -> ::Time
-
-    def updated_at_for_database: () -> ::Time
-
-    def token_key: () -> ::String?
-
-    def token_key=: (::String?) -> ::String?
-
-    def token_key?: () -> bool
-
-    def token_key_changed?: (?from: ::String?, ?to: ::String?) -> bool
-
-    def token_key_change: () -> [ ::String?, ::String? ]
-
-    def token_key_will_change!: () -> void
-
-    def token_key_was: () -> ::String?
-
-    def token_key_previously_changed?: (?from: ::String?, ?to: ::String?) -> bool
-
-    def token_key_previous_change: () -> ::Array[::String?]?
-
-    def token_key_previously_was: () -> ::String?
-
-    def token_key_before_last_save: () -> ::String?
-
-    def token_key_change_to_be_saved: () -> ::Array[::String?]?
-
-    def token_key_in_database: () -> ::String?
-
-    def saved_change_to_token_key: () -> ::Array[::String?]?
-
-    def saved_change_to_token_key?: (?from: ::String?, ?to: ::String?) -> bool
-
-    def will_save_change_to_token_key?: (?from: ::String?, ?to: ::String?) -> bool
-
-    def restore_token_key!: () -> void
-
-    def clear_token_key_change: () -> void
-
-    def token_key_before_type_cast: () -> ::String?
-
-    def token_key_for_database: () -> ::String?
-
-    def session_token: () -> ::String?
-
-    def session_token=: (::String?) -> ::String?
-
-    def session_token?: () -> bool
-
-    def session_token_changed?: (?from: ::String?, ?to: ::String?) -> bool
-
-    def session_token_change: () -> [ ::String?, ::String? ]
-
-    def session_token_will_change!: () -> void
-
-    def session_token_was: () -> ::String?
-
-    def session_token_previously_changed?: (?from: ::String?, ?to: ::String?) -> bool
-
-    def session_token_previous_change: () -> ::Array[::String?]?
-
-    def session_token_previously_was: () -> ::String?
-
-    def session_token_before_last_save: () -> ::String?
-
-    def session_token_change_to_be_saved: () -> ::Array[::String?]?
-
-    def session_token_in_database: () -> ::String?
-
-    def saved_change_to_session_token: () -> ::Array[::String?]?
-
-    def saved_change_to_session_token?: (?from: ::String?, ?to: ::String?) -> bool
-
-    def will_save_change_to_session_token?: (?from: ::String?, ?to: ::String?) -> bool
-
-    def restore_session_token!: () -> void
-
-    def clear_session_token_change: () -> void
-
-    def session_token_before_type_cast: () -> ::String?
-
-    def session_token_for_database: () -> ::String?
-
     def audience_id: () -> ::String
 
     def audience_id=: (::String) -> ::String
@@ -243,6 +83,86 @@ class ::Session < ::ApplicationRecord
     def audience_id_before_type_cast: () -> ::String
 
     def audience_id_for_database: () -> ::String
+
+    def build: () -> ::Integer?
+
+    def build=: (::Integer?) -> ::Integer?
+
+    def build?: () -> bool
+
+    def build_changed?: (?from: ::Integer?, ?to: ::Integer?) -> bool
+
+    def build_change: () -> [ ::Integer?, ::Integer? ]
+
+    def build_will_change!: () -> void
+
+    def build_was: () -> ::Integer?
+
+    def build_previously_changed?: (?from: ::Integer?, ?to: ::Integer?) -> bool
+
+    def build_previous_change: () -> ::Array[::Integer?]?
+
+    def build_previously_was: () -> ::Integer?
+
+    def build_before_last_save: () -> ::Integer?
+
+    def build_change_to_be_saved: () -> ::Array[::Integer?]?
+
+    def build_in_database: () -> ::Integer?
+
+    def saved_change_to_build: () -> ::Array[::Integer?]?
+
+    def saved_change_to_build?: (?from: ::Integer?, ?to: ::Integer?) -> bool
+
+    def will_save_change_to_build?: (?from: ::Integer?, ?to: ::Integer?) -> bool
+
+    def restore_build!: () -> void
+
+    def clear_build_change: () -> void
+
+    def build_before_type_cast: () -> ::Integer?
+
+    def build_for_database: () -> ::Integer?
+
+    def created_at: () -> ::ActiveSupport::TimeWithZone
+
+    def created_at=: (::ActiveSupport::TimeWithZone) -> ::ActiveSupport::TimeWithZone
+
+    def created_at?: () -> bool
+
+    def created_at_changed?: (?from: ::ActiveSupport::TimeWithZone?, ?to: ::ActiveSupport::TimeWithZone?) -> bool
+
+    def created_at_change: () -> [ ::ActiveSupport::TimeWithZone?, ::ActiveSupport::TimeWithZone? ]
+
+    def created_at_will_change!: () -> void
+
+    def created_at_was: () -> ::ActiveSupport::TimeWithZone?
+
+    def created_at_previously_changed?: (?from: ::ActiveSupport::TimeWithZone?, ?to: ::ActiveSupport::TimeWithZone?) -> bool
+
+    def created_at_previous_change: () -> ::Array[::ActiveSupport::TimeWithZone?]?
+
+    def created_at_previously_was: () -> ::ActiveSupport::TimeWithZone?
+
+    def created_at_before_last_save: () -> ::ActiveSupport::TimeWithZone?
+
+    def created_at_change_to_be_saved: () -> ::Array[::ActiveSupport::TimeWithZone?]?
+
+    def created_at_in_database: () -> ::ActiveSupport::TimeWithZone?
+
+    def saved_change_to_created_at: () -> ::Array[::ActiveSupport::TimeWithZone?]?
+
+    def saved_change_to_created_at?: (?from: ::ActiveSupport::TimeWithZone?, ?to: ::ActiveSupport::TimeWithZone?) -> bool
+
+    def will_save_change_to_created_at?: (?from: ::ActiveSupport::TimeWithZone?, ?to: ::ActiveSupport::TimeWithZone?) -> bool
+
+    def restore_created_at!: () -> void
+
+    def clear_created_at_change: () -> void
+
+    def created_at_before_type_cast: () -> ::Time
+
+    def created_at_for_database: () -> ::Time
 
     def device_id: () -> ::String?
 
@@ -284,45 +204,45 @@ class ::Session < ::ApplicationRecord
 
     def device_id_for_database: () -> ::String?
 
-    def user_id: () -> ::String?
+    def location: () -> untyped
 
-    def user_id=: (::String?) -> ::String?
+    def location=: (untyped) -> untyped
 
-    def user_id?: () -> bool
+    def location?: () -> bool
 
-    def user_id_changed?: (?from: ::String?, ?to: ::String?) -> bool
+    def location_changed?: (?from: untyped, ?to: untyped) -> bool
 
-    def user_id_change: () -> [ ::String?, ::String? ]
+    def location_change: () -> [ untyped, untyped ]
 
-    def user_id_will_change!: () -> void
+    def location_will_change!: () -> void
 
-    def user_id_was: () -> ::String?
+    def location_was: () -> untyped
 
-    def user_id_previously_changed?: (?from: ::String?, ?to: ::String?) -> bool
+    def location_previously_changed?: (?from: untyped, ?to: untyped) -> bool
 
-    def user_id_previous_change: () -> ::Array[::String?]?
+    def location_previous_change: () -> ::Array[untyped]?
 
-    def user_id_previously_was: () -> ::String?
+    def location_previously_was: () -> untyped
 
-    def user_id_before_last_save: () -> ::String?
+    def location_before_last_save: () -> untyped
 
-    def user_id_change_to_be_saved: () -> ::Array[::String?]?
+    def location_change_to_be_saved: () -> ::Array[untyped]?
 
-    def user_id_in_database: () -> ::String?
+    def location_in_database: () -> untyped
 
-    def saved_change_to_user_id: () -> ::Array[::String?]?
+    def saved_change_to_location: () -> ::Array[untyped]?
 
-    def saved_change_to_user_id?: (?from: ::String?, ?to: ::String?) -> bool
+    def saved_change_to_location?: (?from: untyped, ?to: untyped) -> bool
 
-    def will_save_change_to_user_id?: (?from: ::String?, ?to: ::String?) -> bool
+    def will_save_change_to_location?: (?from: untyped, ?to: untyped) -> bool
 
-    def restore_user_id!: () -> void
+    def restore_location!: () -> void
 
-    def clear_user_id_change: () -> void
+    def clear_location_change: () -> void
 
-    def user_id_before_type_cast: () -> ::String?
+    def location_before_type_cast: () -> untyped?
 
-    def user_id_for_database: () -> ::String?
+    def location_for_database: () -> untyped?
 
     def origin_ip: () -> ::IPAddr?
 
@@ -364,45 +284,165 @@ class ::Session < ::ApplicationRecord
 
     def origin_ip_for_database: () -> ::IPAddr?
 
-    def location: () -> untyped
+    def session_token: () -> ::String?
 
-    def location=: (untyped) -> untyped
+    def session_token=: (::String?) -> ::String?
 
-    def location?: () -> bool
+    def session_token?: () -> bool
 
-    def location_changed?: (?from: untyped, ?to: untyped) -> bool
+    def session_token_changed?: (?from: ::String?, ?to: ::String?) -> bool
 
-    def location_change: () -> [ untyped, untyped ]
+    def session_token_change: () -> [ ::String?, ::String? ]
 
-    def location_will_change!: () -> void
+    def session_token_will_change!: () -> void
 
-    def location_was: () -> untyped
+    def session_token_was: () -> ::String?
 
-    def location_previously_changed?: (?from: untyped, ?to: untyped) -> bool
+    def session_token_previously_changed?: (?from: ::String?, ?to: ::String?) -> bool
 
-    def location_previous_change: () -> ::Array[untyped]?
+    def session_token_previous_change: () -> ::Array[::String?]?
 
-    def location_previously_was: () -> untyped
+    def session_token_previously_was: () -> ::String?
 
-    def location_before_last_save: () -> untyped
+    def session_token_before_last_save: () -> ::String?
 
-    def location_change_to_be_saved: () -> ::Array[untyped]?
+    def session_token_change_to_be_saved: () -> ::Array[::String?]?
 
-    def location_in_database: () -> untyped
+    def session_token_in_database: () -> ::String?
 
-    def saved_change_to_location: () -> ::Array[untyped]?
+    def saved_change_to_session_token: () -> ::Array[::String?]?
 
-    def saved_change_to_location?: (?from: untyped, ?to: untyped) -> bool
+    def saved_change_to_session_token?: (?from: ::String?, ?to: ::String?) -> bool
 
-    def will_save_change_to_location?: (?from: untyped, ?to: untyped) -> bool
+    def will_save_change_to_session_token?: (?from: ::String?, ?to: ::String?) -> bool
 
-    def restore_location!: () -> void
+    def restore_session_token!: () -> void
 
-    def clear_location_change: () -> void
+    def clear_session_token_change: () -> void
 
-    def location_before_type_cast: () -> untyped?
+    def session_token_before_type_cast: () -> ::String?
 
-    def location_for_database: () -> untyped?
+    def session_token_for_database: () -> ::String?
+
+    def token_key: () -> ::String?
+
+    def token_key=: (::String?) -> ::String?
+
+    def token_key?: () -> bool
+
+    def token_key_changed?: (?from: ::String?, ?to: ::String?) -> bool
+
+    def token_key_change: () -> [ ::String?, ::String? ]
+
+    def token_key_will_change!: () -> void
+
+    def token_key_was: () -> ::String?
+
+    def token_key_previously_changed?: (?from: ::String?, ?to: ::String?) -> bool
+
+    def token_key_previous_change: () -> ::Array[::String?]?
+
+    def token_key_previously_was: () -> ::String?
+
+    def token_key_before_last_save: () -> ::String?
+
+    def token_key_change_to_be_saved: () -> ::Array[::String?]?
+
+    def token_key_in_database: () -> ::String?
+
+    def saved_change_to_token_key: () -> ::Array[::String?]?
+
+    def saved_change_to_token_key?: (?from: ::String?, ?to: ::String?) -> bool
+
+    def will_save_change_to_token_key?: (?from: ::String?, ?to: ::String?) -> bool
+
+    def restore_token_key!: () -> void
+
+    def clear_token_key_change: () -> void
+
+    def token_key_before_type_cast: () -> ::String?
+
+    def token_key_for_database: () -> ::String?
+
+    def updated_at: () -> ::ActiveSupport::TimeWithZone
+
+    def updated_at=: (::ActiveSupport::TimeWithZone) -> ::ActiveSupport::TimeWithZone
+
+    def updated_at?: () -> bool
+
+    def updated_at_changed?: (?from: ::ActiveSupport::TimeWithZone?, ?to: ::ActiveSupport::TimeWithZone?) -> bool
+
+    def updated_at_change: () -> [ ::ActiveSupport::TimeWithZone?, ::ActiveSupport::TimeWithZone? ]
+
+    def updated_at_will_change!: () -> void
+
+    def updated_at_was: () -> ::ActiveSupport::TimeWithZone?
+
+    def updated_at_previously_changed?: (?from: ::ActiveSupport::TimeWithZone?, ?to: ::ActiveSupport::TimeWithZone?) -> bool
+
+    def updated_at_previous_change: () -> ::Array[::ActiveSupport::TimeWithZone?]?
+
+    def updated_at_previously_was: () -> ::ActiveSupport::TimeWithZone?
+
+    def updated_at_before_last_save: () -> ::ActiveSupport::TimeWithZone?
+
+    def updated_at_change_to_be_saved: () -> ::Array[::ActiveSupport::TimeWithZone?]?
+
+    def updated_at_in_database: () -> ::ActiveSupport::TimeWithZone?
+
+    def saved_change_to_updated_at: () -> ::Array[::ActiveSupport::TimeWithZone?]?
+
+    def saved_change_to_updated_at?: (?from: ::ActiveSupport::TimeWithZone?, ?to: ::ActiveSupport::TimeWithZone?) -> bool
+
+    def will_save_change_to_updated_at?: (?from: ::ActiveSupport::TimeWithZone?, ?to: ::ActiveSupport::TimeWithZone?) -> bool
+
+    def restore_updated_at!: () -> void
+
+    def clear_updated_at_change: () -> void
+
+    def updated_at_before_type_cast: () -> ::Time
+
+    def updated_at_for_database: () -> ::Time
+
+    def user_id: () -> ::String?
+
+    def user_id=: (::String?) -> ::String?
+
+    def user_id?: () -> bool
+
+    def user_id_changed?: (?from: ::String?, ?to: ::String?) -> bool
+
+    def user_id_change: () -> [ ::String?, ::String? ]
+
+    def user_id_will_change!: () -> void
+
+    def user_id_was: () -> ::String?
+
+    def user_id_previously_changed?: (?from: ::String?, ?to: ::String?) -> bool
+
+    def user_id_previous_change: () -> ::Array[::String?]?
+
+    def user_id_previously_was: () -> ::String?
+
+    def user_id_before_last_save: () -> ::String?
+
+    def user_id_change_to_be_saved: () -> ::Array[::String?]?
+
+    def user_id_in_database: () -> ::String?
+
+    def saved_change_to_user_id: () -> ::Array[::String?]?
+
+    def saved_change_to_user_id?: (?from: ::String?, ?to: ::String?) -> bool
+
+    def will_save_change_to_user_id?: (?from: ::String?, ?to: ::String?) -> bool
+
+    def restore_user_id!: () -> void
+
+    def clear_user_id_change: () -> void
+
+    def user_id_before_type_cast: () -> ::String?
+
+    def user_id_for_database: () -> ::String?
 
     def version: () -> ::String?
 
@@ -443,46 +483,6 @@ class ::Session < ::ApplicationRecord
     def version_before_type_cast: () -> ::String?
 
     def version_for_database: () -> ::String?
-
-    def build: () -> ::Integer?
-
-    def build=: (::Integer?) -> ::Integer?
-
-    def build?: () -> bool
-
-    def build_changed?: (?from: ::Integer?, ?to: ::Integer?) -> bool
-
-    def build_change: () -> [ ::Integer?, ::Integer? ]
-
-    def build_will_change!: () -> void
-
-    def build_was: () -> ::Integer?
-
-    def build_previously_changed?: (?from: ::Integer?, ?to: ::Integer?) -> bool
-
-    def build_previous_change: () -> ::Array[::Integer?]?
-
-    def build_previously_was: () -> ::Integer?
-
-    def build_before_last_save: () -> ::Integer?
-
-    def build_change_to_be_saved: () -> ::Array[::Integer?]?
-
-    def build_in_database: () -> ::Integer?
-
-    def saved_change_to_build: () -> ::Array[::Integer?]?
-
-    def saved_change_to_build?: (?from: ::Integer?, ?to: ::Integer?) -> bool
-
-    def will_save_change_to_build?: (?from: ::Integer?, ?to: ::Integer?) -> bool
-
-    def restore_build!: () -> void
-
-    def clear_build_change: () -> void
-
-    def build_before_type_cast: () -> ::Integer?
-
-    def build_for_database: () -> ::Integer?
   end
   include ::Session::GeneratedAttributeMethods
   module ::Session::GeneratedAliasAttributeMethods
@@ -533,12 +533,18 @@ class ::Session < ::ApplicationRecord
   def device: () -> ::Device
   def device=: (::Device?) -> ::Device?
   def reload_device: () -> ::Device?
+  def device_changed?: () -> bool
+  def device_previously_changed?: () -> bool
+  def reset_device: () -> void
   def build_device: (?untyped) -> ::Device
   def create_device: (?untyped) -> ::Device
   def create_device!: (?untyped) -> ::Device
   def user: () -> ::User
   def user=: (::User?) -> ::User?
   def reload_user: () -> ::User?
+  def user_changed?: () -> bool
+  def user_previously_changed?: () -> bool
+  def reset_user: () -> void
   def build_user: (?untyped) -> ::User
   def create_user: (?untyped) -> ::User
   def create_user!: (?untyped) -> ::User

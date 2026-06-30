@@ -12,7 +12,7 @@ class CreateMusic < ActiveRecord::Migration[8.1]
       t.string :provider_identifier, null: false
       t.string :download_url
       t.string :stream_url
-      t.jsonb :metadata
+      t.jsonb :metadata, null: false, default: {}
     end
   end
 end

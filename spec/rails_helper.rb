@@ -72,3 +72,13 @@ RSpec.configure do |config|
   config.include FactoryBot::Syntax::Methods
   config.include GraphQLHelpers, type: :graphql
 end
+
+
+def fixture_size(file)
+  File.stat(Rails.root.join("spec/fixtures/#{file}")).size
+end
+
+def fixture_hash(file)
+  file_path = Rails.root.join("spec/fixtures/#{file}").to_s
+  Digest::SHA256.file(file_path).digest.b
+end

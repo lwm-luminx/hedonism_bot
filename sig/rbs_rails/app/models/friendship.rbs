@@ -44,6 +44,46 @@ class ::Friendship < ::ApplicationRecord
 
     def id_for_database: () -> ::String
 
+    def friend_hash: () -> ::String?
+
+    def friend_hash=: (::String?) -> ::String?
+
+    def friend_hash?: () -> bool
+
+    def friend_hash_changed?: (?from: ::String?, ?to: ::String?) -> bool
+
+    def friend_hash_change: () -> [ ::String?, ::String? ]
+
+    def friend_hash_will_change!: () -> void
+
+    def friend_hash_was: () -> ::String?
+
+    def friend_hash_previously_changed?: (?from: ::String?, ?to: ::String?) -> bool
+
+    def friend_hash_previous_change: () -> ::Array[::String?]?
+
+    def friend_hash_previously_was: () -> ::String?
+
+    def friend_hash_before_last_save: () -> ::String?
+
+    def friend_hash_change_to_be_saved: () -> ::Array[::String?]?
+
+    def friend_hash_in_database: () -> ::String?
+
+    def saved_change_to_friend_hash: () -> ::Array[::String?]?
+
+    def saved_change_to_friend_hash?: (?from: ::String?, ?to: ::String?) -> bool
+
+    def will_save_change_to_friend_hash?: (?from: ::String?, ?to: ::String?) -> bool
+
+    def restore_friend_hash!: () -> void
+
+    def clear_friend_hash_change: () -> void
+
+    def friend_hash_before_type_cast: () -> ::String?
+
+    def friend_hash_for_database: () -> ::String?
+
     def friend_high_id: () -> ::String
 
     def friend_high_id=: (::String) -> ::String
@@ -164,45 +204,45 @@ class ::Friendship < ::ApplicationRecord
 
     def friends_at_for_database: () -> ::Date?
 
-    def friend_hash: () -> ::String?
+    def is_circle: () -> bool
 
-    def friend_hash=: (::String?) -> ::String?
+    def is_circle=: (bool) -> bool
 
-    def friend_hash?: () -> bool
+    def is_circle?: () -> bool
 
-    def friend_hash_changed?: (?from: ::String?, ?to: ::String?) -> bool
+    def is_circle_changed?: (?from: bool?, ?to: bool?) -> bool
 
-    def friend_hash_change: () -> [ ::String?, ::String? ]
+    def is_circle_change: () -> [ bool?, bool? ]
 
-    def friend_hash_will_change!: () -> void
+    def is_circle_will_change!: () -> void
 
-    def friend_hash_was: () -> ::String?
+    def is_circle_was: () -> bool?
 
-    def friend_hash_previously_changed?: (?from: ::String?, ?to: ::String?) -> bool
+    def is_circle_previously_changed?: (?from: bool?, ?to: bool?) -> bool
 
-    def friend_hash_previous_change: () -> ::Array[::String?]?
+    def is_circle_previous_change: () -> ::Array[bool?]?
 
-    def friend_hash_previously_was: () -> ::String?
+    def is_circle_previously_was: () -> bool?
 
-    def friend_hash_before_last_save: () -> ::String?
+    def is_circle_before_last_save: () -> bool?
 
-    def friend_hash_change_to_be_saved: () -> ::Array[::String?]?
+    def is_circle_change_to_be_saved: () -> ::Array[bool?]?
 
-    def friend_hash_in_database: () -> ::String?
+    def is_circle_in_database: () -> bool?
 
-    def saved_change_to_friend_hash: () -> ::Array[::String?]?
+    def saved_change_to_is_circle: () -> ::Array[bool?]?
 
-    def saved_change_to_friend_hash?: (?from: ::String?, ?to: ::String?) -> bool
+    def saved_change_to_is_circle?: (?from: bool?, ?to: bool?) -> bool
 
-    def will_save_change_to_friend_hash?: (?from: ::String?, ?to: ::String?) -> bool
+    def will_save_change_to_is_circle?: (?from: bool?, ?to: bool?) -> bool
 
-    def restore_friend_hash!: () -> void
+    def restore_is_circle!: () -> void
 
-    def clear_friend_hash_change: () -> void
+    def clear_is_circle_change: () -> void
 
-    def friend_hash_before_type_cast: () -> ::String?
+    def is_circle_before_type_cast: () -> bool
 
-    def friend_hash_for_database: () -> ::String?
+    def is_circle_for_database: () -> bool
 
     def weight: () -> ::Integer?
 
@@ -243,46 +283,6 @@ class ::Friendship < ::ApplicationRecord
     def weight_before_type_cast: () -> ::Integer?
 
     def weight_for_database: () -> ::Integer?
-
-    def is_circle: () -> bool
-
-    def is_circle=: (bool) -> bool
-
-    def is_circle?: () -> bool
-
-    def is_circle_changed?: (?from: bool?, ?to: bool?) -> bool
-
-    def is_circle_change: () -> [ bool?, bool? ]
-
-    def is_circle_will_change!: () -> void
-
-    def is_circle_was: () -> bool?
-
-    def is_circle_previously_changed?: (?from: bool?, ?to: bool?) -> bool
-
-    def is_circle_previous_change: () -> ::Array[bool?]?
-
-    def is_circle_previously_was: () -> bool?
-
-    def is_circle_before_last_save: () -> bool?
-
-    def is_circle_change_to_be_saved: () -> ::Array[bool?]?
-
-    def is_circle_in_database: () -> bool?
-
-    def saved_change_to_is_circle: () -> ::Array[bool?]?
-
-    def saved_change_to_is_circle?: (?from: bool?, ?to: bool?) -> bool
-
-    def will_save_change_to_is_circle?: (?from: bool?, ?to: bool?) -> bool
-
-    def restore_is_circle!: () -> void
-
-    def clear_is_circle_change: () -> void
-
-    def is_circle_before_type_cast: () -> bool
-
-    def is_circle_for_database: () -> bool
   end
   include ::Friendship::GeneratedAttributeMethods
   module ::Friendship::GeneratedAliasAttributeMethods

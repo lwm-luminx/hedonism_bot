@@ -1,0 +1,21 @@
+class PhotoTake
+  type configuration = { mime_type: String, variant: Symbol, raw?: bool }
+
+  STATUSES: Array[String]
+  APPLE_FORMATS: Array[String]
+  COMPOSITE_PREFERENCE_LIST: Array[String]
+  RAW_FORMATS: Hash[Symbol, { mime_type: String }]
+  PROCESSED_FORMATS: Hash[Symbol, configuration]
+  CONFIGURATIONS: Hash[Symbol, configuration]
+
+  def has_format?: (String) -> bool
+  def attach_format: (String, String, filename: String) -> void
+  def metadata_image: -> ActiveStorage::Attachment
+  def composite_image: -> ActiveStorage::Attachment
+  def preview_url: -> string?
+  def update_faces: (Array[PhotoFace]) -> void
+  def mark_failed!: (StandardError) -> void
+  def mark_processing!: -> void
+  def self.configuration_for_extension: (Symbol) -> configuration
+  def self.grouped_by_folder_date: -> Hash[String, Array[PhotoTake]]
+end

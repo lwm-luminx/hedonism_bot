@@ -27,7 +27,7 @@ gem "async"
 gem "async-redis"
 gem "redis"
 gem "pg_search"
-gem "clusterkit", "~> 0.3.1.pre.3"
+gem "clusterkit", "0.2.6"
 
 # Use Active Model has_secure_password [https://guides.rubyonrails.org/active_model_basics.html#securepassword]
 gem "bcrypt", "~> 3.1.7"
@@ -67,6 +67,9 @@ gem "stripe"
 gem "rack-cors"
 
 gem "koala"
+gem "ticketmaster-sdk"
+gem "google_maps_service"
+gem "geocoder"
 gem "pundit"
 gem "omniauth-facebook"
 gem "graphql"
@@ -105,7 +108,7 @@ group :development, :test do
   # Audits gems for known security defects (use config/bundler-audit.yml to ignore issues)
   gem "bundler-audit", require: false
 
-  # Static analysis for security vulnerabilities [https://brakemanscanner.org/]
+  # Static analysis for security vulnerabilities [https://brakåemanscanner.org/]
   gem "brakeman", require: false
 
   # Omakase Ruby styling [https://github.com/rails/rubocop-rails-omakase/]
@@ -116,6 +119,7 @@ group :development, :test do
   gem "rubocop-rbs_inline"
 
   gem "steep"
+  gem "rbs-inline", require: false
 end
 
 group :test do
@@ -125,4 +129,5 @@ end
 group :development do
   gem "web-console"
   gem "chrome_devtools_rails"
+  gem "typeprof"
 end

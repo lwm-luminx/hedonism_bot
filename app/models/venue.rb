@@ -3,7 +3,7 @@
 class Venue < ApplicationRecord
   include LocationConcern
 
-  has_one :page, dependent: :destroy
+  has_one :page, dependent: :destroy, required: true
 
   has_many :events, lambda {
     where("start_at > ? OR end_at > ?", DateTime.now, DateTime.now).order(start_at: :asc)
@@ -23,8 +23,7 @@ class Venue < ApplicationRecord
   end
 
   def open?
-    # TODO
-    return false unless location&.google_location
+    return false unless location.google_location
 
     location.google_location["utc_offset"]
 
@@ -32,7 +31,7 @@ class Venue < ApplicationRecord
   end
 
   def update_data
-    return unless location&.google_place_id
+    return unless location.google_place_id
 
     location.update_location location.google_location["lng"], location.google_location["lat"]
 
@@ -42,7 +41,7 @@ class Venue < ApplicationRecord
   def hero_banner_url; end
 
   def update_envelope
-    return unless location&.point
+    return unless location.point
 
     location.envelope = location.point.buffer(distance_tolerance)
 
@@ -56,18 +55,18 @@ class Venue < ApplicationRecord
   def to_layout
     venue = LayoutItem.new :venue
     venue.id = id
-    venue.title = display_name
-    venue.photo_url = photo&.cdn_url
+    venue.title = page.display_name
+    venue.image_url = image.cdn_url
     venue.description = "You're the first to arrive."
     venue.link_url = "https://hotmess.social/venues/#{id}"
-    venue.distance = self["distance"]
+    venue.distance = self[:distance]
     venue
   end
 
   def self.from_seed(config)
     page = Page.page_for_facebook_id Koala::Facebook::API.new(FACEBOOK_APP_TOKEN), config[:facebook_id]
+    raise "Cannot find page with ID #{config[:facebook_id]}" unless page
     venue = Venue.find_or_create_by page_id: page.id
-    venue.name = config[:name]
     venue.google_place_id = config[:google_place_id]
     venue.save!
 

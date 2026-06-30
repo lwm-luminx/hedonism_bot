@@ -7,7 +7,7 @@ class Session < ApplicationRecord
   def initialize(*args)
     super
 
-    self.token_id = SecureRandom.uuid
+    self.token_key = SecureRandom.uuid
     self.session_token = SecureRandom.base64
   end
 
@@ -22,8 +22,8 @@ class Session < ApplicationRecord
       # (exp should never be respected but is a hint)
       iss: request.host_with_port,
       aud: request.host_with_port,
-      jti: token_id,
-      role: user.is_admin ? "admin" : "user"
+      jti: token_key,
+      role: user.admin? ? "admin" : "user"
     }
 
     JWT.encode payload, Rails.application.secrets[:secret_key_base], "HS256"

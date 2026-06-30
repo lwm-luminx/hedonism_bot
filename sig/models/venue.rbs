@@ -1,0 +1,10 @@
+class Venue < ApplicationRecord
+  def to_layout: () -> LayoutItem
+  def phone_number: () -> String?
+  def street: () -> String?
+  def open?: () -> bool
+  def update_data: () -> void
+  def hero_banner_url: () -> String?
+  def update_envelope: () -> void
+  def self.from_seed: (Hash[Symbol, untyped]) -> instance
+end

@@ -1,7 +1,0 @@
-class GraphqlController < ApplicationController
-  private
-
-  def prepare_variables: (untyped) -> Hash[Symbol, untyped]
-
-  def handle_error_in_development: (Exception) -> void
-end

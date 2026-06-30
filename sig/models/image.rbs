@@ -1,0 +1,5 @@
+class Image < ApplicationRecord
+  def store: (String, String) -> void
+  def self.for_url: (String) -> instance
+  def image_file: () -> ActiveStorage::Attached::One
+end

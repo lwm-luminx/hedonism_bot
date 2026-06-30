@@ -84,6 +84,46 @@ class ::UserLike < ::ApplicationRecord
 
     def created_at_for_database: () -> ::Time
 
+    def page_id: () -> ::String
+
+    def page_id=: (::String) -> ::String
+
+    def page_id?: () -> bool
+
+    def page_id_changed?: (?from: ::String?, ?to: ::String?) -> bool
+
+    def page_id_change: () -> [ ::String?, ::String? ]
+
+    def page_id_will_change!: () -> void
+
+    def page_id_was: () -> ::String?
+
+    def page_id_previously_changed?: (?from: ::String?, ?to: ::String?) -> bool
+
+    def page_id_previous_change: () -> ::Array[::String?]?
+
+    def page_id_previously_was: () -> ::String?
+
+    def page_id_before_last_save: () -> ::String?
+
+    def page_id_change_to_be_saved: () -> ::Array[::String?]?
+
+    def page_id_in_database: () -> ::String?
+
+    def saved_change_to_page_id: () -> ::Array[::String?]?
+
+    def saved_change_to_page_id?: (?from: ::String?, ?to: ::String?) -> bool
+
+    def will_save_change_to_page_id?: (?from: ::String?, ?to: ::String?) -> bool
+
+    def restore_page_id!: () -> void
+
+    def clear_page_id_change: () -> void
+
+    def page_id_before_type_cast: () -> ::String
+
+    def page_id_for_database: () -> ::String
+
     def updated_at: () -> ::ActiveSupport::TimeWithZone
 
     def updated_at=: (::ActiveSupport::TimeWithZone) -> ::ActiveSupport::TimeWithZone
@@ -163,46 +203,6 @@ class ::UserLike < ::ApplicationRecord
     def user_id_before_type_cast: () -> ::String
 
     def user_id_for_database: () -> ::String
-
-    def page_id: () -> ::String
-
-    def page_id=: (::String) -> ::String
-
-    def page_id?: () -> bool
-
-    def page_id_changed?: (?from: ::String?, ?to: ::String?) -> bool
-
-    def page_id_change: () -> [ ::String?, ::String? ]
-
-    def page_id_will_change!: () -> void
-
-    def page_id_was: () -> ::String?
-
-    def page_id_previously_changed?: (?from: ::String?, ?to: ::String?) -> bool
-
-    def page_id_previous_change: () -> ::Array[::String?]?
-
-    def page_id_previously_was: () -> ::String?
-
-    def page_id_before_last_save: () -> ::String?
-
-    def page_id_change_to_be_saved: () -> ::Array[::String?]?
-
-    def page_id_in_database: () -> ::String?
-
-    def saved_change_to_page_id: () -> ::Array[::String?]?
-
-    def saved_change_to_page_id?: (?from: ::String?, ?to: ::String?) -> bool
-
-    def will_save_change_to_page_id?: (?from: ::String?, ?to: ::String?) -> bool
-
-    def restore_page_id!: () -> void
-
-    def clear_page_id_change: () -> void
-
-    def page_id_before_type_cast: () -> ::String
-
-    def page_id_for_database: () -> ::String
   end
   include ::UserLike::GeneratedAttributeMethods
   module ::UserLike::GeneratedAliasAttributeMethods
@@ -253,12 +253,18 @@ class ::UserLike < ::ApplicationRecord
   def user: () -> ::User
   def user=: (::User?) -> ::User?
   def reload_user: () -> ::User?
+  def user_changed?: () -> bool
+  def user_previously_changed?: () -> bool
+  def reset_user: () -> void
   def build_user: (?untyped) -> ::User
   def create_user: (?untyped) -> ::User
   def create_user!: (?untyped) -> ::User
   def page: () -> ::Page
   def page=: (::Page?) -> ::Page?
   def reload_page: () -> ::Page?
+  def page_changed?: () -> bool
+  def page_previously_changed?: () -> bool
+  def reset_page: () -> void
   def build_page: (?untyped) -> ::Page
   def create_page: (?untyped) -> ::Page
   def create_page!: (?untyped) -> ::Page

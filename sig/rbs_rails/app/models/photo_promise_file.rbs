@@ -44,206 +44,6 @@ class ::PhotoPromiseFile < ::ApplicationRecord
 
     def id_for_database: () -> ::String
 
-    def created_at: () -> ::ActiveSupport::TimeWithZone
-
-    def created_at=: (::ActiveSupport::TimeWithZone) -> ::ActiveSupport::TimeWithZone
-
-    def created_at?: () -> bool
-
-    def created_at_changed?: (?from: ::ActiveSupport::TimeWithZone?, ?to: ::ActiveSupport::TimeWithZone?) -> bool
-
-    def created_at_change: () -> [ ::ActiveSupport::TimeWithZone?, ::ActiveSupport::TimeWithZone? ]
-
-    def created_at_will_change!: () -> void
-
-    def created_at_was: () -> ::ActiveSupport::TimeWithZone?
-
-    def created_at_previously_changed?: (?from: ::ActiveSupport::TimeWithZone?, ?to: ::ActiveSupport::TimeWithZone?) -> bool
-
-    def created_at_previous_change: () -> ::Array[::ActiveSupport::TimeWithZone?]?
-
-    def created_at_previously_was: () -> ::ActiveSupport::TimeWithZone?
-
-    def created_at_before_last_save: () -> ::ActiveSupport::TimeWithZone?
-
-    def created_at_change_to_be_saved: () -> ::Array[::ActiveSupport::TimeWithZone?]?
-
-    def created_at_in_database: () -> ::ActiveSupport::TimeWithZone?
-
-    def saved_change_to_created_at: () -> ::Array[::ActiveSupport::TimeWithZone?]?
-
-    def saved_change_to_created_at?: (?from: ::ActiveSupport::TimeWithZone?, ?to: ::ActiveSupport::TimeWithZone?) -> bool
-
-    def will_save_change_to_created_at?: (?from: ::ActiveSupport::TimeWithZone?, ?to: ::ActiveSupport::TimeWithZone?) -> bool
-
-    def restore_created_at!: () -> void
-
-    def clear_created_at_change: () -> void
-
-    def created_at_before_type_cast: () -> ::Time
-
-    def created_at_for_database: () -> ::Time
-
-    def updated_at: () -> ::ActiveSupport::TimeWithZone
-
-    def updated_at=: (::ActiveSupport::TimeWithZone) -> ::ActiveSupport::TimeWithZone
-
-    def updated_at?: () -> bool
-
-    def updated_at_changed?: (?from: ::ActiveSupport::TimeWithZone?, ?to: ::ActiveSupport::TimeWithZone?) -> bool
-
-    def updated_at_change: () -> [ ::ActiveSupport::TimeWithZone?, ::ActiveSupport::TimeWithZone? ]
-
-    def updated_at_will_change!: () -> void
-
-    def updated_at_was: () -> ::ActiveSupport::TimeWithZone?
-
-    def updated_at_previously_changed?: (?from: ::ActiveSupport::TimeWithZone?, ?to: ::ActiveSupport::TimeWithZone?) -> bool
-
-    def updated_at_previous_change: () -> ::Array[::ActiveSupport::TimeWithZone?]?
-
-    def updated_at_previously_was: () -> ::ActiveSupport::TimeWithZone?
-
-    def updated_at_before_last_save: () -> ::ActiveSupport::TimeWithZone?
-
-    def updated_at_change_to_be_saved: () -> ::Array[::ActiveSupport::TimeWithZone?]?
-
-    def updated_at_in_database: () -> ::ActiveSupport::TimeWithZone?
-
-    def saved_change_to_updated_at: () -> ::Array[::ActiveSupport::TimeWithZone?]?
-
-    def saved_change_to_updated_at?: (?from: ::ActiveSupport::TimeWithZone?, ?to: ::ActiveSupport::TimeWithZone?) -> bool
-
-    def will_save_change_to_updated_at?: (?from: ::ActiveSupport::TimeWithZone?, ?to: ::ActiveSupport::TimeWithZone?) -> bool
-
-    def restore_updated_at!: () -> void
-
-    def clear_updated_at_change: () -> void
-
-    def updated_at_before_type_cast: () -> ::Time
-
-    def updated_at_for_database: () -> ::Time
-
-    def status: () -> ::String
-
-    def status=: (::String) -> ::String
-
-    def status?: () -> bool
-
-    def status_changed?: (?from: ::String?, ?to: ::String?) -> bool
-
-    def status_change: () -> [ ::String?, ::String? ]
-
-    def status_will_change!: () -> void
-
-    def status_was: () -> ::String?
-
-    def status_previously_changed?: (?from: ::String?, ?to: ::String?) -> bool
-
-    def status_previous_change: () -> ::Array[::String?]?
-
-    def status_previously_was: () -> ::String?
-
-    def status_before_last_save: () -> ::String?
-
-    def status_change_to_be_saved: () -> ::Array[::String?]?
-
-    def status_in_database: () -> ::String?
-
-    def saved_change_to_status: () -> ::Array[::String?]?
-
-    def saved_change_to_status?: (?from: ::String?, ?to: ::String?) -> bool
-
-    def will_save_change_to_status?: (?from: ::String?, ?to: ::String?) -> bool
-
-    def restore_status!: () -> void
-
-    def clear_status_change: () -> void
-
-    def status_before_type_cast: () -> ::String
-
-    def status_for_database: () -> ::String
-
-    def upload_url: () -> ::String
-
-    def upload_url=: (::String) -> ::String
-
-    def upload_url?: () -> bool
-
-    def upload_url_changed?: (?from: ::String?, ?to: ::String?) -> bool
-
-    def upload_url_change: () -> [ ::String?, ::String? ]
-
-    def upload_url_will_change!: () -> void
-
-    def upload_url_was: () -> ::String?
-
-    def upload_url_previously_changed?: (?from: ::String?, ?to: ::String?) -> bool
-
-    def upload_url_previous_change: () -> ::Array[::String?]?
-
-    def upload_url_previously_was: () -> ::String?
-
-    def upload_url_before_last_save: () -> ::String?
-
-    def upload_url_change_to_be_saved: () -> ::Array[::String?]?
-
-    def upload_url_in_database: () -> ::String?
-
-    def saved_change_to_upload_url: () -> ::Array[::String?]?
-
-    def saved_change_to_upload_url?: (?from: ::String?, ?to: ::String?) -> bool
-
-    def will_save_change_to_upload_url?: (?from: ::String?, ?to: ::String?) -> bool
-
-    def restore_upload_url!: () -> void
-
-    def clear_upload_url_change: () -> void
-
-    def upload_url_before_type_cast: () -> ::String
-
-    def upload_url_for_database: () -> ::String
-
-    def original_filename: () -> ::String
-
-    def original_filename=: (::String) -> ::String
-
-    def original_filename?: () -> bool
-
-    def original_filename_changed?: (?from: ::String?, ?to: ::String?) -> bool
-
-    def original_filename_change: () -> [ ::String?, ::String? ]
-
-    def original_filename_will_change!: () -> void
-
-    def original_filename_was: () -> ::String?
-
-    def original_filename_previously_changed?: (?from: ::String?, ?to: ::String?) -> bool
-
-    def original_filename_previous_change: () -> ::Array[::String?]?
-
-    def original_filename_previously_was: () -> ::String?
-
-    def original_filename_before_last_save: () -> ::String?
-
-    def original_filename_change_to_be_saved: () -> ::Array[::String?]?
-
-    def original_filename_in_database: () -> ::String?
-
-    def saved_change_to_original_filename: () -> ::Array[::String?]?
-
-    def saved_change_to_original_filename?: (?from: ::String?, ?to: ::String?) -> bool
-
-    def will_save_change_to_original_filename?: (?from: ::String?, ?to: ::String?) -> bool
-
-    def restore_original_filename!: () -> void
-
-    def clear_original_filename_change: () -> void
-
-    def original_filename_before_type_cast: () -> ::String
-
-    def original_filename_for_database: () -> ::String
-
     def content_type: () -> ::String
 
     def content_type=: (::String) -> ::String
@@ -284,45 +84,45 @@ class ::PhotoPromiseFile < ::ApplicationRecord
 
     def content_type_for_database: () -> ::String
 
-    def image_hash: () -> ::String?
+    def created_at: () -> ::ActiveSupport::TimeWithZone
 
-    def image_hash=: (::String?) -> ::String?
+    def created_at=: (::ActiveSupport::TimeWithZone) -> ::ActiveSupport::TimeWithZone
 
-    def image_hash?: () -> bool
+    def created_at?: () -> bool
 
-    def image_hash_changed?: (?from: ::String?, ?to: ::String?) -> bool
+    def created_at_changed?: (?from: ::ActiveSupport::TimeWithZone?, ?to: ::ActiveSupport::TimeWithZone?) -> bool
 
-    def image_hash_change: () -> [ ::String?, ::String? ]
+    def created_at_change: () -> [ ::ActiveSupport::TimeWithZone?, ::ActiveSupport::TimeWithZone? ]
 
-    def image_hash_will_change!: () -> void
+    def created_at_will_change!: () -> void
 
-    def image_hash_was: () -> ::String?
+    def created_at_was: () -> ::ActiveSupport::TimeWithZone?
 
-    def image_hash_previously_changed?: (?from: ::String?, ?to: ::String?) -> bool
+    def created_at_previously_changed?: (?from: ::ActiveSupport::TimeWithZone?, ?to: ::ActiveSupport::TimeWithZone?) -> bool
 
-    def image_hash_previous_change: () -> ::Array[::String?]?
+    def created_at_previous_change: () -> ::Array[::ActiveSupport::TimeWithZone?]?
 
-    def image_hash_previously_was: () -> ::String?
+    def created_at_previously_was: () -> ::ActiveSupport::TimeWithZone?
 
-    def image_hash_before_last_save: () -> ::String?
+    def created_at_before_last_save: () -> ::ActiveSupport::TimeWithZone?
 
-    def image_hash_change_to_be_saved: () -> ::Array[::String?]?
+    def created_at_change_to_be_saved: () -> ::Array[::ActiveSupport::TimeWithZone?]?
 
-    def image_hash_in_database: () -> ::String?
+    def created_at_in_database: () -> ::ActiveSupport::TimeWithZone?
 
-    def saved_change_to_image_hash: () -> ::Array[::String?]?
+    def saved_change_to_created_at: () -> ::Array[::ActiveSupport::TimeWithZone?]?
 
-    def saved_change_to_image_hash?: (?from: ::String?, ?to: ::String?) -> bool
+    def saved_change_to_created_at?: (?from: ::ActiveSupport::TimeWithZone?, ?to: ::ActiveSupport::TimeWithZone?) -> bool
 
-    def will_save_change_to_image_hash?: (?from: ::String?, ?to: ::String?) -> bool
+    def will_save_change_to_created_at?: (?from: ::ActiveSupport::TimeWithZone?, ?to: ::ActiveSupport::TimeWithZone?) -> bool
 
-    def restore_image_hash!: () -> void
+    def restore_created_at!: () -> void
 
-    def clear_image_hash_change: () -> void
+    def clear_created_at_change: () -> void
 
-    def image_hash_before_type_cast: () -> ::String?
+    def created_at_before_type_cast: () -> ::Time
 
-    def image_hash_for_database: () -> ::String?
+    def created_at_for_database: () -> ::Time
 
     def file_size_bytes: () -> ::Integer?
 
@@ -364,6 +164,86 @@ class ::PhotoPromiseFile < ::ApplicationRecord
 
     def file_size_bytes_for_database: () -> ::Integer?
 
+    def image_hash: () -> ::String?
+
+    def image_hash=: (::String?) -> ::String?
+
+    def image_hash?: () -> bool
+
+    def image_hash_changed?: (?from: ::String?, ?to: ::String?) -> bool
+
+    def image_hash_change: () -> [ ::String?, ::String? ]
+
+    def image_hash_will_change!: () -> void
+
+    def image_hash_was: () -> ::String?
+
+    def image_hash_previously_changed?: (?from: ::String?, ?to: ::String?) -> bool
+
+    def image_hash_previous_change: () -> ::Array[::String?]?
+
+    def image_hash_previously_was: () -> ::String?
+
+    def image_hash_before_last_save: () -> ::String?
+
+    def image_hash_change_to_be_saved: () -> ::Array[::String?]?
+
+    def image_hash_in_database: () -> ::String?
+
+    def saved_change_to_image_hash: () -> ::Array[::String?]?
+
+    def saved_change_to_image_hash?: (?from: ::String?, ?to: ::String?) -> bool
+
+    def will_save_change_to_image_hash?: (?from: ::String?, ?to: ::String?) -> bool
+
+    def restore_image_hash!: () -> void
+
+    def clear_image_hash_change: () -> void
+
+    def image_hash_before_type_cast: () -> ::String?
+
+    def image_hash_for_database: () -> ::String?
+
+    def original_filename: () -> ::String
+
+    def original_filename=: (::String) -> ::String
+
+    def original_filename?: () -> bool
+
+    def original_filename_changed?: (?from: ::String?, ?to: ::String?) -> bool
+
+    def original_filename_change: () -> [ ::String?, ::String? ]
+
+    def original_filename_will_change!: () -> void
+
+    def original_filename_was: () -> ::String?
+
+    def original_filename_previously_changed?: (?from: ::String?, ?to: ::String?) -> bool
+
+    def original_filename_previous_change: () -> ::Array[::String?]?
+
+    def original_filename_previously_was: () -> ::String?
+
+    def original_filename_before_last_save: () -> ::String?
+
+    def original_filename_change_to_be_saved: () -> ::Array[::String?]?
+
+    def original_filename_in_database: () -> ::String?
+
+    def saved_change_to_original_filename: () -> ::Array[::String?]?
+
+    def saved_change_to_original_filename?: (?from: ::String?, ?to: ::String?) -> bool
+
+    def will_save_change_to_original_filename?: (?from: ::String?, ?to: ::String?) -> bool
+
+    def restore_original_filename!: () -> void
+
+    def clear_original_filename_change: () -> void
+
+    def original_filename_before_type_cast: () -> ::String
+
+    def original_filename_for_database: () -> ::String
+
     def photo_promise_id: () -> ::String
 
     def photo_promise_id=: (::String) -> ::String
@@ -403,6 +283,126 @@ class ::PhotoPromiseFile < ::ApplicationRecord
     def photo_promise_id_before_type_cast: () -> ::String
 
     def photo_promise_id_for_database: () -> ::String
+
+    def status: () -> ::String
+
+    def status=: (::String) -> ::String
+
+    def status?: () -> bool
+
+    def status_changed?: (?from: ::String?, ?to: ::String?) -> bool
+
+    def status_change: () -> [ ::String?, ::String? ]
+
+    def status_will_change!: () -> void
+
+    def status_was: () -> ::String?
+
+    def status_previously_changed?: (?from: ::String?, ?to: ::String?) -> bool
+
+    def status_previous_change: () -> ::Array[::String?]?
+
+    def status_previously_was: () -> ::String?
+
+    def status_before_last_save: () -> ::String?
+
+    def status_change_to_be_saved: () -> ::Array[::String?]?
+
+    def status_in_database: () -> ::String?
+
+    def saved_change_to_status: () -> ::Array[::String?]?
+
+    def saved_change_to_status?: (?from: ::String?, ?to: ::String?) -> bool
+
+    def will_save_change_to_status?: (?from: ::String?, ?to: ::String?) -> bool
+
+    def restore_status!: () -> void
+
+    def clear_status_change: () -> void
+
+    def status_before_type_cast: () -> ::String
+
+    def status_for_database: () -> ::String
+
+    def updated_at: () -> ::ActiveSupport::TimeWithZone
+
+    def updated_at=: (::ActiveSupport::TimeWithZone) -> ::ActiveSupport::TimeWithZone
+
+    def updated_at?: () -> bool
+
+    def updated_at_changed?: (?from: ::ActiveSupport::TimeWithZone?, ?to: ::ActiveSupport::TimeWithZone?) -> bool
+
+    def updated_at_change: () -> [ ::ActiveSupport::TimeWithZone?, ::ActiveSupport::TimeWithZone? ]
+
+    def updated_at_will_change!: () -> void
+
+    def updated_at_was: () -> ::ActiveSupport::TimeWithZone?
+
+    def updated_at_previously_changed?: (?from: ::ActiveSupport::TimeWithZone?, ?to: ::ActiveSupport::TimeWithZone?) -> bool
+
+    def updated_at_previous_change: () -> ::Array[::ActiveSupport::TimeWithZone?]?
+
+    def updated_at_previously_was: () -> ::ActiveSupport::TimeWithZone?
+
+    def updated_at_before_last_save: () -> ::ActiveSupport::TimeWithZone?
+
+    def updated_at_change_to_be_saved: () -> ::Array[::ActiveSupport::TimeWithZone?]?
+
+    def updated_at_in_database: () -> ::ActiveSupport::TimeWithZone?
+
+    def saved_change_to_updated_at: () -> ::Array[::ActiveSupport::TimeWithZone?]?
+
+    def saved_change_to_updated_at?: (?from: ::ActiveSupport::TimeWithZone?, ?to: ::ActiveSupport::TimeWithZone?) -> bool
+
+    def will_save_change_to_updated_at?: (?from: ::ActiveSupport::TimeWithZone?, ?to: ::ActiveSupport::TimeWithZone?) -> bool
+
+    def restore_updated_at!: () -> void
+
+    def clear_updated_at_change: () -> void
+
+    def updated_at_before_type_cast: () -> ::Time
+
+    def updated_at_for_database: () -> ::Time
+
+    def upload_url: () -> ::String
+
+    def upload_url=: (::String) -> ::String
+
+    def upload_url?: () -> bool
+
+    def upload_url_changed?: (?from: ::String?, ?to: ::String?) -> bool
+
+    def upload_url_change: () -> [ ::String?, ::String? ]
+
+    def upload_url_will_change!: () -> void
+
+    def upload_url_was: () -> ::String?
+
+    def upload_url_previously_changed?: (?from: ::String?, ?to: ::String?) -> bool
+
+    def upload_url_previous_change: () -> ::Array[::String?]?
+
+    def upload_url_previously_was: () -> ::String?
+
+    def upload_url_before_last_save: () -> ::String?
+
+    def upload_url_change_to_be_saved: () -> ::Array[::String?]?
+
+    def upload_url_in_database: () -> ::String?
+
+    def saved_change_to_upload_url: () -> ::Array[::String?]?
+
+    def saved_change_to_upload_url?: (?from: ::String?, ?to: ::String?) -> bool
+
+    def will_save_change_to_upload_url?: (?from: ::String?, ?to: ::String?) -> bool
+
+    def restore_upload_url!: () -> void
+
+    def clear_upload_url_change: () -> void
+
+    def upload_url_before_type_cast: () -> ::String
+
+    def upload_url_for_database: () -> ::String
   end
   include ::PhotoPromiseFile::GeneratedAttributeMethods
   module ::PhotoPromiseFile::GeneratedAliasAttributeMethods
@@ -456,15 +456,20 @@ class ::PhotoPromiseFile < ::ApplicationRecord
   def create_file_attachment: (?untyped) -> ::ActiveStorage::Attachment
   def create_file_attachment!: (?untyped) -> ::ActiveStorage::Attachment
   def reload_file_attachment: () -> ::ActiveStorage::Attachment?
+  def reset_file_attachment: () -> void
   def file_blob: () -> ::ActiveStorage::Blob?
   def file_blob=: (::ActiveStorage::Blob?) -> ::ActiveStorage::Blob?
   def build_file_blob: (?untyped) -> ::ActiveStorage::Blob
   def create_file_blob: (?untyped) -> ::ActiveStorage::Blob
   def create_file_blob!: (?untyped) -> ::ActiveStorage::Blob
   def reload_file_blob: () -> ::ActiveStorage::Blob?
+  def reset_file_blob: () -> void
   def photo_promise: () -> ::PhotoPromise
   def photo_promise=: (::PhotoPromise?) -> ::PhotoPromise?
   def reload_photo_promise: () -> ::PhotoPromise?
+  def photo_promise_changed?: () -> bool
+  def photo_promise_previously_changed?: () -> bool
+  def reset_photo_promise: () -> void
   def build_photo_promise: (?untyped) -> ::PhotoPromise
   def create_photo_promise: (?untyped) -> ::PhotoPromise
   def create_photo_promise!: (?untyped) -> ::PhotoPromise

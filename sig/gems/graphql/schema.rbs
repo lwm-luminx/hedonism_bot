@@ -1,0 +1,5 @@
+module GraphQL
+  class Schema
+    def self.max_query_string_tokens: (Integer) -> void
+  end
+end
