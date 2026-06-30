@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe Mutations::CreatePhotoPromise, type: :graphql do
-  it_behaves_like 'when photo promise created'
+  include_context 'when photo promise created'
 
   describe "with valid inputs" do
     before do
