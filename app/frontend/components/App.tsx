@@ -9,6 +9,7 @@ import { AdminOverview } from "./admin/AdminOverview";
 import { VenuesPanel } from "./admin/VenuesPanel";
 import { EventsPanel } from "./admin/EventsPanel";
 import { AdminPhotosPanel } from "./admin/AdminPhotosPanel";
+import { CreatePhotoPromise } from "./pages/CreatePhotoPromise";
 
 export default function App() {
   return (
@@ -16,7 +17,9 @@ export default function App() {
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<GalleryPage />} />
-          <Route path="/upload" element={<UploadPage />} />
+          <Route path="/upload" element={<CreatePhotoPromise />}>
+            <Route path=":promiseId" element={<UploadPage />} />
+          </Route>
           <Route path="admin" element={<AdminPage />}>
             <Route index element={<AdminOverview />} />
             <Route path="venues" element={<VenuesPanel />} />

@@ -16,5 +16,6 @@ Rails.application.routes.draw do
   get "upload" => "home#index"
   get "admin" => "home#index"
   get "admin/*path" => "home#index"
+  get "upload/*path" => "home#index"
   root "home#index"
 end

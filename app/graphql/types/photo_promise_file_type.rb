@@ -2,7 +2,7 @@
 
 module Types
   class PhotoPromiseFileType < Types::BaseObject
-    include NodeType
+    implements GraphQL::Types::Relay::Node
 
     field :content_type, String, null: false
     field :created_at, GraphQL::Types::ISO8601DateTime, null: false

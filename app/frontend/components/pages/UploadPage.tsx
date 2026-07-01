@@ -1,9 +1,19 @@
-import { CSSProperties, DragEvent, useCallback, useRef, useState } from "react";
+import {
+  CSSProperties,
+  DragEvent,
+  Suspense,
+  useCallback,
+  useRef,
+  useState,
+} from "react";
 import { ArrowLeft, CloudUpload, ImagePlus, Loader2 } from "lucide-react";
 import { Progress } from "../controls/Progress";
 import { FileCard } from "../FileCard";
 import { isSafari } from "react-device-detect";
-import { Link } from "react-router";
+import { Link, useNavigate, useParams } from "react-router";
+import { graphql, useLazyLoadQuery, useMutation } from "react-relay";
+import type { CreatePhotoPromiseMutation } from "./__generated__/CreatePhotoPromiseMutation.graphql";
+import type { PhotoPromiseQuery } from "./__generated__/PhotoPromiseQuery.graphql";
 
 const RAW_FORMAT_EXTENSIONS = [".arw"];
 
@@ -29,12 +39,43 @@ function getExtension(filename: string) {
   return extension.toLowerCase();
 }
 
+const PHOTO_PROMISE_FRAGMENT = graphql`
+  fragment PhotoPromiseFragment on PhotoPromise {
+    id
+    files {
+      nodes {
+        id
+      }
+    }
+  }
+`;
+
+const PHOTO_PROMISE_QUERY = graphql`
+  query PhotoPromiseQuery($id: ID!) {
+    node(id: $id) {
+      ...PhotoPromiseFragment @alias(as: "photoPromise")
+    }
+  }
+`;
+
 export function UploadPage() {
+  const { promiseId } = useParams();
+  const navigate = useNavigate();
+
   const [files, setFiles] = useState<UploadFile[]>([]);
   const [dragging, setDragging] = useState(false);
   const [uploading, setUploading] = useState(false);
   const inputRef = useRef<HTMLInputElement>(null);
   const dragCounter = useRef(0);
+
+  if (!promiseId) {
+    navigate("/upload");
+    return null;
+  }
+
+  const data = useLazyLoadQuery<PhotoPromiseQuery>(PHOTO_PROMISE_QUERY, {
+    id: promiseId,
+  });
 
   const addFiles = useCallback(async (incoming: Files) => {
     const imageFiles = Array.from(incoming).filter((f) =>
@@ -230,7 +271,7 @@ export function UploadPage() {
 
   return (
     <div
-      className="min-h-screen flex flex-col"
+      className="flex min-h-screen flex-col"
       style={{
         background: "var(--background)",
         fontFamily: "'Inter', sans-serif",
@@ -242,7 +283,7 @@ export function UploadPage() {
           to="/"
           className="back-link flex items-center gap-1.5 transition-opacity hover:opacity-70"
         >
-          <ArrowLeft className="w-4 h-4" />
+          <ArrowLeft className="h-4 w-4" />
           Back to gallery
         </Link>
         <div className="h-4 w-px" style={{ background: "var(--border)" }} />
@@ -254,7 +295,7 @@ export function UploadPage() {
         )}
       </header>
 
-      <div className="flex-1 flex flex-col max-w-6xl w-full mx-auto px-6 py-6 gap-5">
+      <div className="mx-auto flex w-full max-w-6xl flex-1 flex-col gap-5 px-6 py-6">
         {/* Drop zone */}
         <div
           onDragEnter={handleDragEnter}
@@ -262,7 +303,7 @@ export function UploadPage() {
           onDragOver={handleDragOver}
           onDrop={handleDrop}
           onClick={() => !uploading && inputRef.current?.click()}
-          className="relative flex flex-col items-center justify-center gap-3 py-10 border-2 border-dashed transition-all cursor-pointer select-none"
+          className="relative flex cursor-pointer flex-col items-center justify-center gap-3 border-2 border-dashed py-10 transition-all select-none"
           style={{
             borderColor: dragging ? "var(--primary)" : "rgba(201,169,110,0.25)",
             background: dragging ? "rgba(201,169,110,0.06)" : "var(--card)",
@@ -282,13 +323,13 @@ export function UploadPage() {
             disabled={uploading}
           />
           <div
-            className="w-12 h-12 flex items-center justify-center rounded-full transition-colors"
+            className="flex h-12 w-12 items-center justify-center rounded-full transition-colors"
             style={{
               background: dragging ? "rgba(201,169,110,0.15)" : "var(--muted)",
             }}
           >
             <CloudUpload
-              className="w-6 h-6 transition-colors"
+              className="h-6 w-6 transition-colors"
               style={{
                 color: dragging ? "var(--primary)" : "var(--muted-foreground)",
               }}
@@ -309,7 +350,7 @@ export function UploadPage() {
                   : "Drag more photos here"}
             </p>
             <p
-              className="text-xs mt-1"
+              className="mt-1 text-xs"
               style={{
                 color: "var(--muted-foreground)",
                 fontFamily: "'DM Mono', monospace",
@@ -393,12 +434,12 @@ export function UploadPage() {
                 >
                   {uploading ? (
                     <>
-                      <Loader2 className="w-3.5 h-3.5 animate-spin" />
+                      <Loader2 className="h-3.5 w-3.5 animate-spin" />
                       Uploading…
                     </>
                   ) : (
                     <>
-                      <CloudUpload className="w-3.5 h-3.5" />
+                      <CloudUpload className="h-3.5 w-3.5" />
                       Upload{" "}
                       {queuedCount > 0
                         ? `${queuedCount} photo${queuedCount !== 1 ? "s" : ""}`
@@ -477,7 +518,7 @@ export function UploadPage() {
                       "var(--muted-foreground)";
                   }}
                 >
-                  <ImagePlus className="w-5 h-5" />
+                  <ImagePlus className="h-5 w-5" />
                   <span
                     className="text-xs"
                     style={{

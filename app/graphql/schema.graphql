@@ -474,7 +474,7 @@ type PhotoEdge {
   node: Photo
 }
 
-type PhotoPromise {
+type PhotoPromise implements Node {
   event: Event
   files(
     """
@@ -506,7 +506,7 @@ type PhotoPromise {
   venue: Venue
 }
 
-type PhotoPromiseFile {
+type PhotoPromiseFile implements Node {
   contentType: String!
   createdAt: ISO8601DateTime!
   fileSizeBytes: Int

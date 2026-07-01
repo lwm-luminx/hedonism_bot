@@ -27,6 +27,7 @@ development:
   queue:
     <<: *default
     database: hedonism_bot_queue_development
+    migrations_paths: db/queue_migrate
 
   # The specified database role being used to connect to PostgreSQL.
   # To create additional roles in PostgreSQL see `$ createuser --help`.
@@ -59,8 +60,13 @@ development:
 # re-generated from your development database when you run "rake".
 # Do not set this db to the same as development or production.
 test:
-  <<: *default
-  database: hedonism_bot_test
+  primary:
+    <<: *default
+    database: hedonism_bot_test
+  queue:
+    <<: *default
+    database: hedonism_bot_queue_test
+    migrations_paths: db/queue_migrate
 
 # As with config/credentials.yml, you never want to store sensitive information,
 # like your database password, in your source code. If your source code is

@@ -1,6 +1,6 @@
 module Types
   class PhotoPromiseType < Types::BaseObject
-    include NodeType
+    implements GraphQL::Types::Relay::Node
 
     field :files, Types::PhotoPromiseFileType.connection_type, null: false
     field :photographer, Types::PhotographerType, null: false

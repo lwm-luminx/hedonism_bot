@@ -539,24 +539,15 @@ class ::Track < ::ApplicationRecord
   def build_social_link: (?untyped) -> ::SocialLink
   def create_social_link: (?untyped) -> ::SocialLink
   def create_social_link!: (?untyped) -> ::SocialLink
-  def photo_take: () -> ::PhotoTake
-  def photo_take=: (::PhotoTake?) -> ::PhotoTake?
-  def reload_photo_take: () -> ::PhotoTake?
-  def photo_take_changed?: () -> bool
-  def photo_take_previously_changed?: () -> bool
-  def reset_photo_take: () -> void
-  def build_photo_take: (?untyped) -> ::PhotoTake
-  def create_photo_take: (?untyped) -> ::PhotoTake
-  def create_photo_take!: (?untyped) -> ::PhotoTake
-  def waveform_photo: () -> ::PhotoTake
-  def waveform_photo=: (::PhotoTake?) -> ::PhotoTake?
-  def reload_waveform_photo: () -> ::PhotoTake?
-  def waveform_photo_changed?: () -> bool
-  def waveform_photo_previously_changed?: () -> bool
-  def reset_waveform_photo: () -> void
-  def build_waveform_photo: (?untyped) -> ::PhotoTake
-  def create_waveform_photo: (?untyped) -> ::PhotoTake
-  def create_waveform_photo!: (?untyped) -> ::PhotoTake
+  def waveform_image: () -> ::Image
+  def waveform_image=: (::Image?) -> ::Image?
+  def reload_waveform_image: () -> ::Image?
+  def waveform_image_changed?: () -> bool
+  def waveform_image_previously_changed?: () -> bool
+  def reset_waveform_image: () -> void
+  def build_waveform_image: (?untyped) -> ::Image
+  def create_waveform_image: (?untyped) -> ::Image
+  def create_waveform_image!: (?untyped) -> ::Image
 
   module ::Track::GeneratedAssociationMethods
   end
@@ -596,5 +587,5 @@ class ::ApplicationRecord < ::ActiveRecord::Base
 end
 class ::SocialLink < ::ApplicationRecord
 end
-class ::PhotoTake < ::ApplicationRecord
+class ::Image < ::ApplicationRecord
 end
