@@ -27,7 +27,7 @@ gem "async"
 gem "async-redis"
 gem "redis"
 gem "pg_search"
-gem "clusterkit", "0.2.6"
+gem "clusterkit", "0.3.1"
 
 # Use Active Model has_secure_password [https://guides.rubyonrails.org/active_model_basics.html#securepassword]
 gem "bcrypt", "~> 3.1.7"
