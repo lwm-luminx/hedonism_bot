@@ -253,9 +253,6 @@ class ::AudienceDomain < ::ApplicationRecord
   def audience: () -> ::Audience
   def audience=: (::Audience?) -> ::Audience?
   def reload_audience: () -> ::Audience?
-  def audience_changed?: () -> bool
-  def audience_previously_changed?: () -> bool
-  def reset_audience: () -> void
   def build_audience: (?untyped) -> ::Audience
   def create_audience: (?untyped) -> ::Audience
   def create_audience!: (?untyped) -> ::Audience

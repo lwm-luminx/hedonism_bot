@@ -376,29 +376,21 @@ class ::PhotoFace < ::ApplicationRecord
   def create_face_image_attachment: (?untyped) -> ::ActiveStorage::Attachment
   def create_face_image_attachment!: (?untyped) -> ::ActiveStorage::Attachment
   def reload_face_image_attachment: () -> ::ActiveStorage::Attachment?
-  def reset_face_image_attachment: () -> void
   def face_image_blob: () -> ::ActiveStorage::Blob?
   def face_image_blob=: (::ActiveStorage::Blob?) -> ::ActiveStorage::Blob?
   def build_face_image_blob: (?untyped) -> ::ActiveStorage::Blob
   def create_face_image_blob: (?untyped) -> ::ActiveStorage::Blob
   def create_face_image_blob!: (?untyped) -> ::ActiveStorage::Blob
   def reload_face_image_blob: () -> ::ActiveStorage::Blob?
-  def reset_face_image_blob: () -> void
   def face: () -> ::Face?
   def face=: (::Face?) -> ::Face?
   def reload_face: () -> ::Face?
-  def face_changed?: () -> bool
-  def face_previously_changed?: () -> bool
-  def reset_face: () -> void
   def build_face: (?untyped) -> ::Face
   def create_face: (?untyped) -> ::Face
   def create_face!: (?untyped) -> ::Face
   def photo_take: () -> ::PhotoTake
   def photo_take=: (::PhotoTake?) -> ::PhotoTake?
   def reload_photo_take: () -> ::PhotoTake?
-  def photo_take_changed?: () -> bool
-  def photo_take_previously_changed?: () -> bool
-  def reset_photo_take: () -> void
   def build_photo_take: (?untyped) -> ::PhotoTake
   def create_photo_take: (?untyped) -> ::PhotoTake
   def create_photo_take!: (?untyped) -> ::PhotoTake

@@ -293,18 +293,12 @@ class ::AudienceUser < ::ApplicationRecord
   def audience: () -> ::Audience
   def audience=: (::Audience?) -> ::Audience?
   def reload_audience: () -> ::Audience?
-  def audience_changed?: () -> bool
-  def audience_previously_changed?: () -> bool
-  def reset_audience: () -> void
   def build_audience: (?untyped) -> ::Audience
   def create_audience: (?untyped) -> ::Audience
   def create_audience!: (?untyped) -> ::Audience
   def user: () -> ::User
   def user=: (::User?) -> ::User?
   def reload_user: () -> ::User?
-  def user_changed?: () -> bool
-  def user_previously_changed?: () -> bool
-  def reset_user: () -> void
   def build_user: (?untyped) -> ::User
   def create_user: (?untyped) -> ::User
   def create_user!: (?untyped) -> ::User

@@ -297,9 +297,6 @@ class ::PhotoPromise < ::ApplicationRecord
   def photographer: () -> ::Photographer
   def photographer=: (::Photographer?) -> ::Photographer?
   def reload_photographer: () -> ::Photographer?
-  def photographer_changed?: () -> bool
-  def photographer_previously_changed?: () -> bool
-  def reset_photographer: () -> void
   def build_photographer: (?untyped) -> ::Photographer
   def create_photographer: (?untyped) -> ::Photographer
   def create_photographer!: (?untyped) -> ::Photographer

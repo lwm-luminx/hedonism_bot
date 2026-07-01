@@ -417,9 +417,6 @@ class ::TicketType < ::ApplicationRecord
   def event: () -> ::Event
   def event=: (::Event?) -> ::Event?
   def reload_event: () -> ::Event?
-  def event_changed?: () -> bool
-  def event_previously_changed?: () -> bool
-  def reset_event: () -> void
   def build_event: (?untyped) -> ::Event
   def create_event: (?untyped) -> ::Event
   def create_event!: (?untyped) -> ::Event

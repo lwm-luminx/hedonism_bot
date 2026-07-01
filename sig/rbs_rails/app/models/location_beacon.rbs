@@ -256,7 +256,6 @@ class ::LocationBeacon < ::ApplicationRecord
   def create_venue: (?untyped) -> ::Venue
   def create_venue!: (?untyped) -> ::Venue
   def reload_venue: () -> ::Venue?
-  def reset_venue: () -> void
 
   module ::LocationBeacon::GeneratedAssociationMethods
   end

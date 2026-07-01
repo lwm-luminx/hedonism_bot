@@ -253,18 +253,12 @@ class ::PersonLocale < ::ApplicationRecord
   def locale: () -> ::Locale
   def locale=: (::Locale?) -> ::Locale?
   def reload_locale: () -> ::Locale?
-  def locale_changed?: () -> bool
-  def locale_previously_changed?: () -> bool
-  def reset_locale: () -> void
   def build_locale: (?untyped) -> ::Locale
   def create_locale: (?untyped) -> ::Locale
   def create_locale!: (?untyped) -> ::Locale
   def person: () -> ::Person
   def person=: (::Person?) -> ::Person?
   def reload_person: () -> ::Person?
-  def person_changed?: () -> bool
-  def person_previously_changed?: () -> bool
-  def reset_person: () -> void
   def build_person: (?untyped) -> ::Person
   def create_person: (?untyped) -> ::Person
   def create_person!: (?untyped) -> ::Person

@@ -253,18 +253,12 @@ class ::TribeUser < ::ApplicationRecord
   def tribe: () -> ::Tribe
   def tribe=: (::Tribe?) -> ::Tribe?
   def reload_tribe: () -> ::Tribe?
-  def tribe_changed?: () -> bool
-  def tribe_previously_changed?: () -> bool
-  def reset_tribe: () -> void
   def build_tribe: (?untyped) -> ::Tribe
   def create_tribe: (?untyped) -> ::Tribe
   def create_tribe!: (?untyped) -> ::Tribe
   def user: () -> ::User
   def user=: (::User?) -> ::User?
   def reload_user: () -> ::User?
-  def user_changed?: () -> bool
-  def user_previously_changed?: () -> bool
-  def reset_user: () -> void
   def build_user: (?untyped) -> ::User
   def create_user: (?untyped) -> ::User
   def create_user!: (?untyped) -> ::User

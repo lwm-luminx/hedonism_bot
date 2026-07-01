@@ -381,9 +381,6 @@ class ::Person < ::ApplicationRecord
   def page: () -> ::Page
   def page=: (::Page?) -> ::Page?
   def reload_page: () -> ::Page?
-  def page_changed?: () -> bool
-  def page_previously_changed?: () -> bool
-  def reset_page: () -> void
   def build_page: (?untyped) -> ::Page
   def create_page: (?untyped) -> ::Page
   def create_page!: (?untyped) -> ::Page

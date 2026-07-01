@@ -244,45 +244,45 @@ class ::Page < ::ApplicationRecord
 
     def facebook_id_for_database: () -> ::Integer
 
-    def facets: () -> ::Array[::String]?
+    def facets: () -> ::String?
 
-    def facets=: (::Array[::String]?) -> ::Array[::String]?
+    def facets=: (::String?) -> ::String?
 
     def facets?: () -> bool
 
-    def facets_changed?: (?from: ::Array[::String]?, ?to: ::Array[::String]?) -> bool
+    def facets_changed?: (?from: ::String?, ?to: ::String?) -> bool
 
-    def facets_change: () -> [ ::Array[::String]?, ::Array[::String]? ]
+    def facets_change: () -> [ ::String?, ::String? ]
 
     def facets_will_change!: () -> void
 
-    def facets_was: () -> ::Array[::String]?
+    def facets_was: () -> ::String?
 
-    def facets_previously_changed?: (?from: ::Array[::String]?, ?to: ::Array[::String]?) -> bool
+    def facets_previously_changed?: (?from: ::String?, ?to: ::String?) -> bool
 
-    def facets_previous_change: () -> ::Array[::Array[::String]?]?
+    def facets_previous_change: () -> ::Array[::String?]?
 
-    def facets_previously_was: () -> ::Array[::String]?
+    def facets_previously_was: () -> ::String?
 
-    def facets_before_last_save: () -> ::Array[::String]?
+    def facets_before_last_save: () -> ::String?
 
-    def facets_change_to_be_saved: () -> ::Array[::Array[::String]?]?
+    def facets_change_to_be_saved: () -> ::Array[::String?]?
 
-    def facets_in_database: () -> ::Array[::String]?
+    def facets_in_database: () -> ::String?
 
-    def saved_change_to_facets: () -> ::Array[::Array[::String]?]?
+    def saved_change_to_facets: () -> ::Array[::String?]?
 
-    def saved_change_to_facets?: (?from: ::Array[::String]?, ?to: ::Array[::String]?) -> bool
+    def saved_change_to_facets?: (?from: ::String?, ?to: ::String?) -> bool
 
-    def will_save_change_to_facets?: (?from: ::Array[::String]?, ?to: ::Array[::String]?) -> bool
+    def will_save_change_to_facets?: (?from: ::String?, ?to: ::String?) -> bool
 
     def restore_facets!: () -> void
 
     def clear_facets_change: () -> void
 
-    def facets_before_type_cast: () -> ::Array[::String]?
+    def facets_before_type_cast: () -> ::String?
 
-    def facets_for_database: () -> ::Array[::String]?
+    def facets_for_database: () -> ::String?
 
     def hidden: () -> bool
 
@@ -629,18 +629,12 @@ class ::Page < ::ApplicationRecord
   def image: () -> ::Image
   def image=: (::Image?) -> ::Image?
   def reload_image: () -> ::Image?
-  def image_changed?: () -> bool
-  def image_previously_changed?: () -> bool
-  def reset_image: () -> void
   def build_image: (?untyped) -> ::Image
   def create_image: (?untyped) -> ::Image
   def create_image!: (?untyped) -> ::Image
   def cover_image: () -> ::Image
   def cover_image=: (::Image?) -> ::Image?
   def reload_cover_image: () -> ::Image?
-  def cover_image_changed?: () -> bool
-  def cover_image_previously_changed?: () -> bool
-  def reset_cover_image: () -> void
   def build_cover_image: (?untyped) -> ::Image
   def create_cover_image: (?untyped) -> ::Image
   def create_cover_image!: (?untyped) -> ::Image

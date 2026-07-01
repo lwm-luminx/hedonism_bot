@@ -456,20 +456,15 @@ class ::PhotoPromiseFile < ::ApplicationRecord
   def create_file_attachment: (?untyped) -> ::ActiveStorage::Attachment
   def create_file_attachment!: (?untyped) -> ::ActiveStorage::Attachment
   def reload_file_attachment: () -> ::ActiveStorage::Attachment?
-  def reset_file_attachment: () -> void
   def file_blob: () -> ::ActiveStorage::Blob?
   def file_blob=: (::ActiveStorage::Blob?) -> ::ActiveStorage::Blob?
   def build_file_blob: (?untyped) -> ::ActiveStorage::Blob
   def create_file_blob: (?untyped) -> ::ActiveStorage::Blob
   def create_file_blob!: (?untyped) -> ::ActiveStorage::Blob
   def reload_file_blob: () -> ::ActiveStorage::Blob?
-  def reset_file_blob: () -> void
   def photo_promise: () -> ::PhotoPromise
   def photo_promise=: (::PhotoPromise?) -> ::PhotoPromise?
   def reload_photo_promise: () -> ::PhotoPromise?
-  def photo_promise_changed?: () -> bool
-  def photo_promise_previously_changed?: () -> bool
-  def reset_photo_promise: () -> void
   def build_photo_promise: (?untyped) -> ::PhotoPromise
   def create_photo_promise: (?untyped) -> ::PhotoPromise
   def create_photo_promise!: (?untyped) -> ::PhotoPromise

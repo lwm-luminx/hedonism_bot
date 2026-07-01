@@ -336,14 +336,12 @@ class ::Image < ::ApplicationRecord
   def create_image_file_attachment: (?untyped) -> ::ActiveStorage::Attachment
   def create_image_file_attachment!: (?untyped) -> ::ActiveStorage::Attachment
   def reload_image_file_attachment: () -> ::ActiveStorage::Attachment?
-  def reset_image_file_attachment: () -> void
   def image_file_blob: () -> ::ActiveStorage::Blob?
   def image_file_blob=: (::ActiveStorage::Blob?) -> ::ActiveStorage::Blob?
   def build_image_file_blob: (?untyped) -> ::ActiveStorage::Blob
   def create_image_file_blob: (?untyped) -> ::ActiveStorage::Blob
   def create_image_file_blob!: (?untyped) -> ::ActiveStorage::Blob
   def reload_image_file_blob: () -> ::ActiveStorage::Blob?
-  def reset_image_file_blob: () -> void
 
   module ::Image::GeneratedAssociationMethods
     def image_file: () -> ::ActiveStorage::Attached::One

@@ -244,45 +244,45 @@ class ::User < ::ApplicationRecord
 
     def facebook_id_for_database: () -> ::String
 
-    def facebook_scopes: () -> ::Array[::String]?
+    def facebook_scopes: () -> ::String?
 
-    def facebook_scopes=: (::Array[::String]?) -> ::Array[::String]?
+    def facebook_scopes=: (::String?) -> ::String?
 
     def facebook_scopes?: () -> bool
 
-    def facebook_scopes_changed?: (?from: ::Array[::String]?, ?to: ::Array[::String]?) -> bool
+    def facebook_scopes_changed?: (?from: ::String?, ?to: ::String?) -> bool
 
-    def facebook_scopes_change: () -> [ ::Array[::String]?, ::Array[::String]? ]
+    def facebook_scopes_change: () -> [ ::String?, ::String? ]
 
     def facebook_scopes_will_change!: () -> void
 
-    def facebook_scopes_was: () -> ::Array[::String]?
+    def facebook_scopes_was: () -> ::String?
 
-    def facebook_scopes_previously_changed?: (?from: ::Array[::String]?, ?to: ::Array[::String]?) -> bool
+    def facebook_scopes_previously_changed?: (?from: ::String?, ?to: ::String?) -> bool
 
-    def facebook_scopes_previous_change: () -> ::Array[::Array[::String]?]?
+    def facebook_scopes_previous_change: () -> ::Array[::String?]?
 
-    def facebook_scopes_previously_was: () -> ::Array[::String]?
+    def facebook_scopes_previously_was: () -> ::String?
 
-    def facebook_scopes_before_last_save: () -> ::Array[::String]?
+    def facebook_scopes_before_last_save: () -> ::String?
 
-    def facebook_scopes_change_to_be_saved: () -> ::Array[::Array[::String]?]?
+    def facebook_scopes_change_to_be_saved: () -> ::Array[::String?]?
 
-    def facebook_scopes_in_database: () -> ::Array[::String]?
+    def facebook_scopes_in_database: () -> ::String?
 
-    def saved_change_to_facebook_scopes: () -> ::Array[::Array[::String]?]?
+    def saved_change_to_facebook_scopes: () -> ::Array[::String?]?
 
-    def saved_change_to_facebook_scopes?: (?from: ::Array[::String]?, ?to: ::Array[::String]?) -> bool
+    def saved_change_to_facebook_scopes?: (?from: ::String?, ?to: ::String?) -> bool
 
-    def will_save_change_to_facebook_scopes?: (?from: ::Array[::String]?, ?to: ::Array[::String]?) -> bool
+    def will_save_change_to_facebook_scopes?: (?from: ::String?, ?to: ::String?) -> bool
 
     def restore_facebook_scopes!: () -> void
 
     def clear_facebook_scopes_change: () -> void
 
-    def facebook_scopes_before_type_cast: () -> ::Array[::String]?
+    def facebook_scopes_before_type_cast: () -> ::String?
 
-    def facebook_scopes_for_database: () -> ::Array[::String]?
+    def facebook_scopes_for_database: () -> ::String?
 
     def facebook_token: () -> ::String?
 
@@ -800,7 +800,6 @@ class ::User < ::ApplicationRecord
   def create_photo_take: (?untyped) -> ::PhotoTake
   def create_photo_take!: (?untyped) -> ::PhotoTake
   def reload_photo_take: () -> ::PhotoTake?
-  def reset_photo_take: () -> void
 
   module ::User::GeneratedAssociationMethods
   end

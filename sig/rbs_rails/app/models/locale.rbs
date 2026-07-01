@@ -124,45 +124,45 @@ class ::Locale < ::ApplicationRecord
 
     def beacon_major_for_database: () -> ::Integer?
 
-    def city_names: () -> ::Array[::String]?
+    def city_names: () -> ::String?
 
-    def city_names=: (::Array[::String]?) -> ::Array[::String]?
+    def city_names=: (::String?) -> ::String?
 
     def city_names?: () -> bool
 
-    def city_names_changed?: (?from: ::Array[::String]?, ?to: ::Array[::String]?) -> bool
+    def city_names_changed?: (?from: ::String?, ?to: ::String?) -> bool
 
-    def city_names_change: () -> [ ::Array[::String]?, ::Array[::String]? ]
+    def city_names_change: () -> [ ::String?, ::String? ]
 
     def city_names_will_change!: () -> void
 
-    def city_names_was: () -> ::Array[::String]?
+    def city_names_was: () -> ::String?
 
-    def city_names_previously_changed?: (?from: ::Array[::String]?, ?to: ::Array[::String]?) -> bool
+    def city_names_previously_changed?: (?from: ::String?, ?to: ::String?) -> bool
 
-    def city_names_previous_change: () -> ::Array[::Array[::String]?]?
+    def city_names_previous_change: () -> ::Array[::String?]?
 
-    def city_names_previously_was: () -> ::Array[::String]?
+    def city_names_previously_was: () -> ::String?
 
-    def city_names_before_last_save: () -> ::Array[::String]?
+    def city_names_before_last_save: () -> ::String?
 
-    def city_names_change_to_be_saved: () -> ::Array[::Array[::String]?]?
+    def city_names_change_to_be_saved: () -> ::Array[::String?]?
 
-    def city_names_in_database: () -> ::Array[::String]?
+    def city_names_in_database: () -> ::String?
 
-    def saved_change_to_city_names: () -> ::Array[::Array[::String]?]?
+    def saved_change_to_city_names: () -> ::Array[::String?]?
 
-    def saved_change_to_city_names?: (?from: ::Array[::String]?, ?to: ::Array[::String]?) -> bool
+    def saved_change_to_city_names?: (?from: ::String?, ?to: ::String?) -> bool
 
-    def will_save_change_to_city_names?: (?from: ::Array[::String]?, ?to: ::Array[::String]?) -> bool
+    def will_save_change_to_city_names?: (?from: ::String?, ?to: ::String?) -> bool
 
     def restore_city_names!: () -> void
 
     def clear_city_names_change: () -> void
 
-    def city_names_before_type_cast: () -> ::Array[::String]?
+    def city_names_before_type_cast: () -> ::String?
 
-    def city_names_for_database: () -> ::Array[::String]?
+    def city_names_for_database: () -> ::String?
 
     def created_at: () -> ::ActiveSupport::TimeWithZone
 
@@ -509,18 +509,12 @@ class ::Locale < ::ApplicationRecord
   def image: () -> ::Image
   def image=: (::Image?) -> ::Image?
   def reload_image: () -> ::Image?
-  def image_changed?: () -> bool
-  def image_previously_changed?: () -> bool
-  def reset_image: () -> void
   def build_image: (?untyped) -> ::Image
   def create_image: (?untyped) -> ::Image
   def create_image!: (?untyped) -> ::Image
   def location: () -> ::Location
   def location=: (::Location?) -> ::Location?
   def reload_location: () -> ::Location?
-  def location_changed?: () -> bool
-  def location_previously_changed?: () -> bool
-  def reset_location: () -> void
   def build_location: (?untyped) -> ::Location
   def create_location: (?untyped) -> ::Location
   def create_location!: (?untyped) -> ::Location

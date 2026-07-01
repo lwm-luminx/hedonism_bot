@@ -293,27 +293,18 @@ class ::FriendshipLink < ::ApplicationRecord
   def friendship: () -> ::Friendship
   def friendship=: (::Friendship?) -> ::Friendship?
   def reload_friendship: () -> ::Friendship?
-  def friendship_changed?: () -> bool
-  def friendship_previously_changed?: () -> bool
-  def reset_friendship: () -> void
   def build_friendship: (?untyped) -> ::Friendship
   def create_friendship: (?untyped) -> ::Friendship
   def create_friendship!: (?untyped) -> ::Friendship
   def user: () -> ::User
   def user=: (::User?) -> ::User?
   def reload_user: () -> ::User?
-  def user_changed?: () -> bool
-  def user_previously_changed?: () -> bool
-  def reset_user: () -> void
   def build_user: (?untyped) -> ::User
   def create_user: (?untyped) -> ::User
   def create_user!: (?untyped) -> ::User
   def friend: () -> ::User
   def friend=: (::User?) -> ::User?
   def reload_friend: () -> ::User?
-  def friend_changed?: () -> bool
-  def friend_previously_changed?: () -> bool
-  def reset_friend: () -> void
   def build_friend: (?untyped) -> ::User
   def create_friend: (?untyped) -> ::User
   def create_friend!: (?untyped) -> ::User
