@@ -2,12 +2,21 @@ name: CI
 
 on:
   pull_request:
+  push:
+    branches: [main]
+
+env:
+  # Link clusterkit against the system OpenBLAS instead of downloading and compiling it from source.
+  CLUSTERKIT_FEATURES: openblas-system
 
 jobs:
   scan_ruby:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
 
     steps:
+      - name: Install packages
+        run: sudo apt-get update && sudo apt-get install --no-install-recommends -y libpq-dev libvips libopenblas-dev
+
       - name: Checkout code
         uses: actions/checkout@v6
 
@@ -23,10 +32,13 @@ jobs:
         run: bin/bundler-audit
 
   lint:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     env:
       RUBOCOP_CACHE_ROOT: tmp/rubocop
     steps:
+      - name: Install packages
+        run: sudo apt-get update && sudo apt-get install --no-install-recommends -y libpq-dev libvips libopenblas-dev
+
       - name: Checkout code
         uses: actions/checkout@v6
 
@@ -48,41 +60,72 @@ jobs:
       - name: Lint code for consistent style
         run: bin/rubocop -f github
 
+  frontend:
+    runs-on: ubuntu-24.04
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v6
+
+      - name: Set up Bun
+        uses: oven-sh/setup-bun@v2
+
+      - name: Install JavaScript dependencies
+        run: bun install --frozen-lockfile
+
+      - name: Run Vitest
+        run: bun run test:run
+
   test:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
 
     services:
-      postgres:
-        image: postgres
-        env:
-          POSTGRES_USER: postgres
-          POSTGRES_PASSWORD: postgres
+      redis:
+        image: redis:7
         ports:
-          - 5432:5432
-        options: --health-cmd="pg_isready" --health-interval=10s --health-timeout=5s --health-retries=3
+          - 6379:6379
+        options: --health-cmd "redis-cli ping" --health-interval 10s --health-timeout 5s --health-retries 5
 
-      # redis:
-      #   image: valkey/valkey:8
-      #   ports:
-      #     - 6379:6379
-      #   options: --health-cmd "redis-cli ping" --health-interval 10s --health-timeout 5s --health-retries 5
+    env:
+      RAILS_ENV: test
+      # libpq reads these, so every database in config/database.yml (primary and queue) connects the same way.
+      PGHOST: localhost
+      PGUSER: postgres
+      PGPASSWORD: postgres
 
     steps:
       - name: Install packages
-        run: sudo apt-get update && sudo apt-get install --no-install-recommends -y libpq-dev libvips
+        run: |
+          sudo apt-get update
+          sudo apt-get install --no-install-recommends -y \
+            libpq-dev libvips libopenblas-dev libimage-exiftool-perl \
+            postgresql-16-postgis-3 postgresql-16-pgvector
+
+      - name: Start PostgreSQL
+        run: |
+          sudo systemctl start postgresql.service
+          sudo -u postgres psql -c "ALTER USER postgres PASSWORD 'postgres';"
 
       - name: Checkout code
         uses: actions/checkout@v6
+        with:
+          # Photo fixtures in spec/fixtures are stored in Git LFS.
+          lfs: true
 
       - name: Set up Ruby
         uses: ruby/setup-ruby@v1
         with:
           bundler-cache: true
 
-      - name: Run tests
-        env:
-          RAILS_ENV: test
-          DATABASE_URL: postgres://postgres:postgres@localhost:5432
-          # RAILS_MASTER_KEY: ${{ secrets.RAILS_MASTER_KEY }}
-          # REDIS_URL: redis://localhost:6379/0
-        run: bin/rails db:test:prepare test
+      - name: Set up Bun
+        uses: oven-sh/setup-bun@v2
+
+      # vite_ruby auto-builds the frontend on first request in the test environment.
+      - name: Install JavaScript dependencies
+        run: bun install --frozen-lockfile
+
+      - name: Prepare database
+        run: bin/rails db:test:prepare
+
+      - name: Run RSpec
+        run: bundle exec rspec
