@@ -94,12 +94,18 @@ jobs:
       PGPASSWORD: postgres
 
     steps:
+      # Ubuntu 24.04 ships libheif 1.17, which can't decode the rotated 10-bit HEVC fixture
+      # (DSC00006.hif); the strukturag PPAs provide a current libheif and its HEVC decoder.
       - name: Install packages
         run: |
+          sudo add-apt-repository -y ppa:strukturag/libde265
+          sudo add-apt-repository -y ppa:strukturag/libheif
           sudo apt-get update
           sudo apt-get install --no-install-recommends -y \
             libpq-dev libvips libopenblas-dev libimage-exiftool-perl \
+            libheif1 libheif-plugin-libde265 \
             postgresql-16-postgis-3 postgresql-16-pgvector
+          dpkg -s libheif1 | grep '^Version'
 
       - name: Start PostgreSQL
         run: |
