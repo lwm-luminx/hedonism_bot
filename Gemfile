@@ -54,7 +54,6 @@ gem "thruster", require: false
 gem "image_processing", "~> 1.2"
 
 gem "exifr"
-gem "exif"
 gem "mini_exiftool"
 
 gem "foreman", require: false
