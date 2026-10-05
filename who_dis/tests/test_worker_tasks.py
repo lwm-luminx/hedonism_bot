@@ -2,11 +2,14 @@ import importlib
 import re
 import sys
 import types
+from io import BytesIO
 from pathlib import Path
 from unittest.mock import MagicMock
 
 import pytest
+import torch
 from graphql import build_schema, validate
+from PIL import Image
 
 RAILS_ROOT = Path(__file__).resolve().parents[2]
 RAILS_JOBS = RAILS_ROOT / "app" / "jobs"
@@ -32,6 +35,7 @@ def tasks():
             app=importlib.import_module("hedonism.who_dis.app").app,
             caption_image=importlib.import_module("hedonism.who_dis.tasks.caption_image"),
             extract_facial_data=importlib.import_module("hedonism.who_dis.tasks.extract_facial_data"),
+            extract_visual_features=importlib.import_module("hedonism.who_dis.tasks.extract_visual_features"),
         )
 
 
@@ -154,3 +158,42 @@ def test_get_photo_url_queries_facial_recognition_url(monkeypatch):
     query = client.execute.call_args[0][0]
     assert_valid_against_rails_schema(query)
     assert query.variable_values == {"photoId": "photo-4"}
+
+
+def test_extract_visual_features_updates_embedding(tasks, monkeypatch):
+    worker = tasks.extract_visual_features
+
+    monkeypatch.setattr(worker, "get_photo_url", lambda photo_id: "https://example.com/photo.jpg")
+
+    png = BytesIO()
+    Image.new("RGB", (4, 4)).save(png, format="PNG")
+    response = MagicMock(content=png.getvalue())
+    get = MagicMock(return_value=response)
+    monkeypatch.setattr(worker.requests, "get", get)
+
+    monkeypatch.setattr(worker, "processor", MagicMock(return_value={}))
+    hidden = torch.tensor([[[0.5, 0.25], [9.0, 9.0]]])
+    monkeypatch.setattr(worker, "model", MagicMock(return_value=types.SimpleNamespace(last_hidden_state=hidden)))
+
+    client = MagicMock()
+    monkeypatch.setattr(worker, "graph_client", MagicMock(return_value=client))
+
+    worker.extract_visual_features("photo-5")
+
+    get.assert_called_once_with("https://example.com/photo.jpg", timeout=60)
+    response.raise_for_status.assert_called_once()
+    assert client.execute.call_count == 1
+    mutation = client.execute.call_args[0][0]
+    assert mutation.variable_values == {"photoId": "photo-5", "embedding": [0.5, 0.25]}
+
+
+def test_extract_visual_features_skips_missing_photo(tasks, monkeypatch):
+    worker = tasks.extract_visual_features
+
+    monkeypatch.setattr(worker, "get_photo_url", lambda photo_id: None)
+    get = MagicMock()
+    monkeypatch.setattr(worker.requests, "get", get)
+
+    worker.extract_visual_features("photo-6")
+
+    get.assert_not_called()
