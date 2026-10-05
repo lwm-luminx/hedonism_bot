@@ -27,7 +27,7 @@ gem "async"
 gem "async-redis"
 gem "redis"
 gem "pg_search"
-gem "clusterkit", "0.2.6"
+gem "clusterkit", "0.3.1"
 
 # Use Active Model has_secure_password [https://guides.rubyonrails.org/active_model_basics.html#securepassword]
 gem "bcrypt", "~> 3.1.7"
@@ -51,7 +51,8 @@ gem "kamal", require: false
 gem "thruster", require: false
 
 # Use Active Storage variants [https://guides.rubyonrails.org/active_storage_overview.html#transforming-images]
-gem "image_processing", "~> 1.2"
+gem "image_processing", "~> 2.0"
+gem "ruby-vips"
 
 gem "exifr"
 gem "mini_exiftool"
