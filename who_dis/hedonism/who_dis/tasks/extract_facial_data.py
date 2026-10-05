@@ -4,7 +4,7 @@ from gql import gql
 from hedonism.who_dis.app import app
 from hedonism.who_dis.support import get_photo_url, graph_client
 
-@app.task()
+@app.task(name="hedonism.who_dis.worker.extract_facial_data")
 def extract_facial_data(photo_id):
     photo_url = get_photo_url(photo_id)
     if not photo_url:
