@@ -1,11 +1,14 @@
+import os
+
 from celery import Celery
 
+REDIS_URL = os.environ.get("REDIS_URL", "redis://127.0.0.1:6379/0")
 
-app = Celery('hedonism_who_dis', broker='redis://default@127.0.0.1:6379/0', result_backend='redis://default@127.0.0.1:6379/0')
+app = Celery('hedonism_who_dis', broker=REDIS_URL, backend=REDIS_URL)
 app.autodiscover_tasks(["hedonism.who_dis"], force=True)
 
 
-___all__ = ['app']
+__all__ = ['app']
 
 if __name__ == '__main__':
     # Equivalent to calling the celery worker command line tool

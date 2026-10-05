@@ -1,4 +1,8 @@
+from io import BytesIO
+
+import requests
 import torch
+from gql import gql
 from PIL import Image
 from transformers import AutoImageProcessor, AutoModel
 
@@ -9,12 +13,16 @@ model_name = "google/vit-large-patch32-224-in21k"
 processor = AutoImageProcessor.from_pretrained(model_name)
 model = AutoModel.from_pretrained(model_name)
 
-@app.task()
+@app.task(name="hedonism.who_dis.worker.extract_visual_features")
 def extract_visual_features(photo_id):
-    # 2. Load and prepare your image
-    # Replace with your own image path
-    image_path = get_photo_url(photo_id)
-    image = Image.open(image_path).convert("RGB")
+    # 2. Download and prepare the image
+    photo_url = get_photo_url(photo_id)
+    if not photo_url:
+        return
+
+    response = requests.get(photo_url, timeout=60)
+    response.raise_for_status()
+    image = Image.open(BytesIO(response.content)).convert("RGB")
 
     # 3. Preprocess the image (resizes to 224x224 and normalizes)
     inputs = processor(images=image, return_tensors="pt")
@@ -27,6 +35,7 @@ def extract_visual_features(photo_id):
     # ViT outputs the [CLS] token at index 0, which represents the whole image
     last_hidden_states = outputs.last_hidden_state
     image_embedding = last_hidden_states[:, 0, :]
+    embedding = image_embedding[0].tolist()
 
     # Output shape will be: torch.Size([1, 1024])
     print("Embedding Shape:", image_embedding.shape)

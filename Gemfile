@@ -27,6 +27,8 @@ gem "async"
 gem "async-redis"
 gem "redis"
 gem "pg_search"
+# clusterkit 0.3.1 never loads its native extension when compiled from source (as on Ruby 4):
+# its fallback `require "clusterkit/clusterkit"` resolves to its own .rb file instead of the .so.
 gem "clusterkit", "0.2.6"
 
 # Use Active Model has_secure_password [https://guides.rubyonrails.org/active_model_basics.html#securepassword]
@@ -51,7 +53,8 @@ gem "kamal", require: false
 gem "thruster", require: false
 
 # Use Active Storage variants [https://guides.rubyonrails.org/active_storage_overview.html#transforming-images]
-gem "image_processing", "~> 1.2"
+gem "image_processing", "~> 2.0"
+gem "ruby-vips"
 
 gem "exifr"
 gem "mini_exiftool"

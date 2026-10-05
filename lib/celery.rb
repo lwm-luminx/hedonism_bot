@@ -6,7 +6,7 @@ require "async"
 module Celery
   def self.redis
     @redis ||= ConnectionPool::Wrapper.new do
-      Redis.new(host: "localhost", port: 6379, reconnect_attempts: 3)
+      Redis.new(url: ENV.fetch("REDIS_URL", "redis://localhost:6379/0"), reconnect_attempts: 3)
     end
   end
 

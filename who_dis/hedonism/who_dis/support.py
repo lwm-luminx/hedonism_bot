@@ -1,11 +1,14 @@
+import os
+
 from gql import Client, gql
 from gql.transport.aiohttp import AIOHTTPTransport
 
-API_KEY = "your_api_key_here"
+GRAPHQL_URL = os.environ.get("GRAPHQL_URL", "http://localhost:5000/graphql")
+API_KEY = os.environ.get("API_KEY", "")
 
 def graph_client():
     # Select your transport with a defined url endpoint
-    graph_transport = AIOHTTPTransport(url="http://localhost:5000/graphql",
+    graph_transport = AIOHTTPTransport(url=GRAPHQL_URL,
                                        timeout=300,
                                        headers={"Authorization": f"Bearer {API_KEY}"})
 
