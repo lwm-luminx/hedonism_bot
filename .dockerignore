@@ -43,3 +43,6 @@
 # Ignore Docker-related files
 /.dockerignore
 /Dockerfile*
+
+# Ignore the Python worker, which is built and deployed separately
+/who_dis
