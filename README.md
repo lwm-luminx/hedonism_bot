@@ -22,3 +22,8 @@ Things you may want to cover:
 * Deployment instructions
 
 * ...
+
+## Python worker
+
+The Celery worker that handles the ML tasks enqueued by this app lives in
+[`who_dis/`](who_dis/README.md) (merged from `hedonism_who_dis` with its history).
