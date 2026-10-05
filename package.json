@@ -100,7 +100,7 @@
     "vaul": "1.1.2",
     "vite": "^8.1.0",
     "vite-plugin-relay": "^2.1.0",
-    "vite-plugin-ruby": "^5.2.2",
+    "vite-plugin-ruby": "^5.2.5",
     "vitest": "^4.1.9"
   }
 }
