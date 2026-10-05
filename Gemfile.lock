@@ -147,11 +147,7 @@ GEM
     cgi (0.5.2)
     chrome_devtools_rails (0.2.0)
       rails (~> 8.0, >= 8.0.2)
-    clusterkit (0.3.1)
-      rb_sys (~> 0.9)
-    clusterkit (0.3.1-arm64-darwin)
-      rb_sys (~> 0.9)
-    clusterkit (0.3.1-x86_64-linux)
+    clusterkit (0.2.6)
       rb_sys (~> 0.9)
     coderay (1.1.3)
     concurrent-ruby (1.3.8)
@@ -722,7 +718,7 @@ DEPENDENCIES
   bundler-audit
   capybara
   chrome_devtools_rails
-  clusterkit (= 0.3.1)
+  clusterkit (= 0.2.6)
   cucumber-rails
   database_cleaner-active_record
   debug
@@ -824,9 +820,7 @@ CHECKSUMS
   capybara (3.40.0) sha256=42dba720578ea1ca65fd7a41d163dd368502c191804558f6e0f71b391054aeef
   cgi (0.5.2) sha256=61ca30298171190fd4fa0d8018e57ada456eae9b7a2b78526debf7f0a0e6f8bb
   chrome_devtools_rails (0.2.0) sha256=386f66a435f84c1c5d5447f5d77bcbd5c0d568a2239565cb1b18d92300b3c1ec
-  clusterkit (0.3.1) sha256=e90c6cfdb10bc243b960f1a08dfd5e8787a1a5f271b8e54a3d6b8c8c156d2a0f
-  clusterkit (0.3.1-arm64-darwin) sha256=9bdb75deffc728a3d3cbe371014dec59437b521e302b15c4443301917a6fbc35
-  clusterkit (0.3.1-x86_64-linux) sha256=943b522a47768c91e50cefd0b43c1f767c2e46f4fdd754710ed02ec4e6be17d9
+  clusterkit (0.2.6) sha256=460f20e156a743c8d5db99b2deb0194a7d25be407fe3e3b676fd7a3b04c63bd7
   coderay (1.1.3) sha256=dc530018a4684512f8f38143cd2a096c9f02a1fc2459edcfe534787a7fc77d4b
   concurrent-ruby (1.3.8) sha256=b2f1be836e968ccc78ccfce277ea79c72a88633f22306782c16ff23fb415d1e1
   connection_pool (3.0.2) sha256=33fff5ba71a12d2aa26cb72b1db8bba2a1a01823559fb01d29eb74c286e62e0a

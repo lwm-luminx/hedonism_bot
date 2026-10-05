@@ -27,7 +27,9 @@ gem "async"
 gem "async-redis"
 gem "redis"
 gem "pg_search"
-gem "clusterkit", "0.3.1"
+# clusterkit 0.3.1 never loads its native extension when compiled from source (as on Ruby 4):
+# its fallback `require "clusterkit/clusterkit"` resolves to its own .rb file instead of the .so.
+gem "clusterkit", "0.2.6"
 
 # Use Active Model has_secure_password [https://guides.rubyonrails.org/active_model_basics.html#securepassword]
 gem "bcrypt", "~> 3.1.7"
