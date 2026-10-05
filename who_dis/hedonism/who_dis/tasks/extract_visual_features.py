@@ -9,7 +9,7 @@ model_name = "google/vit-large-patch32-224-in21k"
 processor = AutoImageProcessor.from_pretrained(model_name)
 model = AutoModel.from_pretrained(model_name)
 
-@app.task()
+@app.task(name="hedonism.who_dis.worker.extract_visual_features")
 def extract_visual_features(photo_id):
     # 2. Load and prepare your image
     # Replace with your own image path

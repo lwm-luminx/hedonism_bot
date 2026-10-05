@@ -8,7 +8,7 @@ PROMPT = "Write a long descriptive caption for this image in a formal tone."
 LLAVA_PIPE = pipeline("image-text-to-text", model="llava-hf/llava-1.5-7b-hf")
 
 
-@app.task()
+@app.task(name="hedonism.who_dis.worker.caption_image")
 def caption_image(photo_id):
     photo_url = get_photo_url(photo_id)
     if not photo_url:
