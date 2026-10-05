@@ -76,6 +76,28 @@ jobs:
       - name: Run Vitest
         run: bun run test:run
 
+  worker:
+    runs-on: ubuntu-24.04
+    defaults:
+      run:
+        working-directory: who_dis
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v6
+
+      - name: Set up uv
+        uses: astral-sh/setup-uv@v6
+        with:
+          enable-cache: true
+          cache-dependency-glob: who_dis/uv.lock
+
+      - name: Install Python dependencies
+        run: uv sync --frozen
+
+      - name: Run pytest
+        run: uv run --frozen pytest
+
   test:
     runs-on: ubuntu-24.04
 

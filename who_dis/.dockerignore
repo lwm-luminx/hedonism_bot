@@ -1,0 +1,8 @@
+# See https://docs.docker.com/engine/reference/builder/#dockerignore-file for more about ignoring files.
+/.venv
+/.idea
+/.pytest_cache
+/tests
+**/__pycache__
+/Dockerfile
+/.dockerignore

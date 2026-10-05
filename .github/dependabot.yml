@@ -10,3 +10,13 @@ updates:
     schedule:
       interval: weekly
     open-pull-requests-limit: 10
+  - package-ecosystem: uv
+    directory: "/who_dis"
+    schedule:
+      interval: weekly
+    open-pull-requests-limit: 10
+  - package-ecosystem: docker
+    directories: ["/", "/who_dis"]
+    schedule:
+      interval: weekly
+    open-pull-requests-limit: 10

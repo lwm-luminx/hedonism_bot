@@ -25,7 +25,7 @@ def extract_facial_data(photo_id):
         embedding_update = gql(
             """
             mutation FacialRecognitionPhoto($photoId: ID!, $faceObjects: [FaceDataInput!]!) {
-              photoFaceUpdate(faces: $faceObjects, id: $photoId) {
+              updatePhotoFace(faces: $faceObjects, id: $photoId) {
                 photo {
                   id
                 }

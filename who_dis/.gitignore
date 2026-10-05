@@ -10,4 +10,4 @@ wheels/
 .venv
 
 
-celerybeat-schedule*
+celerybeat-schedule*.pytest_cache/

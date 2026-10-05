@@ -6,8 +6,16 @@ from pathlib import Path
 from unittest.mock import MagicMock
 
 import pytest
+from graphql import build_schema, validate
 
-RAILS_JOBS = Path(__file__).resolve().parents[2] / "app" / "jobs"
+RAILS_ROOT = Path(__file__).resolve().parents[2]
+RAILS_JOBS = RAILS_ROOT / "app" / "jobs"
+RAILS_SCHEMA = build_schema((RAILS_ROOT / "app" / "graphql" / "schema.graphql").read_text())
+
+
+def assert_valid_against_rails_schema(request):
+    errors = validate(RAILS_SCHEMA, request.document)
+    assert not errors, [error.message for error in errors]
 
 
 @pytest.fixture(scope="module")
@@ -64,6 +72,7 @@ def test_caption_image_updates_caption(tasks, monkeypatch):
     assert mock_pipe.call_count == 2
     assert client.execute.call_count == 1
     mutation = client.execute.call_args[0][0]
+    assert_valid_against_rails_schema(mutation)
     assert mutation.variable_values == {
         "photoId": "photo-1",
         "caption": "A professional generated caption",
@@ -102,6 +111,7 @@ def test_extract_facial_data_filters_low_confidence_faces(tasks, monkeypatch):
 
     assert client.execute.call_count == 1
     mutation = client.execute.call_args[0][0]
+    assert_valid_against_rails_schema(mutation)
     assert mutation.variable_values == {
         "photoId": "photo-2",
         "faceObjects": [
@@ -131,3 +141,16 @@ def test_extract_facial_data_handles_exception(tasks, monkeypatch):
     worker.extract_facial_data("photo-3")
 
     client.execute.assert_not_called()
+
+
+def test_get_photo_url_queries_facial_recognition_url(monkeypatch):
+    support = importlib.import_module("hedonism.who_dis.support")
+
+    client = MagicMock()
+    client.execute.return_value = {"node": {"id": "photo-4", "facialRecognitionUrl": "https://example.com/p.jpg"}}
+    monkeypatch.setattr(support, "graph_client", MagicMock(return_value=client))
+
+    assert support.get_photo_url("photo-4") == "https://example.com/p.jpg"
+    query = client.execute.call_args[0][0]
+    assert_valid_against_rails_schema(query)
+    assert query.variable_values == {"photoId": "photo-4"}
