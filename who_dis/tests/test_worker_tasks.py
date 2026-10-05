@@ -1,56 +1,78 @@
 import importlib
+import re
 import sys
 import types
+from pathlib import Path
 from unittest.mock import MagicMock
 
+import pytest
 
-def load_worker_module(monkeypatch):
+RAILS_JOBS = Path(__file__).resolve().parents[2] / "app" / "jobs"
+
+
+@pytest.fixture(scope="module")
+def tasks():
+    # Stub the model loaders so importing the tasks doesn't download weights.
     fake_transformers = types.ModuleType("transformers")
     fake_transformers.pipeline = MagicMock(return_value=MagicMock())
-    monkeypatch.setitem(sys.modules, "transformers", fake_transformers)
+    fake_transformers.AutoImageProcessor = MagicMock()
+    fake_transformers.AutoModel = MagicMock()
 
-    module_name = "hedonism.who_dis.worker"
-    if module_name in sys.modules:
-        del sys.modules[module_name]
+    with pytest.MonkeyPatch.context() as mp:
+        mp.setitem(sys.modules, "transformers", fake_transformers)
+        yield types.SimpleNamespace(
+            app=importlib.import_module("hedonism.who_dis.app").app,
+            caption_image=importlib.import_module("hedonism.who_dis.tasks.caption_image"),
+            extract_facial_data=importlib.import_module("hedonism.who_dis.tasks.extract_facial_data"),
+        )
 
-    return importlib.import_module(module_name)
+
+def test_registered_task_names_match_rails_jobs(tasks):
+    enqueued = {
+        name
+        for job in RAILS_JOBS.glob("*.rb")
+        for name in re.findall(r'Celery\.enqueue\s+"([^"]+)"', job.read_text())
+    }
+
+    assert enqueued
+    assert enqueued <= set(tasks.app.tasks)
+    assert {
+        "hedonism.who_dis.worker.caption_image",
+        "hedonism.who_dis.worker.extract_facial_data",
+        "hedonism.who_dis.worker.extract_visual_features",
+    } <= set(tasks.app.tasks)
 
 
-def test_caption_image_updates_caption(monkeypatch):
-    worker = load_worker_module(monkeypatch)
+def test_caption_image_updates_caption(tasks, monkeypatch):
+    worker = tasks.caption_image
 
     monkeypatch.setattr(worker, "get_photo_url", lambda photo_id: "https://example.com/photo.jpg")
 
     mock_pipe = MagicMock(
-        return_value=[
-            {
-                "generated_text": [
-                    {"content": "ignored"},
-                    {"content": "ignored"},
-                    {"content": "A professional generated caption"},
-                ]
-            }
+        side_effect=[
+            [{"generated_text": "A professional generated caption"}],
+            [{"generated_text": "A searchable description"}],
         ]
     )
-    monkeypatch.setattr(worker, "pipe", mock_pipe)
+    monkeypatch.setattr(worker, "LLAVA_PIPE", mock_pipe)
 
     client = MagicMock()
-    graph_client = MagicMock(return_value=client)
-    monkeypatch.setattr(worker, "graph_client", graph_client)
+    monkeypatch.setattr(worker, "graph_client", MagicMock(return_value=client))
 
     worker.caption_image("photo-1")
 
-    assert mock_pipe.call_count == 1
+    assert mock_pipe.call_count == 2
     assert client.execute.call_count == 1
     mutation = client.execute.call_args[0][0]
     assert mutation.variable_values == {
         "photoId": "photo-1",
         "caption": "A professional generated caption",
+        "description": "A searchable description",
     }
 
 
-def test_extract_facial_data_filters_low_confidence_faces(monkeypatch):
-    worker = load_worker_module(monkeypatch)
+def test_extract_facial_data_filters_low_confidence_faces(tasks, monkeypatch):
+    worker = tasks.extract_facial_data
 
     monkeypatch.setattr(worker, "get_photo_url", lambda photo_id: "https://example.com/photo.jpg")
 
@@ -92,8 +114,8 @@ def test_extract_facial_data_filters_low_confidence_faces(monkeypatch):
     }
 
 
-def test_extract_facial_data_handles_exception(monkeypatch):
-    worker = load_worker_module(monkeypatch)
+def test_extract_facial_data_handles_exception(tasks, monkeypatch):
+    worker = tasks.extract_facial_data
 
     monkeypatch.setattr(worker, "get_photo_url", lambda photo_id: "https://example.com/photo.jpg")
 
