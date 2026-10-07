@@ -94,21 +94,22 @@ test:
 # Read https://guides.rubyonrails.org/configuring.html#configuring-a-database
 # for a full overview on how database connection configuration can be specified.
 #
+# On Heroku, DATABASE_URL names the one Postgres database the app gets, so the Solid Cache, Queue
+# and Cable tables live there too. db:prepare only manages the primary; bin/heroku-release loads the
+# Solid schemas (db/*_schema.rb) when their tables are missing.
 production:
   primary: &primary_production
     <<: *default
-    database: hedonism_bot_production
-    username: hedonism_bot
-    password: <%= ENV["HEDONISM_BOT_DATABASE_PASSWORD"] %>
+    url: <%= ENV["DATABASE_URL"] %>
   cache:
     <<: *primary_production
-    database: hedonism_bot_production_cache
     migrations_paths: db/cache_migrate
+    database_tasks: false
   queue:
     <<: *primary_production
-    database: hedonism_bot_production_queue
     migrations_paths: db/queue_migrate
+    database_tasks: false
   cable:
     <<: *primary_production
-    database: hedonism_bot_production_cable
     migrations_paths: db/cable_migrate
+    database_tasks: false

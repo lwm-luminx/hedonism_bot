@@ -46,3 +46,7 @@
 
 # Ignore the Python worker, which is built and deployed separately
 /who_dis
+
+# Ignore frontend packages and builds (the image installs and builds its own)
+/node_modules
+/public/vite*

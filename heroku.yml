@@ -1,0 +1,11 @@
+# Heroku container stack: `heroku stack:set container -a <app>`. The Dockerfile carries what the
+# buildpacks can't (Rust for clusterkit, exiftool, libvips with HEIF).
+build:
+  docker:
+    web: Dockerfile
+release:
+  image: web
+  command:
+    - bin/rails heroku:release
+run:
+  web: bin/rails server -b 0.0.0.0 -p $PORT

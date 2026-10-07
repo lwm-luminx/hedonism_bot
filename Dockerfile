@@ -16,7 +16,7 @@ WORKDIR /rails
 
 # Install base packages
 RUN apt-get update -qq && \
-    apt-get install --no-install-recommends -y curl libjemalloc2 libopenblas0 libvips postgresql-client && \
+    apt-get install --no-install-recommends -y curl libimage-exiftool-perl libjemalloc2 libopenblas0 libvips postgresql-client && \
     ln -s /usr/lib/$(uname -m)-linux-gnu/libjemalloc.so.2 /usr/local/lib/libjemalloc.so && \
     rm -rf /var/lib/apt/lists /var/cache/apt/archives
 
@@ -41,6 +41,14 @@ ENV CARGO_HOME="/usr/local/cargo" \
     CLUSTERKIT_FEATURES="openblas-system"
 RUN curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y --profile minimal --no-modify-path
 
+# Bun installs the frontend packages and runs Vite
+ENV BUN_INSTALL="/usr/local/bun" \
+    PATH="/usr/local/bun/bin:$PATH"
+RUN apt-get update -qq && \
+    apt-get install --no-install-recommends -y unzip && \
+    rm -rf /var/lib/apt/lists /var/cache/apt/archives && \
+    curl -fsSL https://bun.sh/install | bash
+
 # Install application gems
 COPY vendor/* ./vendor/
 COPY Gemfile Gemfile.lock ./
@@ -49,8 +57,16 @@ RUN bundle install && \
     rm -rf ~/.bundle/ "${BUNDLE_PATH}"/ruby/*/cache "${BUNDLE_PATH}"/ruby/*/bundler/gems/*/.git && \
     bundle exec bootsnap precompile -j 1 --gemfile
 
+# Install frontend packages
+COPY package.json bun.lock ./
+RUN bun install --frozen-lockfile
+
 # Copy application code
 COPY . .
+
+# Build the frontend into public/vite (vite-plugin-ruby reads config/vite.json and RAILS_ENV)
+RUN bunx --bun vite build && \
+    rm -rf node_modules
 
 # Precompile bootsnap code for faster boot times.
 # -j 1 disable parallel compilation to avoid a QEMU bug: https://github.com/rails/bootsnap/issues/495
