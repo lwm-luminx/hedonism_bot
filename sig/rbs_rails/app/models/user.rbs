@@ -793,6 +793,10 @@ class ::User < ::ApplicationRecord
   def user_rsvps=: (::UserRsvp::ActiveRecord_Associations_CollectionProxy | ::Array[::UserRsvp]) -> (::UserRsvp::ActiveRecord_Associations_CollectionProxy | ::Array[::UserRsvp])
   def user_rsvp_ids: () -> ::Array[::String]
   def user_rsvp_ids=: (::Array[::String]) -> ::Array[::String]
+  def photographer_admins: () -> ::PhotographerAdmin::ActiveRecord_Associations_CollectionProxy
+  def photographer_admins=: (::PhotographerAdmin::ActiveRecord_Associations_CollectionProxy | ::Array[::PhotographerAdmin]) -> (::PhotographerAdmin::ActiveRecord_Associations_CollectionProxy | ::Array[::PhotographerAdmin])
+  def photographer_admin_ids: () -> ::Array[::String]
+  def photographer_admin_ids=: (::Array[::String]) -> ::Array[::String]
 
   def photo_take: () -> ::PhotoTake?
   def photo_take=: (::PhotoTake?) -> ::PhotoTake?
@@ -861,6 +865,10 @@ end
 class ::UserRsvp < ::ApplicationRecord
 end
 class ::UserRsvp::ActiveRecord_Associations_CollectionProxy < ::ActiveRecord::Associations::CollectionProxy
+end
+class ::PhotographerAdmin < ::ApplicationRecord
+end
+class ::PhotographerAdmin::ActiveRecord_Associations_CollectionProxy < ::ActiveRecord::Associations::CollectionProxy
 end
 class ::PhotoTake < ::ApplicationRecord
 end

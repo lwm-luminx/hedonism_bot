@@ -283,6 +283,46 @@ class ::Album < ::ApplicationRecord
     def venue_id_before_type_cast: () -> ::String?
 
     def venue_id_for_database: () -> ::String?
+
+    def storage_transition: () -> ::String?
+
+    def storage_transition=: (::String?) -> ::String?
+
+    def storage_transition?: () -> bool
+
+    def storage_transition_changed?: (?from: ::String?, ?to: ::String?) -> bool
+
+    def storage_transition_change: () -> [ ::String?, ::String? ]
+
+    def storage_transition_will_change!: () -> void
+
+    def storage_transition_was: () -> ::String?
+
+    def storage_transition_previously_changed?: (?from: ::String?, ?to: ::String?) -> bool
+
+    def storage_transition_previous_change: () -> ::Array[::String?]?
+
+    def storage_transition_previously_was: () -> ::String?
+
+    def storage_transition_before_last_save: () -> ::String?
+
+    def storage_transition_change_to_be_saved: () -> ::Array[::String?]?
+
+    def storage_transition_in_database: () -> ::String?
+
+    def saved_change_to_storage_transition: () -> ::Array[::String?]?
+
+    def saved_change_to_storage_transition?: (?from: ::String?, ?to: ::String?) -> bool
+
+    def will_save_change_to_storage_transition?: (?from: ::String?, ?to: ::String?) -> bool
+
+    def restore_storage_transition!: () -> void
+
+    def clear_storage_transition_change: () -> void
+
+    def storage_transition_before_type_cast: () -> ::String?
+
+    def storage_transition_for_database: () -> ::String?
   end
   include ::Album::GeneratedAttributeMethods
   module ::Album::GeneratedAliasAttributeMethods
