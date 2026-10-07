@@ -1,5 +1,6 @@
 import { graphql, useLazyLoadQuery } from "react-relay";
 import { PhotoCard } from "./PhotoCard";
+import { useRetryKey } from "./QueryBoundary";
 import { PhotosViewQuery } from "./__generated__/PhotosViewQuery.graphql";
 
 const PHOTOS_FRAGMENT = graphql`
@@ -24,10 +25,11 @@ export default function PhotoCollection({
   eventId,
   onSelect,
 }: PhotoCollectionProps) {
-  const data = useLazyLoadQuery<PhotosViewQuery>(PHOTOS_FRAGMENT, {
-    faceId: faceId,
-    folderId: eventId,
-  });
+  const data = useLazyLoadQuery<PhotosViewQuery>(
+    PHOTOS_FRAGMENT,
+    { faceId: faceId, folderId: eventId },
+    { fetchKey: useRetryKey() },
+  );
 
   if (!data) {
     return null;

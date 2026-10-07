@@ -1,4 +1,4 @@
-import { Suspense, useState } from "react";
+import { useState } from "react";
 import {
   Calendar,
   Camera,
@@ -23,7 +23,7 @@ import { graphql, useLazyLoadQuery } from "react-relay";
 import PhotoCollection from "../PhotoCollection";
 import { BaseApplicationQuery } from "./__generated__/BaseApplicationQuery.graphql";
 import { useNavigate } from "react-router";
-import { Spinner } from "../controls/Spinner";
+import { QueryBoundary, useRetryKey } from "../QueryBoundary";
 
 const BASE_QUERY = graphql`
   query BaseApplicationQuery($faceId: ID, $folderId: ID) {
@@ -49,11 +49,6 @@ export default function GalleryPage() {
   const [gridCols, setGridCols] = useState<3 | 4>(3);
   const [viewerPhoto, setViewerPhoto] = useState<string | null>(null);
   const navigate = useNavigate();
-
-  const data = useLazyLoadQuery<BaseApplicationQuery>(BASE_QUERY, {
-    faceId: selectedFaceId,
-    folderId: selectedEventId,
-  });
 
   const user = {
     user_metadata: {
@@ -242,80 +237,14 @@ export default function GalleryPage() {
             }}
           >
             <ScrollArea className="flex-1 p-4">
-              {/* Events by date */}
-              <div className="mb-5">
-                <p
-                  className="mb-2.5 text-xs tracking-widest uppercase"
-                  style={{
-                    color: "var(--muted-foreground)",
-                    fontFamily: "'DM Mono', monospace",
-                  }}
-                >
-                  Events
-                </p>
-                <div className="flex flex-col gap-0.5">
-                  <button
-                    className="flex items-center gap-2 rounded px-2 py-1.5 text-left transition-colors"
-                    style={{
-                      background:
-                        selectedEventId === null
-                          ? "rgba(201,169,110,0.12)"
-                          : "transparent",
-                      color:
-                        selectedEventId === null
-                          ? "var(--primary)"
-                          : "var(--foreground)",
-                      borderRadius: "var(--radius-sm)",
-                    }}
-                    onClick={() => setSelectedEventId(null)}
-                  >
-                    <Calendar className="h-3.5 w-3.5 shrink-0" />
-                    <span className="text-sm">All events</span>
-                  </button>
-                  {data?.folders?.nodes?.map((event) =>
-                    event ? (
-                      <button
-                        key={event.id}
-                        className="flex flex-col rounded px-2 py-1.5 text-left transition-colors"
-                        style={{
-                          background:
-                            selectedEventId === event?.id
-                              ? "rgba(201,169,110,0.12)"
-                              : "transparent",
-                          color:
-                            selectedEventId === event?.id
-                              ? "var(--primary)"
-                              : "var(--foreground)",
-                          borderRadius: "var(--radius-sm)",
-                        }}
-                        onClick={() => setSelectedEventId(event!.id!)}
-                      >
-                        <span className="truncate text-sm">{event?.name}</span>
-                        <span
-                          className="text-xs"
-                          style={{
-                            color: "var(--muted-foreground)",
-                            fontFamily: "'DM Mono', monospace",
-                          }}
-                        >
-                          {event?.photoCount} photos
-                        </span>
-                      </button>
-                    ) : null,
-                  )}
-                </div>
-              </div>
-
-              <Separator
-                className="mb-4"
-                style={{ background: "var(--border)" }}
-              />
-
-              <FaceGroup
-                faces={data.faces}
-                selectedFaceId={selectedFaceId}
-                onSelect={setSelectedFaceId}
-              />
+              <QueryBoundary message="Couldn't load events and faces.">
+                <GallerySidebar
+                  selectedEventId={selectedEventId}
+                  onSelectEvent={setSelectedEventId}
+                  selectedFaceId={selectedFaceId}
+                  onSelectFace={setSelectedFaceId}
+                />
+              </QueryBoundary>
             </ScrollArea>
           </aside>
         )}
@@ -413,7 +342,7 @@ export default function GalleryPage() {
 
           {/* PhotoTake grid */}
           <ScrollArea className="flex-1">
-            <Suspense fallback={<Spinner />}>
+            <QueryBoundary message="Couldn't load photos.">
               <PhotoCollection
                 faceId={selectedFaceId}
                 eventId={selectedEventId}
@@ -422,7 +351,7 @@ export default function GalleryPage() {
                   setViewerPhoto(id);
                 }}
               />
-            </Suspense>
+            </QueryBoundary>
           </ScrollArea>
         </main>
       </div>
@@ -443,5 +372,104 @@ export default function GalleryPage() {
         onPurchaseComplete={() => {}}
       />
     </div>
+  );
+}
+
+interface GallerySidebarProps {
+  selectedEventId: string | null;
+  onSelectEvent: (id: string | null) => void;
+  selectedFaceId: string | null;
+  onSelectFace: (id: string | null) => void;
+}
+
+function GallerySidebar({
+  selectedEventId,
+  onSelectEvent,
+  selectedFaceId,
+  onSelectFace,
+}: GallerySidebarProps) {
+  const data = useLazyLoadQuery<BaseApplicationQuery>(
+    BASE_QUERY,
+    { faceId: selectedFaceId, folderId: selectedEventId },
+    { fetchKey: useRetryKey() },
+  );
+
+  return (
+    <>
+      {/* Events by date */}
+      <div className="mb-5">
+        <p
+          className="mb-2.5 text-xs tracking-widest uppercase"
+          style={{
+            color: "var(--muted-foreground)",
+            fontFamily: "'DM Mono', monospace",
+          }}
+        >
+          Events
+        </p>
+        <div className="flex flex-col gap-0.5">
+          <button
+            className="flex items-center gap-2 rounded px-2 py-1.5 text-left transition-colors"
+            style={{
+              background:
+                selectedEventId === null
+                  ? "rgba(201,169,110,0.12)"
+                  : "transparent",
+              color:
+                selectedEventId === null
+                  ? "var(--primary)"
+                  : "var(--foreground)",
+              borderRadius: "var(--radius-sm)",
+            }}
+            onClick={() => onSelectEvent(null)}
+          >
+            <Calendar className="h-3.5 w-3.5 shrink-0" />
+            <span className="text-sm">All events</span>
+          </button>
+          {data?.folders?.nodes?.map((event) =>
+            event ? (
+              <button
+                key={event.id}
+                className="flex flex-col rounded px-2 py-1.5 text-left transition-colors"
+                style={{
+                  background:
+                    selectedEventId === event?.id
+                      ? "rgba(201,169,110,0.12)"
+                      : "transparent",
+                  color:
+                    selectedEventId === event?.id
+                      ? "var(--primary)"
+                      : "var(--foreground)",
+                  borderRadius: "var(--radius-sm)",
+                }}
+                onClick={() => onSelectEvent(event!.id!)}
+              >
+                <span className="truncate text-sm">{event?.name}</span>
+                <span
+                  className="text-xs"
+                  style={{
+                    color: "var(--muted-foreground)",
+                    fontFamily: "'DM Mono', monospace",
+                  }}
+                >
+                  {event?.photoCount} photos
+                </span>
+              </button>
+            ) : null,
+          )}
+        </div>
+      </div>
+
+      <Separator
+        className="mb-4"
+        style={{ background: "var(--border)" }}
+      />
+
+      <FaceGroup
+        faces={data.faces}
+        selectedFaceId={selectedFaceId}
+        onSelect={onSelectFace}
+      />
+    </>
   );
 }
