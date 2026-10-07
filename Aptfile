@@ -1,0 +1,2 @@
+# heroku-24 already ships libvips, libheif and libpq; exiftool (for mini_exiftool) is the gap.
+libimage-exiftool-perl
