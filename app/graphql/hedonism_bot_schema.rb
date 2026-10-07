@@ -42,10 +42,13 @@ class HedonismBotSchema < GraphQL::Schema
     object.to_gid_param
   end
 
-  # Given a string UUID, find the object
+  # Given a global ID, find the object, but only when it belongs to the request's photographer.
   def self.object_from_id(global_id, query_ctx)
-    # For example, use Rails' GlobalID library (https://github.com/rails/globalid):
-    GlobalID.find(global_id)
+    photographer = query_ctx[:photographer]
+    object = GlobalID::Locator.locate(global_id) if photographer
+    object if object.respond_to?(:owner_photographer_id) && object.owner_photographer_id == photographer.id
+  rescue ActiveRecord::RecordNotFound, NameError
+    nil
   end
 
   def self.detailed_trace?(query)

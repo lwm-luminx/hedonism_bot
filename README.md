@@ -60,3 +60,15 @@ heroku config:set ARCHIVE_BUCKET_NAME=… ARCHIVE_ACCESS_KEY_ID=… ARCHIVE_SECR
 
 GLACIER_IR still reads instantly, but AWS bills it for at least 90 days, so restoring an album
 sooner still costs the remaining days.
+
+## Photographers (tenants)
+
+Every request is served for one photographer, picked by its host: a hostname registered in
+`photographer_domains` first, then the host's first label as the photographer's subdomain. Hosts that
+match no photographer get a 404. GraphQL IDs only resolve to records the request's photographer owns.
+
+```sh
+bin/rails photographers:create SUBDOMAIN=luminx NAME="Luminx"
+bin/rails photographers:add_domain SUBDOMAIN=luminx HOST=gallery.luminx.media
+bin/rails photographers:list
+```

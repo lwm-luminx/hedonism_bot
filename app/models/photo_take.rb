@@ -41,6 +41,11 @@ class PhotoTake < ApplicationRecord
 
   scope :for_date, ->(date) { where(folder_date: date) }
   scope :processed, -> { where(status: "processed") }
+  # The photographer (tenant) this record belongs to; GraphQL only resolves IDs owned by the request's.
+  def owner_photographer_id
+    photo&.owner_photographer_id
+  end
+
   scope :with_photographer, ->(photographer) { includes(photo: :album).where(photos: { albums: { photographer: photographer } }) }
   scope :with_face, ->(face_id) { includes(:faces).where(faces: { id: face_id }) }
   scope :with_preview_image, -> { includes(images_attachments: :blob).joins(images_attachments: :blob).where(blob: { content_type: "image/jpeg" }) }

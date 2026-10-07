@@ -3,6 +3,11 @@ class PhotoPromiseFile < ApplicationRecord
 
   belongs_to :photo_promise
   belongs_to :photo_take, optional: true
+
+  # The photographer (tenant) this record belongs to; GraphQL only resolves IDs owned by the request's.
+  def owner_photographer_id
+    photo_promise&.photographer_id
+  end
   has_one_attached :file
 
   # Base64 MD5 of the file. Storage services verify uploads against it (S3 checks Content-MD5),
