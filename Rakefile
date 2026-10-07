@@ -2,17 +2,24 @@
 # for example lib/tasks/capistrano.rake, and they will automatically be available to Rake.
 
 require_relative "config/application"
-require 'rubocop/rake_task'
-require "steep/rake_task"
 require "graphql/rake_task"
 
 Rails.application.load_tasks
 
-RuboCop::RakeTask.new
+# RuboCop and Steep are development gems, absent from production installs such as Heroku's.
+begin
+  require "rubocop/rake_task"
+  RuboCop::RakeTask.new
+rescue LoadError
+end
 
-Steep::RakeTask.new do |t|
-  t.check.severity_level = :error
-  t.watch
+begin
+  require "steep/rake_task"
+  Steep::RakeTask.new do |t|
+    t.check.severity_level = :error
+    t.watch
+  end
+rescue LoadError
 end
 
 GraphQL::RakeTask.new(
