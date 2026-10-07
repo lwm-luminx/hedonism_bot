@@ -1,5 +1,5 @@
-# Heroku container stack: `heroku stack:set container -a <app>`. The Dockerfile carries what the
-# buildpacks can't (Rust for clusterkit, exiftool, libvips with HEIF).
+# Heroku now builds with buildpacks on heroku-24 (see Procfile, Aptfile, RustConfig); this file
+# only applies if the app is switched back to the container stack.
 build:
   docker:
     web: Dockerfile
