@@ -88,9 +88,11 @@ gem "omniauth-facebook"
 gem "graphql"
 gem "graphql-persisted_queries"
 
+# GraphQL::Tracing::DetailedTrace (in the schema) needs protobuf in every environment.
+gem "google-protobuf"
+
 group :development, :test do
   gem "pry-rails"
-  gem "google-protobuf"
   gem "awesome_print"
   gem "graphiql-rails"
 
