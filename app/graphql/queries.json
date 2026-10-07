@@ -1,1 +1,5 @@
-{}
+{
+  "21fb4b16473dddf250678aa669b61fd6": "query StoragePanelQuery {\n  photographer {\n    storage {\n      totalBytes\n      hotBytes\n      archivedBytes\n      archiveAvailable\n      albums {\n        albumId\n        name\n        photoCount\n        bytes\n        originalBytes\n        archivedBytes\n        transition\n      }\n    }\n    id\n  }\n}\n",
+  "bc5a6686a60762177df862d07e44ac02": "mutation StoragePanelRestoreMutation(\n  $id: ID!\n) {\n  restoreAlbum(id: $id) {\n    album {\n      albumId\n      transition\n    }\n  }\n}\n",
+  "cc8d50971ccfd5f2b83e7e7ccfa71ac1": "mutation StoragePanelArchiveMutation(\n  $id: ID!\n) {\n  archiveAlbum(id: $id) {\n    album {\n      albumId\n      transition\n    }\n  }\n}\n"
+}

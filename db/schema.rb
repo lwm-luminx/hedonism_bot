@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_06_17_083638) do
+ActiveRecord::Schema[8.1].define(version: 2026_10_07_210000) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
   enable_extension "postgis"
@@ -50,6 +50,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_06_17_083638) do
     t.uuid "event_id"
     t.string "name", null: false
     t.uuid "photographer_id", null: false
+    t.string "storage_transition"
     t.datetime "updated_at", null: false
     t.uuid "venue_id"
     t.index ["event_id"], name: "index_albums_on_event_id"
@@ -332,8 +333,11 @@ ActiveRecord::Schema[8.1].define(version: 2026_06_17_083638) do
     t.string "status", default: "pending", null: false
     t.datetime "updated_at", null: false
     t.string "upload_url", null: false
+    t.uuid "blob_id"
+    t.uuid "photo_take_id"
     t.index ["image_hash"], name: "photo_takes_image_hash_index"
     t.index ["photo_promise_id"], name: "index_photo_promise_files_on_photo_promise_id"
+    t.index ["photo_take_id"], name: "index_photo_promise_files_on_photo_take_id"
   end
 
   create_table "photo_promises", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
@@ -342,6 +346,8 @@ ActiveRecord::Schema[8.1].define(version: 2026_06_17_083638) do
     t.uuid "photographer_id", null: false
     t.datetime "updated_at", null: false
     t.uuid "venue_id"
+    t.uuid "album_id"
+    t.index ["album_id"], name: "index_photo_promises_on_album_id"
     t.index ["event_id"], name: "index_photo_promises_on_event_id"
     t.index ["photographer_id"], name: "index_photo_promises_on_photographer_id"
     t.index ["venue_id"], name: "index_photo_promises_on_venue_id"
@@ -425,6 +431,18 @@ ActiveRecord::Schema[8.1].define(version: 2026_06_17_083638) do
     t.st_point "point", geographic: true
     t.string "types", null: false, array: true
     t.datetime "updated_at", null: false
+  end
+
+  create_table "service_accounts", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.uuid "photographer_id", null: false
+    t.string "name", null: false
+    t.string "token_digest", null: false
+    t.datetime "last_used_at"
+    t.datetime "revoked_at"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["photographer_id"], name: "index_service_accounts_on_photographer_id"
+    t.index ["token_digest"], name: "index_service_accounts_on_token_digest", unique: true
   end
 
   create_table "sessions", id: :uuid, default: -> { "uuid_generate_v4()" }, force: :cascade do |t|
@@ -655,6 +673,8 @@ ActiveRecord::Schema[8.1].define(version: 2026_06_17_083638) do
   add_foreign_key "photo_faces", "faces", on_delete: :nullify
   add_foreign_key "photo_faces", "photo_takes"
   add_foreign_key "photo_promise_files", "photo_promises"
+  add_foreign_key "photo_promise_files", "photo_takes"
+  add_foreign_key "photo_promises", "albums"
   add_foreign_key "photo_promises", "events"
   add_foreign_key "photo_promises", "photographers"
   add_foreign_key "photo_promises", "venues"
@@ -667,6 +687,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_06_17_083638) do
   add_foreign_key "reviews", "pages"
   add_foreign_key "reviews", "users"
   add_foreign_key "safety_report_identifiers", "safety_reports"
+  add_foreign_key "service_accounts", "photographers"
   add_foreign_key "sessions", "audiences"
   add_foreign_key "sessions", "devices"
   add_foreign_key "sessions", "users"

@@ -6,6 +6,7 @@ module Types
     field :photographer, Types::PhotographerType, null: false
     field :venue, Types::VenueType, null: true
     field :event, Types::EventType, null: true
+    field :album, Types::FolderType, null: true, method: :album_for_uploads, description: "The album uploads land in"
 
     def files
       @object.photo_promise_files

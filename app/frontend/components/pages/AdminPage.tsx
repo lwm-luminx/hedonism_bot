@@ -1,4 +1,4 @@
-import { ArrowLeft, CalendarDays, Image, LayoutDashboard, MapPin } from "lucide-react";
+import { ArrowLeft, CalendarDays, HardDrive, Image, LayoutDashboard, MapPin } from "lucide-react";
 import { NavLink, Outlet, useNavigate } from "react-router";
 import { Suspense } from "react";
 import { Spinner } from "../controls/Spinner";
@@ -62,6 +62,10 @@ export function AdminPage() {
           <NavLink to="/admin/photos" className="admin-nav">
             <Image />
             Photos
+          </NavLink>
+          <NavLink to="/admin/storage" className="admin-nav">
+            <HardDrive />
+            Storage
           </NavLink>
         </nav>
 
