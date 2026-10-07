@@ -27,8 +27,8 @@ module Types
       @photos = Face.for_photographer(photographer).with_preview_image
 
       if folder_id
-        folder = GlobalID.parse(folder_id).model_id
-        @photos = @photos.where(photo_faces: { photos: { folder_date: folder } })
+        folder = HedonismBotSchema.object_from_id(folder_id, context)
+        @photos = folder ? @photos.in_album(folder.id) : @photos.none
       end
 
       @photos

@@ -11,24 +11,27 @@ import { EventsPanel } from "./admin/EventsPanel";
 import { AdminPhotosPanel } from "./admin/AdminPhotosPanel";
 import { StoragePanel } from "./admin/StoragePanel";
 import { CreatePhotoPromise } from "./pages/CreatePhotoPromise";
+import { QueryBoundary } from "./QueryBoundary";
 
 export default function App() {
   return (
     <RelayEnvironmentProvider environment={relayEnvironment}>
       <BrowserRouter>
-        <Routes>
-          <Route path="/" element={<GalleryPage />} />
-          <Route path="/upload" element={<CreatePhotoPromise />}>
-            <Route path=":promiseId" element={<UploadPage />} />
-          </Route>
-          <Route path="admin" element={<AdminPage />}>
-            <Route index element={<AdminOverview />} />
-            <Route path="venues" element={<VenuesPanel />} />
-            <Route path="events" element={<EventsPanel />} />
-            <Route path="photos" element={<AdminPhotosPanel />} />
-            <Route path="storage" element={<StoragePanel />} />
-          </Route>
-        </Routes>
+        <QueryBoundary message="This page couldn't load.">
+          <Routes>
+            <Route path="/" element={<GalleryPage />} />
+            <Route path="/upload" element={<CreatePhotoPromise />}>
+              <Route path=":promiseId" element={<UploadPage />} />
+            </Route>
+            <Route path="admin" element={<AdminPage />}>
+              <Route index element={<AdminOverview />} />
+              <Route path="venues" element={<VenuesPanel />} />
+              <Route path="events" element={<EventsPanel />} />
+              <Route path="photos" element={<AdminPhotosPanel />} />
+              <Route path="storage" element={<StoragePanel />} />
+            </Route>
+          </Routes>
+        </QueryBoundary>
       </BrowserRouter>
     </RelayEnvironmentProvider>
   );
