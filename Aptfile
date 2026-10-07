@@ -1,2 +1,4 @@
-# heroku-24 already ships libvips, libheif and libpq; exiftool (for mini_exiftool) is the gap.
+# heroku-24 already ships libvips, libheif and libpq.
+# exiftool backs mini_exiftool; libclang lets rb-sys run bindgen when clusterkit compiles.
 libimage-exiftool-perl
+libclang-dev
