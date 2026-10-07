@@ -4,5 +4,10 @@ module Types
 
     field :name, String, null: false, description: "The name of the Photographer"
     field :subdomain, String, null: false, description: "The subdomain of the Photographer"
+    field :storage, Types::StorageUsageType, null: false, description: "Storage used by the Photographer's photos"
+
+    def storage
+      StorageUsage.new(@object)
+    end
   end
 end

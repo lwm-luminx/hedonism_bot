@@ -2,6 +2,10 @@ test:
   service: Disk
   root: <%= Rails.root.join("tmp/storage/test") %>
 
+test_archive:
+  service: Disk
+  root: <%= Rails.root.join("tmp/storage/test_archive") %>
+
 disk:
   service: Disk
   root: <%= Rails.root.join("tmp/storage") %>
@@ -23,6 +27,24 @@ bucketeer:
   access_key_id: <%= ENV["BUCKETEER_AWS_ACCESS_KEY_ID"] %>
   secret_access_key: <%= ENV["BUCKETEER_AWS_SECRET_ACCESS_KEY"] %>
   region: <%= ENV.fetch("BUCKETEER_AWS_REGION", "us-east-1") %>
+
+# Cheaper storage for photo originals, enabled by setting ARCHIVE_BUCKET_NAME. Any S3-compatible
+# bucket billed per GB works: AWS S3 (originals are written with ARCHIVE_STORAGE_CLASS, default
+# GLACIER_IR, which still reads instantly), or Backblaze B2 / Cloudflare R2 via ARCHIVE_ENDPOINT
+# with ARCHIVE_STORAGE_CLASS set to an empty string.
+archive:
+  service: S3
+  bucket: <%= ENV["ARCHIVE_BUCKET_NAME"] %>
+  access_key_id: <%= ENV["ARCHIVE_ACCESS_KEY_ID"] %>
+  secret_access_key: <%= ENV["ARCHIVE_SECRET_ACCESS_KEY"] %>
+  region: <%= ENV.fetch("ARCHIVE_REGION", "us-east-1") %>
+<% if ENV["ARCHIVE_ENDPOINT"].present? %>
+  endpoint: <%= ENV["ARCHIVE_ENDPOINT"] %>
+<% end %>
+<% if ENV.fetch("ARCHIVE_STORAGE_CLASS", "GLACIER_IR").present? %>
+  upload:
+    storage_class: <%= ENV.fetch("ARCHIVE_STORAGE_CLASS", "GLACIER_IR") %>
+<% end %>
 
 # Use bin/rails credentials:edit to set the AWS secrets (as aws:access_key_id|secret_access_key)
 # amazon:
