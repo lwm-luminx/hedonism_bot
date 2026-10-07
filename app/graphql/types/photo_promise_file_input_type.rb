@@ -6,5 +6,6 @@ module Types
     argument :content_type, String, required: true
     argument :file_size_bytes, Integer, required: true
     argument :image_hash, BinaryType, required: true
+    argument :checksum, String, required: false, description: "Base64 MD5 of the file, verified by storage on upload"
   end
 end

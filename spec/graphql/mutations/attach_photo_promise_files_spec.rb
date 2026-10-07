@@ -53,5 +53,13 @@ RSpec.describe Mutations::AttachPhotoPromiseFiles, type: :graphql do
         expect(data.dig("attachPhotoPromiseFiles", "promise", "files", "nodes").size).to eq(inputs.size)
       end
     end
+
+    it "returns the added files with their upload headers" do
+      query = 'mutation($id: ID!, $files: [PhotoPromiseFileInput!]!) { ' \
+              'attachPhotoPromiseFiles(id: $id, files: $files) { files { originalFilename uploadHeaders } } }'
+      execute_graphql(query, variables: { id: photo_promise['id'], files: inputs })
+
+      expect(data.dig("attachPhotoPromiseFiles", "files").pluck("originalFilename")).to eq(inputs.pluck(:originalFilename))
+    end
   end
 end

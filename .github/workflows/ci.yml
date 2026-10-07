@@ -156,3 +156,19 @@ jobs:
 
       - name: Run RSpec
         run: bundle exec rspec
+
+  mac:
+    runs-on: macos-15
+    defaults:
+      run:
+        working-directory: mac/HedonismUploader
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v7
+
+      - name: Run Swift tests
+        run: swift test
+
+      - name: Build the app bundle
+        run: script/bundle-app.sh
