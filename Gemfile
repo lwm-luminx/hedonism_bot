@@ -32,10 +32,13 @@ gem "pg_search"
 # clusterkit 0.3.1 never loads its native extension when compiled from source (as on Ruby 4):
 # its fallback `require "clusterkit/clusterkit"` resolves to its own .rb file instead of the .so.
 # On macOS 27, build it with CARGO=bin/cargo-chained-fixups (bin/setup does) or dyld rejects it.
-# On Heroku the apt buildpack unpacks libclang under .apt; point rb-sys's bindgen at the LLVM lib
-# directory itself so clang also finds its builtin headers (stdarg.h) next to it.
+# On Heroku the apt buildpack unpacks libclang under .apt. Point rb-sys's bindgen at it, and at
+# clang's builtin headers (stdarg.h), which Ubuntu's libclang looks for under /usr/lib/llvm-*.
 if (llvm_lib = Dir[File.join(__dir__, ".apt/usr/lib/llvm-*/lib")].first)
   ENV["LIBCLANG_PATH"] ||= llvm_lib
+  if (clang_include = Dir[File.join(llvm_lib, "clang/*/include")].first)
+    ENV["BINDGEN_EXTRA_CLANG_ARGS"] ||= "-isystem #{clang_include}"
+  end
 end
 gem "clusterkit", "0.2.6"
 
