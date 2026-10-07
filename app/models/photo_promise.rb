@@ -3,6 +3,11 @@ class PhotoPromise < ApplicationRecord
   belongs_to :album, optional: true
   has_many :photo_promise_files
 
+  # The photographer (tenant) this record belongs to; GraphQL only resolves IDs owned by the request's.
+  def owner_photographer_id
+    photographer_id
+  end
+
   # The album uploads land in when the uploader didn't name one.
   def album_for_uploads
     album || photographer.albums.find_or_create_by!(name: "Uploads #{created_at.to_date.iso8601}")

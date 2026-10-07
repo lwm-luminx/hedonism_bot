@@ -10,7 +10,9 @@ module Mutations
     argument :faces, [ ::Types::FaceDataInputType ], "The new facial recognition data for the photo", required: true
 
     def resolve(id:, faces:)
-      photo = Photo.find(GlobalID.parse(id).model_id)
+      photo = HedonismBotSchema.object_from_id(id, context) #: PhotoTake
+      raise GraphQL::ExecutionError, "Photo not found" unless photo.is_a?(PhotoTake)
+
       photo.facial_metadata = faces
 
       photo.update_faces(faces)

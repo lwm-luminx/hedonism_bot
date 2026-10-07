@@ -10,8 +10,8 @@ module Mutations
     argument :status, Types::PhotoPromiseFileStatusType, required: true
 
     def resolve(id:, status:)
-      file = GlobalID::Locator.locate(id)
-      unless file.is_a?(PhotoPromiseFile) && file.photo_promise.photographer_id == context[:photographer]&.id
+      file = HedonismBotSchema.object_from_id(id, context)
+      unless file.is_a?(PhotoPromiseFile)
         raise GraphQL::ExecutionError, "Upload not found"
       end
 
