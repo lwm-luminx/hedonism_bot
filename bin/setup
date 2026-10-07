@@ -13,6 +13,8 @@ FileUtils.chdir APP_ROOT do
   # Add necessary setup steps to this file.
 
   puts "== Installing dependencies =="
+  # See bin/cargo-chained-fixups: clusterkit's Rust extension won't load on macOS 27 otherwise.
+  ENV["CARGO"] ||= File.join(APP_ROOT, "bin/cargo-chained-fixups") if RUBY_PLATFORM.include?("darwin")
   system("bundle check") || system!("bundle install")
 
   # puts "\n== Copying sample files =="

@@ -177,15 +177,20 @@ module ::ActiveStorage
     def create_image_attachment: (?untyped) -> ::ActiveStorage::Attachment
     def create_image_attachment!: (?untyped) -> ::ActiveStorage::Attachment
     def reload_image_attachment: () -> ::ActiveStorage::Attachment?
+    def reset_image_attachment: () -> void
     def image_blob: () -> ::ActiveStorage::Blob?
     def image_blob=: (::ActiveStorage::Blob?) -> ::ActiveStorage::Blob?
     def build_image_blob: (?untyped) -> ::ActiveStorage::Blob
     def create_image_blob: (?untyped) -> ::ActiveStorage::Blob
     def create_image_blob!: (?untyped) -> ::ActiveStorage::Blob
     def reload_image_blob: () -> ::ActiveStorage::Blob?
+    def reset_image_blob: () -> void
     def blob: () -> ::ActiveStorage::Blob
     def blob=: (::ActiveStorage::Blob?) -> ::ActiveStorage::Blob?
     def reload_blob: () -> ::ActiveStorage::Blob?
+    def blob_changed?: () -> bool
+    def blob_previously_changed?: () -> bool
+    def reset_blob: () -> void
     def build_blob: (?untyped) -> ::ActiveStorage::Blob
     def create_blob: (?untyped) -> ::ActiveStorage::Blob
     def create_blob!: (?untyped) -> ::ActiveStorage::Blob

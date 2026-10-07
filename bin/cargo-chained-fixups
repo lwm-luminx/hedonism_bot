@@ -1,0 +1,17 @@
+#!/bin/sh
+# cargo wrapper for building clusterkit's Rust extension on macOS 27+ (rb_sys honors $CARGO).
+#
+# rb_sys links extensions with `-undefined dynamic_lookup`, which makes ld fall back to
+# dyld-info opcodes; ld-27037 then leaves the LINKEDIT string pool only 4-byte aligned and
+# macOS 27's dyld refuses to load the bundle ("mis-aligned LINKEDIT string pool"), which
+# breaks anything that boots Rails. Forcing chained fixups avoids that layout. The flag goes
+# after rb_sys's `--` so only the extension's own link gets it; proc-macro crates linked
+# with it fail to load into rustc.
+#
+#   CARGO="$PWD/bin/cargo-chained-fixups" bundle pristine clusterkit
+if [ "$1" = rustc ]; then
+  for arg in "$@"; do
+    [ "$arg" = -- ] && exec cargo "$@" -C link-arg=-Wl,-fixup_chains
+  done
+fi
+exec cargo "$@"
