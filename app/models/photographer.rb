@@ -5,6 +5,8 @@ class Photographer < ApplicationRecord
   has_many :venues, dependent: :destroy
   has_many :faces, dependent: :destroy
   has_many :service_accounts, dependent: :destroy
+  has_many :photographer_admins, dependent: :destroy
+  has_many :admins, through: :photographer_admins, source: :user
 
   validates :name, presence: true
   validates :subdomain, presence: true, uniqueness: true,

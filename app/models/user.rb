@@ -14,9 +14,18 @@ class User < ApplicationRecord
   has_many :audiences, dependent: :destroy, through: :audience_users
 
   has_many :user_rsvps, dependent: :destroy
+  has_many :photographer_admins, dependent: :destroy
 
+  # god_mode is a global superadmin; everyone else is an admin per photographer.
   def admin?
     self.god_mode
+  end
+
+  def admin_of?(photographer)
+    return true if admin?
+    return false unless photographer
+
+    photographer_admins.exists?(photographer: photographer)
   end
 
   def update_from(graph)
@@ -34,7 +43,7 @@ class User < ApplicationRecord
     ActiveRecord::Base.transaction do
       user = User.find_or_create_by(facebook_id: graph["id"].to_i) do |u|
         u.facebook_token = token
-        u.facebook_token_issued_at = ActiveSupport::TimeWithZone.now
+        u.facebook_token_issued_at = Time.current
         u.email_address = graph["email"]
         u.culture = graph["locale"]
         u.first_name = graph["first_name"]
@@ -48,7 +57,7 @@ class User < ApplicationRecord
 
       if token
         user.facebook_token = token
-        user.facebook_token_issued_at = ActiveSupport::TimeWithZone.now
+        user.facebook_token_issued_at = Time.current
       end
 
       user.update_from graph

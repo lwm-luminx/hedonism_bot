@@ -75,6 +75,7 @@ gem "google_maps_service"
 gem "geocoder"
 gem "pundit"
 gem "omniauth-facebook"
+gem "omniauth-rails_csrf_protection"
 gem "graphql"
 gem "graphql-persisted_queries"
 
