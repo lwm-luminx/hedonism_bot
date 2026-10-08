@@ -40,6 +40,14 @@ RSpec.describe "Tenancy", type: :request do
       expect(JSON.parse(response.body).dig("data", "node")).to be_nil
     end
 
+    it "resolves the photographer's own upload batch through node" do
+      promise = create(:photo_promise, photographer: luminx)
+      post "/graphql", params: { query: "query($id: ID!) { node(id: $id) { __typename id } }", variables: { id: promise.to_gid_param }.to_json },
+                       headers: { "Host" => "gallery.luminx.media" }
+      expect(response).to have_http_status(:ok)
+      expect(JSON.parse(response.body).dig("data", "node")).to eq("__typename" => "PhotoPromise", "id" => promise.to_gid_param)
+    end
+
     it "resolves the photographer's own records" do
       own = create(:album, photographer: luminx)
       expect(HedonismBotSchema.object_from_id(own.to_gid_param, { photographer: luminx })).to eq(own)
