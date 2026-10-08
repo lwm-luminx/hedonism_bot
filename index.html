@@ -1,22 +1,317 @@
 <!doctype html>
 <html lang="en">
-<head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Lumiere — Photography, shared beautifully</title>
-  <style>
-    body { margin: 0; background: #12121a; color: #f7f4ed; font-family: system-ui, sans-serif; }
-    main { max-width: 760px; margin: 15vh auto; padding: 32px; }
-    h1 { font-size: clamp(3rem, 8vw, 6rem); letter-spacing: -0.05em; margin-bottom: 24px; }
-    p { font-size: 1.4rem; line-height: 1.6; color: #c6c3d1; }
-    .brand { color: #e5bc82; letter-spacing: 0.2em; text-transform: uppercase; }
-  </style>
-</head>
-<body>
-  <main>
-    <span class="brand">Lumiere</span>
-    <h1>Photography, shared beautifully.</h1>
-    <p>A home for photographers and the moments they capture. Discover your photographer’s galleries at their own Lumiere address.</p>
-  </main>
-</body>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#171a17" />
+    <meta
+      name="description"
+      content="Lumiere is the photography platform that gives every photographer a home of their own. Organize your shoots, share beautiful galleries, and help people find their moments."
+    />
+    <meta
+      property="og:title"
+      content="Lumiere — Every photographer. Their own light."
+    />
+    <meta
+      property="og:description"
+      content="One photography platform. Independent galleries. A beautiful home for every photographer’s work."
+    />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://lumiere.host/" />
+    <link rel="canonical" href="https://lumiere.host/" />
+    <link rel="icon" type="image/svg+xml" href="assets/lumiere-mark.svg" />
+    <link rel="stylesheet" href="styles.css" />
+    <script src="site.js" defer></script>
+    <title>Lumiere — Every photographer. Their own light.</title>
+  </head>
+  <body>
+    <a class="skip" href="#main">Skip to content</a>
+    <header class="header wrap">
+      <a class="logo" href="./" aria-label="Lumiere home"
+        ><img
+          src="assets/lumiere-mark.svg"
+          alt=""
+          width="36"
+          height="36"
+        />lumiere<span class="logo-dot">®</span></a
+      >
+      <nav aria-label="Main navigation">
+        <a href="#platform">The platform</a><a href="#workflow">How it works</a
+        ><a class="nav-cta" href="#find-gallery"
+          >Find a gallery <span aria-hidden="true">↗</span></a
+        >
+      </nav>
+    </header>
+    <main id="main">
+      <section class="hero wrap">
+        <div class="hero-copy">
+          <p class="eyebrow">
+            <span class="spark" aria-hidden="true">✳</span> A home for
+            photography
+          </p>
+          <h1>Every photographer.<br />Their own <em>light.</em></h1>
+          <p class="lead">
+            You make the photographs. We give them a place to live. Beautiful
+            galleries, thoughtful tools, and a home of your own—all on Lumiere.
+          </p>
+          <div class="actions">
+            <a class="button" href="#platform"
+              >Meet the platform <span aria-hidden="true">↗</span></a
+            ><a class="text-link" href="#find-gallery"
+              >Looking for your photos? <span aria-hidden="true">→</span></a
+            >
+          </div>
+          <p class="hero-note">
+            One platform. Many perspectives. Always your work.
+          </p>
+        </div>
+        <div class="hero-art">
+          <div class="image-frame">
+            <img
+              src="https://images.unsplash.com/photo-1472396961693-142e6e269027?auto=format&amp;fit=crop&amp;w=1400&amp;q=85"
+              alt="Deer in a misty forest, surrounded by quiet green light"
+              width="1000"
+              height="1200"
+              fetchpriority="high"
+            />
+            <div class="image-label">
+              <span>THE WORLD, THROUGH YOUR EYES</span><span>01 / 03</span>
+            </div>
+          </div>
+          <div class="floating-note">
+            <span class="small-label">YOUR OWN CORNER OF THE WORLD</span
+            ><strong>yourname<span>.lumiere.host</span></strong
+            ><span>Independent vision. A shared foundation.</span>
+          </div>
+          <div class="vertical-label" aria-hidden="true">
+            MADE FOR THE MOMENTS THAT MATTER
+          </div>
+        </div>
+      </section>
+      <div class="platform-strip">
+        <div class="wrap">
+          <span>Built around your photography</span
+          ><span>Independent galleries</span><span>Connected workflow</span
+          ><span>Your own address</span>
+        </div>
+      </div>
+      <section id="platform" class="section wrap">
+        <div class="section-heading">
+          <p class="eyebrow">01 / The platform</p>
+          <h2>A shared platform.<br />A distinctly <em>personal home.</em></h2>
+          <p>
+            Lumiere brings photographers together without blending their work
+            together. Each photographer has a dedicated gallery, their own
+            address, and a workspace for their photographs.
+          </p>
+        </div>
+        <div class="features">
+          <article>
+            <span class="feature-number">01</span>
+            <h3>Your name on the door.</h3>
+            <p>
+              Share your work at yourname.lumiere.host, or connect a custom
+              domain. Visitors arrive at your gallery, with your photographs
+              front and center.
+            </p>
+            <div
+              class="domain-demo"
+              aria-label="Example photographer addresses"
+            >
+              <span>portraitstudio.lumiere.host</span
+              ><span>fieldnotes.lumiere.host</span
+              ><span>yourname.lumiere.host <b>↗</b></span>
+            </div>
+          </article>
+          <article>
+            <span class="feature-number">02</span>
+            <h3>From a shoot to a story.</h3>
+            <p>
+              Organize photographs into albums and help visitors explore a
+              collection. Gallery browsing, filters, and photo viewing keep the
+              experience focused on the images.
+            </p>
+            <div class="album-demo">
+              <span>Albums</span><span>Portraits <b>↗</b></span
+              ><span>Out in the world <b>↗</b></span
+              ><span>The little things <b>↗</b></span>
+            </div>
+          </article>
+          <article>
+            <span class="feature-number">03</span>
+            <h3>Room for the whole workflow.</h3>
+            <p>
+              Bring in photographs with the web uploader or companion Apple
+              apps. Keep previews ready to view and manage original storage as
+              your archive grows.
+            </p>
+            <div class="workflow-demo">
+              <span>Capture</span><b>→</b><span>Upload</span><b>→</b
+              ><span>Share</span>
+            </div>
+          </article>
+        </div>
+      </section>
+      <section class="photo-band" aria-label="Photography inspiration">
+        <figure>
+          <img
+            src="https://images.unsplash.com/photo-1441974231531-c6227db76b6e?auto=format&amp;fit=crop&amp;w=1000&amp;q=85"
+            alt="Sunlight falling through a lush forest"
+            width="1000"
+            height="700"
+            loading="lazy"
+          />
+          <figcaption>A different way of seeing.</figcaption>
+        </figure>
+        <figure>
+          <img
+            src="https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?auto=format&amp;fit=crop&amp;w=1000&amp;q=85"
+            alt="Dramatic mountain peaks beneath a blue sky"
+            width="1000"
+            height="700"
+            loading="lazy"
+          />
+          <figcaption>A place for every perspective.</figcaption>
+        </figure>
+      </section>
+      <section id="workflow" class="section wrap workflow">
+        <div>
+          <p class="eyebrow">02 / From camera to gallery</p>
+          <h2>Less between<br />the moment<br />and <em>the memory.</em></h2>
+          <p class="muted">
+            A considered home for the work after the shutter clicks.
+          </p>
+        </div>
+        <ol class="steps">
+          <li>
+            <span>01</span>
+            <div>
+              <h3>Make it yours</h3>
+              <p>
+                Your photographer workspace and gallery address keep your
+                collections together, separate from every other photographer’s
+                work.
+              </p>
+            </div>
+          </li>
+          <li>
+            <span>02</span>
+            <div>
+              <h3>Bring your work home</h3>
+              <p>
+                Upload photos, group them into albums, and add shoot details.
+                The macOS companion supports automatic camera-card uploads;
+                iPhone and iPad support selected folders.
+              </p>
+            </div>
+          </li>
+          <li>
+            <span>03</span>
+            <div>
+              <h3>Share the address</h3>
+              <p>
+                Send people directly to your gallery. They can explore your
+                collections and find the photographs that bring them back to the
+                moment.
+              </p>
+            </div>
+          </li>
+        </ol>
+      </section>
+      <section id="find-gallery" class="gallery-section">
+        <div class="wrap gallery-layout">
+          <div>
+            <p class="eyebrow">03 / For the people in the pictures</p>
+            <h2>Your moment.<br /><em>Somewhere beautiful.</em></h2>
+            <p>
+              Looking for photos from a shoot or event? Enter the Lumiere
+              address your photographer shared with you.
+            </p>
+          </div>
+          <form id="gallery-form">
+            <label for="photographer">Your photographer’s Lumiere name</label>
+            <div class="gallery-input">
+              <input
+                id="photographer"
+                name="photographer"
+                placeholder="yourphotographer"
+                autocomplete="off"
+                autocapitalize="none"
+                spellcheck="false"
+                required
+                maxlength="63"
+                pattern="[A-Za-z0-9]([A-Za-z0-9-]*[A-Za-z0-9])?"
+                aria-describedby="gallery-help gallery-error"
+              /><span>.lumiere.host</span>
+            </div>
+            <p id="gallery-help">
+              Use the part before .lumiere.host. For a custom domain, follow
+              your photographer’s link.
+            </p>
+            <p id="gallery-error" role="alert" hidden></p>
+            <button class="button" type="submit">
+              Open their gallery <span aria-hidden="true">↗</span></button
+            ><noscript
+              ><p>
+                Open https://yourphotographer.lumiere.host in your browser,
+                replacing “yourphotographer” with the name you were given.
+              </p></noscript
+            >
+          </form>
+        </div>
+      </section>
+      <section class="section wrap questions">
+        <div>
+          <p class="eyebrow">A little more clarity</p>
+          <h2>Good questions.<br /><em>Simple answers.</em></h2>
+        </div>
+        <div class="faq">
+          <details>
+            <summary>Is Lumiere one photographer’s portfolio?</summary>
+            <p>
+              No. Lumiere is a platform for multiple independent photographers.
+              Each photographer has their own gallery and workspace, served from
+              a dedicated Lumiere subdomain or registered custom domain.
+            </p>
+          </details>
+          <details>
+            <summary>How do I find my photographer’s gallery?</summary>
+            <p>
+              Use the address your photographer gave you, or enter their Lumiere
+              name above. There isn’t a public photographer directory here; your
+              photographer’s shared link is the best place to start.
+            </p>
+          </details>
+          <details>
+            <summary>Can photographers use their own domain?</summary>
+            <p>
+              Yes. Lumiere supports registered custom domains as well as
+              photographer addresses under lumiere.host.
+            </p>
+          </details>
+          <details>
+            <summary>Where do photographers sign in?</summary>
+            <p>
+              Open your own photographer’s gallery address, then use its sign-in
+              option. Accounts and administration belong to the photographer’s
+              workspace.
+            </p>
+          </details>
+        </div>
+      </section>
+    </main>
+    <footer class="wrap footer">
+      <a class="logo" href="./"
+        ><img
+          src="assets/lumiere-mark.svg"
+          alt=""
+          width="30"
+          height="30"
+        />lumiere</a
+      >
+      <p>Photography, shared beautifully.</p>
+      <span>© <span id="year">2026</span> Lumiere</span
+      ><a href="#main">Back to the light ↑</a>
+    </footer>
+  </body>
 </html>
