@@ -89,8 +89,9 @@ RSpec.describe "Facebook admin sign-in", type: :request do
     previous_forgery_protection = ActionController::Base.allow_forgery_protection
     ActionController::Base.allow_forgery_protection = true
     canonical.get response.location
+    expect(canonical.response.headers["Referrer-Policy"]).to eq("strict-origin")
     token = Nokogiri::HTML(canonical.response.body).at_css('input[name="authenticity_token"]')["value"]
-    canonical.post "/auth/facebook", params: { authenticity_token: token }
+    canonical.post "/auth/facebook", params: { authenticity_token: token }, headers: { "Origin" => "https://api.lumiere.host" }
     authorization = URI.parse(canonical.response.location)
     expect(authorization.host).to eq("www.facebook.com")
     expect(URI.decode_www_form(authorization.query).to_h).to include(
@@ -122,6 +123,7 @@ RSpec.describe "Facebook admin sign-in", type: :request do
     expect(stranger.response).to have_http_status(:unauthorized)
 
     get return_url
+    expect(response.headers["Referrer-Policy"]).to eq("strict-origin")
     expect(response).to redirect_to("/admin")
     expect(me).to include("facebook_id" => "1234567890")
     get return_url

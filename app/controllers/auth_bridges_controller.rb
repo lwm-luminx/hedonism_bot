@@ -14,7 +14,8 @@ class AuthBridgesController < ApplicationController
   end
 
   def new
-    response.headers["Referrer-Policy"] = "no-referrer"
+    # Send only the origin, keeping tickets out of referrers while preserving CSRF origin checks.
+    response.headers["Referrer-Policy"] = "strict-origin"
     context = verifier.verified(params[:ticket], purpose: :auth_bridge)
     target = context && Photographer.for_host(context["host"])
     unless request.host == "api.#{Rails.configuration.x.service_domain}" && target && target.id == context["photographer_id"]
@@ -27,7 +28,7 @@ class AuthBridgesController < ApplicationController
   end
 
   def complete
-    response.headers["Referrer-Policy"] = "no-referrer"
+    response.headers["Referrer-Policy"] = "strict-origin"
     ticket = verifier.verified(params[:ticket], purpose: :auth_return)
     nonce = session.delete(:auth_nonce)
     unless ticket && nonce && ticket["nonce"] == nonce && ticket["host"] == request.host && ticket["photographer_id"] == photographer.id
