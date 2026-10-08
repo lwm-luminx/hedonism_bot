@@ -9,6 +9,11 @@ module Mutations
     argument :id, ID, required: true
     argument :status, Types::PhotoPromiseFileStatusType, required: true
 
+    def ready?(**args)
+      require_uploader!
+      super
+    end
+
     def resolve(id:, status:)
       file = HedonismBotSchema.object_from_id(id, context)
       unless file.is_a?(PhotoPromiseFile)

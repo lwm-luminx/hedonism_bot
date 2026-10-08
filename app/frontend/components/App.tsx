@@ -12,6 +12,7 @@ import { AdminPhotosPanel } from "./admin/AdminPhotosPanel";
 import { StoragePanel } from "./admin/StoragePanel";
 import { CreatePhotoPromise } from "./pages/CreatePhotoPromise";
 import { QueryBoundary } from "./QueryBoundary";
+import { AuthGate } from "./pages/AuthPage";
 
 export default function App() {
   return (
@@ -20,7 +21,14 @@ export default function App() {
         <QueryBoundary message="This page couldn't load.">
           <Routes>
             <Route path="/" element={<GalleryPage />} />
-            <Route path="/upload" element={<CreatePhotoPromise />}>
+            <Route
+              path="/upload"
+              element={
+                <AuthGate>
+                  <CreatePhotoPromise />
+                </AuthGate>
+              }
+            >
               <Route path=":promiseId" element={<UploadPage />} />
             </Route>
             <Route path="admin" element={<AdminPage />}>

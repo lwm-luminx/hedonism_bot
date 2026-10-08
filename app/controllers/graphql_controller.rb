@@ -17,6 +17,7 @@ class GraphqlController < ApplicationController
     context = {
       photographer: photographer,
       current_user: current_user,
+      service_account: @service_account,
       extensions: extensions
     }
     result = HedonismBotSchema.execute(query, variables: variables, context: context, operation_name: operation_name)
@@ -33,8 +34,8 @@ class GraphqlController < ApplicationController
     token = request.authorization.to_s[/\ABearer (.+)\z/, 1]
     return super unless token
 
-    account = ServiceAccount.authenticate(token)
-    return account.photographer if account
+    @service_account = ServiceAccount.authenticate(token)
+    return @service_account.photographer if @service_account
 
     render json: { errors: [ { message: "Invalid service account token" } ] }, status: :unauthorized
     nil

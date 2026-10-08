@@ -35,7 +35,7 @@ class SessionsController < ApplicationController
   def safe_return_path
     origin = request.env["omniauth.origin"].to_s
     path = URI.parse(origin).path if origin.present?
-    path&.start_with?("/admin") ? path : "/admin"
+    path&.start_with?("/admin", "/upload") ? path : "/admin"
   rescue URI::InvalidURIError
     "/admin"
   end

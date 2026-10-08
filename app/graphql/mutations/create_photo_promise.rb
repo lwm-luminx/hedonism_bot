@@ -8,6 +8,11 @@ module Mutations
 
     argument :album_name, String, required: false, description: "Album the uploads go into (created if missing)"
 
+    def ready?(**args)
+      require_uploader!
+      super
+    end
+
     def resolve(album_name: nil)
       photographer = context[:photographer]
       album = photographer.albums.find_or_create_by!(name: album_name) if album_name.present?
