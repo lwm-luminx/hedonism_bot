@@ -5,7 +5,7 @@ final class MobileUploaderUITests: XCTestCase {
 
     func testLaunchAndShootDetails() {
         let app = XCUIApplication()
-        app.launchArguments = ["--ui-testing"]
+        app.launchArguments = ["--ui-testing", "--ui-test-accounts", "--reset-test-accounts"]
         app.launch()
         XCTAssertTrue(app.navigationBars["Chip by Lumière"].waitForExistence(timeout: 10))
         XCTAssertTrue(app.buttons["Add account"].exists)
@@ -23,7 +23,7 @@ final class MobileUploaderUITests: XCTestCase {
 
     func testSystemFolderPickerCanBeCancelled() {
         let app = XCUIApplication()
-        app.launchArguments = ["--ui-testing"]
+        app.launchArguments = ["--ui-testing", "--ui-test-accounts", "--reset-test-accounts"]
         app.launch()
         let picker = app.buttons["Select card / DCIM folder"]
         XCTAssertTrue(picker.waitForExistence(timeout: 10))
@@ -59,7 +59,7 @@ final class MobileUploaderUITests: XCTestCase {
         }
         let app = XCUIApplication()
         app.launch()
-        app.buttons["Add account"].tap()
+        if app.buttons["Add account"].exists { app.buttons["Add account"].tap() }
         let photographer = app.textFields["Photographer subdomain"]
         XCTAssertTrue(photographer.waitForExistence(timeout: 10))
         photographer.tap()
@@ -87,6 +87,27 @@ final class MobileUploaderUITests: XCTestCase {
         app.launch()
         XCTAssertTrue(app.descendants(matching: .any)["uploadAccountPicker"].firstMatch.waitForExistence(timeout: 10))
         XCTAssertTrue(app.descendants(matching: .any)["uploadAccountPicker"].firstMatch.label.contains("luminx"))
+    }
+
+    func testFirstLaunchShowsBrandedSignInAndDeviceCode() {
+        let app = XCUIApplication()
+        app.launchArguments = ["--ui-testing", "--reset-test-accounts"]
+        app.launch()
+        XCTAssertTrue(app.staticTexts["Chip"].waitForExistence(timeout: 10))
+        XCTAssertFalse(app.buttons["Select card / DCIM folder"].exists)
+        XCTAssertFalse(app.buttons["Continue with Facebook"].isEnabled)
+        app.buttons["switchSignInMethod"].tap()
+        let code = app.textFields["deviceCodeField"]
+        XCTAssertTrue(code.exists)
+        XCTAssertFalse(app.buttons["Sign in with device code"].isEnabled)
+        code.tap()
+        code.typeText("ABCD-1234-ABCD-1234-ABCD")
+        XCTAssertTrue(app.buttons["Sign in with device code"].isEnabled)
+        app.buttons["switchSignInMethod"].tap()
+        XCTAssertTrue(app.textFields["Photographer subdomain"].exists)
+        let screenshot = XCTAttachment(screenshot: app.screenshot())
+        screenshot.lifetime = .keepAlways
+        add(screenshot)
     }
 
 }

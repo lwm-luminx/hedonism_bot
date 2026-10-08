@@ -18,6 +18,8 @@ Rails.application.routes.draw do
   get "auth/native", to: "native_accounts#new"
   get "auth/native/complete", to: "native_accounts#complete"
   post "auth/native/exchange", to: "native_accounts#exchange"
+  post "auth/device/code", to: "device_accounts#create"
+  post "auth/device/exchange", to: "device_accounts#exchange"
   delete "auth/native/session", to: "native_accounts#destroy"
 
   post "auth/start", to: "auth_bridges#start"

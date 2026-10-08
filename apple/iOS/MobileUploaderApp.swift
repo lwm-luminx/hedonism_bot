@@ -52,7 +52,7 @@ final class MobileUploadModel: ObservableObject {
         defaults.set(try? JSONEncoder().encode(accounts), forKey: "uploadAccounts")
     }
 
-    func addAccount(server: String, token: String, photographer: String, facebook: Bool) async -> Bool {
+    func addAccount(server: String, token: String, photographer: String, facebook: Bool, deviceCode: String? = nil) async -> Bool {
         accountError = nil
         guard let url = URL(string: server), url.scheme == "https", url.host != nil else {
             accountError = "Enter a valid HTTPS server URL"; return false
@@ -61,7 +61,9 @@ final class MobileUploadModel: ObservableObject {
         defer { signingIn = false }
         do {
             let credential: String
-            if facebook {
+            if let deviceCode {
+                credential = try await DeviceCodeSignIn.signIn(server: url, code: deviceCode)
+            } else if facebook {
                 credential = try await authentication.signIn(server: url, photographer: photographer)
             } else { credential = token }
             let client = HedonismClient(serverURL: url, token: credential)
@@ -158,6 +160,9 @@ struct MobileUploaderApp: App {
     var body: some Scene {
         WindowGroup {
             NavigationStack {
+                if model.accounts.isEmpty {
+                    AddAccountView(model: model, isFirstPage: true)
+                } else {
                 Form {
                     Section("Upload account") {
                         if model.accounts.isEmpty {
@@ -207,56 +212,128 @@ struct MobileUploaderApp: App {
                         }
                     }
                 }
+                .scrollContentBackground(.hidden)
+                .background(ChipBrand.ink)
                 .navigationTitle("Chip by Lumière")
                 .onChange(of: model.selectedID) { _ in model.accountChanged() }
-                .sheet(isPresented: $addingAccount) { AddAccountView(model: model) }
+                .sheet(isPresented: $addingAccount) { NavigationStack { AddAccountView(model: model) } }
                 .fileImporter(isPresented: $picking, allowedContentTypes: [.folder]) { result in
                     switch result {
                     case .success(let url): model.select(url)
                     case .failure(let error): model.status = error.localizedDescription
                     }
                 }
+                }
             }
+            .tint(ChipBrand.gold)
+            .preferredColorScheme(.dark)
         }
     }
 }
 
+enum ChipBrand {
+    static let ink = Color(red: 15 / 255, green: 15 / 255, blue: 15 / 255)
+    static let gold = Color(red: 201 / 255, green: 169 / 255, blue: 110 / 255)
+    static let paper = Color(red: 251 / 255, green: 238 / 255, blue: 198 / 255)
+}
+
 struct AddAccountView: View {
     @ObservedObject var model: MobileUploadModel
+    var isFirstPage = false
     @Environment(\.dismiss) private var dismiss
     @State private var server = ServiceEndpoints.api.absoluteString
     @State private var photographer = ""
-    @State private var token = ""
+    @State private var deviceCode = ""
+    @State private var usingDeviceCode = false
+    @State private var advanced = false
+    @FocusState private var focusedField: String?
 
     var body: some View {
-        NavigationStack {
-            Form {
-                Section("Facebook sign-in") {
-                    TextField("Photographer subdomain", text: $photographer).textInputAutocapitalization(.never).autocorrectionDisabled()
-                    Text("For rick.lumiere.host, enter rick. Your Facebook account must administer that photographer.").font(.caption)
-                    Button("Continue with Facebook") {
-                        Task {
-                            if await model.addAccount(server: server, token: "", photographer: photographer, facebook: true) { dismiss() }
+        ScrollView {
+            VStack(alignment: .leading, spacing: 28) {
+                VStack(spacing: 12) {
+                    Image("LumiereBrand").resizable().scaledToFit().frame(width: 100, height: 100)
+                        .accessibilityHidden(true)
+                    Text("Chip").font(.system(size: 48, weight: .medium, design: .serif))
+                    Text("BY LUMIÈRE").font(.caption.weight(.semibold)).tracking(4).foregroundStyle(ChipBrand.gold)
+                    Text("From your camera to your archive.").font(.body).foregroundStyle(.secondary)
+                }
+                .frame(maxWidth: .infinity).padding(.top, isFirstPage ? 44 : 12)
+
+                VStack(alignment: .leading, spacing: 16) {
+                    Text(usingDeviceCode ? "Sign in with device code" : "Welcome to your archive")
+                        .font(.title2.weight(.semibold)).foregroundStyle(ChipBrand.paper)
+                    Text(usingDeviceCode
+                         ? "Enter the one-time code supplied by your archive administrator. Codes expire after 10 minutes."
+                         : "Sign in to choose the account your photos belong to.")
+                        .foregroundStyle(.secondary).fixedSize(horizontal: false, vertical: true)
+                    if usingDeviceCode {
+                        TextField("Device code", text: $deviceCode)
+                            .textInputAutocapitalization(.characters).autocorrectionDisabled()
+                            .font(.system(.body, design: .monospaced)).focused($focusedField, equals: "code")
+                            .accessibilityIdentifier("deviceCodeField")
+                            .padding(16).background(.white.opacity(0.07), in: RoundedRectangle(cornerRadius: 12))
+                        primaryButton("Sign in with device code", disabled: deviceCode.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty) {
+                            Task {
+                                focusedField = nil
+                                if await model.addAccount(server: server, token: "", photographer: "", facebook: false, deviceCode: deviceCode) { dismiss() }
+                            }
                         }
-                    }.disabled(photographer.isEmpty || model.signingIn)
-                }
-                Section("Service account") {
-                    SecureField("Service account token", text: $token)
-                    Button("Sign in with token") {
-                        Task {
-                            if await model.addAccount(server: server, token: token, photographer: "", facebook: false) { dismiss() }
+                    } else {
+                        TextField("Photographer subdomain", text: $photographer)
+                            .textInputAutocapitalization(.never).autocorrectionDisabled()
+                            .focused($focusedField, equals: "photographer")
+                            .padding(16).background(.white.opacity(0.07), in: RoundedRectangle(cornerRadius: 12))
+                        Text("Your archive name — for luminx.lumiere.host, enter luminx.")
+                            .font(.caption).foregroundStyle(.secondary)
+                        primaryButton("Continue with Facebook", disabled: photographer.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty) {
+                            Task {
+                                focusedField = nil
+                                if await model.addAccount(server: server, token: "", photographer: photographer.trimmingCharacters(in: .whitespacesAndNewlines), facebook: true) { dismiss() }
+                            }
                         }
-                    }.disabled(token.isEmpty || model.signingIn)
+                    }
+                    if model.signingIn { ProgressView("Signing in…").accessibilityIdentifier("signInProgress") }
+                    if let error = model.accountError {
+                        Text(error).foregroundStyle(.red).fixedSize(horizontal: false, vertical: true)
+                            .accessibilityIdentifier("signInError")
+                    }
                 }
-                Section("Server") {
-                    TextField("Server URL", text: $server).textInputAutocapitalization(.never).keyboardType(.URL).autocorrectionDisabled()
+                Button(usingDeviceCode ? "Sign in with Facebook" : "or sign in with device code") {
+                    usingDeviceCode.toggle()
+                    model.accountError = nil
+                    focusedField = nil
                 }
-                if model.signingIn { ProgressView("Signing in…") }
-                if let error = model.accountError { Text(error).foregroundStyle(.red) }
+                .frame(maxWidth: .infinity).disabled(model.signingIn)
+                .accessibilityIdentifier("switchSignInMethod")
+
+                DisclosureGroup("Connection settings", isExpanded: $advanced) {
+                    TextField("Server URL", text: $server).textInputAutocapitalization(.never)
+                        .keyboardType(.URL).autocorrectionDisabled().padding(.top, 12)
+                }
+                .font(.footnote).foregroundStyle(.secondary).disabled(model.signingIn)
+                Text("Your sign-in is saved securely on this device. You can add more accounts and choose one before uploading.")
+                    .font(.footnote).foregroundStyle(.secondary).fixedSize(horizontal: false, vertical: true)
             }
-            .navigationTitle("Add account")
-            .toolbar { ToolbarItem(placement: .cancellationAction) { Button("Cancel") { dismiss() }.disabled(model.signingIn) } }
+            .padding(28).frame(maxWidth: 520).frame(maxWidth: .infinity)
         }
+        .background(ChipBrand.ink).tint(ChipBrand.gold).preferredColorScheme(.dark)
+        .navigationTitle(isFirstPage ? "" : "Add account")
+        .navigationBarTitleDisplayMode(.inline)
+        .toolbar {
+            if !isFirstPage {
+                ToolbarItem(placement: .cancellationAction) { Button("Cancel") { dismiss() }.disabled(model.signingIn) }
+            }
+        }
+        .onAppear { model.accountError = nil }
+    }
+
+    private func primaryButton(_ title: String, disabled: Bool, action: @escaping () -> Void) -> some View {
+        Button(action: action) {
+            Text(title).font(.body.weight(.semibold)).frame(maxWidth: .infinity).padding(.vertical, 8)
+        }
+        .buttonStyle(.borderedProminent).tint(ChipBrand.gold).foregroundStyle(ChipBrand.ink)
+        .disabled(disabled || model.signingIn)
     }
 }
 

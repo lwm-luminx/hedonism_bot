@@ -9,6 +9,10 @@ Both targets link the local **UploaderCore** Swift package in `../mac/HedonismUp
 
 ## Server and signing
 
+Chip opens on a branded sign-in page until an account is saved. Facebook sign-in is the primary action; **or sign in with device code** opens service-account sign-in. Saved accounts bypass the login page on subsequent launches, and **Add account** uses the same flow.
+
+To provision a service-account device, run `bin/rails service_accounts:device_code ID=<existing-service-account-id>` on the server, or POST `/auth/device/code` with that service account's bearer token. Enter the returned code in Chip within ten minutes. Redemption at `/auth/device/exchange` creates a separate device token and consumes the code. Codes cannot be reused; revoked source accounts cannot redeem outstanding codes. Credentials remain in Keychain.
+
 Run `bin/rails db:migrate` on the server before using these builds. Create a photographer service-account token as described in `../mac/HedonismUploader/README.md`. The default API endpoint is `https://api.lumiere.host/graphql`; the bearer token selects the photographer. Photographer websites and admin pages use `https://<photographer>.lumiere.host`. Custom server URLs remain supported. Tokens are stored in Keychain; they are not embedded in the project.
 
 Choose your development team under Signing & Capabilities for each target before installing on a physical device or distributing. The macOS app runs without the App Sandbox to watch removable volumes and launch the local Python worker. Distribution outside the Mac App Store requires signing/notarization.

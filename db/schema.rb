@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_10_08_220000) do
+ActiveRecord::Schema[8.1].define(version: 2026_10_09_000000) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
   enable_extension "postgis"
@@ -150,6 +150,14 @@ ActiveRecord::Schema[8.1].define(version: 2026_10_08_220000) do
     t.index ["app_id", "subject_digest"], name: "index_data_deletion_requests_on_app_id_and_subject_digest"
     t.index ["confirmation_code"], name: "index_data_deletion_requests_on_confirmation_code", unique: true
     t.index ["status", "next_attempt_at"], name: "index_data_deletion_requests_on_status_and_next_attempt_at"
+  end
+
+  create_table "device_login_grants", force: :cascade do |t|
+    t.uuid "service_account_id", null: false
+    t.string "code_digest", null: false
+    t.datetime "expires_at", null: false
+    t.index ["code_digest"], name: "index_device_login_grants_on_code_digest", unique: true
+    t.index ["service_account_id"], name: "index_device_login_grants_on_service_account_id"
   end
 
   create_table "devices", id: :uuid, default: -> { "uuid_generate_v4()" }, force: :cascade do |t|
@@ -696,6 +704,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_10_08_220000) do
   add_foreign_key "audience_domains", "audiences"
   add_foreign_key "audience_users", "audiences"
   add_foreign_key "audience_users", "users"
+  add_foreign_key "device_login_grants", "service_accounts"
   add_foreign_key "event_templates", "images", column: "cover_image_id"
   add_foreign_key "event_templates", "venues"
   add_foreign_key "events", "audiences"

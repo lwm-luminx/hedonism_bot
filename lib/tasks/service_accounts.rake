@@ -1,4 +1,12 @@
 namespace :service_accounts do
+  desc "Issue a single-use, ten-minute device sign-in code: ID=service_account_id"
+  task device_code: :environment do
+    account = ServiceAccount.active.find(ENV.fetch("ID"))
+    grant, code = DeviceLoginGrant.issue!(service_account: account)
+    puts "Device code (shown once): #{code}"
+    puts "Expires at #{grant.expires_at.iso8601}"
+  end
+
   desc "Create a service account token for a photographer: SUBDOMAIN=… NAME=…"
   task create: :environment do
     photographer = Photographer.find_by!(subdomain: ENV.fetch("SUBDOMAIN"))
