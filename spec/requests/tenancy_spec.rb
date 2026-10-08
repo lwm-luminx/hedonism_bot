@@ -40,7 +40,7 @@ RSpec.describe "Tenancy", type: :request do
       expect(JSON.parse(response.body).dig("data", "node")).to be_nil
     end
 
-    it "resolves the photographer's own upload batch through node" do
+    it "resolves the photographer's own upload batch through node", :aggregate_failures do
       promise = create(:photo_promise, photographer: luminx)
       post "/graphql", params: { query: "query($id: ID!) { node(id: $id) { __typename id } }", variables: { id: promise.to_gid_param }.to_json },
                        headers: { "Host" => "gallery.luminx.media" }

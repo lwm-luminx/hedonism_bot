@@ -34,7 +34,7 @@ RSpec.describe Types::PhotoType, type: :graphql do
       expect(data["photos"]["nodes"].length).to be(5)
     end
 
-    it "resolves the fields the admin photos page asks for" do
+    it "resolves the fields the admin photos page asks for", :aggregate_failures do
       node = data["photos"]["nodes"].first
       expect(node["name"]).to match(/\ADSC\d+\.arw\z/)
       expect(node["folder"]).to eq("name" => "Default Album")
