@@ -282,8 +282,8 @@ final class FacebookSignIn: NSObject, ASWebAuthenticationPresentationContextProv
                 else { continuation.resume(throwing: error ?? CancellationError()) }
             }
             session.presentationContextProvider = self
-            // Ephemeral sessions let each saved account use a different Facebook identity.
-            session.prefersEphemeralWebBrowserSession = true
+            // Reuse the existing browser login when signing into another photographer account.
+            session.prefersEphemeralWebBrowserSession = false
             self.session = session
             if !session.start() { continuation.resume(throwing: CancellationError()) }
         }

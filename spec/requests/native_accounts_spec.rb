@@ -43,4 +43,18 @@ RSpec.describe "Native Facebook sign-in", type: :request do
     get "/auth/native", params: { photographer: "native", challenge: "bad", state: "bad" }
     expect(response).to have_http_status(:bad_request)
   end
+
+  # Exercise production CSRF behavior while restoring the global test setting.
+  # rubocop:disable RSpec/ExampleLength
+  it "exchanges a PKCE grant without browser CSRF credentials" do
+    previous = ActionController::Base.allow_forgery_protection
+    ActionController::Base.allow_forgery_protection = true
+    NativeLoginGrant.create!(code_digest: Digest::SHA256.hexdigest("mobile-code"), challenge: challenge,
+                            user: user, photographer: photographer, expires_at: 2.minutes.from_now)
+    post "/auth/native/exchange", params: { code: "mobile-code", verifier: verifier }, as: :json
+    expect(response).to have_http_status(:ok)
+  ensure
+    ActionController::Base.allow_forgery_protection = previous
+  end
+  # rubocop:enable RSpec/ExampleLength
 end

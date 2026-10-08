@@ -53,4 +53,40 @@ final class MobileUploaderUITests: XCTestCase {
         XCTAssertTrue(app.descendants(matching: .any)["uploadAccountPicker"].firstMatch.label.contains("Test Alpha"))
     }
 
+    func testLiveFacebookSignIn() throws {
+        guard ProcessInfo.processInfo.environment["LUMIERE_LIVE_FACEBOOK_TEST"] == "1" else {
+            throw XCTSkip("Enable explicitly for a live, human-authorized Facebook sign-in")
+        }
+        let app = XCUIApplication()
+        app.launch()
+        app.buttons["Add account"].tap()
+        let photographer = app.textFields["Photographer subdomain"]
+        XCTAssertTrue(photographer.waitForExistence(timeout: 10))
+        photographer.tap()
+        photographer.typeText("luminx")
+        app.buttons["Continue with Facebook"].tap()
+        let springboard = XCUIApplication(bundleIdentifier: "com.apple.springboard")
+        let consent = springboard.buttons["Continue"]
+        if consent.waitForExistence(timeout: 3) { consent.tap() }
+        let browser = app.webViews.firstMatch
+        let continueButton = browser.buttons["Continue with Facebook"]
+        if continueButton.waitForExistence(timeout: 15) { continueButton.tap() }
+        for _ in 0..<45 {
+            if app.navigationBars["Add account"].exists == false,
+               app.descendants(matching: .any)["uploadAccountPicker"].firstMatch.exists { break }
+            let facebookContinue = app.buttons.matching(NSPredicate(format: "label BEGINSWITH 'Continue as '")).firstMatch
+            if facebookContinue.exists && facebookContinue.isHittable { facebookContinue.tap() }
+            Thread.sleep(forTimeInterval: 1)
+        }
+        let screenshot = XCTAttachment(screenshot: app.screenshot())
+        screenshot.lifetime = .keepAlways
+        add(screenshot)
+        XCTAssertFalse(app.navigationBars["Add account"].exists, "Facebook sign-in did not return to the uploader")
+        XCTAssertTrue(app.descendants(matching: .any)["uploadAccountPicker"].firstMatch.label.contains("luminx"))
+        app.terminate()
+        app.launch()
+        XCTAssertTrue(app.descendants(matching: .any)["uploadAccountPicker"].firstMatch.waitForExistence(timeout: 10))
+        XCTAssertTrue(app.descendants(matching: .any)["uploadAccountPicker"].firstMatch.label.contains("luminx"))
+    }
+
 }

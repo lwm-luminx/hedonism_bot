@@ -2,7 +2,8 @@
 # PKCE-bound code returns to iOS; the API token is delivered by the HTTPS exchange.
 class NativeAccountsController < ApplicationController
   skip_before_action :set_photographer
-  protect_from_forgery with: :null_session, only: [ :exchange, :destroy ]
+  # These endpoints authenticate with a PKCE grant or bearer token, never browser cookies.
+  skip_forgery_protection only: [ :exchange, :destroy ]
 
   def new
     target = Photographer.find_by(subdomain: params[:photographer])
