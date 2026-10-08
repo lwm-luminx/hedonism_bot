@@ -18,12 +18,15 @@ interface PhotoCollectionProps {
   eventId: string | null;
   faceId: string | null;
   onSelect?: (photo: string) => void;
+  /** Columns on wide screens; phones get 2 and tablets 3 regardless. */
+  columns?: 3 | 4;
 }
 
 export default function PhotoCollection({
   faceId,
   eventId,
   onSelect,
+  columns = 3,
 }: PhotoCollectionProps) {
   const data = useLazyLoadQuery<PhotosViewQuery>(
     PHOTOS_FRAGMENT,
@@ -49,8 +52,9 @@ export default function PhotoCollection({
 
   return (
     <div
-      className="p-4 grid gap-3"
-      style={{ gridTemplateColumns: `repeat(${4}, minmax(0, 1fr))` }}
+      className={`grid grid-cols-2 gap-2 p-2 sm:grid-cols-3 sm:gap-3 sm:p-4 ${
+        columns === 4 ? "lg:grid-cols-4" : ""
+      }`}
     >
       {photo_cards}
     </div>
