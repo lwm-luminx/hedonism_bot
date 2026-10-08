@@ -6,6 +6,7 @@ module Types
     field :create_photo_promise, mutation: Mutations::CreatePhotoPromise
     field :attach_photo_promise_files, mutation: Mutations::AttachPhotoPromiseFiles
     field :update_photo_caption, mutation: Mutations::UpdatePhotoCaption
+    field :delete_photos, mutation: Mutations::DeletePhotos
     field :update_photo_face, mutation: Mutations::UpdatePhotoFacialRecognition
     field :archive_album, mutation: Mutations::ArchiveAlbum
     field :restore_album, mutation: Mutations::RestoreAlbum

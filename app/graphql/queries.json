@@ -3,5 +3,6 @@
   "7251989edfa2dfaaf02a9ea96f773216": "mutation photoUploadAttachMutation(\n  $id: ID!\n  $files: [PhotoPromiseFileInput!]!\n) {\n  attachPhotoPromiseFiles(id: $id, files: $files) {\n    files {\n      id\n      uploadUrl\n      uploadHeaders\n    }\n  }\n}\n",
   "9a799d9216bf40c31339232ddb6099e1": "mutation photoUploadFinishMutation(\n  $id: ID!\n  $status: PhotoPromiseFileStatus!\n) {\n  updatePhotoPromiseFileUpdate(id: $id, status: $status) {\n    file {\n      status\n      id\n    }\n  }\n}\n",
   "bc5a6686a60762177df862d07e44ac02": "mutation StoragePanelRestoreMutation(\n  $id: ID!\n) {\n  restoreAlbum(id: $id) {\n    album {\n      albumId\n      transition\n    }\n  }\n}\n",
+  "bd2bf7339b4ba29fa042fb6ef6a14ea7": "mutation AdminPhotosPanelDeleteMutation(\n  $ids: [ID!]!\n) {\n  deletePhotos(ids: $ids) {\n    deletedIds\n  }\n}\n",
   "cc8d50971ccfd5f2b83e7e7ccfa71ac1": "mutation StoragePanelArchiveMutation(\n  $id: ID!\n) {\n  archiveAlbum(id: $id) {\n    album {\n      albumId\n      transition\n    }\n  }\n}\n"
 }
