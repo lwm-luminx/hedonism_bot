@@ -13,8 +13,6 @@ class GraphqlController < ApplicationController
     variables = prepare_variables(params[:variables])
     query = params[:query] #: ::string
     operation_name = params[:operationName]
-    photographer = authenticated_photographer
-    return if performed?
     extensions = params[:extensions]
     context = {
       photographer: photographer,
@@ -30,18 +28,16 @@ class GraphqlController < ApplicationController
 
   private
 
-  # A bearer token (service account) picks the photographer; otherwise the subdomain does.
-  def authenticated_photographer
+  # A bearer token (service account) picks the photographer; otherwise the host does.
+  def resolve_photographer
     token = request.authorization.to_s[/\ABearer (.+)\z/, 1]
-    if token
-      account = ServiceAccount.authenticate(token)
-      return account.photographer if account
+    return super unless token
 
-      render json: { errors: [ { message: "Invalid service account token" } ] }, status: :unauthorized
-      return
-    end
+    account = ServiceAccount.authenticate(token)
+    return account.photographer if account
 
-    tenant_photographer
+    render json: { errors: [ { message: "Invalid service account token" } ] }, status: :unauthorized
+    nil
   end
 
   # Handle variables in form data, JSON body, or a blank value

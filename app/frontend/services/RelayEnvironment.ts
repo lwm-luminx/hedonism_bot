@@ -13,7 +13,21 @@ const fetchQuery: FetchFunction = async (request, variables) => {
             variables,
         }),
     });
-    return await response.json();
+    // The request id matches the Rails log line, so a reported error can be found.
+    const reference = response.headers.get('X-Request-Id');
+    const failed = (detail: string) =>
+        new Error(`GraphQL request failed: ${detail}${reference ? ` (reference ${reference})` : ''}`);
+
+    let payload;
+    try {
+        payload = await response.json();
+    } catch {
+        throw failed(`HTTP ${response.status}`);
+    }
+    if (!response.ok && !payload?.data) {
+        throw failed(payload?.errors?.[0]?.message ?? `HTTP ${response.status}`);
+    }
+    return payload;
 };
 
 export const relayEnvironment = new Environment({

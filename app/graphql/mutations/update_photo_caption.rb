@@ -11,7 +11,9 @@ module Mutations
     argument :description, String, "The new description for the photo", required: true
 
     def resolve(id:, caption:, description:)
-      caption_photo = GlobalID::Locator.locate(id) #: PhotoTake
+      caption_photo = HedonismBotSchema.object_from_id(id, context) #: PhotoTake
+      raise GraphQL::ExecutionError, "Photo not found" unless caption_photo.is_a?(PhotoTake)
+
       caption = caption || caption_photo.caption
       description = description || caption_photo.description
 

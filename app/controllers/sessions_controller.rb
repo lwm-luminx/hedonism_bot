@@ -7,7 +7,7 @@ class SessionsController < ApplicationController
     render json: { user: current_user && {
       name: current_user.name,
       facebook_id: current_user.facebook_id,
-      admin: current_user.admin_of?(tenant_photographer)
+      admin: current_user.admin_of?(photographer)
     } }
   end
 

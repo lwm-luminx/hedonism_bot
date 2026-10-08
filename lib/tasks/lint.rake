@@ -1,5 +1,3 @@
-require "rubocop/rake_task"
-
 namespace :lint do
   desc "Run ESLint on JavaScript/TypeScript files"
   task eslint: :environment do

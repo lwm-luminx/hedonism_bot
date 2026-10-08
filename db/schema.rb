@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_10_07_210000) do
+ActiveRecord::Schema[8.1].define(version: 2026_10_07_223000) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
   enable_extension "postgis"
@@ -381,6 +381,15 @@ ActiveRecord::Schema[8.1].define(version: 2026_10_07_210000) do
     t.index ["user_id"], name: "index_photographer_admins_on_user_id"
   end
 
+  create_table "photographer_domains", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.uuid "photographer_id", null: false
+    t.string "hostname", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["hostname"], name: "index_photographer_domains_on_hostname", unique: true
+    t.index ["photographer_id"], name: "index_photographer_domains_on_photographer_id"
+  end
+
   create_table "photographers", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.boolean "active", default: true, null: false
     t.datetime "created_at", null: false
@@ -681,6 +690,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_10_07_210000) do
   add_foreign_key "photo_takes", "photos"
   add_foreign_key "photographer_admins", "photographers"
   add_foreign_key "photographer_admins", "users"
+  add_foreign_key "photographer_domains", "photographers"
   add_foreign_key "photos", "albums"
   add_foreign_key "pings", "locales"
   add_foreign_key "pings", "users"

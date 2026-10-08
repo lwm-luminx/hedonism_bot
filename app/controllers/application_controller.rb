@@ -1,14 +1,7 @@
 class ApplicationController < ActionController::Base
-  attr_reader :photographer
+  before_action :set_photographer
 
   private
-
-  # The photographer whose gallery this request's host serves, or nil.
-  def tenant_photographer
-    photographer = Photographer.find_by(subdomain: request.subdomain)
-    photographer ||= Photographer.default_photographer if Rails.env.development?
-    photographer
-  end
 
   def current_user
     return @current_user if defined?(@current_user)
@@ -17,9 +10,16 @@ class ApplicationController < ActionController::Base
   end
 
   def photographer
-    subdomain = request.hostname&.split(".")&.first
-    @photographer ||= Photographer.find_by(subdomain: subdomain) || Photographer.default_photographer if Rails.env.development?
+    Current.photographer
+  end
 
-    @photographer or raise "No Photographer found (subdomain: #{subdomain})"
+  # Every request is served for one photographer (tenant), picked by its host; unknown hosts get a 404.
+  def set_photographer
+    Current.photographer = resolve_photographer
+    render plain: "Not found", status: :not_found unless performed? || Current.photographer
+  end
+
+  def resolve_photographer
+    Photographer.for_host(request.host) || (Photographer.default_photographer if Rails.env.development?)
   end
 end

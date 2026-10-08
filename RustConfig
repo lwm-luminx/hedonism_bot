@@ -1,0 +1,2 @@
+# emk/rust only installs the toolchain; bundle install compiles clusterkit's extension.
+RUST_SKIP_BUILD=1

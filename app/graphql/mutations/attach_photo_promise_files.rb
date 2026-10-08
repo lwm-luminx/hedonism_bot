@@ -7,8 +7,8 @@ module Mutations
     field :files, [ Types::PhotoPromiseFileType ], null: false, description: "The files just added, in input order"
 
     def resolve(id:, files:)
-      @promise = GlobalID::Locator.locate(id)
-      unless @promise.is_a?(PhotoPromise) && @promise.photographer_id == context[:photographer]&.id
+      @promise = HedonismBotSchema.object_from_id(id, context)
+      unless @promise.is_a?(PhotoPromise)
         raise GraphQL::ExecutionError, "Photo promise not found"
       end
       added = files.map do |file|
