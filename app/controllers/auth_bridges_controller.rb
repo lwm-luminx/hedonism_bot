@@ -24,6 +24,7 @@ class AuthBridgesController < ApplicationController
 
     reset_session
     session[:auth_bridge] = context
+    @login_photographer = target
     render :new
   end
 
