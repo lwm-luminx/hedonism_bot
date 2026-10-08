@@ -23,7 +23,7 @@ RSpec.describe "Gallery query", type: :request do
         faces(folderId: $folderId) { nodes { id thumbnailUrl photoCount } }
       }
     GRAPHQL
-    post "/graphql", params: { query: query, variables: variables.to_json }, headers: { "Host" => "luminx.hedonism.bot" }
+    post "/graphql", params: { query: query, variables: variables.to_json }, headers: { "Host" => "luminx.lumiere.host" }
     JSON.parse(response.body)
   end
 

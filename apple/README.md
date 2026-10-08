@@ -9,7 +9,7 @@ Both targets link the local **UploaderCore** Swift package in `../mac/HedonismUp
 
 ## Server and signing
 
-Run `bin/rails db:migrate` on the server before using these builds. Create a photographer service-account token as described in `../mac/HedonismUploader/README.md`. Configure the photographer's HTTPS server URL and token on each device. Tokens are stored in Keychain; they are not embedded in the project.
+Run `bin/rails db:migrate` on the server before using these builds. Create a photographer service-account token as described in `../mac/HedonismUploader/README.md`. The default API endpoint is `https://api.lumiere.host/graphql`; the bearer token selects the photographer. Photographer websites and admin pages use `https://<photographer>.lumiere.host`. Custom server URLs remain supported. Tokens are stored in Keychain; they are not embedded in the project.
 
 Choose your development team under Signing & Capabilities for each target before installing on a physical device or distributing. The macOS app runs without the App Sandbox to watch removable volumes and launch the local Python worker. Distribution outside the Mac App Store requires signing/notarization.
 
@@ -40,3 +40,45 @@ bundle exec rubocop
 ```
 
 Physical card access, Synology authentication and a live ML worker require hardware/service integration testing with your environment.
+
+## UI tests on a connected iPhone
+
+`LumiereMobile` now includes the `LumiereMobileUITests` target in its Test action.
+The tests exercise launch, disabled upload before card selection, album/event/venue editing,
+and cancellation of the system folder picker. They do not send photos to the live API.
+Use Product → Test in Xcode with the connected iPhone selected, or:
+
+```sh
+xcodebuild -project apple/LumiereUploader.xcodeproj -scheme LumiereMobile \
+  -destination 'platform=iOS,id=<device-UDID>' \
+  DEVELOPMENT_TEAM=<your-team-ID> -allowProvisioningUpdates test
+```
+
+Unlock the phone and enable Developer Mode/trust if iOS requests it. Test screenshots are
+saved as attachments in the `.xcresult` bundle. Actual SD-card transfers require a connected
+reader/card and a service-account token in the app.
+
+## Saved accounts and Facebook
+
+On iOS, use **Add account**, then either **Continue with Facebook** or **Sign in with token**.
+Facebook uses the existing server-side Facebook app registration and OmniAuth credentials;
+no Facebook secret is included in the native app. Enter the photographer subdomain you
+administer. Add as many photographer accounts as needed, then choose one in **Upload account**
+before uploading. Validated credentials remain in Keychain across launches. Metadata and the
+last selected account are saved separately; upload history is isolated per saved account.
+Signing in again to the same server/photographer updates its credential and preserves history.
+**Sign out of selected account** removes that account and its local credential; it does not
+log other accounts out or sign the user out of Facebook in other apps.
+
+Deploy the Rails changes and run `bin/rails db:migrate` before using native Facebook sign-in.
+The existing Facebook application's allowed web redirect URIs must include
+`https://api.lumiere.host/auth/facebook/callback`. This configuration must be made in Meta's
+app dashboard if it is not already present. The web login returns a two-minute, single-use
+PKCE-bound code to `lumiere-uploader://signin`; the credential is obtained over HTTPS.
+Facebook-issued credentials are checked against the user's current photographer permissions
+on every authenticated API request. Removed access or pending account deletion invalidates them.
+The existing standalone service-account tokens continue to work.
+
+Device UI tests use a separate defaults suite and Debug-only account metadata fixtures to test
+selection persistence without real credentials or Facebook interaction. Live Facebook login
+requires deployed endpoints, Meta redirect configuration and a human completing Facebook login.

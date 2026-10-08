@@ -4,7 +4,7 @@ RSpec.describe "Facebook admin sign-in", type: :request do
   let!(:photographer) { Photographer.create!(name: "Rick", subdomain: "rick") }
 
   before do
-    host! "rick.example.com"
+    host! "rick.lumiere.host"
     OmniAuth.config.test_mode = true
     OmniAuth.config.mock_auth[:facebook] = OmniAuth::AuthHash.new(
       provider: "facebook", uid: "1234567890", credentials: { token: "fb-token" },

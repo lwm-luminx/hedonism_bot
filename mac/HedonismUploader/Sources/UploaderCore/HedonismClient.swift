@@ -48,6 +48,14 @@ public final class HedonismClient: @unchecked Sendable {
         return name
     }
 
+    public func photographerSubdomain() async throws -> String {
+        let data = try await graphQL("query { photographer { subdomain } }")
+        guard let subdomain = (data["photographer"] as? [String: Any])?["subdomain"] as? String else {
+            throw HedonismClientError.unexpectedResponse("photographer subdomain")
+        }
+        return subdomain
+    }
+
     /// Starts an upload batch whose photos go into the named album (created if missing).
     public func createPromise(albumName: String, context: UploadContext? = nil) async throws -> String {
         var variables: [String: Any] = ["album": albumName]

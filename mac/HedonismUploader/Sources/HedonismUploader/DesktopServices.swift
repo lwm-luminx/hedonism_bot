@@ -1,5 +1,6 @@
 import AppKit
 import Foundation
+import UploaderCore
 
 /// Owns the local worker process. Configuration is passed as arguments/environment, never a shell command.
 @MainActor
@@ -12,7 +13,7 @@ final class DesktopServices: ObservableObject {
         if defaults.bool(forKey: "workerAtLaunch") {
             start(directory: defaults.string(forKey: "workerDirectory") ?? "",
                   uvPath: defaults.string(forKey: "uvPath") ?? "/opt/homebrew/bin/uv",
-                  server: defaults.string(forKey: "serverURL") ?? "", token: Keychain.token() ?? "",
+                  server: defaults.string(forKey: "serverURL") ?? ServiceEndpoints.api.absoluteString, token: Keychain.token() ?? "",
                   redis: defaults.string(forKey: "redisURL") ?? "redis://127.0.0.1:6379/0")
         }
         NotificationCenter.default.addObserver(forName: NSApplication.willTerminateNotification, object: nil, queue: .main) { [weak self] _ in

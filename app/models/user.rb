@@ -8,6 +8,8 @@ class User < ApplicationRecord
   validates :facebook_id, presence: true
 
   has_many :sessions, dependent: :destroy
+  has_many :native_login_grants, dependent: :destroy
+  has_many :service_accounts, dependent: :destroy
   has_many :user_likes, dependent: :destroy
   has_many :tribe_users, dependent: :destroy
   has_many :audience_users, dependent: :destroy

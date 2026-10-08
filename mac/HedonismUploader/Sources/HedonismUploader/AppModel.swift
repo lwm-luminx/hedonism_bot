@@ -21,7 +21,7 @@ final class AppModel: ObservableObject {
     private var queue: [URL] = []
 
     init() {
-        serverURL = defaults.string(forKey: "serverURL") ?? ""
+        serverURL = defaults.string(forKey: "serverURL") ?? ServiceEndpoints.api.absoluteString
         albumPrefix = defaults.string(forKey: "albumPrefix") ?? "SD"
         autoUpload = defaults.object(forKey: "autoUpload") as? Bool ?? true
         ejectWhenDone = defaults.bool(forKey: "ejectWhenDone")
@@ -65,6 +65,18 @@ final class AppModel: ObservableObject {
             connectedAs = nil
             status = error.localizedDescription
         }
+    }
+
+    func openArchiveManagement() async {
+        guard let client else { status = "Configure the API connection first"; return }
+        do {
+            let subdomain = try await client.photographerSubdomain()
+            guard let site = ServiceEndpoints.photographerSite(subdomain: subdomain) else {
+                status = "The server returned an invalid photographer subdomain"
+                return
+            }
+            NSWorkspace.shared.open(site.appendingPathComponent("admin"))
+        } catch { status = error.localizedDescription }
     }
 
     private func enqueue(_ volume: URL) {

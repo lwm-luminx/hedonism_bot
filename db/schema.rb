@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_10_08_190200) do
+ActiveRecord::Schema[8.1].define(version: 2026_10_08_220000) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
   enable_extension "postgis"
@@ -293,6 +293,17 @@ ActiveRecord::Schema[8.1].define(version: 2026_10_08_190200) do
     t.index ["image_id"], name: "index_locations_on_image_id"
   end
 
+  create_table "native_login_grants", force: :cascade do |t|
+    t.string "code_digest", null: false
+    t.string "challenge", null: false
+    t.uuid "user_id", null: false
+    t.uuid "photographer_id", null: false
+    t.datetime "expires_at", null: false
+    t.index ["code_digest"], name: "index_native_login_grants_on_code_digest", unique: true
+    t.index ["photographer_id"], name: "index_native_login_grants_on_photographer_id"
+    t.index ["user_id"], name: "index_native_login_grants_on_user_id"
+  end
+
   create_table "pages", id: :uuid, default: -> { "uuid_generate_v4()" }, force: :cascade do |t|
     t.uuid "cover_image_id"
     t.datetime "created_at", null: false
@@ -477,8 +488,10 @@ ActiveRecord::Schema[8.1].define(version: 2026_10_08_190200) do
     t.datetime "revoked_at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.uuid "user_id"
     t.index ["photographer_id"], name: "index_service_accounts_on_photographer_id"
     t.index ["token_digest"], name: "index_service_accounts_on_token_digest", unique: true
+    t.index ["user_id"], name: "index_service_accounts_on_user_id"
   end
 
   create_table "sessions", id: :uuid, default: -> { "uuid_generate_v4()" }, force: :cascade do |t|
@@ -701,6 +714,8 @@ ActiveRecord::Schema[8.1].define(version: 2026_10_08_190200) do
   add_foreign_key "locales", "locations"
   add_foreign_key "location_beacons", "locations"
   add_foreign_key "locations", "images"
+  add_foreign_key "native_login_grants", "photographers"
+  add_foreign_key "native_login_grants", "users"
   add_foreign_key "pages", "images"
   add_foreign_key "pages", "images", column: "cover_image_id"
   add_foreign_key "people", "audiences"
@@ -726,6 +741,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_10_08_190200) do
   add_foreign_key "reviews", "users"
   add_foreign_key "safety_report_identifiers", "safety_reports"
   add_foreign_key "service_accounts", "photographers"
+  add_foreign_key "service_accounts", "users"
   add_foreign_key "sessions", "audiences"
   add_foreign_key "sessions", "devices"
   add_foreign_key "sessions", "users"

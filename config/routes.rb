@@ -15,6 +15,11 @@ Rails.application.routes.draw do
   # Errors from the frontend, logged for heroku logs.
   post "client_errors" => "client_errors#create"
 
+  get "auth/native", to: "native_accounts#new"
+  get "auth/native/complete", to: "native_accounts#complete"
+  post "auth/native/exchange", to: "native_accounts#exchange"
+  delete "auth/native/session", to: "native_accounts#destroy"
+
   # Admin sign-in. POST /auth/facebook is handled by OmniAuth middleware.
   get "auth/facebook/callback" => "sessions#create"
   get "auth/failure" => "sessions#failure"

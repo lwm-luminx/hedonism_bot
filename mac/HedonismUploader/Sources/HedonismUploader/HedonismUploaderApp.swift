@@ -55,7 +55,9 @@ struct MenuContent: View {
             Text(services.status).font(.caption)
             Button("Open Synology archive") { services.openSynology(synologyURL) }
             Button("Manage older albums") {
-                if let url = URL(string: model.serverURL)?.appendingPathComponent("admin") { NSWorkspace.shared.open(url) }
+                Task {
+                    await model.openArchiveManagement()
+                }
             }
             Button("Start who_dis") {
                 services.start(directory: workerDirectory, uvPath: uvPath, server: model.serverURL, token: model.token, redis: redisURL)
@@ -89,7 +91,7 @@ struct SettingsView: View {
 
     var body: some View {
         Form {
-            TextField("Server", text: $model.serverURL, prompt: Text("https://yourname.hedonism.bot"))
+            TextField("Server", text: $model.serverURL, prompt: Text("https://api.lumiere.host"))
             SecureField("Service account token", text: $model.token, prompt: Text("hbsa_…"))
             TextField("Album name prefix", text: $model.albumPrefix)
             Text("Photos go into albums named \"\(model.albumPrefix) 2026-10-07\" by the day they were taken.")

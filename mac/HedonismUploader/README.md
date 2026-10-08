@@ -22,8 +22,7 @@ and a file that failed is retried the next time the card goes in.
    open .build/HedonismUploader.app
    ```
 
-3. Click the SD card icon in the menu bar → Settings…, enter the server URL (the photographer's
-   hedonism_bot address) and the token, then Test connection.
+3. Click the SD card icon in the menu bar → Settings…, enter `https://api.lumiere.host` and the token, then Test connection.
 
 Settings also has: album name prefix (default `SD`), upload automatically on insert (default on),
 eject when everything uploaded, and open at login. The token is kept in the login keychain and the

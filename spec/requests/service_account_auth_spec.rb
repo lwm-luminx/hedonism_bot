@@ -5,6 +5,8 @@ RSpec.describe "Service account auth", type: :request do
   let(:token) { ServiceAccount.issue!(photographer: photographer, name: "Mac").last }
   let(:query) { "{ photographer { subdomain } }" }
 
+  before { host! "api.lumiere.host" }
+
   it "acts as the token's photographer" do
     post "/graphql", params: { query: query }, headers: { "Authorization" => "Bearer #{token}" }
 

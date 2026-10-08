@@ -20,6 +20,7 @@ module HedonismBot
     ]
     # Initialize configuration defaults for originally generated Rails version.
     config.load_defaults 8.1
+    config.x.service_domain = ENV.fetch("SERVICE_DOMAIN", "lumiere.host").strip.downcase.delete_suffix(".")
     config.middleware.insert_before Rails::Rack::Logger, Middleware::FacebookDeletionBodyLimit
 
     # Please, add to the `ignore` list any other `lib` subdirectories that do

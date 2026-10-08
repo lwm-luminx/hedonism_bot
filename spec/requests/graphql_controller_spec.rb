@@ -3,6 +3,7 @@ require 'rails_helper'
 RSpec.describe "Graphql", type: :request do
   before do
     mock_photographer
+    host! "test.lumiere.host"
   end
 
   describe "POST /graphql" do
