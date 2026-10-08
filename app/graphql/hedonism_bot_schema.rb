@@ -19,13 +19,9 @@ class HedonismBotSchema < GraphQL::Schema
   end
 
   # Union and Interface Resolution
+  # Every model exposed through `node` has a matching Types::<Model>Type (PhotoPromise → PhotoPromiseType).
   def self.resolve_type(abstract_type, obj, ctx)
-    case obj
-    when Photo
-      Types::PhotoType
-    else
-      raise("Unexpected object type: #{obj.class}")
-    end
+    "Types::#{obj.class.name}Type".safe_constantize || raise("Unexpected object type: #{obj.class}")
   end
 
   # Limit the size of incoming queries:
