@@ -2,8 +2,8 @@
 
 Open `LumiereUploader.xcodeproj` in Xcode. It contains two shared schemes:
 
-- **LumiereMac**: macOS 13+, a persistent menu bar app with automatic camera-card uploads.
-- **LumiereMobile**: iOS/iPadOS 16+, folder selection, file review, album/event/venue entry, progress, cancellation and retry.
+- **Cogsworth**: macOS 13+, a persistent menu bar app with automatic camera-card uploads.
+- **Chip** (Chip by Lumière): iOS/iPadOS 16+, folder selection, file review, album/event/venue entry, progress, cancellation and retry.
 
 Both targets link the local **UploaderCore** Swift package in `../mac/HedonismUploader`. The existing `swift build`/bundle script remains supported. Core includes card scanning, RAW/JPEG grouping, hashing, GraphQL requests, signed storage uploads, progress and a persistent upload ledger. Keychain source is shared by both app targets.
 
@@ -33,8 +33,8 @@ This version uses foreground URLSession uploads. It does not promise transfers a
 
 ```sh
 swift test --package-path mac/HedonismUploader
-xcodebuild -project apple/LumiereUploader.xcodeproj -scheme LumiereMac -destination 'platform=macOS,arch=arm64' CODE_SIGNING_ALLOWED=NO build
-xcodebuild -project apple/LumiereUploader.xcodeproj -scheme LumiereMobile -sdk iphonesimulator CODE_SIGNING_ALLOWED=NO build
+xcodebuild -project apple/LumiereUploader.xcodeproj -scheme Cogsworth -destination 'platform=macOS,arch=arm64' CODE_SIGNING_ALLOWED=NO build
+xcodebuild -project apple/LumiereUploader.xcodeproj -scheme Chip -sdk iphonesimulator CODE_SIGNING_ALLOWED=NO build
 bundle exec rspec spec/graphql/mutations/create_photo_promise_album_spec.rb spec/graphql/mutations/create_photo_promise_spec.rb spec/graphql/mutations/attach_photo_promise_files_spec.rb spec/graphql/mutations/update_photo_promise_file_update_spec.rb
 bundle exec rubocop
 ```
@@ -43,13 +43,13 @@ Physical card access, Synology authentication and a live ML worker require hardw
 
 ## UI tests on a connected iPhone
 
-`LumiereMobile` now includes the `LumiereMobileUITests` target in its Test action.
+`Chip` now includes the `ChipUITests` target in its Test action.
 The tests exercise launch, disabled upload before card selection, album/event/venue editing,
 and cancellation of the system folder picker. They do not send photos to the live API.
 Use Product → Test in Xcode with the connected iPhone selected, or:
 
 ```sh
-xcodebuild -project apple/LumiereUploader.xcodeproj -scheme LumiereMobile \
+xcodebuild -project apple/LumiereUploader.xcodeproj -scheme Chip \
   -destination 'platform=iOS,id=<device-UDID>' \
   DEVELOPMENT_TEAM=<your-team-ID> -allowProvisioningUpdates test
 ```

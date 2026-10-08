@@ -47,6 +47,8 @@ module HedonismBot
     # Admin sign-in (Facebook via OmniAuth) needs a cookie-backed session, which api_only strips out.
     config.middleware.use ActionDispatch::Cookies
     config.middleware.use ActionDispatch::Session::CookieStore, key: "_hedonism_bot_session", same_site: :lax
+    # CSRF's null-session handler clears flash as well as the browser session.
+    config.middleware.use ActionDispatch::Flash
 
     config.generators do |g|
       g.orm :active_record, primary_key_type: :uuid

@@ -7,7 +7,7 @@ final class MobileUploaderUITests: XCTestCase {
         let app = XCUIApplication()
         app.launchArguments = ["--ui-testing"]
         app.launch()
-        XCTAssertTrue(app.navigationBars["Lumière Uploader"].waitForExistence(timeout: 10))
+        XCTAssertTrue(app.navigationBars["Chip by Lumière"].waitForExistence(timeout: 10))
         XCTAssertTrue(app.buttons["Add account"].exists)
         XCTAssertFalse(app.buttons["Upload new files"].isEnabled)
         for (field, value) in [("Album", "Device test"), ("Event", "Opening night"), ("Venue", "The Hall")] {

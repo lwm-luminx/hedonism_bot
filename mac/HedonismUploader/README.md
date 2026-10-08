@@ -1,4 +1,4 @@
-# Lumière Uploader (macOS)
+# Cogsworth (macOS)
 
 A menu bar app that watches for camera cards (any removable volume with a `DCIM` folder) and uploads
 new photos to Lumière Archive (hedonism_bot) as a service account. Files that share a name (`DSC00001.ARW` +
@@ -19,7 +19,7 @@ and a file that failed is retried the next time the card goes in.
    ```sh
    cd mac/HedonismUploader
    script/bundle-app.sh
-   open .build/HedonismUploader.app
+   open .build/Cogsworth.app
    ```
 
 3. Click the SD card icon in the menu bar → Settings…, enter `https://api.lumiere.host` and the token, then Test connection.

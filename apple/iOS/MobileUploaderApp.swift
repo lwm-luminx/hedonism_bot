@@ -207,7 +207,7 @@ struct MobileUploaderApp: App {
                         }
                     }
                 }
-                .navigationTitle("Lumière Uploader")
+                .navigationTitle("Chip by Lumière")
                 .onChange(of: model.selectedID) { _ in model.accountChanged() }
                 .sheet(isPresented: $addingAccount) { AddAccountView(model: model) }
                 .fileImporter(isPresented: $picking, allowedContentTypes: [.folder]) { result in

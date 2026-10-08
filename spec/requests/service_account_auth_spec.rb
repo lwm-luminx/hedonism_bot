@@ -7,6 +7,14 @@ RSpec.describe "Service account auth", type: :request do
 
   before { host! "api.lumiere.host" }
 
+  around do |example|
+    previous = ActionController::Base.allow_forgery_protection
+    ActionController::Base.allow_forgery_protection = true
+    example.run
+  ensure
+    ActionController::Base.allow_forgery_protection = previous
+  end
+
   it "acts as the token's photographer" do
     post "/graphql", params: { query: query }, headers: { "Authorization" => "Bearer #{token}" }
 

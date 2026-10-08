@@ -1,5 +1,5 @@
 #!/bin/sh
-# Builds the Lumière Archive uploader (a menu bar app) as HedonismUploader.app into .build/HedonismUploader.app and signs it ad hoc.
+# Builds the Lumière Archive uploader (a menu bar app) as Cogsworth.app into .build/Cogsworth.app and signs it ad hoc.
 # Usage: script/bundle-app.sh [version]
 set -eu
 cd "$(dirname "$0")/.."
@@ -8,7 +8,7 @@ version="${1:-1.0}"
 swift build -c release --arch arm64 --arch x86_64
 bin="$(swift build -c release --arch arm64 --arch x86_64 --show-bin-path)/HedonismUploader"
 
-app=.build/HedonismUploader.app
+app=.build/Cogsworth.app
 rm -rf "$app"
 mkdir -p "$app/Contents/MacOS"
 cp "$bin" "$app/Contents/MacOS/HedonismUploader"
@@ -28,8 +28,8 @@ cat > "$app/Contents/Info.plist" <<PLIST
 <plist version="1.0">
 <dict>
   <key>CFBundleIdentifier</key><string>social.hotmess.hedonism-uploader</string>
-  <key>CFBundleName</key><string>Lumière Uploader</string>
-  <key>CFBundleDisplayName</key><string>Lumière Uploader</string>
+  <key>CFBundleName</key><string>Cogsworth</string>
+  <key>CFBundleDisplayName</key><string>Cogsworth</string>
   <key>CFBundleIconFile</key><string>AppIcon</string>
   <key>CFBundleExecutable</key><string>HedonismUploader</string>
   <key>CFBundlePackageType</key><string>APPL</string>
