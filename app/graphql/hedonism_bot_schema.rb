@@ -19,8 +19,11 @@ class HedonismBotSchema < GraphQL::Schema
   end
 
   # Union and Interface Resolution
-  # Every model exposed through `node` has a matching Types::<Model>Type (PhotoPromise → PhotoPromiseType).
+  # Every model exposed through `node` has a matching Types::<Model>Type (PhotoPromise → PhotoPromiseType),
+  # except PhotoTake, which the API calls Photo.
   def self.resolve_type(abstract_type, obj, ctx)
+    return Types::PhotoType if obj.is_a?(PhotoTake)
+
     "Types::#{obj.class.name}Type".safe_constantize || raise("Unexpected object type: #{obj.class}")
   end
 
