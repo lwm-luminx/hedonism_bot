@@ -18,6 +18,17 @@ const PHOTO_CARD_FRAGMENT = graphql`
   }
 `;
 
+function formatTakenAt(takenAt: unknown): string {
+  if (typeof takenAt !== "string") return "";
+  const date = new Date(takenAt);
+  if (Number.isNaN(date.getTime())) return takenAt;
+  return date.toLocaleDateString(undefined, {
+    month: "short",
+    day: "numeric",
+    year: "numeric",
+  });
+}
+
 interface PhotoCardProps {
   photo: PhotoFragment$key;
   onSelect?: (photo: string) => void;
@@ -130,25 +141,25 @@ export function PhotoCard({ photo, onSelect, onPurchase }: PhotoCardProps) {
         </div>
       </div>
       {/* Bottom label */}
-      <div className="px-3 py-2 flex items-center justify-between">
+      <div className="px-2 py-2 sm:px-3 flex items-center justify-between gap-2">
         <span
-          className="text-xs"
+          className="text-xs truncate"
           style={{
             color: "var(--muted-foreground)",
             fontFamily: "'DM Mono', monospace",
           }}
         >
-          {data?.takenAt}
+          {formatTakenAt(data?.takenAt)}
         </span>
         {data?.isPurchased ? (
           <span
-            className="text-xs"
+            className="text-xs shrink-0"
             style={{
               color: "var(--primary)",
               fontFamily: "'Inter', sans-serif",
             }}
           >
-            Download available
+            Download<span className="hidden xl:inline"> available</span>
           </span>
         ) : (
           <span

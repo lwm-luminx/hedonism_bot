@@ -53,7 +53,7 @@ export function PhotoViewer({
     >
       {/* Close */}
       <button
-        className="absolute top-4 right-4 p-2 rounded transition-colors hover:bg-white/10"
+        className="absolute top-2 right-2 z-10 p-3 sm:top-4 sm:right-4 sm:p-2 rounded transition-colors hover:bg-white/10"
         style={{ color: "var(--foreground)" }}
         onClick={onClose}
       >
@@ -63,7 +63,7 @@ export function PhotoViewer({
       {/* Prev */}
       {hasPrev && (
         <button
-          className="absolute left-4 top-1/2 -translate-y-1/2 p-2 rounded transition-colors hover:bg-white/10"
+          className="absolute left-1 top-1/2 z-10 -translate-y-1/2 p-3 sm:left-4 sm:p-2 rounded transition-colors hover:bg-white/10"
           style={{ color: "var(--foreground)" }}
           onClick={(e) => {
             e.stopPropagation();
@@ -76,7 +76,7 @@ export function PhotoViewer({
       {/* Next */}
       {hasNext && (
         <button
-          className="absolute right-4 top-1/2 -translate-y-1/2 p-2 rounded transition-colors hover:bg-white/10"
+          className="absolute right-1 top-1/2 z-10 -translate-y-1/2 p-3 sm:right-4 sm:p-2 rounded transition-colors hover:bg-white/10"
           style={{ color: "var(--foreground)" }}
           onClick={(e) => {
             e.stopPropagation();
@@ -88,7 +88,7 @@ export function PhotoViewer({
 
       {/* Main content */}
       <div
-        className="flex flex-col items-center gap-4 max-w-4xl w-full px-16"
+        className="flex flex-col items-center gap-4 max-w-4xl w-full px-3 sm:px-16"
         onClick={(e) => e.stopPropagation()}
       >
         <div className="relative w-full max-h-[70vh] flex items-center justify-center">
@@ -121,7 +121,7 @@ export function PhotoViewer({
 
         {/* Meta bar */}
         <div
-          className="w-full flex items-center justify-between px-4 py-3 rounded"
+          className="w-full flex items-center justify-between gap-3 px-3 py-3 sm:px-4 rounded"
           style={{
             background: "var(--card)",
             border: "1px solid var(--border)",
