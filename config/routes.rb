@@ -20,6 +20,10 @@ Rails.application.routes.draw do
   post "auth/native/exchange", to: "native_accounts#exchange"
   delete "auth/native/session", to: "native_accounts#destroy"
 
+  post "auth/start", to: "auth_bridges#start"
+  get "auth/bridge", to: "auth_bridges#new"
+  get "auth/return", to: "auth_bridges#complete"
+
   # Admin sign-in. POST /auth/facebook is handled by OmniAuth middleware.
   get "auth/facebook/callback" => "sessions#create"
   get "auth/failure" => "sessions#failure"

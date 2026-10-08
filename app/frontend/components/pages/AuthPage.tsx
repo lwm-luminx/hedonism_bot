@@ -154,7 +154,7 @@ export function AuthGate({ children }: { children: ReactNode }) {
         ) : (
           <form
             method="post"
-            action="/auth/facebook"
+            action="/auth/start"
             onSubmit={() => {
               setSigningIn(true);
               setError(null);
