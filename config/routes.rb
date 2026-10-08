@@ -6,8 +6,6 @@ Rails.application.routes.draw do
     mount GraphiQL::Rails::Engine, at: "/graphiql", graphql_path: "/graphql"
   end
 
-  post "upload" => "upload#upload"
-
   # Errors from the frontend, logged for heroku logs.
   post "client_errors" => "client_errors#create"
 
