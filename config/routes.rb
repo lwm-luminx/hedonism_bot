@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  mount ActionCable.server => "/cable"
   post "callbacks/facebook/data-deletion", to: "facebook_data_deletions#create"
   get "privacy/deletion/:confirmation_code", to: "facebook_data_deletions#show", as: :facebook_deletion_status
   # Rails serves these static views, including the existing .html URLs.

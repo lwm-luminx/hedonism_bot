@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_10_09_000000) do
+ActiveRecord::Schema[8.1].define(version: 2026_10_09_030000) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
   enable_extension "postgis"
@@ -366,6 +366,25 @@ ActiveRecord::Schema[8.1].define(version: 2026_10_09_000000) do
     t.index ["face_id", "photo_take_id"], name: "photo_faces_takes_face_id_index", unique: true
     t.index ["face_id"], name: "index_photo_faces_on_face_id"
     t.index ["photo_take_id"], name: "index_photo_faces_on_photo_take_id"
+  end
+
+  create_table "photo_inference_works", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.uuid "photographer_id", null: false
+    t.uuid "photo_take_id", null: false
+    t.uuid "service_account_id"
+    t.string "task", null: false
+    t.string "state", default: "pending", null: false
+    t.string "lease_token"
+    t.datetime "lease_expires_at"
+    t.datetime "deadline_at"
+    t.integer "attempts", default: 0, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["photo_take_id", "task"], name: "index_photo_inference_works_on_photo_take_id_and_task", unique: true
+    t.index ["photo_take_id"], name: "index_photo_inference_works_on_photo_take_id"
+    t.index ["photographer_id", "state", "lease_expires_at"], name: "index_inference_work_dispatch"
+    t.index ["photographer_id"], name: "index_photo_inference_works_on_photographer_id"
+    t.index ["service_account_id"], name: "index_photo_inference_works_on_service_account_id"
   end
 
   create_table "photo_promise_files", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
@@ -733,6 +752,9 @@ ActiveRecord::Schema[8.1].define(version: 2026_10_09_000000) do
   add_foreign_key "person_locales", "people"
   add_foreign_key "photo_faces", "faces", on_delete: :nullify
   add_foreign_key "photo_faces", "photo_takes"
+  add_foreign_key "photo_inference_works", "photo_takes"
+  add_foreign_key "photo_inference_works", "photographers"
+  add_foreign_key "photo_inference_works", "service_accounts"
   add_foreign_key "photo_promise_files", "photo_promises"
   add_foreign_key "photo_promise_files", "photo_takes"
   add_foreign_key "photo_promises", "albums"

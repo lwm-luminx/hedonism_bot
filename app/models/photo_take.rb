@@ -30,6 +30,7 @@ class PhotoTake < ApplicationRecord
   belongs_to :photo, optional: true
 
   has_many :photo_faces, dependent: :destroy
+  has_many :photo_inference_works, dependent: :destroy
   has_many :photo_promise_files, dependent: :nullify
   has_many :faces, through: :photo_faces
 
