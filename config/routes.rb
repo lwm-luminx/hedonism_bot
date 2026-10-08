@@ -8,6 +8,9 @@ Rails.application.routes.draw do
 
   post "upload" => "upload#upload"
 
+  # Errors from the frontend, logged for heroku logs.
+  post "client_errors" => "client_errors#create"
+
   # Admin sign-in. POST /auth/facebook is handled by OmniAuth middleware.
   get "auth/facebook/callback" => "sessions#create"
   get "auth/failure" => "sessions#failure"
