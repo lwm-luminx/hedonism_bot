@@ -45,7 +45,7 @@ class Page < ApplicationRecord
   end
 
   def self.default_client
-    @default_client ||= Koala::Facebook::API.new(app_id: Rails.application.credentials.facebook.app_id, app_secret: Rails.application.credentials.facebook.secret)
+    @default_client ||= Koala::Facebook::API.new(app_id: FACEBOOK_APP_ID, app_secret: FACEBOOK_APP_SECRET)
   end
 
   def self.page_for_facebook_id(client, facebook_id, hidden: false)
