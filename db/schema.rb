@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_10_07_223000) do
+ActiveRecord::Schema[8.1].define(version: 2026_10_08_190200) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
   enable_extension "postgis"
@@ -50,9 +50,9 @@ ActiveRecord::Schema[8.1].define(version: 2026_10_07_223000) do
     t.uuid "event_id"
     t.string "name", null: false
     t.uuid "photographer_id", null: false
-    t.string "storage_transition"
     t.datetime "updated_at", null: false
     t.uuid "venue_id"
+    t.string "storage_transition"
     t.index ["event_id"], name: "index_albums_on_event_id"
     t.index ["photographer_id"], name: "index_albums_on_photographer_id"
     t.index ["venue_id"], name: "index_albums_on_venue_id"
@@ -124,6 +124,31 @@ ActiveRecord::Schema[8.1].define(version: 2026_10_07_223000) do
     t.string "subdomain", null: false
     t.datetime "updated_at", null: false
     t.index ["subdomain"], name: "audiences_subdomain_uindex", unique: true
+  end
+
+  create_table "data_deletion_requests", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.string "confirmation_code", null: false
+    t.string "app_id", null: false
+    t.string "subject_digest", null: false
+    t.string "payload_digest", null: false
+    t.uuid "user_id"
+    t.string "status", default: "pending", null: false
+    t.integer "attempts", default: 0, null: false
+    t.datetime "next_attempt_at"
+    t.datetime "local_deleted_at"
+    t.datetime "completed_at"
+    t.datetime "reviewed_at"
+    t.jsonb "cleanup_manifest", default: [], null: false
+    t.jsonb "review_reasons", default: [], null: false
+    t.string "error_category"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.string "replay_digests", default: [], null: false, array: true
+    t.text "encrypted_review_context"
+    t.index ["app_id", "payload_digest"], name: "index_data_deletion_requests_on_app_id_and_payload_digest", unique: true
+    t.index ["app_id", "subject_digest"], name: "index_data_deletion_requests_on_app_id_and_subject_digest"
+    t.index ["confirmation_code"], name: "index_data_deletion_requests_on_confirmation_code", unique: true
+    t.index ["status", "next_attempt_at"], name: "index_data_deletion_requests_on_status_and_next_attempt_at"
   end
 
   create_table "devices", id: :uuid, default: -> { "uuid_generate_v4()" }, force: :cascade do |t|
@@ -367,6 +392,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_10_07_223000) do
     t.string "status", default: "pending", null: false
     t.datetime "taken_at"
     t.datetime "updated_at", null: false
+    t.boolean "face_processing_disabled", default: false, null: false
     t.index ["photo_id"], name: "index_photo_takes_on_photo_id"
   end
 
@@ -610,6 +636,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_10_07_223000) do
     t.string "name"
     t.string "twitter_id"
     t.datetime "updated_at", null: false
+    t.datetime "deletion_pending_at"
     t.index ["email_address"], name: "index_users_on_email_address", unique: true
     t.index ["facebook_id"], name: "users_facebook_id_uindex", unique: true
     t.index ["image_id"], name: "index_users_on_image_id"

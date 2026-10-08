@@ -39,7 +39,11 @@ export function AuthGate({ children }: { children: ReactNode }) {
         style={{ background: "var(--background)" }}
       >
         <div className="flex flex-col items-center gap-3">
-          <img src="/lumiere-mark.svg" alt="" className="h-8 w-8 animate-pulse" />
+          <img
+            src="/lumiere-mark.svg"
+            alt=""
+            className="h-8 w-8 animate-pulse"
+          />
           <p
             className="text-sm"
             style={{
@@ -129,7 +133,8 @@ export function AuthGate({ children }: { children: ReactNode }) {
             >
               Ask an admin to run
               <br />
-              admins:grant[{user.facebook_id},{window.location.hostname.split(".")[0]}]
+              admins:grant[{user.facebook_id},
+              {window.location.hostname.split(".")[0]}]
             </p>
             <button
               onClick={signOut}
@@ -230,6 +235,14 @@ export function AuthGate({ children }: { children: ReactNode }) {
             )}
           </form>
         )}
+        <nav aria-label="Privacy" className="flex justify-center gap-4 text-xs">
+          <a href="/privacy.html" className="underline">
+            Privacy policy
+          </a>
+          <a href="/data-deletion.html" className="underline">
+            Data deletion
+          </a>
+        </nav>
       </div>
     </div>
   );

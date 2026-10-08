@@ -13,8 +13,6 @@ module Mutations
       photo = HedonismBotSchema.object_from_id(id, context) #: PhotoTake
       raise GraphQL::ExecutionError, "Photo not found" unless photo.is_a?(PhotoTake)
 
-      photo.facial_metadata = faces
-
       photo.update_faces(faces)
 
       { photo: photo }

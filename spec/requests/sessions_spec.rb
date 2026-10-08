@@ -53,6 +53,12 @@ RSpec.describe "Facebook admin sign-in", type: :request do
     expect(me).to include("admin" => false)
   end
 
+  it "rejects an existing cookie once account deletion is accepted" do
+    sign_in
+    DataDeletionRequest.accept!({ "user_id" => "1234567890" }, "signed-payload")
+    expect(me).to be_nil
+  end
+
   it "signs out", :aggregate_failures do
     sign_in
     delete "/auth/session"

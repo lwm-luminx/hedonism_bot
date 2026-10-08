@@ -1,4 +1,10 @@
 Rails.application.routes.draw do
+  post "callbacks/facebook/data-deletion", to: "facebook_data_deletions#create"
+  get "privacy/deletion/:confirmation_code", to: "facebook_data_deletions#show", as: :facebook_deletion_status
+  # Rails serves these static views, including the existing .html URLs.
+  get "privacy", to: "legal#privacy", as: :privacy, defaults: { format: :html }
+  get "data-deletion", to: "legal#data_deletion", as: :data_deletion, defaults: { format: :html }
+
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
   post "/graphql", to: "graphql#execute"
 

@@ -19,6 +19,9 @@ class SessionsController < ApplicationController
     reset_session
     session[:user_id] = user.id
     redirect_to safe_return_path
+  rescue User::DeletionPending
+    reset_session
+    redirect_to "/admin?auth_error=deletion_pending"
   end
 
   def failure

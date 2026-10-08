@@ -6,7 +6,7 @@ class ApplicationController < ActionController::Base
   def current_user
     return @current_user if defined?(@current_user)
 
-    @current_user = session[:user_id] && User.find_by(id: session[:user_id])
+    @current_user = session[:user_id] && User.find_by(id: session[:user_id], deletion_pending_at: nil)
   end
 
   def photographer

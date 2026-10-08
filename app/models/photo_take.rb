@@ -104,17 +104,21 @@ class PhotoTake < ApplicationRecord
   end
 
   def update_faces(faces)
-    self.photo_faces.clear
-    faces.each do |face|
-      person_photo = photo_faces.create(
-        arc_face_embedding: face.arc_face_embedding,
-        confidence: face.confidence,
-        bounding_box: face.bounding_box
-      )
-      person = Person.nearest_neighbors(:arc_face_embedding, face.arc_face_embedding, distance: "cosine", threshold: 0.1).first
+    PrivacyLock.biometric do
+      reload
+      return false if face_processing_disabled?
 
-      FacePreviewExtractJob.perform_now person_photo
+      self.facial_metadata = faces.map(&:to_h)
+      photo_faces.destroy_all
+      faces.each do |face|
+        person_photo = photo_faces.create!(
+          arc_face_embedding: face.embedding,
+          confidence: face.face_confidence,
+          bounding_box: face.facial_area
+        )
+        FacePreviewExtractJob.perform_now(person_photo)
+      end
+      save!
     end
-    save!
   end
 end
