@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 import {
   Calendar,
-  Camera,
   Filter,
   Grid3X3,
   LayoutList,
@@ -103,10 +102,10 @@ export default function GalleryPage() {
         style={{ borderColor: "var(--border)", background: "var(--card)" }}
       >
         <div className="flex min-w-0 items-center gap-3">
-          <Camera className="h-4.5 w-4.5" style={{ color: "var(--primary)" }} />
+          <img src="/lumiere-mark.svg" alt="" className="h-6 w-6 shrink-0" />
           <span
             style={{
-              fontFamily: "'Inner', serif",
+              fontFamily: "'Playfair Display', serif",
               color: "var(--foreground)",
               fontSize: "1.125rem",
               letterSpacing: "0.01em",

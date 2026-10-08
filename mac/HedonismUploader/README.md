@@ -1,7 +1,7 @@
-# Hedonism Uploader (macOS)
+# Lumière Uploader (macOS)
 
 A menu bar app that watches for camera cards (any removable volume with a `DCIM` folder) and uploads
-new photos to hedonism_bot as a service account. Files that share a name (`DSC00001.ARW` +
+new photos to Lumière Archive (hedonism_bot) as a service account. Files that share a name (`DSC00001.ARW` +
 `DSC00001.HIF`) become one photo; photos land in albums named `<prefix> <yyyy-MM-dd>` by the day
 they were taken. Already-uploaded files are remembered, so re-inserting a card only sends new shots,
 and a file that failed is retried the next time the card goes in.

@@ -30,7 +30,7 @@ struct MenuContent: View {
 
     var body: some View {
         VStack(alignment: .leading, spacing: 10) {
-            Text("Hedonism Uploader").font(.headline)
+            Text("Lumière Archive").font(.headline)
             Text(model.status).font(.callout).foregroundStyle(.secondary).fixedSize(horizontal: false, vertical: true)
 
             if let progress = model.progress, progress.totalFiles > 0 {

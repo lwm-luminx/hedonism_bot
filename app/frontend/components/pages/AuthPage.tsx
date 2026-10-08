@@ -1,5 +1,4 @@
 import { ReactNode, useEffect, useState } from "react";
-import { Camera } from "lucide-react";
 import { csrfToken } from "../../services/csrf";
 
 export type SessionUser = {
@@ -40,10 +39,7 @@ export function AuthGate({ children }: { children: ReactNode }) {
         style={{ background: "var(--background)" }}
       >
         <div className="flex flex-col items-center gap-3">
-          <Camera
-            className="h-6 w-6 animate-pulse"
-            style={{ color: "var(--primary)" }}
-          />
+          <img src="/lumiere-mark.svg" alt="" className="h-8 w-8 animate-pulse" />
           <p
             className="text-sm"
             style={{
@@ -86,15 +82,7 @@ export function AuthGate({ children }: { children: ReactNode }) {
       >
         {/* Logo */}
         <div className="flex flex-col items-center gap-3 text-center">
-          <div
-            className="flex h-11 w-11 items-center justify-center rounded"
-            style={{
-              background: "rgba(201,169,110,0.12)",
-              borderRadius: "var(--radius-sm)",
-            }}
-          >
-            <Camera className="h-5 w-5" style={{ color: "var(--primary)" }} />
-          </div>
+          <img src="/lumiere-mark.svg" alt="" className="h-14 w-14" />
           <div>
             <h1
               style={{
