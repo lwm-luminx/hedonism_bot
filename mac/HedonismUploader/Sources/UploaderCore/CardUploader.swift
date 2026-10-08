@@ -14,12 +14,14 @@ public final class CardUploader: @unchecked Sendable {
     private let ledger: UploadLedger
     private let albumPrefix: String
     private let calendar: Calendar
+    private let context: UploadContext?
 
-    public init(client: HedonismClient, ledger: UploadLedger, albumPrefix: String, calendar: Calendar = .current) {
+    public init(client: HedonismClient, ledger: UploadLedger, albumPrefix: String, calendar: Calendar = .current, context: UploadContext? = nil) {
         self.client = client
         self.ledger = ledger
         self.albumPrefix = albumPrefix
         self.calendar = calendar
+        self.context = context
     }
 
     public func albumName(for date: Date) -> String {
@@ -34,7 +36,7 @@ public final class CardUploader: @unchecked Sendable {
         var order: [String] = []
         var byAlbum: [String: [[PhotoFile]]] = [:]
         for shot in CardScanner.shots(files) {
-            let album = albumName(for: shot[0].modified)
+            let album = context?.albumName ?? albumName(for: shot[0].modified)
             if byAlbum[album] == nil { order.append(album) }
             byAlbum[album, default: []].append(shot)
         }
@@ -49,13 +51,14 @@ public final class CardUploader: @unchecked Sendable {
         progress(state)
 
         for batch in batches {
-            let promiseID = try await client.createPromise(albumName: batch.album)
+            let promiseID = try await client.createPromise(albumName: batch.album, context: context)
             for shot in batch.shots {
                 try Task.checkCancellation()
                 let hashed = try shot.map { file in (file, try FileHasher.digests(of: file.url)) }
                 let pending = try await client.attach(promiseID: promiseID, files: hashed)
 
                 for (file, target) in zip(shot, pending) {
+                    try Task.checkCancellation()
                     state.currentFile = file.filename
                     progress(state)
                     do {
@@ -63,9 +66,12 @@ public final class CardUploader: @unchecked Sendable {
                         try await client.finish(target, succeeded: true)
                         try ledger.record(file)
                         state.uploadedFiles += 1
+                    } catch is CancellationError {
+                        throw CancellationError()
                     } catch let error as HedonismClientError where error.isFatal {
                         throw error
                     } catch {
+                        try Task.checkCancellation()
                         try? await client.finish(target, succeeded: false)
                         state.failedFiles += 1
                     }

@@ -269,6 +269,11 @@ type Folder implements Node {
     """
     last: Int
   ): PhotoConnection!
+
+  """
+  Event and venue supplied at upload
+  """
+  uploadContext: JSON!
 }
 
 """
@@ -351,6 +356,11 @@ type Mutation {
     Album the uploads go into (created if missing)
     """
     albumName: String
+
+    """
+    Event and venue supplied by the uploader
+    """
+    uploadContext: JSON
   ): CreatePhotoPromisePayload
 
   """

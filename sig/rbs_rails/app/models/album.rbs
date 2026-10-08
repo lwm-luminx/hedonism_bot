@@ -323,6 +323,46 @@ class ::Album < ::ApplicationRecord
     def storage_transition_before_type_cast: () -> ::String?
 
     def storage_transition_for_database: () -> ::String?
+
+    def upload_context: () -> untyped
+
+    def upload_context=: (untyped) -> untyped
+
+    def upload_context?: () -> bool
+
+    def upload_context_changed?: (?from: untyped, ?to: untyped) -> bool
+
+    def upload_context_change: () -> [ untyped, untyped ]
+
+    def upload_context_will_change!: () -> void
+
+    def upload_context_was: () -> untyped
+
+    def upload_context_previously_changed?: (?from: untyped, ?to: untyped) -> bool
+
+    def upload_context_previous_change: () -> ::Array[untyped]?
+
+    def upload_context_previously_was: () -> untyped
+
+    def upload_context_before_last_save: () -> untyped
+
+    def upload_context_change_to_be_saved: () -> ::Array[untyped]?
+
+    def upload_context_in_database: () -> untyped
+
+    def saved_change_to_upload_context: () -> ::Array[untyped]?
+
+    def saved_change_to_upload_context?: (?from: untyped, ?to: untyped) -> bool
+
+    def will_save_change_to_upload_context?: (?from: untyped, ?to: untyped) -> bool
+
+    def restore_upload_context!: () -> void
+
+    def clear_upload_context_change: () -> void
+
+    def upload_context_before_type_cast: () -> untyped
+
+    def upload_context_for_database: () -> untyped
   end
   include ::Album::GeneratedAttributeMethods
   module ::Album::GeneratedAliasAttributeMethods

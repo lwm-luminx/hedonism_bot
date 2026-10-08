@@ -1,0 +1,44 @@
+// !$*UTF8*$!
+{ archiveVersion = 1; classes = {}; objectVersion = 56; objects = {
+582681C2EAE02B3F3D399C0C = { isa = XCLocalSwiftPackageReference; relativePath = ../mac/HedonismUploader; };
+4B1BE8378B23BEA60D0D0047 = { isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "../mac/HedonismUploader/Sources/HedonismUploader/AppModel.swift"; sourceTree = SOURCE_ROOT; };
+1BDDD26CF7AC88FBCA34FCE8 = { isa = PBXBuildFile; fileRef = 4B1BE8378B23BEA60D0D0047; };
+DEC48B0094F280DE8A4A6DBB = { isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "../mac/HedonismUploader/Sources/HedonismUploader/HedonismUploaderApp.swift"; sourceTree = SOURCE_ROOT; };
+A1D40E623B9747C308258600 = { isa = PBXBuildFile; fileRef = DEC48B0094F280DE8A4A6DBB; };
+B09894DA39DE45628BBAF474 = { isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "../mac/HedonismUploader/Sources/HedonismUploader/Keychain.swift"; sourceTree = SOURCE_ROOT; };
+2586BB8F2141AAC1AF899398 = { isa = PBXBuildFile; fileRef = B09894DA39DE45628BBAF474; };
+BE0D31D85940129F06876E29 = { isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "../mac/HedonismUploader/Sources/HedonismUploader/DesktopServices.swift"; sourceTree = SOURCE_ROOT; };
+66A25219DA145F762185F693 = { isa = PBXBuildFile; fileRef = BE0D31D85940129F06876E29; };
+C38FB9BEFD0F4324A0DC654B = { isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "../mac/HedonismUploader/Sources/HedonismUploader/VolumeWatcher.swift"; sourceTree = SOURCE_ROOT; };
+4571A3FE838748B0EA795E9E = { isa = PBXBuildFile; fileRef = C38FB9BEFD0F4324A0DC654B; };
+E3F63B5789164655488FBB73 = { isa = PBXGroup; children = (4B1BE8378B23BEA60D0D0047,DEC48B0094F280DE8A4A6DBB,B09894DA39DE45628BBAF474,BE0D31D85940129F06876E29,C38FB9BEFD0F4324A0DC654B); name = LumiereMac; sourceTree = "<group>"; };
+F42B014B10603D581205C9C0 = { isa = PBXFileReference; explicitFileType = wrapper.application; path = LumiereMac.app; sourceTree = BUILT_PRODUCTS_DIR; };
+C16F71EF0567E9F091FC6CB0 = { isa = XCSwiftPackageProductDependency; package = 582681C2EAE02B3F3D399C0C; productName = UploaderCore; };
+1CABDC3D2A5A254FC0C59C64 = { isa = PBXBuildFile; productRef = C16F71EF0567E9F091FC6CB0; };
+CD6ECFF1E85C491801D8D806 = { isa = PBXSourcesBuildPhase; buildActionMask = 2147483647; files = (1BDDD26CF7AC88FBCA34FCE8,A1D40E623B9747C308258600,2586BB8F2141AAC1AF899398,66A25219DA145F762185F693,4571A3FE838748B0EA795E9E); runOnlyForDeploymentPostprocessing = 0; };
+6C2AAFE92A13E336D34EFDEC = { isa = PBXFrameworksBuildPhase; buildActionMask = 2147483647; files = (1CABDC3D2A5A254FC0C59C64); runOnlyForDeploymentPostprocessing = 0; };
+7B369B0C02138C404FAA0A46 = { isa = XCBuildConfiguration; buildSettings = { PRODUCT_BUNDLE_IDENTIFIER = social.hotmess.LumiereMac; PRODUCT_NAME = "$(TARGET_NAME)"; SWIFT_VERSION = 5.0; GENERATE_INFOPLIST_FILE = YES; CODE_SIGN_STYLE = Automatic; SDKROOT = macosx; MACOSX_DEPLOYMENT_TARGET = 13.0; INFOPLIST_KEY_LSUIElement = YES; ENABLE_APP_SANDBOX = NO; ONLY_ACTIVE_ARCH = YES; SWIFT_OPTIMIZATION_LEVEL = "-Onone"; }; name = Debug; };
+A8FCE6F4D589794AC04181E7 = { isa = XCBuildConfiguration; buildSettings = { PRODUCT_BUNDLE_IDENTIFIER = social.hotmess.LumiereMac; PRODUCT_NAME = "$(TARGET_NAME)"; SWIFT_VERSION = 5.0; GENERATE_INFOPLIST_FILE = YES; CODE_SIGN_STYLE = Automatic; SDKROOT = macosx; MACOSX_DEPLOYMENT_TARGET = 13.0; INFOPLIST_KEY_LSUIElement = YES; ENABLE_APP_SANDBOX = NO; SWIFT_OPTIMIZATION_LEVEL = "-O"; }; name = Release; };
+1C7EAD79E3A34EE34863AF7C = { isa = XCConfigurationList; buildConfigurations = (7B369B0C02138C404FAA0A46,A8FCE6F4D589794AC04181E7); defaultConfigurationIsVisible = 0; defaultConfigurationName = Release; };
+C1F24C360BBD9096918EA549 = { isa = PBXNativeTarget; buildConfigurationList = 1C7EAD79E3A34EE34863AF7C; buildPhases = (CD6ECFF1E85C491801D8D806,6C2AAFE92A13E336D34EFDEC); buildRules = (); dependencies = (); name = LumiereMac; packageProductDependencies = (C16F71EF0567E9F091FC6CB0); productName = LumiereMac; productReference = F42B014B10603D581205C9C0; productType = "com.apple.product-type.application"; };
+DCB233273F4488AD4F1C2C19 = { isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "iOS/MobileUploaderApp.swift"; sourceTree = SOURCE_ROOT; };
+9EE32B85FF94F508F1A59784 = { isa = PBXBuildFile; fileRef = DCB233273F4488AD4F1C2C19; };
+78F0E1ADB48DD6B5C3D2C0AF = { isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "../mac/HedonismUploader/Sources/HedonismUploader/Keychain.swift"; sourceTree = SOURCE_ROOT; };
+AA5318248DC10690A31C828F = { isa = PBXBuildFile; fileRef = 78F0E1ADB48DD6B5C3D2C0AF; };
+D1E7DC6BB8E080F71C755F9F = { isa = PBXGroup; children = (DCB233273F4488AD4F1C2C19,78F0E1ADB48DD6B5C3D2C0AF); name = LumiereMobile; sourceTree = "<group>"; };
+87C00A466AC27399F25ACD87 = { isa = PBXFileReference; explicitFileType = wrapper.application; path = LumiereMobile.app; sourceTree = BUILT_PRODUCTS_DIR; };
+87D7F891691E3DBB470B522B = { isa = XCSwiftPackageProductDependency; package = 582681C2EAE02B3F3D399C0C; productName = UploaderCore; };
+E29E2ECC4408AAD867BA2C71 = { isa = PBXBuildFile; productRef = 87D7F891691E3DBB470B522B; };
+441303537010773F88BE037F = { isa = PBXSourcesBuildPhase; buildActionMask = 2147483647; files = (9EE32B85FF94F508F1A59784,AA5318248DC10690A31C828F); runOnlyForDeploymentPostprocessing = 0; };
+A46ED7209E13E6927ED96C4C = { isa = PBXFrameworksBuildPhase; buildActionMask = 2147483647; files = (E29E2ECC4408AAD867BA2C71); runOnlyForDeploymentPostprocessing = 0; };
+229175B492E5E1FB47276185 = { isa = XCBuildConfiguration; buildSettings = { PRODUCT_BUNDLE_IDENTIFIER = social.hotmess.LumiereMobile; PRODUCT_NAME = "$(TARGET_NAME)"; SWIFT_VERSION = 5.0; GENERATE_INFOPLIST_FILE = YES; CODE_SIGN_STYLE = Automatic; SDKROOT = iphoneos; IPHONEOS_DEPLOYMENT_TARGET = 16.0; TARGETED_DEVICE_FAMILY = "1,2"; SUPPORTED_PLATFORMS = "iphoneos iphonesimulator"; INFOPLIST_KEY_UILaunchScreen_Generation = YES; INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES; ONLY_ACTIVE_ARCH = YES; SWIFT_OPTIMIZATION_LEVEL = "-Onone"; }; name = Debug; };
+D4DE46F240EA2984DC60E839 = { isa = XCBuildConfiguration; buildSettings = { PRODUCT_BUNDLE_IDENTIFIER = social.hotmess.LumiereMobile; PRODUCT_NAME = "$(TARGET_NAME)"; SWIFT_VERSION = 5.0; GENERATE_INFOPLIST_FILE = YES; CODE_SIGN_STYLE = Automatic; SDKROOT = iphoneos; IPHONEOS_DEPLOYMENT_TARGET = 16.0; TARGETED_DEVICE_FAMILY = "1,2"; SUPPORTED_PLATFORMS = "iphoneos iphonesimulator"; INFOPLIST_KEY_UILaunchScreen_Generation = YES; INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES; SWIFT_OPTIMIZATION_LEVEL = "-O"; }; name = Release; };
+5577C1D1AD7D7F2B93315D4F = { isa = XCConfigurationList; buildConfigurations = (229175B492E5E1FB47276185,D4DE46F240EA2984DC60E839); defaultConfigurationIsVisible = 0; defaultConfigurationName = Release; };
+0A3B52F20478AFF17656659D = { isa = PBXNativeTarget; buildConfigurationList = 5577C1D1AD7D7F2B93315D4F; buildPhases = (441303537010773F88BE037F,A46ED7209E13E6927ED96C4C); buildRules = (); dependencies = (); name = LumiereMobile; packageProductDependencies = (87D7F891691E3DBB470B522B); productName = LumiereMobile; productReference = 87C00A466AC27399F25ACD87; productType = "com.apple.product-type.application"; };
+FBDC4F23F93125BBEEAE800C = { isa = PBXGroup; children = (F42B014B10603D581205C9C0,87C00A466AC27399F25ACD87); name = Products; sourceTree = "<group>"; };
+B28B7AF69320201D1CF206EB = { isa = PBXGroup; children = (E3F63B5789164655488FBB73,D1E7DC6BB8E080F71C755F9F,FBDC4F23F93125BBEEAE800C); sourceTree = "<group>"; };
+89E1FD6268CC0F221A2BE178 = { isa = XCBuildConfiguration; buildSettings = { CLANG_ENABLE_MODULES = YES; ONLY_ACTIVE_ARCH = YES; SWIFT_OPTIMIZATION_LEVEL = "-Onone"; }; name = Debug; };
+E6DE6C99132752C914FEF632 = { isa = XCBuildConfiguration; buildSettings = { CLANG_ENABLE_MODULES = YES; SWIFT_OPTIMIZATION_LEVEL = "-O"; }; name = Release; };
+862894B703A6DEDF96A9DD6C = { isa = XCConfigurationList; buildConfigurations = (89E1FD6268CC0F221A2BE178,E6DE6C99132752C914FEF632); defaultConfigurationIsVisible = 0; defaultConfigurationName = Release; };
+98F54143AB4E86B28C3AFEE0 = { isa = PBXProject; attributes = { LastUpgradeCheck = 2700; }; buildConfigurationList = 862894B703A6DEDF96A9DD6C; compatibilityVersion = "Xcode 14.0"; developmentRegion = en; knownRegions = (en,Base); mainGroup = B28B7AF69320201D1CF206EB; packageReferences = (582681C2EAE02B3F3D399C0C); productRefGroup = FBDC4F23F93125BBEEAE800C; projectDirPath = ""; projectRoot = ""; targets = (C1F24C360BBD9096918EA549,0A3B52F20478AFF17656659D); };
+}; rootObject = 98F54143AB4E86B28C3AFEE0; }

@@ -49,10 +49,12 @@ public final class HedonismClient: @unchecked Sendable {
     }
 
     /// Starts an upload batch whose photos go into the named album (created if missing).
-    public func createPromise(albumName: String) async throws -> String {
+    public func createPromise(albumName: String, context: UploadContext? = nil) async throws -> String {
+        var variables: [String: Any] = ["album": albumName]
+        if let context { variables["context"] = ["event": context.event, "venue": context.venue] }
         let data = try await graphQL(
-            "mutation($album: String) { createPhotoPromise(albumName: $album) { promise { id } } }",
-            variables: ["album": albumName]
+            "mutation($album: String, $context: JSON) { createPhotoPromise(albumName: $album, uploadContext: $context) { promise { id } } }",
+            variables: variables
         )
         guard let id = ((data["createPhotoPromise"] as? [String: Any])?["promise"] as? [String: Any])?["id"] as? String else {
             throw HedonismClientError.unexpectedResponse("createPhotoPromise")

@@ -53,6 +53,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_10_08_190200) do
     t.datetime "updated_at", null: false
     t.uuid "venue_id"
     t.string "storage_transition"
+    t.jsonb "upload_context", default: {}, null: false
     t.index ["event_id"], name: "index_albums_on_event_id"
     t.index ["photographer_id"], name: "index_albums_on_photographer_id"
     t.index ["venue_id"], name: "index_albums_on_venue_id"

@@ -11,7 +11,7 @@ public enum CardScanner {
 
     /// Every supported photo under DCIM, oldest first. Hidden files (macOS ._ files) are skipped.
     public static func photos(on volume: URL, fileManager: FileManager = .default) -> [PhotoFile] {
-        let dcim = volume.appendingPathComponent("DCIM", isDirectory: true)
+        let dcim = volume.lastPathComponent.uppercased() == "DCIM" ? volume : volume.appendingPathComponent("DCIM", isDirectory: true)
         let keys: [URLResourceKey] = [.isRegularFileKey, .fileSizeKey, .contentModificationDateKey]
         guard let enumerator = fileManager.enumerator(
             at: dcim, includingPropertiesForKeys: keys, options: [.skipsHiddenFiles, .skipsPackageDescendants]

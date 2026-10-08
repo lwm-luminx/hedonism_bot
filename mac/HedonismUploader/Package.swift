@@ -3,8 +3,9 @@ import PackageDescription
 
 let package = Package(
     name: "HedonismUploader",
-    platforms: [.macOS(.v13)],
+    platforms: [.macOS(.v13), .iOS(.v16)],
     products: [
+        .library(name: "UploaderCore", targets: ["UploaderCore"]),
         .executable(name: "HedonismUploader", targets: ["HedonismUploader"]),
     ],
     targets: [

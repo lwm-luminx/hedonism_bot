@@ -980,6 +980,22 @@
               },
               "isDeprecated": false,
               "deprecationReason": null
+            },
+            {
+              "name": "uploadContext",
+              "description": "Event and venue supplied at upload",
+              "args": [],
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "SCALAR",
+                  "name": "JSON",
+                  "ofType": null
+                }
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
             }
           ],
           "inputFields": null,
@@ -1244,6 +1260,18 @@
                   "type": {
                     "kind": "SCALAR",
                     "name": "String",
+                    "ofType": null
+                  },
+                  "defaultValue": null,
+                  "isDeprecated": false,
+                  "deprecationReason": null
+                },
+                {
+                  "name": "uploadContext",
+                  "description": "Event and venue supplied by the uploader",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "JSON",
                     "ofType": null
                   },
                   "defaultValue": null,

@@ -70,7 +70,10 @@ final class AppModel: ObservableObject {
     private func enqueue(_ volume: URL) {
         guard !queue.contains(volume) else { return }
         queue.append(volume)
-        if !isUploading { Task { await drainQueue() } }
+        if !isUploading {
+            isUploading = true
+            Task { await drainQueue() }
+        }
     }
 
     private func drainQueue() async {

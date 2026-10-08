@@ -36,3 +36,9 @@ The build is signed ad hoc, so the first launch needs right-click → Open. Revo
 
 `swift test` runs the core tests (scanning, ledger, hashing, and the upload flow against an
 in-process fake server). CI builds and tests on macOS.
+
+## macOS and iOS Xcode apps
+
+The shared Xcode project lives at `../../apple/LumiereUploader.xcodeproj`.
+See `../../apple/README.md` for the iPhone/iPad upload UI, Synology access,
+local who_dis worker controls, server migration and signing instructions.

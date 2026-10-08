@@ -30,6 +30,19 @@ final class CardUploaderTests: XCTestCase {
         XCTAssertEqual(albums, ["SD 2026-10-07"])
     }
 
+    func testExplicitShootDetailsAndDCIMSelection() async throws {
+        try card.add("DSC00001.ARW")
+        let client = HedonismClient(serverURL: URL(string: "https://rick.hedonism.test")!, token: "hbsa_test", session: FakeServer.session())
+        let uploader = CardUploader(client: client, ledger: ledger, albumPrefix: "SD",
+                                    context: UploadContext(albumName: "Opening night", event: "Launch", venue: "The Hall"))
+        let result = try await uploader.upload(volume: card.root.appendingPathComponent("DCIM")) { _ in }
+        XCTAssertEqual(result.uploadedFiles, 1)
+        let bodies = FakeServer.bodies.compactMap { try? JSONSerialization.jsonObject(with: $0) as? [String: Any] }
+        let variables = bodies.compactMap { $0["variables"] as? [String: Any] }.first { $0["album"] != nil }
+        XCTAssertEqual(variables?["album"] as? String, "Opening night")
+        XCTAssertEqual(variables?["context"] as? [String: String], ["event": "Launch", "venue": "The Hall"])
+    }
+
     func testSendsTheTokenAndTheUploadHeaders() async throws {
         try card.add("DSC00001.ARW", contents: "hello")
 

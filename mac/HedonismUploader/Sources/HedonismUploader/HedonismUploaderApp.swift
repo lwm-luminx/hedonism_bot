@@ -5,6 +5,7 @@ import UploaderCore
 @main
 struct HedonismUploaderApp: App {
     @StateObject private var model = AppModel()
+    @StateObject private var services = DesktopServices()
 
     init() {
         // A menu bar app: no Dock icon, even when run outside the .app bundle.
@@ -13,20 +14,26 @@ struct HedonismUploaderApp: App {
 
     var body: some Scene {
         MenuBarExtra {
-            MenuContent(model: model)
+            MenuContent(model: model, services: services)
         } label: {
             Image(systemName: model.isUploading ? "arrow.up.circle.fill" : "sdcard")
         }
         .menuBarExtraStyle(.window)
 
         Settings {
-            SettingsView(model: model)
+            SettingsView(model: model, services: services)
         }
     }
 }
 
 struct MenuContent: View {
     @ObservedObject var model: AppModel
+    @ObservedObject var services: DesktopServices
+    @AppStorage("synologyURL") private var synologyURL = ""
+    @AppStorage("workerDirectory") private var workerDirectory = ""
+    @AppStorage("uvPath") private var uvPath = "/opt/homebrew/bin/uv"
+    @AppStorage("workerAtLaunch") private var workerAtLaunch = false
+    @AppStorage("redisURL") private var redisURL = "redis://127.0.0.1:6379/0"
 
     var body: some View {
         VStack(alignment: .leading, spacing: 10) {
@@ -45,6 +52,15 @@ struct MenuContent: View {
                 Text("Add the server URL and service account token in Settings.").font(.callout)
             }
 
+            Text(services.status).font(.caption)
+            Button("Open Synology archive") { services.openSynology(synologyURL) }
+            Button("Manage older albums") {
+                if let url = URL(string: model.serverURL)?.appendingPathComponent("admin") { NSWorkspace.shared.open(url) }
+            }
+            Button("Start who_dis") {
+                services.start(directory: workerDirectory, uvPath: uvPath, server: model.serverURL, token: model.token, redis: redisURL)
+            }
+            Button("Stop who_dis") { services.stop() }
             Divider()
             HStack {
                 Button("Upload now") { model.uploadMountedCards() }
@@ -54,7 +70,7 @@ struct MenuContent: View {
                     NSApp.activate(ignoringOtherApps: true)
                     NSApp.sendAction(Selector(("showSettingsWindow:")), to: nil, from: nil)
                 }
-                Button("Quit") { NSApp.terminate(nil) }
+                Button("Quit") { services.stop(); NSApp.terminate(nil) }
             }
         }
         .padding()
@@ -64,6 +80,12 @@ struct MenuContent: View {
 
 struct SettingsView: View {
     @ObservedObject var model: AppModel
+    @ObservedObject var services: DesktopServices
+    @AppStorage("synologyURL") private var synologyURL = ""
+    @AppStorage("workerDirectory") private var workerDirectory = ""
+    @AppStorage("uvPath") private var uvPath = "/opt/homebrew/bin/uv"
+    @AppStorage("workerAtLaunch") private var workerAtLaunch = false
+    @AppStorage("redisURL") private var redisURL = "redis://127.0.0.1:6379/0"
 
     var body: some View {
         Form {
@@ -75,6 +97,11 @@ struct SettingsView: View {
             Toggle("Upload automatically when a card is inserted", isOn: $model.autoUpload)
             Toggle("Eject the card when everything uploaded", isOn: $model.ejectWhenDone)
             Toggle("Open at login", isOn: Binding(get: { model.launchAtLogin }, set: { model.launchAtLogin = $0 }))
+            TextField("Synology share / DSM URL", text: $synologyURL)
+            TextField("who_dis directory", text: $workerDirectory)
+            TextField("uv executable", text: $uvPath)
+            TextField("Redis URL", text: $redisURL)
+            Toggle("Start who_dis when the uploader opens", isOn: $workerAtLaunch)
             HStack {
                 Button("Test connection") { Task { await model.testConnection() } }
                 if let name = model.connectedAs { Text("Connected as \(name)").foregroundStyle(.secondary) }
