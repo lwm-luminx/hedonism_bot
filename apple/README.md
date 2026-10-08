@@ -1,11 +1,12 @@
 # Lumière uploader apps
 
-Open `LumiereUploader.xcodeproj` in Xcode. It contains two shared schemes:
+Open `LumiereUploader.xcodeproj` in Xcode. It contains shared schemes for the native companions:
 
 - **Cogsworth**: macOS 13+, a persistent menu bar app with automatic camera-card uploads.
+- **ChipMac**: macOS 14+, a sandboxed, upload-only Chip app with manual folder selection and shoot details. No Python, ML services, storage registration, or automatic card watcher.
 - **Chip** (Chip by Lumière): iOS/iPadOS 16+, folder selection, file review, album/event/venue entry, progress, cancellation and retry.
 
-Both targets link the local **UploaderCore** Swift package in `../mac/HedonismUploader`. The existing `swift build`/bundle script remains supported. Core includes card scanning, RAW/JPEG grouping, hashing, GraphQL requests, signed storage uploads, progress and a persistent upload ledger. Keychain source is shared by both app targets.
+All three app targets link the local **UploaderCore** Swift package in `../mac/HedonismUploader`. The existing `swift build`/bundle script remains supported. Core includes card scanning, RAW/JPEG grouping, hashing, GraphQL requests, signed storage uploads, progress and a persistent upload ledger. Keychain source is shared by both app targets.
 
 ## Server and signing
 
@@ -86,3 +87,29 @@ The existing standalone service-account tokens continue to work.
 Device UI tests use a separate defaults suite and Debug-only account metadata fixtures to test
 selection persistence without real credentials or Facebook interaction. Live Facebook login
 requires deployed endpoints, Meta redirect configuration and a human completing Facebook login.
+
+## Chip for Mac
+
+Choose the **ChipMac** scheme. It shares Chip's SwiftUI upload/account flow and
+`UploaderCore` with iOS. Select a card
+or folder, review the files, enter album/event/venue, and upload. Keep Chip running
+and the source connected; cancellation and retry use the existing upload ledger.
+Chip does not watch cards automatically. When using it alongside Cogsworth,
+disable Cogsworth's automatic upload before importing the same card in Chip;
+cross-process upload ownership is not yet coordinated.
+
+```sh
+xcodebuild -project apple/LumiereUploader.xcodeproj -scheme ChipMac \
+  -destination 'platform=macOS' CODE_SIGNING_ALLOWED=NO build
+```
+
+Debug, Release, and AppStore configurations use App Sandbox, outgoing networking,
+and read-only user-selected file access. The target embeds no XPC services or
+Python runtime. Its bundle identifier matches iOS Chip (`social.hotmess.LumiereMobile`)
+for the intended single App Store record; Cogsworth retains its separate identity.
+The project configuration does not add macOS to App Store Connect or publish a build.
+Before distribution, select the signing team, validate a signed sandboxed build's
+browser/device-code login and physical-card upload/cancel/retry, and complete the
+macOS listing, screenshots, privacy disclosures, and provisioning. The Mac privacy
+manifest excludes mobile location recording; photo/account collection still needs
+accurate App Store disclosures.

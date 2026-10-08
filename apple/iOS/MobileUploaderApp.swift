@@ -3,6 +3,9 @@ import UniformTypeIdentifiers
 import UploaderCore
 import AuthenticationServices
 import CryptoKit
+#if os(macOS)
+import AppKit
+#endif
 
 @MainActor
 final class MobileUploadModel: ObservableObject {
@@ -212,10 +215,17 @@ struct MobileUploaderApp: App {
                         }
                     }
                 }
+                #if os(macOS)
+                .formStyle(.grouped)
+                #endif
                 .scrollContentBackground(.hidden)
                 .background(ChipBrand.ink)
                 .navigationTitle("Chip by Lumière")
+                #if os(macOS)
+                .onChange(of: model.selectedID) { model.accountChanged() }
+                #else
                 .onChange(of: model.selectedID) { _ in model.accountChanged() }
+                #endif
                 .sheet(isPresented: $addingAccount) { NavigationStack { AddAccountView(model: model) } }
                 .fileImporter(isPresented: $picking, allowedContentTypes: [.folder]) { result in
                     switch result {
@@ -225,6 +235,9 @@ struct MobileUploaderApp: App {
                 }
                 }
             }
+            #if os(macOS)
+            .frame(minWidth: 560, minHeight: 640)
+            #endif
             .tint(ChipBrand.gold)
             .preferredColorScheme(.dark)
         }
@@ -269,7 +282,10 @@ struct AddAccountView: View {
                         .foregroundStyle(.secondary).fixedSize(horizontal: false, vertical: true)
                     if usingDeviceCode {
                         TextField("Device code", text: $deviceCode)
-                            .textInputAutocapitalization(.characters).autocorrectionDisabled()
+                            #if os(iOS)
+                            .textInputAutocapitalization(.characters)
+                            #endif
+                            .autocorrectionDisabled()
                             .font(.system(.body, design: .monospaced)).focused($focusedField, equals: "code")
                             .accessibilityIdentifier("deviceCodeField")
                             .padding(16).background(.white.opacity(0.07), in: RoundedRectangle(cornerRadius: 12))
@@ -281,7 +297,10 @@ struct AddAccountView: View {
                         }
                     } else {
                         TextField("Photographer subdomain", text: $photographer)
-                            .textInputAutocapitalization(.never).autocorrectionDisabled()
+                            #if os(iOS)
+                            .textInputAutocapitalization(.never)
+                            #endif
+                            .autocorrectionDisabled()
                             .focused($focusedField, equals: "photographer")
                             .padding(16).background(.white.opacity(0.07), in: RoundedRectangle(cornerRadius: 12))
                         Text("Your archive name — for luminx.lumiere.host, enter luminx.")
@@ -308,8 +327,11 @@ struct AddAccountView: View {
                 .accessibilityIdentifier("switchSignInMethod")
 
                 DisclosureGroup("Connection settings", isExpanded: $advanced) {
-                    TextField("Server URL", text: $server).textInputAutocapitalization(.never)
-                        .keyboardType(.URL).autocorrectionDisabled().padding(.top, 12)
+                    TextField("Server URL", text: $server)
+                        #if os(iOS)
+                        .textInputAutocapitalization(.never).keyboardType(.URL)
+                        #endif
+                        .autocorrectionDisabled().padding(.top, 12)
                 }
                 .font(.footnote).foregroundStyle(.secondary).disabled(model.signingIn)
                 Text("Your sign-in is saved securely on this device. You can add more accounts and choose one before uploading.")
@@ -319,7 +341,9 @@ struct AddAccountView: View {
         }
         .background(ChipBrand.ink).tint(ChipBrand.gold).preferredColorScheme(.dark)
         .navigationTitle(isFirstPage ? "" : "Add account")
+        #if os(iOS)
         .navigationBarTitleDisplayMode(.inline)
+        #endif
         .toolbar {
             if !isFirstPage {
                 ToolbarItem(placement: .cancellationAction) { Button("Cancel") { dismiss() }.disabled(model.signingIn) }
@@ -342,8 +366,12 @@ final class FacebookSignIn: NSObject, ASWebAuthenticationPresentationContextProv
     private var session: ASWebAuthenticationSession?
 
     func presentationAnchor(for session: ASWebAuthenticationSession) -> ASPresentationAnchor {
+        #if os(macOS)
+        NSApplication.shared.keyWindow ?? NSApplication.shared.windows.first ?? ASPresentationAnchor()
+        #else
         UIApplication.shared.connectedScenes.compactMap { $0 as? UIWindowScene }
             .flatMap(\.windows).first { $0.isKeyWindow } ?? ASPresentationAnchor()
+        #endif
     }
 
     func signIn(server: URL, photographer: String) async throws -> String {
