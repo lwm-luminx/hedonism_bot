@@ -1,3 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
-<plist version="1.0"><dict><key>CFBundleURLTypes</key><array><dict><key>CFBundleURLName</key><string>social.hotmess.LumiereMobile</string><key>CFBundleURLSchemes</key><array><string>lumiere-uploader</string></array></dict></array></dict></plist>
+<plist version="1.0">
+<dict>
+	<key>CFBundleURLTypes</key>
+	<array>
+		<dict>
+			<key>CFBundleURLName</key>
+			<string>social.hotmess.LumiereMobile</string>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<string>lumiere-uploader</string>
+			</array>
+		</dict>
+	</array>
+	<key>CFBundleDisplayName</key>
+	<string>Chip by Lumière</string>
+	<key>CFBundleName</key>
+	<string>Chip by Lumière</string>
+</dict>
+</plist>
