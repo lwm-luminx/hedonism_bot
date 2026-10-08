@@ -497,55 +497,45 @@ module ::SolidQueue
     def create_batch_execution: (?untyped) -> ::SolidQueue::BatchExecution
     def create_batch_execution!: (?untyped) -> ::SolidQueue::BatchExecution
     def reload_batch_execution: () -> ::SolidQueue::BatchExecution?
-    def reset_batch_execution: () -> void
     def recurring_execution: () -> ::SolidQueue::RecurringExecution?
     def recurring_execution=: (::SolidQueue::RecurringExecution?) -> ::SolidQueue::RecurringExecution?
     def build_recurring_execution: (?untyped) -> ::SolidQueue::RecurringExecution
     def create_recurring_execution: (?untyped) -> ::SolidQueue::RecurringExecution
     def create_recurring_execution!: (?untyped) -> ::SolidQueue::RecurringExecution
     def reload_recurring_execution: () -> ::SolidQueue::RecurringExecution?
-    def reset_recurring_execution: () -> void
     def failed_execution: () -> ::SolidQueue::FailedExecution?
     def failed_execution=: (::SolidQueue::FailedExecution?) -> ::SolidQueue::FailedExecution?
     def build_failed_execution: (?untyped) -> ::SolidQueue::FailedExecution
     def create_failed_execution: (?untyped) -> ::SolidQueue::FailedExecution
     def create_failed_execution!: (?untyped) -> ::SolidQueue::FailedExecution
     def reload_failed_execution: () -> ::SolidQueue::FailedExecution?
-    def reset_failed_execution: () -> void
     def scheduled_execution: () -> ::SolidQueue::ScheduledExecution?
     def scheduled_execution=: (::SolidQueue::ScheduledExecution?) -> ::SolidQueue::ScheduledExecution?
     def build_scheduled_execution: (?untyped) -> ::SolidQueue::ScheduledExecution
     def create_scheduled_execution: (?untyped) -> ::SolidQueue::ScheduledExecution
     def create_scheduled_execution!: (?untyped) -> ::SolidQueue::ScheduledExecution
     def reload_scheduled_execution: () -> ::SolidQueue::ScheduledExecution?
-    def reset_scheduled_execution: () -> void
     def blocked_execution: () -> ::SolidQueue::BlockedExecution?
     def blocked_execution=: (::SolidQueue::BlockedExecution?) -> ::SolidQueue::BlockedExecution?
     def build_blocked_execution: (?untyped) -> ::SolidQueue::BlockedExecution
     def create_blocked_execution: (?untyped) -> ::SolidQueue::BlockedExecution
     def create_blocked_execution!: (?untyped) -> ::SolidQueue::BlockedExecution
     def reload_blocked_execution: () -> ::SolidQueue::BlockedExecution?
-    def reset_blocked_execution: () -> void
     def ready_execution: () -> ::SolidQueue::ReadyExecution?
     def ready_execution=: (::SolidQueue::ReadyExecution?) -> ::SolidQueue::ReadyExecution?
     def build_ready_execution: (?untyped) -> ::SolidQueue::ReadyExecution
     def create_ready_execution: (?untyped) -> ::SolidQueue::ReadyExecution
     def create_ready_execution!: (?untyped) -> ::SolidQueue::ReadyExecution
     def reload_ready_execution: () -> ::SolidQueue::ReadyExecution?
-    def reset_ready_execution: () -> void
     def claimed_execution: () -> ::SolidQueue::ClaimedExecution?
     def claimed_execution=: (::SolidQueue::ClaimedExecution?) -> ::SolidQueue::ClaimedExecution?
     def build_claimed_execution: (?untyped) -> ::SolidQueue::ClaimedExecution
     def create_claimed_execution: (?untyped) -> ::SolidQueue::ClaimedExecution
     def create_claimed_execution!: (?untyped) -> ::SolidQueue::ClaimedExecution
     def reload_claimed_execution: () -> ::SolidQueue::ClaimedExecution?
-    def reset_claimed_execution: () -> void
     def batch: () -> ::SolidQueue::Batch?
     def batch=: (::SolidQueue::Batch?) -> ::SolidQueue::Batch?
     def reload_batch: () -> ::SolidQueue::Batch?
-    def batch_changed?: () -> bool
-    def batch_previously_changed?: () -> bool
-    def reset_batch: () -> void
     def build_batch: (?untyped) -> ::SolidQueue::Batch
     def create_batch: (?untyped) -> ::SolidQueue::Batch
     def create_batch!: (?untyped) -> ::SolidQueue::Batch

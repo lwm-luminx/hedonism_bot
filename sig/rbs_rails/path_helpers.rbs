@@ -9,6 +9,7 @@ interface ::_RbsRailsPathHelpers
   def graphql_path: (*untyped) -> ::String
   def graphiql_rails_path: (*untyped) -> ::String
   def upload_path: (*untyped) -> ::String
+  def client_errors_path: (*untyped) -> ::String
   def auth_facebook_callback_path: (*untyped) -> ::String
   def auth_failure_path: (*untyped) -> ::String
   def auth_me_path: (*untyped) -> ::String
@@ -52,6 +53,7 @@ interface ::_RbsRailsPathHelpers
   def graphql_url: (*untyped) -> ::String
   def graphiql_rails_url: (*untyped) -> ::String
   def upload_url: (*untyped) -> ::String
+  def client_errors_url: (*untyped) -> ::String
   def auth_facebook_callback_url: (*untyped) -> ::String
   def auth_failure_url: (*untyped) -> ::String
   def auth_me_url: (*untyped) -> ::String

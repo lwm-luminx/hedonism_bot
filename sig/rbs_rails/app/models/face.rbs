@@ -301,9 +301,6 @@ class ::Face < ::ApplicationRecord
   def photographer: () -> ::Photographer
   def photographer=: (::Photographer?) -> ::Photographer?
   def reload_photographer: () -> ::Photographer?
-  def photographer_changed?: () -> bool
-  def photographer_previously_changed?: () -> bool
-  def reset_photographer: () -> void
   def build_photographer: (?untyped) -> ::Photographer
   def create_photographer: (?untyped) -> ::Photographer
   def create_photographer!: (?untyped) -> ::Photographer
@@ -313,11 +310,14 @@ class ::Face < ::ApplicationRecord
   include ::Face::GeneratedAssociationMethods
 
   def self.for_photographer: (untyped photographer) -> ::Face::ActiveRecord_Relation
+  def self.in_album: (untyped album_id) -> ::Face::ActiveRecord_Relation
   def self.with_embedding: () -> ::Face::ActiveRecord_Relation
   def self.with_preview_image: () -> ::Face::ActiveRecord_Relation
 
   module ::Face::GeneratedRelationMethods
     def for_photographer: (untyped photographer) -> ::Face::ActiveRecord_Relation
+
+    def in_album: (untyped album_id) -> ::Face::ActiveRecord_Relation
 
     def with_embedding: () -> ::Face::ActiveRecord_Relation
 

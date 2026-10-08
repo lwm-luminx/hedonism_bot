@@ -257,9 +257,6 @@ class ::Photo < ::ApplicationRecord
   def album: () -> ::Album
   def album=: (::Album?) -> ::Album?
   def reload_album: () -> ::Album?
-  def album_changed?: () -> bool
-  def album_previously_changed?: () -> bool
-  def reset_album: () -> void
   def build_album: (?untyped) -> ::Album
   def create_album: (?untyped) -> ::Album
   def create_album!: (?untyped) -> ::Album

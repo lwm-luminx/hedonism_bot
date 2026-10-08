@@ -632,20 +632,15 @@ class ::PhotoTake < ::ApplicationRecord
   def create_raw_image_attachment: (?untyped) -> ::ActiveStorage::Attachment
   def create_raw_image_attachment!: (?untyped) -> ::ActiveStorage::Attachment
   def reload_raw_image_attachment: () -> ::ActiveStorage::Attachment?
-  def reset_raw_image_attachment: () -> void
   def raw_image_blob: () -> ::ActiveStorage::Blob?
   def raw_image_blob=: (::ActiveStorage::Blob?) -> ::ActiveStorage::Blob?
   def build_raw_image_blob: (?untyped) -> ::ActiveStorage::Blob
   def create_raw_image_blob: (?untyped) -> ::ActiveStorage::Blob
   def create_raw_image_blob!: (?untyped) -> ::ActiveStorage::Blob
   def reload_raw_image_blob: () -> ::ActiveStorage::Blob?
-  def reset_raw_image_blob: () -> void
   def photo: () -> ::Photo?
   def photo=: (::Photo?) -> ::Photo?
   def reload_photo: () -> ::Photo?
-  def photo_changed?: () -> bool
-  def photo_previously_changed?: () -> bool
-  def reset_photo: () -> void
   def build_photo: (?untyped) -> ::Photo
   def create_photo: (?untyped) -> ::Photo
   def create_photo!: (?untyped) -> ::Photo

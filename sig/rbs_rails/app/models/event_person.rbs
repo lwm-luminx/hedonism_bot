@@ -293,18 +293,12 @@ class ::EventPerson < ::ApplicationRecord
   def person: () -> ::Person
   def person=: (::Person?) -> ::Person?
   def reload_person: () -> ::Person?
-  def person_changed?: () -> bool
-  def person_previously_changed?: () -> bool
-  def reset_person: () -> void
   def build_person: (?untyped) -> ::Person
   def create_person: (?untyped) -> ::Person
   def create_person!: (?untyped) -> ::Person
   def event: () -> ::Event
   def event=: (::Event?) -> ::Event?
   def reload_event: () -> ::Event?
-  def event_changed?: () -> bool
-  def event_previously_changed?: () -> bool
-  def reset_event: () -> void
   def build_event: (?untyped) -> ::Event
   def create_event: (?untyped) -> ::Event
   def create_event!: (?untyped) -> ::Event

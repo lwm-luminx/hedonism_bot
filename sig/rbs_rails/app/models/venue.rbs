@@ -458,37 +458,27 @@ class ::Venue < ::ApplicationRecord
   def user_ids: () -> ::Array[::String]
   def user_ids=: (::Array[::String]) -> ::Array[::String]
 
-  def page: () -> ::Page
-  def page=: (::Page) -> ::Page
+  def page: () -> ::Page?
+  def page=: (::Page?) -> ::Page?
   def build_page: (?untyped) -> ::Page
   def create_page: (?untyped) -> ::Page
   def create_page!: (?untyped) -> ::Page
-  def reload_page: () -> ::Page
-  def reset_page: () -> void
+  def reload_page: () -> ::Page?
   def location: () -> ::Location
   def location=: (::Location?) -> ::Location?
   def reload_location: () -> ::Location?
-  def location_changed?: () -> bool
-  def location_previously_changed?: () -> bool
-  def reset_location: () -> void
   def build_location: (?untyped) -> ::Location
   def create_location: (?untyped) -> ::Location
   def create_location!: (?untyped) -> ::Location
   def image: () -> ::Image
   def image=: (::Image?) -> ::Image?
   def reload_image: () -> ::Image?
-  def image_changed?: () -> bool
-  def image_previously_changed?: () -> bool
-  def reset_image: () -> void
   def build_image: (?untyped) -> ::Image
   def create_image: (?untyped) -> ::Image
   def create_image!: (?untyped) -> ::Image
   def locale: () -> ::Locale
   def locale=: (::Locale?) -> ::Locale?
   def reload_locale: () -> ::Locale?
-  def locale_changed?: () -> bool
-  def locale_previously_changed?: () -> bool
-  def reset_locale: () -> void
   def build_locale: (?untyped) -> ::Locale
   def create_locale: (?untyped) -> ::Locale
   def create_locale!: (?untyped) -> ::Locale

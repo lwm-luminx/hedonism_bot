@@ -373,27 +373,18 @@ class ::UserLocation < ::ApplicationRecord
   def session: () -> ::Session
   def session=: (::Session?) -> ::Session?
   def reload_session: () -> ::Session?
-  def session_changed?: () -> bool
-  def session_previously_changed?: () -> bool
-  def reset_session: () -> void
   def build_session: (?untyped) -> ::Session
   def create_session: (?untyped) -> ::Session
   def create_session!: (?untyped) -> ::Session
   def venue: () -> ::Venue
   def venue=: (::Venue?) -> ::Venue?
   def reload_venue: () -> ::Venue?
-  def venue_changed?: () -> bool
-  def venue_previously_changed?: () -> bool
-  def reset_venue: () -> void
   def build_venue: (?untyped) -> ::Venue
   def create_venue: (?untyped) -> ::Venue
   def create_venue!: (?untyped) -> ::Venue
   def location: () -> ::Location
   def location=: (::Location?) -> ::Location?
   def reload_location: () -> ::Location?
-  def location_changed?: () -> bool
-  def location_previously_changed?: () -> bool
-  def reset_location: () -> void
   def build_location: (?untyped) -> ::Location
   def create_location: (?untyped) -> ::Location
   def create_location!: (?untyped) -> ::Location

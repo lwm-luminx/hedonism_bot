@@ -293,18 +293,12 @@ class ::VenueMessage < ::ApplicationRecord
   def user: () -> ::User
   def user=: (::User?) -> ::User?
   def reload_user: () -> ::User?
-  def user_changed?: () -> bool
-  def user_previously_changed?: () -> bool
-  def reset_user: () -> void
   def build_user: (?untyped) -> ::User
   def create_user: (?untyped) -> ::User
   def create_user!: (?untyped) -> ::User
   def venue: () -> ::Venue
   def venue=: (::Venue?) -> ::Venue?
   def reload_venue: () -> ::Venue?
-  def venue_changed?: () -> bool
-  def venue_previously_changed?: () -> bool
-  def reset_venue: () -> void
   def build_venue: (?untyped) -> ::Venue
   def create_venue: (?untyped) -> ::Venue
   def create_venue!: (?untyped) -> ::Venue
