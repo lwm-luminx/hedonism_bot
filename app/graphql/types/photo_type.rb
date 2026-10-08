@@ -18,6 +18,23 @@ module Types
     field :event, EventType
     field :price, Float
 
+    # Photos are backed by PhotoTake; the album, price and event live on its Photo.
+    def name
+      @object.caption.presence || @object.original_filename || "Untitled"
+    end
+
+    def price
+      @object.photo&.price
+    end
+
+    def folder
+      @object.photo&.album
+    end
+
+    def event
+      @object.photo&.album&.event
+    end
+
     def facial_recognition_url
       face_image = @object.images.select { |img| img.content_type == "image/jpeg" }.first
       face_image&.url
