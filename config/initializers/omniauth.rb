@@ -7,7 +7,11 @@ Rails.application.config.middleware.use OmniAuth::Builder do
            ENV.fetch("FACEBOOK_APP_ID") { Rails.application.credentials.dig(:facebook, :app_id) },
            ENV.fetch("FACEBOOK_APP_SECRET") { Rails.application.credentials.dig(:facebook, :secret) },
            scope: "email,public_profile",
-           info_fields: "name,email,first_name,last_name"
+           info_fields: "name,email,first_name,last_name",
+           client_options: {
+             site: "https://graph.facebook.com/#{FACEBOOK_GRAPH_API_VERSION}",
+             authorize_url: "https://www.facebook.com/#{FACEBOOK_GRAPH_API_VERSION}/dialog/oauth"
+           }
 end
 
 OmniAuth.config.allowed_request_methods = [ :post ]
