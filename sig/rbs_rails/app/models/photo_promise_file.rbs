@@ -403,8 +403,126 @@ class ::PhotoPromiseFile < ::ApplicationRecord
     def upload_url_before_type_cast: () -> ::String
 
     def upload_url_for_database: () -> ::String
+
+    def blob_id: () -> ::String?
+
+    def blob_id=: (::String?) -> ::String?
+
+    def blob_id?: () -> bool
+
+    def blob_id_changed?: (?from: ::String?, ?to: ::String?) -> bool
+
+    def blob_id_change: () -> [ ::String?, ::String? ]
+
+    def blob_id_will_change!: () -> void
+
+    def blob_id_was: () -> ::String?
+
+    def blob_id_previously_changed?: (?from: ::String?, ?to: ::String?) -> bool
+
+    def blob_id_previous_change: () -> ::Array[::String?]?
+
+    def blob_id_previously_was: () -> ::String?
+
+    def blob_id_before_last_save: () -> ::String?
+
+    def blob_id_change_to_be_saved: () -> ::Array[::String?]?
+
+    def blob_id_in_database: () -> ::String?
+
+    def saved_change_to_blob_id: () -> ::Array[::String?]?
+
+    def saved_change_to_blob_id?: (?from: ::String?, ?to: ::String?) -> bool
+
+    def will_save_change_to_blob_id?: (?from: ::String?, ?to: ::String?) -> bool
+
+    def restore_blob_id!: () -> void
+
+    def clear_blob_id_change: () -> void
+
+    def blob_id_before_type_cast: () -> ::String?
+
+    def blob_id_for_database: () -> ::String?
+
+    def photo_take_id: () -> ::String?
+
+    def photo_take_id=: (::String?) -> ::String?
+
+    def photo_take_id?: () -> bool
+
+    def photo_take_id_changed?: (?from: ::String?, ?to: ::String?) -> bool
+
+    def photo_take_id_change: () -> [ ::String?, ::String? ]
+
+    def photo_take_id_will_change!: () -> void
+
+    def photo_take_id_was: () -> ::String?
+
+    def photo_take_id_previously_changed?: (?from: ::String?, ?to: ::String?) -> bool
+
+    def photo_take_id_previous_change: () -> ::Array[::String?]?
+
+    def photo_take_id_previously_was: () -> ::String?
+
+    def photo_take_id_before_last_save: () -> ::String?
+
+    def photo_take_id_change_to_be_saved: () -> ::Array[::String?]?
+
+    def photo_take_id_in_database: () -> ::String?
+
+    def saved_change_to_photo_take_id: () -> ::Array[::String?]?
+
+    def saved_change_to_photo_take_id?: (?from: ::String?, ?to: ::String?) -> bool
+
+    def will_save_change_to_photo_take_id?: (?from: ::String?, ?to: ::String?) -> bool
+
+    def restore_photo_take_id!: () -> void
+
+    def clear_photo_take_id_change: () -> void
+
+    def photo_take_id_before_type_cast: () -> ::String?
+
+    def photo_take_id_for_database: () -> ::String?
   end
   include ::PhotoPromiseFile::GeneratedAttributeMethods
+  module ::PhotoPromiseFile::GeneratedAttributeMethods
+    def checksum: () -> ::String?
+
+    def checksum=: (::String?) -> ::String?
+
+    def checksum?: () -> bool
+
+    def checksum_changed?: (?from: ::String?, ?to: ::String?) -> bool
+
+    def checksum_change: () -> [ ::String?, ::String? ]
+
+    def checksum_will_change!: () -> void
+
+    def checksum_was: () -> ::String?
+
+    def checksum_previously_changed?: (?from: ::String?, ?to: ::String?) -> bool
+
+    def checksum_previous_change: () -> ::Array[::String?]?
+
+    def checksum_previously_was: () -> ::String?
+
+    def checksum_before_last_save: () -> ::String?
+
+    def checksum_change_to_be_saved: () -> ::Array[::String?]?
+
+    def checksum_in_database: () -> ::String?
+
+    def saved_change_to_checksum: () -> ::Array[::String?]?
+
+    def saved_change_to_checksum?: (?from: ::String?, ?to: ::String?) -> bool
+
+    def will_save_change_to_checksum?: (?from: ::String?, ?to: ::String?) -> bool
+
+    def restore_checksum!: () -> void
+
+    def clear_checksum_change: () -> void
+  end
+
   module ::PhotoPromiseFile::GeneratedAliasAttributeMethods
     include ::PhotoPromiseFile::GeneratedAttributeMethods
 
@@ -473,6 +591,15 @@ class ::PhotoPromiseFile < ::ApplicationRecord
   def build_photo_promise: (?untyped) -> ::PhotoPromise
   def create_photo_promise: (?untyped) -> ::PhotoPromise
   def create_photo_promise!: (?untyped) -> ::PhotoPromise
+  def photo_take: () -> ::PhotoTake?
+  def photo_take=: (::PhotoTake?) -> ::PhotoTake?
+  def reload_photo_take: () -> ::PhotoTake?
+  def photo_take_changed?: () -> bool
+  def photo_take_previously_changed?: () -> bool
+  def reset_photo_take: () -> void
+  def build_photo_take: (?untyped) -> ::PhotoTake
+  def create_photo_take: (?untyped) -> ::PhotoTake
+  def create_photo_take!: (?untyped) -> ::PhotoTake
 
   module ::PhotoPromiseFile::GeneratedAssociationMethods
     def file: () -> ::ActiveStorage::Attached::One
@@ -522,4 +649,6 @@ end
 class ::ApplicationRecord < ::ActiveRecord::Base
 end
 class ::PhotoPromise < ::ApplicationRecord
+end
+class ::PhotoTake < ::ApplicationRecord
 end

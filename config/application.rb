@@ -41,6 +41,10 @@ module HedonismBot
     # Skip views, helpers and assets when generating a new resource.
     config.api_only = true
 
+    # Admin sign-in (Facebook via OmniAuth) needs a cookie-backed session, which api_only strips out.
+    config.middleware.use ActionDispatch::Cookies
+    config.middleware.use ActionDispatch::Session::CookieStore, key: "_hedonism_bot_session", same_site: :lax
+
     config.generators do |g|
       g.orm :active_record, primary_key_type: :uuid
     end

@@ -243,6 +243,46 @@ class ::PhotoPromise < ::ApplicationRecord
     def venue_id_before_type_cast: () -> ::String?
 
     def venue_id_for_database: () -> ::String?
+
+    def album_id: () -> ::String?
+
+    def album_id=: (::String?) -> ::String?
+
+    def album_id?: () -> bool
+
+    def album_id_changed?: (?from: ::String?, ?to: ::String?) -> bool
+
+    def album_id_change: () -> [ ::String?, ::String? ]
+
+    def album_id_will_change!: () -> void
+
+    def album_id_was: () -> ::String?
+
+    def album_id_previously_changed?: (?from: ::String?, ?to: ::String?) -> bool
+
+    def album_id_previous_change: () -> ::Array[::String?]?
+
+    def album_id_previously_was: () -> ::String?
+
+    def album_id_before_last_save: () -> ::String?
+
+    def album_id_change_to_be_saved: () -> ::Array[::String?]?
+
+    def album_id_in_database: () -> ::String?
+
+    def saved_change_to_album_id: () -> ::Array[::String?]?
+
+    def saved_change_to_album_id?: (?from: ::String?, ?to: ::String?) -> bool
+
+    def will_save_change_to_album_id?: (?from: ::String?, ?to: ::String?) -> bool
+
+    def restore_album_id!: () -> void
+
+    def clear_album_id_change: () -> void
+
+    def album_id_before_type_cast: () -> ::String?
+
+    def album_id_for_database: () -> ::String?
   end
   include ::PhotoPromise::GeneratedAttributeMethods
   module ::PhotoPromise::GeneratedAliasAttributeMethods
@@ -303,6 +343,15 @@ class ::PhotoPromise < ::ApplicationRecord
   def build_photographer: (?untyped) -> ::Photographer
   def create_photographer: (?untyped) -> ::Photographer
   def create_photographer!: (?untyped) -> ::Photographer
+  def album: () -> ::Album?
+  def album=: (::Album?) -> ::Album?
+  def reload_album: () -> ::Album?
+  def album_changed?: () -> bool
+  def album_previously_changed?: () -> bool
+  def reset_album: () -> void
+  def build_album: (?untyped) -> ::Album
+  def create_album: (?untyped) -> ::Album
+  def create_album!: (?untyped) -> ::Album
 
   module ::PhotoPromise::GeneratedAssociationMethods
   end
@@ -345,4 +394,6 @@ end
 class ::PhotoPromiseFile::ActiveRecord_Associations_CollectionProxy < ::ActiveRecord::Associations::CollectionProxy
 end
 class ::Photographer < ::ApplicationRecord
+end
+class ::Album < ::ApplicationRecord
 end

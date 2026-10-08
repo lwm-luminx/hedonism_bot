@@ -11,6 +11,12 @@ module Mutations
 
     field :album, Types::AlbumStorageType, null: false
 
+    def ready?(**args)
+      raise GraphQL::ExecutionError, "Admin sign-in required" unless context[:current_user]&.admin_of?(context[:photographer])
+
+      super
+    end
+
     def resolve(id:)
       album = context[:photographer].albums.find_by(id: GlobalID.parse(id)&.model_id)
       raise GraphQL::ExecutionError, "Album not found" unless album

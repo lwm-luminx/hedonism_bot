@@ -6,7 +6,8 @@ class GraphqlController < ApplicationController
   # If accessing from outside this domain, nullify the session
   # This allows for outside API access while preventing CSRF attacks,
   # but you'll have to authenticate your user separately
-  # protect_from_forgery with: :null_session
+  # Service accounts (bearer tokens) don't carry a CSRF token, so drop the session rather than fail.
+  protect_from_forgery with: :null_session
 
   def execute
     variables = prepare_variables(params[:variables])
@@ -15,7 +16,7 @@ class GraphqlController < ApplicationController
     extensions = params[:extensions]
     context = {
       photographer: photographer,
-      current_user: nil,
+      current_user: current_user,
       extensions: extensions
     }
     result = HedonismBotSchema.execute(query, variables: variables, context: context, operation_name: operation_name)

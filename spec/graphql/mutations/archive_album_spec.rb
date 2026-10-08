@@ -23,14 +23,18 @@ RSpec.describe Mutations::ArchiveAlbum, type: :graphql do
 
   before { create_take_with_files(album) }
 
+  def admin_of(photographer)
+    create(:user).tap { |u| PhotographerAdmin.create!(user: u, photographer: photographer, role: "admin") }
+  end
+
   it "enqueues the move" do
     expect {
-      execute_graphql(query, variables: { id: album_id }, context: { photographer: photographer })
+      execute_graphql(query, variables: { id: album_id }, context: { photographer: photographer, current_user: admin_of(photographer) })
     }.to have_enqueued_job(ArchiveAlbumJob).with(album, "archive")
   end
 
   it "returns the album as archiving" do
-    execute_graphql(query, variables: { id: album_id }, context: { photographer: photographer })
+    execute_graphql(query, variables: { id: album_id }, context: { photographer: photographer, current_user: admin_of(photographer) })
 
     expect(data.dig("archiveAlbum", "album")).to include("albumId" => album_id, "name" => "Pride 2026", "transition" => "ARCHIVING")
   end
@@ -38,7 +42,7 @@ RSpec.describe Mutations::ArchiveAlbum, type: :graphql do
   context "with another photographer's album" do
     before do
       other = Photographer.create!(name: "Other", subdomain: "other")
-      execute_graphql(query, variables: { id: album_id }, context: { photographer: other })
+      execute_graphql(query, variables: { id: album_id }, context: { photographer: other, current_user: create(:user, god_mode: true) })
     end
 
     it "returns an error" do
@@ -47,6 +51,34 @@ RSpec.describe Mutations::ArchiveAlbum, type: :graphql do
 
     it "leaves the album alone" do
       expect(album.reload.storage_transition).to be_nil
+    end
+  end
+
+  [ [ "signed out", nil ], [ "signed in without admin rights", :user ] ].each do |label, user_factory|
+    context "when #{label}" do
+      before do
+        user = user_factory && create(user_factory)
+        execute_graphql(query, variables: { id: album_id }, context: { photographer: photographer, current_user: user })
+      end
+
+      it "is rejected" do
+        expect(response_errors.map { |e| e["message"] }).to include("Admin sign-in required")
+      end
+
+      it "leaves the album alone" do
+        expect(album.reload.storage_transition).to be_nil
+      end
+    end
+  end
+
+  context "when signed in as an admin of another photographer" do
+    before do
+      other = Photographer.create!(name: "Other", subdomain: "other")
+      execute_graphql(query, variables: { id: album_id }, context: { photographer: photographer, current_user: admin_of(other) })
+    end
+
+    it "is rejected" do
+      expect(response_errors.map { |e| e["message"] }).to include("Admin sign-in required")
     end
   end
 

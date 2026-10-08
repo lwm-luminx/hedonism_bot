@@ -309,6 +309,18 @@ class ::Photographer < ::ApplicationRecord
   def faces=: (::Face::ActiveRecord_Associations_CollectionProxy | ::Array[::Face]) -> (::Face::ActiveRecord_Associations_CollectionProxy | ::Array[::Face])
   def face_ids: () -> ::Array[::String]
   def face_ids=: (::Array[::String]) -> ::Array[::String]
+  def service_accounts: () -> ::ServiceAccount::ActiveRecord_Associations_CollectionProxy
+  def service_accounts=: (::ServiceAccount::ActiveRecord_Associations_CollectionProxy | ::Array[::ServiceAccount]) -> (::ServiceAccount::ActiveRecord_Associations_CollectionProxy | ::Array[::ServiceAccount])
+  def service_account_ids: () -> ::Array[::String]
+  def service_account_ids=: (::Array[::String]) -> ::Array[::String]
+  def photographer_admins: () -> ::PhotographerAdmin::ActiveRecord_Associations_CollectionProxy
+  def photographer_admins=: (::PhotographerAdmin::ActiveRecord_Associations_CollectionProxy | ::Array[::PhotographerAdmin]) -> (::PhotographerAdmin::ActiveRecord_Associations_CollectionProxy | ::Array[::PhotographerAdmin])
+  def photographer_admin_ids: () -> ::Array[::String]
+  def photographer_admin_ids=: (::Array[::String]) -> ::Array[::String]
+  def admins: () -> ::User::ActiveRecord_Associations_CollectionProxy
+  def admins=: (::User::ActiveRecord_Associations_CollectionProxy | ::Array[::User]) -> (::User::ActiveRecord_Associations_CollectionProxy | ::Array[::User])
+  def admin_ids: () -> ::Array[::String]
+  def admin_ids=: (::Array[::String]) -> ::Array[::String]
 
   module ::Photographer::GeneratedAssociationMethods
   end
@@ -368,4 +380,16 @@ end
 class ::Face < ::ApplicationRecord
 end
 class ::Face::ActiveRecord_Associations_CollectionProxy < ::ActiveRecord::Associations::CollectionProxy
+end
+class ::ServiceAccount < ::ApplicationRecord
+end
+class ::ServiceAccount::ActiveRecord_Associations_CollectionProxy < ::ActiveRecord::Associations::CollectionProxy
+end
+class ::PhotographerAdmin < ::ApplicationRecord
+end
+class ::PhotographerAdmin::ActiveRecord_Associations_CollectionProxy < ::ActiveRecord::Associations::CollectionProxy
+end
+class ::User < ::ApplicationRecord
+end
+class ::User::ActiveRecord_Associations_CollectionProxy < ::ActiveRecord::Associations::CollectionProxy
 end

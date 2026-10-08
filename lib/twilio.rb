@@ -1,7 +1,12 @@
 module Twilio
-  def send_admin_text_message(text)
-    key = Rails.application.secrets[:twilio_key]
-    client = Twilio::REST::Client.new key, Rails.application.secrets[:twilio_key]
+  # Texts the admin phone. A no-op unless the twilio-ruby gem and `twilio.sid` / `twilio.token`
+  # credentials are present, so it never blocks the caller (e.g. a first Facebook sign-in).
+  def self.send_admin_text_message(text)
+    sid = Rails.application.credentials.dig(:twilio, :sid)
+    token = Rails.application.credentials.dig(:twilio, :token)
+    return unless sid && token && defined?(Twilio::REST::Client)
+
+    client = Twilio::REST::Client.new sid, token
 
     client.messages.create(
       from: "+14063154776",
