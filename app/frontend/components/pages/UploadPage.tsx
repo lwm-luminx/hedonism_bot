@@ -1,7 +1,6 @@
 import {
   CSSProperties,
   DragEvent,
-  Suspense,
   useCallback,
   useRef,
   useState,
@@ -10,9 +9,9 @@ import { ArrowLeft, CloudUpload, ImagePlus, Loader2 } from "lucide-react";
 import { Progress } from "../controls/Progress";
 import { FileCard } from "../FileCard";
 import { isSafari } from "react-device-detect";
-import { Link, useNavigate, useParams } from "react-router";
-import { graphql, useLazyLoadQuery, useMutation } from "react-relay";
-import type { CreatePhotoPromiseMutation } from "./__generated__/CreatePhotoPromiseMutation.graphql";
+import { Link, useParams } from "react-router";
+import { graphql, useLazyLoadQuery } from "react-relay";
+import { contentTypeFor, uploadTake } from "../../services/photoUpload";
 import type { PhotoPromiseQuery } from "./__generated__/PhotoPromiseQuery.graphql";
 
 const RAW_FORMAT_EXTENSIONS = [".arw"];
@@ -23,7 +22,7 @@ export interface UploadFile {
   status: "queued" | "uploading" | "done" | "error";
   progress: number;
   title: string;
-  rawPhoto: File;
+  rawPhoto: File | null;
   processedPhotos: File[];
   errorMsg?: string;
 }
@@ -39,7 +38,8 @@ function getExtension(filename: string) {
   return extension.toLowerCase();
 }
 
-const PHOTO_PROMISE_FRAGMENT = graphql`
+// Spread by PhotoPromiseQuery; Relay needs the fragment defined.
+const _PHOTO_PROMISE_FRAGMENT = graphql`
   fragment PhotoPromiseFragment on PhotoPromise {
     id
     files {
@@ -59,8 +59,8 @@ const PHOTO_PROMISE_QUERY = graphql`
 `;
 
 export function UploadPage() {
-  const { promiseId } = useParams();
-  const navigate = useNavigate();
+  // Always present: this page is the `/upload/:promiseId` child route.
+  const promiseId = useParams().promiseId!;
 
   const [files, setFiles] = useState<UploadFile[]>([]);
   const [dragging, setDragging] = useState(false);
@@ -68,18 +68,14 @@ export function UploadPage() {
   const inputRef = useRef<HTMLInputElement>(null);
   const dragCounter = useRef(0);
 
-  if (!promiseId) {
-    navigate("/upload");
-    return null;
-  }
-
-  const data = useLazyLoadQuery<PhotoPromiseQuery>(PHOTO_PROMISE_QUERY, {
+  // Suspends until the promise loads, and fails into the error boundary for an unknown ID.
+  useLazyLoadQuery<PhotoPromiseQuery>(PHOTO_PROMISE_QUERY, {
     id: promiseId,
   });
 
   const addFiles = useCallback(async (incoming: Files) => {
     const imageFiles = Array.from(incoming).filter((f) =>
-      f.type.startsWith("image/"),
+      contentTypeFor(f).startsWith("image/"),
     );
 
     const rawPhotos = imageFiles.filter((file) =>
@@ -111,9 +107,16 @@ export function UploadPage() {
           uploads[basename].previewUrl = URL.createObjectURL(processedPhoto);
         }
       } else {
-        console.error(
-          `Processed photo ${processedPhoto.name} does not have a corresponding raw photo (${processedPhoto.type})`,
-        );
+        // A JPEG/HEIF with no RAW is a take of its own.
+        uploads[basename] = {
+          id: `${processedPhoto.name}-${processedPhoto.size}-${Date.now()}-${Math.random()}`,
+          rawPhoto: null,
+          previewUrl: isSafari ? URL.createObjectURL(processedPhoto) : null,
+          status: "queued",
+          title: basename,
+          processedPhotos: [processedPhoto],
+          progress: 0,
+        };
       }
     }
 
@@ -162,60 +165,25 @@ export function UploadPage() {
     setFiles([]);
   };
 
-  const performUpload = (id: string): Promise<void> => {
-    return new Promise((resolve, reject) => {
-      const file = files.find((f) => f.id === id);
-      if (!file) return reject(new Error("File not found"));
+  const setFile = (id: string, changes: Partial<UploadFile>) =>
+    setFiles((prev) => prev.map((f) => (f.id === id ? { ...f, ...changes } : f)));
 
-      const formData = new FormData();
-      formData.append("raw_image", file.rawPhoto);
-      for (const [_index, processedPhoto] of file.processedPhotos.entries()) {
-        formData.append("processed_image[]", processedPhoto);
-      }
+  const performUpload = async (id: string): Promise<void> => {
+    const file = files.find((f) => f.id === id);
+    if (!file) return;
 
-      const xhr = new XMLHttpRequest();
-
-      xhr.open("POST", "/upload", true);
-
-      xhr.upload.addEventListener("progress", function (event) {
-        if (event.lengthComputable) {
-          // Calculate percentage complete
-          const percentage = Math.round((event.loaded / event.total) * 100);
-
-          // Update DOM values
-          setFiles((prevFiles) =>
-            prevFiles.map((f) =>
-              f.id === id
-                ? { ...f, uploadProgress: percentage, status: "uploading" }
-                : f,
-            ),
-          );
-        }
+    const parts = file.rawPhoto ? [file.rawPhoto, ...file.processedPhotos] : file.processedPhotos;
+    try {
+      await uploadTake(promiseId, parts, (progress) =>
+        setFile(id, { progress, status: "uploading" }),
+      );
+      setFile(id, { progress: 100, status: "done" });
+    } catch (error) {
+      setFile(id, {
+        status: "error",
+        errorMsg: error instanceof Error ? error.message : String(error),
       });
-
-      xhr.onload = function () {
-        if (xhr.status === 200) {
-          setFiles((prevFiles) =>
-            prevFiles.map((f) => (f.id === id ? { ...f, status: "done" } : f)),
-          );
-        } else {
-          setFiles((prevFiles) =>
-            prevFiles.map((f) => (f.id === id ? { ...f, status: "error" } : f)),
-          );
-        }
-        resolve();
-      };
-
-      xhr.onerror = function () {
-        setFiles((prevFiles) =>
-          prevFiles.map((f) => (f.id === id ? { ...f, status: "error" } : f)),
-        );
-        resolve();
-      };
-
-      // 8. Execute request
-      xhr.send(formData);
-    });
+    }
   };
 
   const startUpload = async () => {

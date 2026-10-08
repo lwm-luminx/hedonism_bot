@@ -19,6 +19,7 @@ export function FileCard({ file, onRemove, uploading }: FileCardProps) {
   const [previewUrl, setPreviewUrl] = useState<string | null>(file.previewUrl);
   const [isConverting, setIsConverting] = useState(false);
   const canRemove = !uploading || file.status !== "uploading";
+  const mainFile = file.rawPhoto ?? file.processedPhotos[0];
 
   if (!previewUrl && !isConverting) {
     const processedPhoto = file.processedPhotos.length
@@ -52,7 +53,7 @@ export function FileCard({ file, onRemove, uploading }: FileCardProps) {
         {previewUrl ? (
           <img
             src={previewUrl}
-            alt={file.rawPhoto.name}
+            alt={mainFile.name}
             className="w-full h-full object-cover"
             style={{
               filter:
@@ -96,6 +97,14 @@ export function FileCard({ file, onRemove, uploading }: FileCardProps) {
             >
               Failed
             </p>
+            {file.errorMsg && (
+              <p
+                className="px-2 text-center text-xs"
+                style={{ color: "#fff", fontFamily: "'Inter', sans-serif" }}
+              >
+                {file.errorMsg}
+              </p>
+            )}
           </div>
         )}
         {file.status === "uploading" && (
@@ -159,7 +168,7 @@ export function FileCard({ file, onRemove, uploading }: FileCardProps) {
           }}
           title={file.title}
         >
-          {file.rawPhoto.name}
+          {mainFile.name}
         </p>
         <p
           className="text-xs"
@@ -168,7 +177,7 @@ export function FileCard({ file, onRemove, uploading }: FileCardProps) {
             fontFamily: "'DM Mono', monospace",
           }}
         >
-          {formatBytes(file.rawPhoto.size)}
+          {formatBytes(mainFile.size)}
           {file.status === "uploading" && (
             <span style={{ color: "var(--primary)" }}>
               {" "}
