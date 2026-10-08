@@ -30,13 +30,13 @@ class FacebookDataDeletionsController < ActionController::Base
   def show
     code = params[:confirmation_code]
     return head :not_found unless code.is_a?(String) && code.match?(/\A[0-9a-f]{32}\z/)
-    @receipt = DataDeletionRequest.find_by(confirmation_code: code)
-    return head :not_found unless @receipt
+    receipt = @receipt = DataDeletionRequest.find_by(confirmation_code: code)
+    return head :not_found unless receipt
     respond_to do |format|
       format.html
       format.json do
-        render json: { confirmation_code: @receipt.confirmation_code, status: @receipt.public_status,
-                       requested_at: @receipt.created_at, completed_at: @receipt.completed_at }
+        render json: { confirmation_code: receipt.confirmation_code, status: receipt.public_status,
+                       requested_at: receipt.created_at, completed_at: receipt.completed_at }
       end
     end
   end

@@ -1,0 +1,4 @@
+module Types
+  class StorageUsageType < Types::BaseObject
+  end
+end

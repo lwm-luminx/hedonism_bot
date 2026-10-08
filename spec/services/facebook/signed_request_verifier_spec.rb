@@ -13,6 +13,18 @@ RSpec.describe Facebook::SignedRequestVerifier do
     expect(described_class.call(sign(payload), secret: "secret", app_id: "app")).to eq(payload)
   end
 
+  [ nil, "", " " ].each do |missing|
+    it "rejects secret #{missing.inspect}" do
+      expect { described_class.call(sign(payload), secret: missing, app_id: "app") }
+        .to raise_error(described_class::ConfigurationError)
+    end
+
+    it "rejects app ID #{missing.inspect}" do
+      expect { described_class.call(sign(payload), secret: "secret", app_id: missing) }
+        .to raise_error(described_class::ConfigurationError)
+    end
+  end
+
   def invalid_requests
     [ nil, [], {}, "", "a.b.c", "!.!", sign(payload, secret: "wrong"),
               sign(payload.merge("algorithm" => "none")), sign(payload.merge("user_id" => 123)),

@@ -1,23 +1,23 @@
 class ::Photo < ::ApplicationRecord
   type config = { mime_type: String, variant: interned, ?raw: bool }
 
-  STATUSES: Array[string]
-  APPLE_FORMATS: Array[string]
-  COMPOSITE_PREFERENCE_LIST: Array[string]
+  STATUSES: Array[_ToStr]
+  APPLE_FORMATS: Array[_ToStr]
+  COMPOSITE_PREFERENCE_LIST: Array[_ToStr]
   CONFIGURATIONS: Hash[Symbol, config]
-  RAW_FORMATS: Hash[Symbol, {mime_type: string}]
+  RAW_FORMATS: Hash[Symbol, {mime_type: _ToStr}]
   PROCESSED_FORMATS: Hash[Symbol, config]
 
-  def self.grouped_by_folder_date: () -> hash[string, array[Photo]]
+  def self.grouped_by_folder_date: () -> Hash[_ToStr, Array[Photo]]
   def self.configuration_for_extension: (String) -> config
 
-  def has_format?: (string) -> bool
+  def has_format?: (_ToStr) -> bool
   def update_faces: (Array[Types::FaceDataInputType]) -> void
   def composite_image: -> ActiveStorage::Attachment
   def metadata_image: -> ActiveStorage::Attachment
-  def preview_url: -> string?
-  def attach_format: (string, IO, filename: string) -> void
+  def preview_url: -> _ToStr?
+  def attach_format: (_ToStr, IO, filename: _ToStr) -> void
   def mark_processing!: -> void
-  def mark_processed!: (faces_detected: array[float], face_data: untyped, folder_date: DateTime?, taken_at: DateTime?) -> void
-  def mark_failed!: (string) -> void
+  def mark_processed!: (faces_detected: Array[_ToF], face_data: untyped, folder_date: DateTime?, taken_at: DateTime?) -> void
+  def mark_failed!: (_ToStr) -> void
 end

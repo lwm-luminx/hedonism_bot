@@ -1,0 +1,10 @@
+class SessionsController < ApplicationController
+  def show: () -> untyped
+  def create: () -> untyped
+  def failure: () -> untyped
+  def destroy: () -> untyped
+
+  private
+
+  def safe_return_path: () -> String
+end

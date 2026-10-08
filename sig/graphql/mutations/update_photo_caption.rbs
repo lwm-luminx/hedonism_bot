@@ -1,5 +1,5 @@
 module Mutations
   class UpdatePhotoCaption < BaseMutation
-    def resolve: (id: string, caption: string, description: string) -> { photo: untyped }
+    def resolve: (id: _ToStr, caption: _ToStr, description: _ToStr) -> { photo: untyped }
   end
 end

@@ -1,0 +1,3 @@
+class FacebookDataDeletionJob < ApplicationJob
+  def perform: (String) -> untyped
+end

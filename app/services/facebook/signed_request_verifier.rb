@@ -9,11 +9,12 @@ module Facebook
     MAX_BYTES = 16_384
 
     def self.call(value, secret: FACEBOOK_APP_SECRET, app_id: FACEBOOK_APP_ID)
-      raise ConfigurationError if secret.blank? || app_id.blank?
+      raise ConfigurationError if secret.nil? || app_id.nil? || secret.blank? || app_id.blank?
       raise InvalidRequest unless value.is_a?(String) && value.bytesize <= MAX_BYTES
       parts = value.split(".", -1)
       raise InvalidRequest unless parts.size == 2
-      signature, encoded = parts
+      signature = parts.fetch(0)
+      encoded = parts.fetch(1)
       signature = decode(signature)
       expected = OpenSSL::HMAC.digest("SHA256", secret, encoded)
       raise InvalidRequest unless signature.bytesize == 32 && ActiveSupport::SecurityUtils.secure_compare(signature, expected)

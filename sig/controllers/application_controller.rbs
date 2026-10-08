@@ -1,7 +1,10 @@
 class ApplicationController < ActionController::Base
-  @photographer: Photographer
+  @current_user: User?
 
   private
 
+  def current_user: () -> User?
   def photographer: () -> Photographer
+  def set_photographer: () -> untyped
+  def resolve_photographer: () -> Photographer?
 end

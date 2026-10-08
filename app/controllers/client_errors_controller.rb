@@ -30,7 +30,8 @@ class ClientErrorsController < ApplicationController
     data = JSON.parse(body)
     return unless data.is_a?(Hash)
 
-    FIELDS.each_with_object({}) do |(field, limit), report|
+    report = {} #: Hash[Symbol, String]
+    FIELDS.each_with_object(report) do |(field, limit), report|
       value = data[field.to_s]
       report[field] = value.to_s.scrub.truncate(limit) unless value.nil? || value.to_s.empty?
     end.presence
@@ -46,7 +47,8 @@ class ClientErrorsController < ApplicationController
 
   def log(report)
     report[:photographer] = photographer.subdomain
-    report[:user_id] = current_user.id if current_user
+    user = current_user
+    report[:user_id] = user.id if user
     report[:user_agent] = request.user_agent.to_s.truncate(300) if request.user_agent.present?
     logger.warn("[client_error] #{report.to_json}")
   end

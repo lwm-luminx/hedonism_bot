@@ -1,0 +1,4 @@
+module Mutations
+  class RestoreAlbum < ArchiveAlbum
+  end
+end

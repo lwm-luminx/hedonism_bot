@@ -10,7 +10,7 @@ class ApplicationController < ActionController::Base
   end
 
   def photographer
-    Current.photographer
+    Current.photographer || raise(ActiveRecord::RecordNotFound, "No photographer for this request")
   end
 
   # Every request is served for one photographer (tenant), picked by its host; unknown hosts get a 404.

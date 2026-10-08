@@ -2,7 +2,7 @@ module ImageProcessing
   class Vips
     def self.source: (path) -> instance
     def crop: (Integer, Integer, Integer, Integer) -> instance
-    def convert: (string) -> instance
+    def convert: (_ToStr) -> instance
     def call: -> untyped
   end
 end

@@ -1,0 +1,11 @@
+class FacebookDataDeletionsController < ActionController::Base
+  @receipt: DataDeletionRequest?
+
+  def create: () -> untyped
+  def show: () -> untyped
+
+  private
+
+  def invalid_request: () -> untyped
+  def privacy_headers: () -> String
+end

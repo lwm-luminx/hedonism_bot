@@ -1,0 +1,13 @@
+class DataDeletionRequest < ApplicationRecord
+  STATES: Array[String]
+
+  def self.subject_digest: (String) -> String
+  def self.with_subject: [T] (String) { () -> T } -> T
+  def self.accept!: (Hash[String, untyped], String) -> DataDeletionRequest
+  def self.pending_for?: (String) -> bool
+  def self.context_encryptor: () -> ActiveSupport::MessageEncryptor
+  def review_context=: (Hash[Symbol, untyped]?) -> untyped
+  def review_context: () -> untyped
+  def public_status: () -> String
+  def confirm_review!: () -> untyped
+end

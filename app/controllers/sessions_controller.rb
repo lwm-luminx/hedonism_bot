@@ -4,10 +4,11 @@
 # result to #create on the callback.
 class SessionsController < ApplicationController
   def show
-    render json: { user: current_user && {
-      name: current_user.name,
-      facebook_id: current_user.facebook_id,
-      admin: current_user.admin_of?(photographer)
+    user = current_user
+    render json: { user: user && {
+      name: user.name,
+      facebook_id: user.facebook_id,
+      admin: user.admin_of?(photographer)
     } }
   end
 
