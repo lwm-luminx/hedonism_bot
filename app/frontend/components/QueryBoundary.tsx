@@ -1,10 +1,12 @@
 import React, {
   Component,
   createContext,
+  ErrorInfo,
   ReactNode,
   Suspense,
   useContext,
 } from "react";
+import { reportError } from "../services/errorReporting";
 import { Spinner } from "./controls/Spinner";
 
 // Bumped on each retry. Pass it as useLazyLoadQuery's fetchKey so a retry
@@ -37,8 +39,12 @@ export class ErrorBoundary extends Component<
     return { error };
   }
 
-  componentDidCatch(error: Error) {
+  componentDidCatch(error: Error, info: ErrorInfo) {
     console.error(error);
+    reportError(error, {
+      kind: "boundary",
+      component_stack: info.componentStack ?? undefined,
+    });
   }
 
   retry = () => {
