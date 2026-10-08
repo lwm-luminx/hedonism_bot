@@ -653,6 +653,10 @@ class ::PhotoTake < ::ApplicationRecord
   def photo_faces=: (::PhotoFace::ActiveRecord_Associations_CollectionProxy | ::Array[::PhotoFace]) -> (::PhotoFace::ActiveRecord_Associations_CollectionProxy | ::Array[::PhotoFace])
   def photo_face_ids: () -> ::Array[::String]
   def photo_face_ids=: (::Array[::String]) -> ::Array[::String]
+  def photo_promise_files: () -> ::PhotoPromiseFile::ActiveRecord_Associations_CollectionProxy
+  def photo_promise_files=: (::PhotoPromiseFile::ActiveRecord_Associations_CollectionProxy | ::Array[::PhotoPromiseFile]) -> (::PhotoPromiseFile::ActiveRecord_Associations_CollectionProxy | ::Array[::PhotoPromiseFile])
+  def photo_promise_file_ids: () -> ::Array[::String]
+  def photo_promise_file_ids=: (::Array[::String]) -> ::Array[::String]
   def faces: () -> ::Face::ActiveRecord_Associations_CollectionProxy
   def faces=: (::Face::ActiveRecord_Associations_CollectionProxy | ::Array[::Face]) -> (::Face::ActiveRecord_Associations_CollectionProxy | ::Array[::Face])
   def face_ids: () -> ::Array[::String]
@@ -757,6 +761,10 @@ end
 class ::PhotoFace < ::ApplicationRecord
 end
 class ::PhotoFace::ActiveRecord_Associations_CollectionProxy < ::ActiveRecord::Associations::CollectionProxy
+end
+class ::PhotoPromiseFile < ::ApplicationRecord
+end
+class ::PhotoPromiseFile::ActiveRecord_Associations_CollectionProxy < ::ActiveRecord::Associations::CollectionProxy
 end
 class ::Face < ::ApplicationRecord
 end

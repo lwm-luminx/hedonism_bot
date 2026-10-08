@@ -1,5 +1,0 @@
-module Mutations
-  class FacialRecognitionPhotoUpdate < BaseMutation
-    def resolve: (id: untyped, faces: untyped) -> { photo: untyped }
-  end
-end

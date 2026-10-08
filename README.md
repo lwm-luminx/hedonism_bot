@@ -1,27 +1,34 @@
-# README
+# Hedonism Bot
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+A Rails application with a React/Relay frontend built by Vite, a Python ML worker,
+and a macOS photo uploader.
 
-Things you may want to cover:
+## Development
 
-* Ruby version
+Use the Ruby and Bun versions in `.ruby-version` and `.bun-version`. The app needs
+PostgreSQL with PostGIS and pgvector, Redis, libvips, exiftool, and OpenBLAS.
 
-* System dependencies
+```sh
+bin/setup --skip-server
+bin/dev
+```
 
-* Configuration
+Vite serves the frontend; Relay regenerates GraphQL artifacts in watch mode.
 
-* Database creation
+## Checks
 
-* Database initialization
+```sh
+bin/rubocop
+bundle exec rspec
+bun run test:run
+bun run build
+bun run knip
+bin/steep check
+```
 
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+RSpec isolates local uploads by process and removes them after each suite.
+Keep the RAW/HEIF fixtures: image processing tests use all six pairs.
+Knip excludes CSS imports and tools used outside frontend source from dependency checks.
 
 ## Python worker
 

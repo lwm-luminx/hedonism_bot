@@ -8,8 +8,7 @@ export default defineConfig([
     {
         ignores: [
             'node_modules/**',
-            'public/vite-dev/**',
-            'public/vite-test/**',
+            'public/vite*/**',
             'app/assets/builds/**',
             'vitest.*'
         ],

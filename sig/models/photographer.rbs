@@ -1,0 +1,9 @@
+class Photographer < ApplicationRecord
+  def self.for_host: (untyped) -> Photographer?
+
+  def self.default_photographer: () -> Photographer
+
+  def owner_photographer_id: () -> untyped
+
+  def folders: () -> untyped
+end

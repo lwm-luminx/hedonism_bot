@@ -2,7 +2,7 @@
 // catches to POST /client_errors, which logs each one as a [client_error] line
 // in the Heroku log. Production builds only.
 
-export type ErrorKind = "error" | "unhandledrejection" | "boundary";
+type ErrorKind = "error" | "unhandledrejection" | "boundary";
 
 export interface ErrorDetails {
   kind?: ErrorKind;

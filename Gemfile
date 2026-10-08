@@ -14,19 +14,10 @@ gem "activerecord-postgis"
 gem "neighbor"
 # Use the Puma web server [https://github.com/puma/puma]
 gem "puma", ">= 5.0"
-# Build JSON APIs with ease [https://github.com/rails/jbuilder]
-gem "jbuilder"
-# Bundle and transpile JavaScript [https://github.com/rails/jsbundling-rails]
-gem "jsbundling-rails"
-# Hotwire's SPA-like page accelerator [https://turbo.hotwired.dev]
-gem "turbo-rails"
-# Hotwire's modest JavaScript framework [https://stimulus.hotwired.dev]
-gem "stimulus-rails"
 # Vite makes running front ends easy [https://github.com/ElMassimo/vite_ruby]
 gem "vite_rails"
 # Redis is used to dispatch AI / ML tasks
 gem "async"
-gem "async-redis"
 gem "redis"
 gem "pg_search"
 # clusterkit 0.3.1 never loads its native extension when compiled from source (as on Ruby 4):
@@ -42,9 +33,6 @@ if (llvm_lib = Dir[File.join(__dir__, ".apt/usr/lib/llvm-*/lib")].first)
 end
 gem "clusterkit", "0.2.6"
 
-# Use Active Model has_secure_password [https://guides.rubyonrails.org/active_model_basics.html#securepassword]
-gem "bcrypt", "~> 3.1.7"
-
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
 gem "tzinfo-data", platforms: %i[ windows jruby ]
 
@@ -57,9 +45,6 @@ gem "activejob-locking"
 # Reduces boot times through caching; required in config/boot.rb
 gem "bootsnap", require: false
 
-# Deploy this application anywhere as a Docker container [https://kamal-deploy.org]
-gem "kamal", require: false
-
 # Add HTTP asset caching/compression and X-Sendfile acceleration to Puma [https://github.com/basecamp/thruster/]
 gem "thruster", require: false
 
@@ -67,14 +52,11 @@ gem "thruster", require: false
 gem "image_processing", "~> 2.0"
 gem "ruby-vips"
 
-gem "exifr"
 gem "mini_exiftool"
 
 gem "foreman", require: false
 
 gem "aws-sdk-s3", require: false
-
-gem "stripe"
 
 # Use Rack CORS for handling Cross-Origin Resource Sharing (CORS), making cross-origin Ajax possible
 gem "rack-cors"
@@ -110,10 +92,6 @@ group :development, :test do
 
   gem "shoulda-matchers"
 
-  gem "capybara"
-  gem "cucumber-rails", require: false
-  gem "database_cleaner-active_record"
-  gem "playwright-ruby-client"
   gem "webmock"
 
   gem "simplecov"

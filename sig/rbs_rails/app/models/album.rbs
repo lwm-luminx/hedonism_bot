@@ -384,6 +384,18 @@ class ::Album < ::ApplicationRecord
   def build_photographer: (?untyped) -> ::Photographer
   def create_photographer: (?untyped) -> ::Photographer
   def create_photographer!: (?untyped) -> ::Photographer
+  def event: () -> ::Event?
+  def event=: (::Event?) -> ::Event?
+  def reload_event: () -> ::Event?
+  def build_event: (?untyped) -> ::Event
+  def create_event: (?untyped) -> ::Event
+  def create_event!: (?untyped) -> ::Event
+  def venue: () -> ::Venue?
+  def venue=: (::Venue?) -> ::Venue?
+  def reload_venue: () -> ::Venue?
+  def build_venue: (?untyped) -> ::Venue
+  def create_venue: (?untyped) -> ::Venue
+  def create_venue!: (?untyped) -> ::Venue
 
   module ::Album::GeneratedAssociationMethods
   end
@@ -430,4 +442,8 @@ end
 class ::PhotoTake::ActiveRecord_Associations_CollectionProxy < ::ActiveRecord::Associations::CollectionProxy
 end
 class ::Photographer < ::ApplicationRecord
+end
+class ::Event < ::ApplicationRecord
+end
+class ::Venue < ::ApplicationRecord
 end

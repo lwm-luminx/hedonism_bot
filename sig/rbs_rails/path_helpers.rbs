@@ -21,9 +21,6 @@ interface ::_RbsRailsPathHelpers
   def upload_path: (*untyped) -> ::String
   def admin_path: (*untyped) -> ::String
   def root_path: (*untyped) -> ::String
-  def turbo_recede_historical_location_path: (*untyped) -> ::String
-  def turbo_resume_historical_location_path: (*untyped) -> ::String
-  def turbo_refresh_historical_location_path: (*untyped) -> ::String
   def rails_postmark_inbound_emails_path: (*untyped) -> ::String
   def rails_relay_inbound_emails_path: (*untyped) -> ::String
   def rails_sendgrid_inbound_emails_path: (*untyped) -> ::String
@@ -69,9 +66,6 @@ interface ::_RbsRailsPathHelpers
   def upload_url: (*untyped) -> ::String
   def admin_url: (*untyped) -> ::String
   def root_url: (*untyped) -> ::String
-  def turbo_recede_historical_location_url: (*untyped) -> ::String
-  def turbo_resume_historical_location_url: (*untyped) -> ::String
-  def turbo_refresh_historical_location_url: (*untyped) -> ::String
   def rails_postmark_inbound_emails_url: (*untyped) -> ::String
   def rails_relay_inbound_emails_url: (*untyped) -> ::String
   def rails_sendgrid_inbound_emails_url: (*untyped) -> ::String
