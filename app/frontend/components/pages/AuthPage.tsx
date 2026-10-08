@@ -146,7 +146,7 @@ export function AuthGate({ children }: { children: ReactNode }) {
               admins:grant[{user.facebook_id},{window.location.hostname.split(".")[0]}]
             </p>
             <button
-              onClick={signOut}
+              onClick={() => signOut()}
               className="mt-2 w-full border px-4 py-2.5 transition-colors"
               style={{
                 borderColor: "var(--border)",
