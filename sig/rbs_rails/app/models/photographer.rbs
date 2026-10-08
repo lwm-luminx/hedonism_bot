@@ -321,6 +321,10 @@ class ::Photographer < ::ApplicationRecord
   def admins=: (::User::ActiveRecord_Associations_CollectionProxy | ::Array[::User]) -> (::User::ActiveRecord_Associations_CollectionProxy | ::Array[::User])
   def admin_ids: () -> ::Array[::String]
   def admin_ids=: (::Array[::String]) -> ::Array[::String]
+  def domains: () -> ::PhotographerDomain::ActiveRecord_Associations_CollectionProxy
+  def domains=: (::PhotographerDomain::ActiveRecord_Associations_CollectionProxy | ::Array[::PhotographerDomain]) -> (::PhotographerDomain::ActiveRecord_Associations_CollectionProxy | ::Array[::PhotographerDomain])
+  def domain_ids: () -> ::Array[::String]
+  def domain_ids=: (::Array[::String]) -> ::Array[::String]
 
   module ::Photographer::GeneratedAssociationMethods
   end
@@ -392,4 +396,8 @@ end
 class ::User < ::ApplicationRecord
 end
 class ::User::ActiveRecord_Associations_CollectionProxy < ::ActiveRecord::Associations::CollectionProxy
+end
+class ::PhotographerDomain < ::ApplicationRecord
+end
+class ::PhotographerDomain::ActiveRecord_Associations_CollectionProxy < ::ActiveRecord::Associations::CollectionProxy
 end

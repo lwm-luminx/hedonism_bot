@@ -214,9 +214,6 @@ module ::SolidQueue
     def job: () -> ::SolidQueue::Job
     def job=: (::SolidQueue::Job?) -> ::SolidQueue::Job?
     def reload_job: () -> ::SolidQueue::Job?
-    def job_changed?: () -> bool
-    def job_previously_changed?: () -> bool
-    def reset_job: () -> void
     def build_job: (?untyped) -> ::SolidQueue::Job
     def create_job: (?untyped) -> ::SolidQueue::Job
     def create_job!: (?untyped) -> ::SolidQueue::Job

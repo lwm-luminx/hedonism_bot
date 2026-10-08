@@ -425,14 +425,12 @@ module ::ActiveStorage
     def create_preview_image_attachment: (?untyped) -> ::ActiveStorage::Attachment
     def create_preview_image_attachment!: (?untyped) -> ::ActiveStorage::Attachment
     def reload_preview_image_attachment: () -> ::ActiveStorage::Attachment?
-    def reset_preview_image_attachment: () -> void
     def preview_image_blob: () -> ::ActiveStorage::Blob?
     def preview_image_blob=: (::ActiveStorage::Blob?) -> ::ActiveStorage::Blob?
     def build_preview_image_blob: (?untyped) -> ::ActiveStorage::Blob
     def create_preview_image_blob: (?untyped) -> ::ActiveStorage::Blob
     def create_preview_image_blob!: (?untyped) -> ::ActiveStorage::Blob
     def reload_preview_image_blob: () -> ::ActiveStorage::Blob?
-    def reset_preview_image_blob: () -> void
 
     module ::ActiveStorage::Blob::GeneratedAssociationMethods
       def preview_image: () -> ::ActiveStorage::Attached::One

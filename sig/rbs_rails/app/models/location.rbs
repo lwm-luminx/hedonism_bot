@@ -376,20 +376,15 @@ class ::Location < ::ApplicationRecord
   def create_venue: (?untyped) -> ::Venue
   def create_venue!: (?untyped) -> ::Venue
   def reload_venue: () -> ::Venue?
-  def reset_venue: () -> void
   def locale: () -> ::Locale?
   def locale=: (::Locale?) -> ::Locale?
   def build_locale: (?untyped) -> ::Locale
   def create_locale: (?untyped) -> ::Locale
   def create_locale!: (?untyped) -> ::Locale
   def reload_locale: () -> ::Locale?
-  def reset_locale: () -> void
   def photo_take: () -> ::PhotoTake
   def photo_take=: (::PhotoTake?) -> ::PhotoTake?
   def reload_photo_take: () -> ::PhotoTake?
-  def photo_take_changed?: () -> bool
-  def photo_take_previously_changed?: () -> bool
-  def reset_photo_take: () -> void
   def build_photo_take: (?untyped) -> ::PhotoTake
   def create_photo_take: (?untyped) -> ::PhotoTake
   def create_photo_take!: (?untyped) -> ::PhotoTake

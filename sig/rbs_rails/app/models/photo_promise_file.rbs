@@ -485,44 +485,6 @@ class ::PhotoPromiseFile < ::ApplicationRecord
     def photo_take_id_for_database: () -> ::String?
   end
   include ::PhotoPromiseFile::GeneratedAttributeMethods
-  module ::PhotoPromiseFile::GeneratedAttributeMethods
-    def checksum: () -> ::String?
-
-    def checksum=: (::String?) -> ::String?
-
-    def checksum?: () -> bool
-
-    def checksum_changed?: (?from: ::String?, ?to: ::String?) -> bool
-
-    def checksum_change: () -> [ ::String?, ::String? ]
-
-    def checksum_will_change!: () -> void
-
-    def checksum_was: () -> ::String?
-
-    def checksum_previously_changed?: (?from: ::String?, ?to: ::String?) -> bool
-
-    def checksum_previous_change: () -> ::Array[::String?]?
-
-    def checksum_previously_was: () -> ::String?
-
-    def checksum_before_last_save: () -> ::String?
-
-    def checksum_change_to_be_saved: () -> ::Array[::String?]?
-
-    def checksum_in_database: () -> ::String?
-
-    def saved_change_to_checksum: () -> ::Array[::String?]?
-
-    def saved_change_to_checksum?: (?from: ::String?, ?to: ::String?) -> bool
-
-    def will_save_change_to_checksum?: (?from: ::String?, ?to: ::String?) -> bool
-
-    def restore_checksum!: () -> void
-
-    def clear_checksum_change: () -> void
-  end
-
   module ::PhotoPromiseFile::GeneratedAliasAttributeMethods
     include ::PhotoPromiseFile::GeneratedAttributeMethods
 
@@ -574,29 +536,21 @@ class ::PhotoPromiseFile < ::ApplicationRecord
   def create_file_attachment: (?untyped) -> ::ActiveStorage::Attachment
   def create_file_attachment!: (?untyped) -> ::ActiveStorage::Attachment
   def reload_file_attachment: () -> ::ActiveStorage::Attachment?
-  def reset_file_attachment: () -> void
   def file_blob: () -> ::ActiveStorage::Blob?
   def file_blob=: (::ActiveStorage::Blob?) -> ::ActiveStorage::Blob?
   def build_file_blob: (?untyped) -> ::ActiveStorage::Blob
   def create_file_blob: (?untyped) -> ::ActiveStorage::Blob
   def create_file_blob!: (?untyped) -> ::ActiveStorage::Blob
   def reload_file_blob: () -> ::ActiveStorage::Blob?
-  def reset_file_blob: () -> void
   def photo_promise: () -> ::PhotoPromise
   def photo_promise=: (::PhotoPromise?) -> ::PhotoPromise?
   def reload_photo_promise: () -> ::PhotoPromise?
-  def photo_promise_changed?: () -> bool
-  def photo_promise_previously_changed?: () -> bool
-  def reset_photo_promise: () -> void
   def build_photo_promise: (?untyped) -> ::PhotoPromise
   def create_photo_promise: (?untyped) -> ::PhotoPromise
   def create_photo_promise!: (?untyped) -> ::PhotoPromise
   def photo_take: () -> ::PhotoTake?
   def photo_take=: (::PhotoTake?) -> ::PhotoTake?
   def reload_photo_take: () -> ::PhotoTake?
-  def photo_take_changed?: () -> bool
-  def photo_take_previously_changed?: () -> bool
-  def reset_photo_take: () -> void
   def build_photo_take: (?untyped) -> ::PhotoTake
   def create_photo_take: (?untyped) -> ::PhotoTake
   def create_photo_take!: (?untyped) -> ::PhotoTake

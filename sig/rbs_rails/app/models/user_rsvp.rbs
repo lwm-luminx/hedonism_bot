@@ -293,18 +293,12 @@ class ::UserRsvp < ::ApplicationRecord
   def user: () -> ::User
   def user=: (::User?) -> ::User?
   def reload_user: () -> ::User?
-  def user_changed?: () -> bool
-  def user_previously_changed?: () -> bool
-  def reset_user: () -> void
   def build_user: (?untyped) -> ::User
   def create_user: (?untyped) -> ::User
   def create_user!: (?untyped) -> ::User
   def event: () -> ::Event
   def event=: (::Event?) -> ::Event?
   def reload_event: () -> ::Event?
-  def event_changed?: () -> bool
-  def event_previously_changed?: () -> bool
-  def reset_event: () -> void
   def build_event: (?untyped) -> ::Event
   def create_event: (?untyped) -> ::Event
   def create_event!: (?untyped) -> ::Event

@@ -337,13 +337,9 @@ module ::SolidQueue
     def create_semaphore: (?untyped) -> ::SolidQueue::Semaphore
     def create_semaphore!: (?untyped) -> ::SolidQueue::Semaphore
     def reload_semaphore: () -> ::SolidQueue::Semaphore?
-    def reset_semaphore: () -> void
     def job: () -> ::SolidQueue::Job
     def job=: (::SolidQueue::Job?) -> ::SolidQueue::Job?
     def reload_job: () -> ::SolidQueue::Job?
-    def job_changed?: () -> bool
-    def job_previously_changed?: () -> bool
-    def reset_job: () -> void
     def build_job: (?untyped) -> ::SolidQueue::Job
     def create_job: (?untyped) -> ::SolidQueue::Job
     def create_job!: (?untyped) -> ::SolidQueue::Job

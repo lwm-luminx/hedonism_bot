@@ -294,15 +294,9 @@ module ::ActiveStorage
     def record: () -> untyped
     def record=: (untyped?) -> untyped?
     def reload_record: () -> untyped?
-    def record_changed?: () -> bool
-    def record_previously_changed?: () -> bool
-    def reset_record: () -> void
     def blob: () -> ::ActiveStorage::Blob
     def blob=: (::ActiveStorage::Blob?) -> ::ActiveStorage::Blob?
     def reload_blob: () -> ::ActiveStorage::Blob?
-    def blob_changed?: () -> bool
-    def blob_previously_changed?: () -> bool
-    def reset_blob: () -> void
     def build_blob: (?untyped) -> ::ActiveStorage::Blob
     def create_blob: (?untyped) -> ::ActiveStorage::Blob
     def create_blob!: (?untyped) -> ::ActiveStorage::Blob

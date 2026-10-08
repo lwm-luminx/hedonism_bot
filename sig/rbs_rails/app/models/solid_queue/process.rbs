@@ -422,9 +422,6 @@ module ::SolidQueue
     def supervisor: () -> ::SolidQueue::Process?
     def supervisor=: (::SolidQueue::Process?) -> ::SolidQueue::Process?
     def reload_supervisor: () -> ::SolidQueue::Process?
-    def supervisor_changed?: () -> bool
-    def supervisor_previously_changed?: () -> bool
-    def reset_supervisor: () -> void
     def build_supervisor: (?untyped) -> ::SolidQueue::Process
     def create_supervisor: (?untyped) -> ::SolidQueue::Process
     def create_supervisor!: (?untyped) -> ::SolidQueue::Process

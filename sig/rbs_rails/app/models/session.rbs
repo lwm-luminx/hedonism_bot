@@ -533,18 +533,12 @@ class ::Session < ::ApplicationRecord
   def device: () -> ::Device
   def device=: (::Device?) -> ::Device?
   def reload_device: () -> ::Device?
-  def device_changed?: () -> bool
-  def device_previously_changed?: () -> bool
-  def reset_device: () -> void
   def build_device: (?untyped) -> ::Device
   def create_device: (?untyped) -> ::Device
   def create_device!: (?untyped) -> ::Device
   def user: () -> ::User
   def user=: (::User?) -> ::User?
   def reload_user: () -> ::User?
-  def user_changed?: () -> bool
-  def user_previously_changed?: () -> bool
-  def reset_user: () -> void
   def build_user: (?untyped) -> ::User
   def create_user: (?untyped) -> ::User
   def create_user!: (?untyped) -> ::User
