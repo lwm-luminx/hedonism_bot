@@ -6,6 +6,11 @@ module Mutations
     field :promise, Types::PhotoPromiseType, null: false
     field :files, [ Types::PhotoPromiseFileType ], null: false, description: "The files just added, in input order"
 
+    def ready?(**args)
+      require_uploader!
+      super
+    end
+
     def resolve(id:, files:)
       @promise = HedonismBotSchema.object_from_id(id, context)
       unless @promise.is_a?(PhotoPromise)

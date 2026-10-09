@@ -26,7 +26,7 @@ RSpec.describe Mutations::UpdatePhotoPromiseFileUpdate, type: :graphql do
   end
 
   def complete(file, as: photographer)
-    execute_graphql(query, variables: { id: file.to_gid_param, status: "SUCCESS" }, context: { photographer: as })
+    execute_graphql(query, variables: { id: file.to_gid_param, status: "SUCCESS" }, context: uploader_context(as))
   end
 
   context "when both files of a shot are uploaded" do

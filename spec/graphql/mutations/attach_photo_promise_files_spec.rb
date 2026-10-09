@@ -4,7 +4,7 @@ RSpec.shared_context 'when promise has files' do
   include_context 'when photo promise created'
 
   let(:photo_promise) {
-    execute_graphql(create_promise_query)['data']['createPhotoPromise']['promise']
+    execute_graphql(create_promise_query, context: uploader_context)['data']['createPhotoPromise']['promise']
   }
 
   let(:inputs) do
@@ -45,7 +45,7 @@ RSpec.describe Mutations::AttachPhotoPromiseFiles, type: :graphql do
 
   describe "with valid inputs" do
     it "uploads with a set of file inputs" do
-      execute_graphql(create_promise_files, variables: { id: photo_promise['id'], files: inputs })
+      execute_graphql(create_promise_files, variables: { id: photo_promise['id'], files: inputs }, context: uploader_context)
 
 
       aggregate_failures do
@@ -57,7 +57,7 @@ RSpec.describe Mutations::AttachPhotoPromiseFiles, type: :graphql do
     it "returns the added files with their upload headers" do
       query = 'mutation($id: ID!, $files: [PhotoPromiseFileInput!]!) { ' \
               'attachPhotoPromiseFiles(id: $id, files: $files) { files { originalFilename uploadHeaders } } }'
-      execute_graphql(query, variables: { id: photo_promise['id'], files: inputs })
+      execute_graphql(query, variables: { id: photo_promise['id'], files: inputs }, context: uploader_context)
 
       expect(data.dig("attachPhotoPromiseFiles", "files").pluck("originalFilename")).to eq(inputs.pluck(:originalFilename))
     end

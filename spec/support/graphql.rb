@@ -9,6 +9,11 @@ module GraphQLHelpers
     )
   end
 
+  # Context for the upload mutations, which need an admin or a service account.
+  def uploader_context(photographer = nil)
+    { photographer: photographer, service_account: true }.compact
+  end
+
   def response
     @response
   end
