@@ -2,6 +2,7 @@ class PhotoDescriptionJob < ApplicationJob
   queue_as :default
 
   def perform(photo)
-    PhotoInferenceWork.enqueue! photo, "hedonism.who_dis.worker.caption_image"
+    takes = photo.is_a?(Photo) ? photo.photo_takes : [ photo ]
+    takes.each { |take| PhotoInferenceWork.enqueue! take, "hedonism.who_dis.worker.caption_image" }
   end
 end
