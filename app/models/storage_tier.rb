@@ -1,6 +1,7 @@
-# Photo originals live in one of two Active Storage services: the hot service (Bucketeer on Heroku,
-# priced by flat plan tier) or an optional archive service, any S3-compatible bucket billed per GB
-# (AWS S3 with a cold storage class, Backblaze B2, Cloudflare R2). Previews always stay hot.
+# Photo originals live in one of two Active Storage services: the hot service (a per-GB bucket such
+# as Cloudflare R2, or Bucketeer on Heroku, priced by flat plan tier) or an optional archive service,
+# any S3-compatible bucket billed per GB (AWS S3 with a cold storage class, Backblaze B2, Cloudflare
+# R2). Previews always stay hot.
 module StorageTier
   ORIGINAL_ATTACHMENTS = %w[raw_image images].freeze
   PREVIEW_CONTENT_TYPE = "image/jpeg"
@@ -40,5 +41,20 @@ module StorageTier
     end
     blob.update!(service_name: to)
     source.delete(blob.key)
+  end
+
+  # Moves every blob still stored on the named service to the hot service, e.g. off Bucketeer after
+  # the hot service switches to R2. Safe to rerun: moved blobs no longer match. Returns the count.
+  def self.move_all(from:)
+    from = from.to_s
+    raise ArgumentError, "#{from} is already the hot service" if from == hot_service_name
+
+    ActiveStorage::Blob.services.fetch(from)
+    moved = 0
+    ActiveStorage::Blob.where(service_name: from).find_each do |blob|
+      move(blob, to: hot_service_name)
+      moved += 1
+    end
+    moved
   end
 end
