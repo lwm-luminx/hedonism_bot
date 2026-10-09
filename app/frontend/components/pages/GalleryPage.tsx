@@ -23,6 +23,7 @@ import PhotoCollection from "../PhotoCollection";
 import { BaseApplicationQuery } from "./__generated__/BaseApplicationQuery.graphql";
 import { useNavigate } from "react-router";
 import { QueryBoundary, useRetryKey } from "../QueryBoundary";
+import { signOut, useSessionUser } from "./AuthPage";
 
 // Below this width the sidebar becomes a drawer over the photos.
 const DESKTOP_QUERY = "(min-width: 768px)";
@@ -80,13 +81,7 @@ export default function GalleryPage() {
     if (!isDesktop) setSidebarOpen(false);
   };
 
-  const user = {
-    user_metadata: {
-      avatar_url: null,
-      full_name: "John Doe",
-    },
-    email: "john.doe@example.com",
-  };
+  const user = useSessionUser();
 
   return (
     <div
@@ -211,15 +206,8 @@ export default function GalleryPage() {
             </span>
           </div>
 
-          <div className="flex items-center gap-1 lg:ml-1 lg:gap-2">
-            {user.user_metadata?.avatar_url ? (
-              <img
-                src={user.user_metadata.avatar_url}
-                alt={user.user_metadata?.full_name ?? "User"}
-                className="hidden h-7 w-7 rounded-full object-cover lg:block"
-                style={{ border: "1.5px solid var(--border)" }}
-              />
-            ) : (
+          {user && (
+            <div className="flex items-center gap-1 lg:ml-1 lg:gap-2">
               <div
                 className="hidden h-7 w-7 items-center justify-center rounded-full text-xs lg:flex"
                 style={{
@@ -230,32 +218,31 @@ export default function GalleryPage() {
                   border: "1.5px solid var(--border)",
                 }}
               >
-                {(user.user_metadata?.full_name ??
-                  user.email ??
-                  "?")[0].toUpperCase()}
+                {(user.name || "?")[0].toUpperCase()}
               </div>
-            )}
-            <span
-              className="hidden max-w-28 truncate text-xs lg:block"
-              style={{
-                color: "var(--muted-foreground)",
-                fontFamily: "'Inter', sans-serif",
-              }}
-            >
-              {user.user_metadata?.full_name ?? user.email}
-            </span>
-            <button
-              className="hover:bg-muted rounded p-2.5 transition-colors lg:p-1.5"
-              style={{
-                color: "var(--muted-foreground)",
-                borderRadius: "var(--radius-sm)",
-              }}
-              title="Sign out"
-              aria-label="Sign out"
-            >
-              <LogOut className="h-3.5 w-3.5" />
-            </button>
-          </div>
+              <span
+                className="hidden max-w-28 truncate text-xs lg:block"
+                style={{
+                  color: "var(--muted-foreground)",
+                  fontFamily: "'Inter', sans-serif",
+                }}
+              >
+                {user.name}
+              </span>
+              <button
+                onClick={() => signOut("/")}
+                className="hover:bg-muted rounded p-2.5 transition-colors lg:p-1.5"
+                style={{
+                  color: "var(--muted-foreground)",
+                  borderRadius: "var(--radius-sm)",
+                }}
+                title="Sign out"
+                aria-label="Sign out"
+              >
+                <LogOut className="h-3.5 w-3.5" />
+              </button>
+            </div>
+          )}
         </div>
       </header>
 

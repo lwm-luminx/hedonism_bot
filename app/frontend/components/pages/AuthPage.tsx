@@ -7,12 +7,26 @@ export type SessionUser = {
   admin: boolean;
 };
 
-export async function signOut() {
+export async function signOut(returnTo = "/admin") {
   await fetch("/auth/session", {
     method: "DELETE",
     headers: { "X-CSRF-Token": csrfToken() },
   });
-  window.location.assign("/admin");
+  window.location.assign(returnTo);
+}
+
+// The signed-in user, or null when nobody is (or while loading).
+export function useSessionUser() {
+  const [user, setUser] = useState<SessionUser | null>(null);
+
+  useEffect(() => {
+    fetch("/auth/me", { headers: { Accept: "application/json" } })
+      .then((response) => response.json())
+      .then((body: { user: SessionUser | null }) => setUser(body.user))
+      .catch(() => setUser(null));
+  }, []);
+
+  return user;
 }
 
 // Shows the Facebook sign-in screen until an admin is signed in, then renders its children.
@@ -137,7 +151,7 @@ export function AuthGate({ children }: { children: ReactNode }) {
               {window.location.hostname.split(".")[0]}]
             </p>
             <button
-              onClick={signOut}
+              onClick={() => signOut()}
               className="mt-2 w-full border px-4 py-2.5 transition-colors"
               style={{
                 borderColor: "var(--border)",

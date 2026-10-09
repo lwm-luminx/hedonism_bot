@@ -48,7 +48,7 @@ export function AdminPage() {
             Admin
           </span>
           <button
-            onClick={signOut}
+            onClick={() => signOut()}
             className="ml-auto flex items-center gap-1.5 transition-opacity hover:opacity-70"
             style={{ color: "var(--muted-foreground)", fontSize: "0.875rem" }}
           >
