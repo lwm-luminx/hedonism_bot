@@ -1,9 +1,9 @@
 class ApplicationRecord < ActiveRecord::Base
-  def self.nearest_neighbors: (Symbol, [Float], ?distance: string, ?threshold: Float) -> [class]
+  def self.nearest_neighbors: (Symbol, [Float], ?distance: _ToStr, ?threshold: Float) -> [class]
 
   def self.has_neighbors: (Symbol, ?dimensions: Integer, ?normalize: bool) -> void
 
-  def self.pg_search_scope: (Symbol, against: array[Symbol], using: Hash[Symbol, untyped]) -> void
+  def self.pg_search_scope: (Symbol, against: Array[Symbol], using: Hash[Symbol, untyped]) -> void
 
-  def to_gid_param: () -> string
+  def to_gid_param: () -> _ToStr
 end

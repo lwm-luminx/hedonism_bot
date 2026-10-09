@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_10_07_223000) do
+ActiveRecord::Schema[8.1].define(version: 2026_10_09_030000) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
   enable_extension "postgis"
@@ -50,9 +50,10 @@ ActiveRecord::Schema[8.1].define(version: 2026_10_07_223000) do
     t.uuid "event_id"
     t.string "name", null: false
     t.uuid "photographer_id", null: false
-    t.string "storage_transition"
     t.datetime "updated_at", null: false
     t.uuid "venue_id"
+    t.string "storage_transition"
+    t.jsonb "upload_context", default: {}, null: false
     t.index ["event_id"], name: "index_albums_on_event_id"
     t.index ["photographer_id"], name: "index_albums_on_photographer_id"
     t.index ["venue_id"], name: "index_albums_on_venue_id"
@@ -65,6 +66,16 @@ ActiveRecord::Schema[8.1].define(version: 2026_10_07_223000) do
     t.datetime "updated_at", null: false
     t.index ["api_key"], name: "index_applications_on_api_key", unique: true
     t.index ["audience_id"], name: "index_applications_on_audience_id"
+  end
+
+  create_table "archive_storage_connections", force: :cascade do |t|
+    t.uuid "service_account_id", null: false
+    t.string "device_name", null: false
+    t.jsonb "paths", default: [], null: false
+    t.datetime "last_seen_at", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["service_account_id"], name: "index_archive_connections_on_account", unique: true
   end
 
   create_table "audience_admins", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
@@ -124,6 +135,39 @@ ActiveRecord::Schema[8.1].define(version: 2026_10_07_223000) do
     t.string "subdomain", null: false
     t.datetime "updated_at", null: false
     t.index ["subdomain"], name: "audiences_subdomain_uindex", unique: true
+  end
+
+  create_table "data_deletion_requests", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.string "confirmation_code", null: false
+    t.string "app_id", null: false
+    t.string "subject_digest", null: false
+    t.string "payload_digest", null: false
+    t.uuid "user_id"
+    t.string "status", default: "pending", null: false
+    t.integer "attempts", default: 0, null: false
+    t.datetime "next_attempt_at"
+    t.datetime "local_deleted_at"
+    t.datetime "completed_at"
+    t.datetime "reviewed_at"
+    t.jsonb "cleanup_manifest", default: [], null: false
+    t.jsonb "review_reasons", default: [], null: false
+    t.string "error_category"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.string "replay_digests", default: [], null: false, array: true
+    t.text "encrypted_review_context"
+    t.index ["app_id", "payload_digest"], name: "index_data_deletion_requests_on_app_id_and_payload_digest", unique: true
+    t.index ["app_id", "subject_digest"], name: "index_data_deletion_requests_on_app_id_and_subject_digest"
+    t.index ["confirmation_code"], name: "index_data_deletion_requests_on_confirmation_code", unique: true
+    t.index ["status", "next_attempt_at"], name: "index_data_deletion_requests_on_status_and_next_attempt_at"
+  end
+
+  create_table "device_login_grants", force: :cascade do |t|
+    t.uuid "service_account_id", null: false
+    t.string "code_digest", null: false
+    t.datetime "expires_at", null: false
+    t.index ["code_digest"], name: "index_device_login_grants_on_code_digest", unique: true
+    t.index ["service_account_id"], name: "index_device_login_grants_on_service_account_id"
   end
 
   create_table "devices", id: :uuid, default: -> { "uuid_generate_v4()" }, force: :cascade do |t|
@@ -267,6 +311,17 @@ ActiveRecord::Schema[8.1].define(version: 2026_10_07_223000) do
     t.index ["image_id"], name: "index_locations_on_image_id"
   end
 
+  create_table "native_login_grants", force: :cascade do |t|
+    t.string "code_digest", null: false
+    t.string "challenge", null: false
+    t.uuid "user_id", null: false
+    t.uuid "photographer_id", null: false
+    t.datetime "expires_at", null: false
+    t.index ["code_digest"], name: "index_native_login_grants_on_code_digest", unique: true
+    t.index ["photographer_id"], name: "index_native_login_grants_on_photographer_id"
+    t.index ["user_id"], name: "index_native_login_grants_on_user_id"
+  end
+
   create_table "pages", id: :uuid, default: -> { "uuid_generate_v4()" }, force: :cascade do |t|
     t.uuid "cover_image_id"
     t.datetime "created_at", null: false
@@ -323,6 +378,25 @@ ActiveRecord::Schema[8.1].define(version: 2026_10_07_223000) do
     t.index ["photo_take_id"], name: "index_photo_faces_on_photo_take_id"
   end
 
+  create_table "photo_inference_works", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.uuid "photographer_id", null: false
+    t.uuid "photo_take_id", null: false
+    t.uuid "service_account_id"
+    t.string "task", null: false
+    t.string "state", default: "pending", null: false
+    t.string "lease_token"
+    t.datetime "lease_expires_at"
+    t.datetime "deadline_at"
+    t.integer "attempts", default: 0, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["photo_take_id", "task"], name: "index_photo_inference_works_on_photo_take_id_and_task", unique: true
+    t.index ["photo_take_id"], name: "index_photo_inference_works_on_photo_take_id"
+    t.index ["photographer_id", "state", "lease_expires_at"], name: "index_inference_work_dispatch"
+    t.index ["photographer_id"], name: "index_photo_inference_works_on_photographer_id"
+    t.index ["service_account_id"], name: "index_photo_inference_works_on_service_account_id"
+  end
+
   create_table "photo_promise_files", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.string "content_type", null: false
     t.datetime "created_at", null: false
@@ -335,6 +409,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_10_07_223000) do
     t.string "upload_url", null: false
     t.uuid "blob_id"
     t.uuid "photo_take_id"
+    t.index ["image_hash"], name: "index_completed_upload_hashes", where: "((status)::text = 'success'::text)"
     t.index ["image_hash"], name: "photo_takes_image_hash_index"
     t.index ["photo_promise_id"], name: "index_photo_promise_files_on_photo_promise_id"
     t.index ["photo_take_id"], name: "index_photo_promise_files_on_photo_take_id"
@@ -347,6 +422,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_10_07_223000) do
     t.datetime "updated_at", null: false
     t.uuid "venue_id"
     t.uuid "album_id"
+    t.jsonb "location_recordings", default: [], null: false
     t.index ["album_id"], name: "index_photo_promises_on_album_id"
     t.index ["event_id"], name: "index_photo_promises_on_event_id"
     t.index ["photographer_id"], name: "index_photo_promises_on_photographer_id"
@@ -367,6 +443,9 @@ ActiveRecord::Schema[8.1].define(version: 2026_10_07_223000) do
     t.string "status", default: "pending", null: false
     t.datetime "taken_at"
     t.datetime "updated_at", null: false
+    t.boolean "face_processing_disabled", default: false, null: false
+    t.uuid "inferred_venue_id"
+    t.index ["inferred_venue_id"], name: "index_photo_takes_on_inferred_venue_id"
     t.index ["photo_id"], name: "index_photo_takes_on_photo_id"
   end
 
@@ -450,8 +529,10 @@ ActiveRecord::Schema[8.1].define(version: 2026_10_07_223000) do
     t.datetime "revoked_at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.uuid "user_id"
     t.index ["photographer_id"], name: "index_service_accounts_on_photographer_id"
     t.index ["token_digest"], name: "index_service_accounts_on_token_digest", unique: true
+    t.index ["user_id"], name: "index_service_accounts_on_user_id"
   end
 
   create_table "sessions", id: :uuid, default: -> { "uuid_generate_v4()" }, force: :cascade do |t|
@@ -610,6 +691,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_10_07_223000) do
     t.string "name"
     t.string "twitter_id"
     t.datetime "updated_at", null: false
+    t.datetime "deletion_pending_at"
     t.index ["email_address"], name: "index_users_on_email_address", unique: true
     t.index ["facebook_id"], name: "users_facebook_id_uindex", unique: true
     t.index ["image_id"], name: "index_users_on_image_id"
@@ -648,6 +730,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_10_07_223000) do
   add_foreign_key "albums", "photographers"
   add_foreign_key "albums", "venues"
   add_foreign_key "applications", "audiences"
+  add_foreign_key "archive_storage_connections", "service_accounts"
   add_foreign_key "audience_admins", "audiences"
   add_foreign_key "audience_admins", "users"
   add_foreign_key "audience_applications", "audiences"
@@ -655,6 +738,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_10_07_223000) do
   add_foreign_key "audience_domains", "audiences"
   add_foreign_key "audience_users", "audiences"
   add_foreign_key "audience_users", "users"
+  add_foreign_key "device_login_grants", "service_accounts"
   add_foreign_key "event_templates", "images", column: "cover_image_id"
   add_foreign_key "event_templates", "venues"
   add_foreign_key "events", "audiences"
@@ -673,6 +757,8 @@ ActiveRecord::Schema[8.1].define(version: 2026_10_07_223000) do
   add_foreign_key "locales", "locations"
   add_foreign_key "location_beacons", "locations"
   add_foreign_key "locations", "images"
+  add_foreign_key "native_login_grants", "photographers"
+  add_foreign_key "native_login_grants", "users"
   add_foreign_key "pages", "images"
   add_foreign_key "pages", "images", column: "cover_image_id"
   add_foreign_key "people", "audiences"
@@ -681,6 +767,9 @@ ActiveRecord::Schema[8.1].define(version: 2026_10_07_223000) do
   add_foreign_key "person_locales", "people"
   add_foreign_key "photo_faces", "faces", on_delete: :nullify
   add_foreign_key "photo_faces", "photo_takes"
+  add_foreign_key "photo_inference_works", "photo_takes"
+  add_foreign_key "photo_inference_works", "photographers"
+  add_foreign_key "photo_inference_works", "service_accounts"
   add_foreign_key "photo_promise_files", "photo_promises"
   add_foreign_key "photo_promise_files", "photo_takes"
   add_foreign_key "photo_promises", "albums"
@@ -688,6 +777,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_10_07_223000) do
   add_foreign_key "photo_promises", "photographers"
   add_foreign_key "photo_promises", "venues"
   add_foreign_key "photo_takes", "photos"
+  add_foreign_key "photo_takes", "venues", column: "inferred_venue_id"
   add_foreign_key "photographer_admins", "photographers"
   add_foreign_key "photographer_admins", "users"
   add_foreign_key "photographer_domains", "photographers"
@@ -698,6 +788,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_10_07_223000) do
   add_foreign_key "reviews", "users"
   add_foreign_key "safety_report_identifiers", "safety_reports"
   add_foreign_key "service_accounts", "photographers"
+  add_foreign_key "service_accounts", "users"
   add_foreign_key "sessions", "audiences"
   add_foreign_key "sessions", "devices"
   add_foreign_key "sessions", "users"

@@ -1,9 +1,9 @@
 # syntax=docker/dockerfile:1
 # check=error=true
 
-# Celery worker that runs the ML tasks enqueued by the Rails app.
+# Authenticated Action Cable worker for Rails inference jobs.
 # docker build -t hedonism_who_dis who_dis
-# docker run -d -e REDIS_URL=redis://redis:6379/0 -e GRAPHQL_URL=http://web/graphql -e API_KEY=<key> hedonism_who_dis
+# docker run -d -e CABLE_URL=wss://api.lumiere.host/cable -e GRAPHQL_URL=http://web/graphql -e API_KEY=<key> hedonism_who_dis
 
 ARG PYTHON_VERSION=3.13
 FROM docker.io/library/python:$PYTHON_VERSION-slim-bookworm AS base
@@ -42,7 +42,7 @@ FROM base
 ENV PATH="/app/.venv/bin:$PATH" \
     HF_HOME=/models/huggingface \
     DEEPFACE_HOME=/models \
-    REDIS_URL=redis://redis:6379/0
+    CABLE_URL=wss://api.lumiere.host/cable
 
 RUN groupadd --system --gid 1000 worker && \
     useradd worker --uid 1000 --gid 1000 --create-home --shell /bin/bash && \
@@ -53,4 +53,4 @@ COPY --chown=worker:worker --from=build /app /app
 
 VOLUME /models
 
-CMD ["celery", "-A", "hedonism.who_dis.app", "worker", "--loglevel", "INFO", "--pool", "threads"]
+CMD ["python", "-u", "-m", "hedonism.who_dis"]

@@ -4,7 +4,7 @@ RSpec.describe "Facebook admin sign-in", type: :request do
   let!(:photographer) { Photographer.create!(name: "Rick", subdomain: "rick") }
 
   before do
-    host! "rick.example.com"
+    host! "rick.lumiere.host"
     OmniAuth.config.test_mode = true
     OmniAuth.config.mock_auth[:facebook] = OmniAuth::AuthHash.new(
       provider: "facebook", uid: "1234567890", credentials: { token: "fb-token" },
@@ -18,8 +18,13 @@ RSpec.describe "Facebook admin sign-in", type: :request do
   end
 
   def sign_in
-    post "/auth/facebook"
-    follow_redirect!
+    post "/auth/start"
+    canonical = ActionDispatch::Integration::Session.new(Rails.application)
+    canonical.get response.location
+    canonical.post "/auth/facebook"
+    canonical.follow_redirect!
+    canonical.follow_redirect! if URI.parse(canonical.response.location).path == "/auth/failure"
+    get canonical.response.location
   end
 
   def me
@@ -53,6 +58,12 @@ RSpec.describe "Facebook admin sign-in", type: :request do
     expect(me).to include("admin" => false)
   end
 
+  it "rejects an existing cookie once account deletion is accepted" do
+    sign_in
+    DataDeletionRequest.accept!({ "user_id" => "1234567890" }, "signed-payload")
+    expect(me).to be_nil
+  end
+
   it "signs out", :aggregate_failures do
     sign_in
     delete "/auth/session"
@@ -64,8 +75,66 @@ RSpec.describe "Facebook admin sign-in", type: :request do
   it "sends failures back to the admin console with a message" do
     OmniAuth.config.mock_auth[:facebook] = :access_denied
     sign_in
-    follow_redirect!
 
     expect(response).to redirect_to("/admin?auth_error=access_denied")
+  end
+
+  # rubocop:disable RSpec/ExampleLength
+  it "uses the shared redirect URI in the real Facebook authorization request", :aggregate_failures do
+    OmniAuth.config.test_mode = false
+    host! "luminx.lumiere.host"
+    Photographer.create!(name: "Luminx", subdomain: "luminx")
+    post "/auth/start"
+    canonical = ActionDispatch::Integration::Session.new(Rails.application)
+    previous_forgery_protection = ActionController::Base.allow_forgery_protection
+    ActionController::Base.allow_forgery_protection = true
+    canonical.get response.location
+    expect(canonical.response.headers["Referrer-Policy"]).to eq("strict-origin")
+    token = Nokogiri::HTML(canonical.response.body).at_css('input[name="authenticity_token"]')["value"]
+    canonical.post "/auth/facebook", params: { authenticity_token: token }, headers: { "Origin" => "https://api.lumiere.host" }
+    authorization = URI.parse(canonical.response.location)
+    expect(authorization.host).to eq("www.facebook.com")
+    expect(URI.decode_www_form(authorization.query).to_h).to include(
+      "redirect_uri" => "https://api.lumiere.host/auth/facebook/callback"
+    )
+  ensure
+    ActionController::Base.allow_forgery_protection = previous_forgery_protection
+  end
+
+  it "returns a custom-domain browser through the shared callback and rejects replay", :aggregate_failures do
+    photographer.domains.create!(hostname: "gallery.luminx.com")
+    host! "gallery.luminx.com"
+    post "/auth/start"
+    bridge_url = response.location
+    expect(URI.parse(bridge_url).host).to eq("api.lumiere.host")
+
+    # Separate cookie jars model the two unrelated domains.
+    canonical = ActionDispatch::Integration::Session.new(Rails.application)
+    canonical.host! "api.lumiere.host"
+    canonical.get bridge_url
+    expect(canonical.response).to have_http_status(:ok)
+    canonical.post "/auth/facebook"
+    canonical.follow_redirect!
+    return_url = canonical.response.location
+    expect(URI.parse(return_url).host).to eq("gallery.luminx.com")
+
+    stranger = ActionDispatch::Integration::Session.new(Rails.application)
+    stranger.get return_url
+    expect(stranger.response).to have_http_status(:unauthorized)
+
+    get return_url
+    expect(response.headers["Referrer-Policy"]).to eq("strict-origin")
+    expect(response).to redirect_to("/admin")
+    expect(me).to include("facebook_id" => "1234567890")
+    get return_url
+    expect(response).to have_http_status(:unauthorized)
+  end
+
+  # rubocop:enable RSpec/ExampleLength
+
+  it "rejects unsigned bridge requests" do
+    host! "api.lumiere.host"
+    get "/auth/bridge", params: { ticket: "forged" }
+    expect(response).to have_http_status(:bad_request)
   end
 end

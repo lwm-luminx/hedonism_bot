@@ -6,6 +6,7 @@ import {
   LayoutDashboard,
   LogOut,
   MapPin,
+  Monitor,
 } from "lucide-react";
 import { NavLink, Outlet, useNavigate } from "react-router";
 import { Suspense } from "react";
@@ -83,6 +84,10 @@ export function AdminPage() {
             <NavLink to="/admin/photos" className="admin-nav">
               <Image />
               Photos
+            </NavLink>
+            <NavLink to="/admin/devices" className="admin-nav">
+              <Monitor />
+              Devices
             </NavLink>
             <NavLink to="/admin/storage" className="admin-nav">
               <HardDrive />

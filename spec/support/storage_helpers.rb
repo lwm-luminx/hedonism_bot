@@ -12,4 +12,12 @@ end
 
 RSpec.configure do |config|
   config.include StorageHelpers
+
+  # Transaction rollbacks remove blob records, but leave uploaded files on disk.
+  config.after(:suite) do
+    %w[test test_archive].each do |service_name|
+      service = ActiveStorage::Blob.services.fetch(service_name)
+      FileUtils.rm_rf(service.root)
+    end
+  end
 end

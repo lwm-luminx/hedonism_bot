@@ -28,8 +28,11 @@ class PhotoTake < ApplicationRecord
   }
 
   belongs_to :photo, optional: true
+  belongs_to :inferred_venue, class_name: "Venue", optional: true
 
   has_many :photo_faces, dependent: :destroy
+  has_many :photo_inference_works, dependent: :destroy
+  has_many :photo_promise_files, dependent: :nullify
   has_many :faces, through: :photo_faces
 
   has_one_attached :raw_image
@@ -103,17 +106,21 @@ class PhotoTake < ApplicationRecord
   end
 
   def update_faces(faces)
-    self.photo_faces.clear
-    faces.each do |face|
-      person_photo = photo_faces.create(
-        arc_face_embedding: face.arc_face_embedding,
-        confidence: face.confidence,
-        bounding_box: face.bounding_box
-      )
-      person = Person.nearest_neighbors(:arc_face_embedding, face.arc_face_embedding, distance: "cosine", threshold: 0.1).first
+    PrivacyLock.biometric do
+      reload
+      return false if face_processing_disabled?
 
-      FacePreviewExtractJob.perform_now person_photo
+      self.facial_metadata = faces.map(&:to_h)
+      photo_faces.destroy_all
+      faces.each do |face|
+        person_photo = photo_faces.create!(
+          arc_face_embedding: face.embedding,
+          confidence: face.face_confidence,
+          bounding_box: face.facial_area
+        )
+        FacePreviewExtractJob.perform_now(person_photo)
+      end
+      save!
     end
-    save!
   end
 end

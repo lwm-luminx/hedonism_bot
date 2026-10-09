@@ -31,8 +31,10 @@ def tasks():
 
     with pytest.MonkeyPatch.context() as mp:
         mp.setitem(sys.modules, "transformers", fake_transformers)
+        face_worker = importlib.import_module("hedonism.who_dis.tasks.extract_facial_data")
+        mp.setattr(face_worker, "DeepFace", types.SimpleNamespace(represent=MagicMock()))
         yield types.SimpleNamespace(
-            app=importlib.import_module("hedonism.who_dis.app").app,
+            app=importlib.import_module("hedonism.who_dis.app"),
             caption_image=importlib.import_module("hedonism.who_dis.tasks.caption_image"),
             extract_facial_data=importlib.import_module("hedonism.who_dis.tasks.extract_facial_data"),
             extract_visual_features=importlib.import_module("hedonism.who_dis.tasks.extract_visual_features"),
@@ -43,16 +45,16 @@ def test_registered_task_names_match_rails_jobs(tasks):
     enqueued = {
         name
         for job in RAILS_JOBS.glob("*.rb")
-        for name in re.findall(r'Celery\.enqueue\s+"([^"]+)"', job.read_text())
+        for name in re.findall(r'PhotoInferenceWork\.enqueue!\s+\w+,\s*"([^"]+)"', job.read_text())
     }
 
     assert enqueued
-    assert enqueued <= set(tasks.app.tasks)
+    assert enqueued <= set(tasks.app.TASKS)
     assert {
         "hedonism.who_dis.worker.caption_image",
         "hedonism.who_dis.worker.extract_facial_data",
         "hedonism.who_dis.worker.extract_visual_features",
-    } <= set(tasks.app.tasks)
+    } <= set(tasks.app.TASKS)
 
 
 def test_caption_image_updates_caption(tasks, monkeypatch):
@@ -142,7 +144,8 @@ def test_extract_facial_data_handles_exception(tasks, monkeypatch):
     client = MagicMock()
     monkeypatch.setattr(worker, "graph_client", MagicMock(return_value=client))
 
-    worker.extract_facial_data("photo-3")
+    with pytest.raises(RuntimeError, match="deepface failure"):
+        worker.extract_facial_data("photo-3")
 
     client.execute.assert_not_called()
 

@@ -563,6 +563,86 @@ class ::PhotoTake < ::ApplicationRecord
     def updated_at_before_type_cast: () -> ::Time
 
     def updated_at_for_database: () -> ::Time
+
+    def face_processing_disabled: () -> bool
+
+    def face_processing_disabled=: (bool) -> bool
+
+    def face_processing_disabled?: () -> bool
+
+    def face_processing_disabled_changed?: (?from: bool?, ?to: bool?) -> bool
+
+    def face_processing_disabled_change: () -> [ bool?, bool? ]
+
+    def face_processing_disabled_will_change!: () -> void
+
+    def face_processing_disabled_was: () -> bool?
+
+    def face_processing_disabled_previously_changed?: (?from: bool?, ?to: bool?) -> bool
+
+    def face_processing_disabled_previous_change: () -> ::Array[bool?]?
+
+    def face_processing_disabled_previously_was: () -> bool?
+
+    def face_processing_disabled_before_last_save: () -> bool?
+
+    def face_processing_disabled_change_to_be_saved: () -> ::Array[bool?]?
+
+    def face_processing_disabled_in_database: () -> bool?
+
+    def saved_change_to_face_processing_disabled: () -> ::Array[bool?]?
+
+    def saved_change_to_face_processing_disabled?: (?from: bool?, ?to: bool?) -> bool
+
+    def will_save_change_to_face_processing_disabled?: (?from: bool?, ?to: bool?) -> bool
+
+    def restore_face_processing_disabled!: () -> void
+
+    def clear_face_processing_disabled_change: () -> void
+
+    def face_processing_disabled_before_type_cast: () -> bool
+
+    def face_processing_disabled_for_database: () -> bool
+
+    def inferred_venue_id: () -> ::String?
+
+    def inferred_venue_id=: (::String?) -> ::String?
+
+    def inferred_venue_id?: () -> bool
+
+    def inferred_venue_id_changed?: (?from: ::String?, ?to: ::String?) -> bool
+
+    def inferred_venue_id_change: () -> [ ::String?, ::String? ]
+
+    def inferred_venue_id_will_change!: () -> void
+
+    def inferred_venue_id_was: () -> ::String?
+
+    def inferred_venue_id_previously_changed?: (?from: ::String?, ?to: ::String?) -> bool
+
+    def inferred_venue_id_previous_change: () -> ::Array[::String?]?
+
+    def inferred_venue_id_previously_was: () -> ::String?
+
+    def inferred_venue_id_before_last_save: () -> ::String?
+
+    def inferred_venue_id_change_to_be_saved: () -> ::Array[::String?]?
+
+    def inferred_venue_id_in_database: () -> ::String?
+
+    def saved_change_to_inferred_venue_id: () -> ::Array[::String?]?
+
+    def saved_change_to_inferred_venue_id?: (?from: ::String?, ?to: ::String?) -> bool
+
+    def will_save_change_to_inferred_venue_id?: (?from: ::String?, ?to: ::String?) -> bool
+
+    def restore_inferred_venue_id!: () -> void
+
+    def clear_inferred_venue_id_change: () -> void
+
+    def inferred_venue_id_before_type_cast: () -> ::String?
+
+    def inferred_venue_id_for_database: () -> ::String?
   end
   include ::PhotoTake::GeneratedAttributeMethods
   module ::PhotoTake::GeneratedAliasAttributeMethods
@@ -613,6 +693,14 @@ class ::PhotoTake < ::ApplicationRecord
   def photo_faces=: (::PhotoFace::ActiveRecord_Associations_CollectionProxy | ::Array[::PhotoFace]) -> (::PhotoFace::ActiveRecord_Associations_CollectionProxy | ::Array[::PhotoFace])
   def photo_face_ids: () -> ::Array[::String]
   def photo_face_ids=: (::Array[::String]) -> ::Array[::String]
+  def photo_inference_works: () -> ::PhotoInferenceWork::ActiveRecord_Associations_CollectionProxy
+  def photo_inference_works=: (::PhotoInferenceWork::ActiveRecord_Associations_CollectionProxy | ::Array[::PhotoInferenceWork]) -> (::PhotoInferenceWork::ActiveRecord_Associations_CollectionProxy | ::Array[::PhotoInferenceWork])
+  def photo_inference_work_ids: () -> ::Array[::String]
+  def photo_inference_work_ids=: (::Array[::String]) -> ::Array[::String]
+  def photo_promise_files: () -> ::PhotoPromiseFile::ActiveRecord_Associations_CollectionProxy
+  def photo_promise_files=: (::PhotoPromiseFile::ActiveRecord_Associations_CollectionProxy | ::Array[::PhotoPromiseFile]) -> (::PhotoPromiseFile::ActiveRecord_Associations_CollectionProxy | ::Array[::PhotoPromiseFile])
+  def photo_promise_file_ids: () -> ::Array[::String]
+  def photo_promise_file_ids=: (::Array[::String]) -> ::Array[::String]
   def faces: () -> ::Face::ActiveRecord_Associations_CollectionProxy
   def faces=: (::Face::ActiveRecord_Associations_CollectionProxy | ::Array[::Face]) -> (::Face::ActiveRecord_Associations_CollectionProxy | ::Array[::Face])
   def face_ids: () -> ::Array[::String]
@@ -644,6 +732,12 @@ class ::PhotoTake < ::ApplicationRecord
   def build_photo: (?untyped) -> ::Photo
   def create_photo: (?untyped) -> ::Photo
   def create_photo!: (?untyped) -> ::Photo
+  def inferred_venue: () -> ::Venue?
+  def inferred_venue=: (::Venue?) -> ::Venue?
+  def reload_inferred_venue: () -> ::Venue?
+  def build_inferred_venue: (?untyped) -> ::Venue
+  def create_inferred_venue: (?untyped) -> ::Venue
+  def create_inferred_venue!: (?untyped) -> ::Venue
 
   module ::PhotoTake::GeneratedAssociationMethods
     def raw_image: () -> ::ActiveStorage::Attached::One
@@ -718,6 +812,14 @@ class ::PhotoFace < ::ApplicationRecord
 end
 class ::PhotoFace::ActiveRecord_Associations_CollectionProxy < ::ActiveRecord::Associations::CollectionProxy
 end
+class ::PhotoInferenceWork < ::ApplicationRecord
+end
+class ::PhotoInferenceWork::ActiveRecord_Associations_CollectionProxy < ::ActiveRecord::Associations::CollectionProxy
+end
+class ::PhotoPromiseFile < ::ApplicationRecord
+end
+class ::PhotoPromiseFile::ActiveRecord_Associations_CollectionProxy < ::ActiveRecord::Associations::CollectionProxy
+end
 class ::Face < ::ApplicationRecord
 end
 class ::Face::ActiveRecord_Associations_CollectionProxy < ::ActiveRecord::Associations::CollectionProxy
@@ -727,4 +829,6 @@ end
 class ::ActiveStorage::Blob::ActiveRecord_Associations_CollectionProxy < ::ActiveRecord::Associations::CollectionProxy
 end
 class ::Photo < ::ApplicationRecord
+end
+class ::Venue < ::ApplicationRecord
 end

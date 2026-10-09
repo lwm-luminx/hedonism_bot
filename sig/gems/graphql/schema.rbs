@@ -1,5 +1,7 @@
 module GraphQL
   class Schema
+    def self.execute: (?String?, **untyped) -> GraphQL::Query::Result
+
     def self.max_query_string_tokens: (Integer) -> void
   end
 end

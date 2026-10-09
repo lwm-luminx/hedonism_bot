@@ -1,5 +1,8 @@
 module Sources
   class ActiveRecordObject < GraphQL::Dataloader::Source
+    @model_class: untyped
 
+    def initialize: (untyped) -> void
+    def fetch: (Array[untyped]) -> Array[untyped]
   end
 end

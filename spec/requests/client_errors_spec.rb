@@ -9,7 +9,7 @@ RSpec.describe "Client errors", :aggregate_failures, type: :request do
   end
 
   def report(body)
-    post "/client_errors", params: body, headers: { "Host" => "test.hedonism.local", "CONTENT_TYPE" => "text/plain" }
+    post "/client_errors", params: body, headers: { "Host" => "test.lumiere.host", "CONTENT_TYPE" => "text/plain" }
   end
 
   def logged_reports
@@ -17,7 +17,7 @@ RSpec.describe "Client errors", :aggregate_failures, type: :request do
   end
 
   it "logs a beacon report with the photographer" do
-    report({ kind: "boundary", message: "TypeError: boom", url: "https://test.hedonism.local/" }.to_json)
+    report({ kind: "boundary", message: "TypeError: boom", url: "https://test.lumiere.host/" }.to_json)
 
     expect(response).to have_http_status(:no_content)
     expect(logged_reports.sole).to include("kind" => "boundary", "message" => "TypeError: boom",

@@ -33,7 +33,7 @@ RSpec.describe Photographer, type: :model do
     end
 
     it "falls back to the host's first label as a subdomain" do
-      expect(described_class.for_host("sam.hedonism.bot")).to eq(sam)
+      expect(described_class.for_host("sam.lumiere.host")).to eq(sam)
     end
 
     it "finds nobody for an unknown host" do

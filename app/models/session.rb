@@ -12,6 +12,8 @@ class Session < ApplicationRecord
   end
 
   def to_jwt(request)
+    raise User::DeletionPending if user.deletion_pending_at
+
     # produce new JWT token
     payload = {
       id: user.id,

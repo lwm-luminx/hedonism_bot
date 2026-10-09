@@ -1,6 +1,6 @@
 /**
- * @generated SignedSource<<b611b73f79de053eccb60f7dbfa940e6>>
- * @relayHash db6c9fb0538b7e25436189b5d7377045
+ * @generated SignedSource<<ce37b133ec9efdedf80cae90557505e4>>
+ * @relayHash b3bb1664a6df453c603d474663920457
  * @lightSyntaxTransform
  */
 
@@ -8,38 +8,19 @@
 /* eslint-disable */
 // @ts-nocheck
 
-// @relayRequestID db6c9fb0538b7e25436189b5d7377045
+// @relayRequestID b3bb1664a6df453c603d474663920457
 
 import { ConcreteRequest } from 'relay-runtime';
 export type AdminEventQuery$variables = Record<PropertyKey, never>;
 export type AdminEventQuery$data = {
-  readonly events: {
+  readonly folders: {
     readonly nodes: ReadonlyArray<{
-      readonly date: any | null | undefined;
       readonly id: string;
-      readonly name: string | null | undefined;
-      readonly venue: {
-        readonly id: string;
-      } | null | undefined;
+      readonly name: string;
+      readonly photoCount: number;
     } | null | undefined> | null | undefined;
     readonly totalCount: number;
-  } | null | undefined;
-  readonly photos: {
-    readonly nodes: ReadonlyArray<{
-      readonly event: {
-        readonly id: string;
-      } | null | undefined;
-      readonly id: string;
-    } | null | undefined> | null | undefined;
   };
-  readonly venues: {
-    readonly nodes: ReadonlyArray<{
-      readonly city: string | null | undefined;
-      readonly id: string;
-      readonly name: string | null | undefined;
-    } | null | undefined> | null | undefined;
-    readonly totalCount: number;
-  } | null | undefined;
 };
 export type AdminEventQuery = {
   response: AdminEventQuery$data;
@@ -47,130 +28,49 @@ export type AdminEventQuery = {
 };
 
 const node: ConcreteRequest = (function(){
-var v0 = {
-  "alias": null,
-  "args": null,
-  "kind": "ScalarField",
-  "name": "totalCount",
-  "storageKey": null
-},
-v1 = {
-  "alias": null,
-  "args": null,
-  "kind": "ScalarField",
-  "name": "id",
-  "storageKey": null
-},
-v2 = {
-  "alias": null,
-  "args": null,
-  "kind": "ScalarField",
-  "name": "name",
-  "storageKey": null
-},
-v3 = [
-  (v1/*:: as any*/)
-],
-v4 = [
+var v0 = [
   {
     "alias": null,
     "args": null,
-    "concreteType": "EventConnection",
+    "concreteType": "FolderConnection",
     "kind": "LinkedField",
-    "name": "events",
+    "name": "folders",
     "plural": false,
     "selections": [
-      (v0/*:: as any*/),
       {
         "alias": null,
         "args": null,
-        "concreteType": "Event",
+        "kind": "ScalarField",
+        "name": "totalCount",
+        "storageKey": null
+      },
+      {
+        "alias": null,
+        "args": null,
+        "concreteType": "Folder",
         "kind": "LinkedField",
         "name": "nodes",
         "plural": true,
         "selections": [
-          (v1/*:: as any*/),
-          (v2/*:: as any*/),
           {
             "alias": null,
             "args": null,
             "kind": "ScalarField",
-            "name": "date",
+            "name": "id",
             "storageKey": null
           },
           {
             "alias": null,
             "args": null,
-            "concreteType": "Venue",
-            "kind": "LinkedField",
-            "name": "venue",
-            "plural": false,
-            "selections": (v3/*:: as any*/),
+            "kind": "ScalarField",
+            "name": "name",
             "storageKey": null
-          }
-        ],
-        "storageKey": null
-      }
-    ],
-    "storageKey": null
-  },
-  {
-    "alias": null,
-    "args": null,
-    "concreteType": "VenueConnection",
-    "kind": "LinkedField",
-    "name": "venues",
-    "plural": false,
-    "selections": [
-      (v0/*:: as any*/),
-      {
-        "alias": null,
-        "args": null,
-        "concreteType": "Venue",
-        "kind": "LinkedField",
-        "name": "nodes",
-        "plural": true,
-        "selections": [
-          (v1/*:: as any*/),
-          (v2/*:: as any*/),
+          },
           {
             "alias": null,
             "args": null,
             "kind": "ScalarField",
-            "name": "city",
-            "storageKey": null
-          }
-        ],
-        "storageKey": null
-      }
-    ],
-    "storageKey": null
-  },
-  {
-    "alias": null,
-    "args": null,
-    "concreteType": "PhotoConnection",
-    "kind": "LinkedField",
-    "name": "photos",
-    "plural": false,
-    "selections": [
-      {
-        "alias": null,
-        "args": null,
-        "concreteType": "Photo",
-        "kind": "LinkedField",
-        "name": "nodes",
-        "plural": true,
-        "selections": [
-          (v1/*:: as any*/),
-          {
-            "alias": null,
-            "args": null,
-            "concreteType": "Event",
-            "kind": "LinkedField",
-            "name": "event",
-            "plural": false,
-            "selections": (v3/*:: as any*/),
+            "name": "photoCount",
             "storageKey": null
           }
         ],
@@ -186,7 +86,7 @@ return {
     "kind": "Fragment",
     "metadata": null,
     "name": "AdminEventQuery",
-    "selections": (v4/*:: as any*/),
+    "selections": (v0/*:: as any*/),
     "type": "Query",
     "abstractKey": null
   },
@@ -195,19 +95,19 @@ return {
     "argumentDefinitions": [],
     "kind": "Operation",
     "name": "AdminEventQuery",
-    "selections": (v4/*:: as any*/)
+    "selections": (v0/*:: as any*/)
   },
   "params": {
-    "cacheID": "db6c9fb0538b7e25436189b5d7377045",
-    "id": "db6c9fb0538b7e25436189b5d7377045",
+    "cacheID": "b3bb1664a6df453c603d474663920457",
+    "id": "b3bb1664a6df453c603d474663920457",
     "metadata": {},
     "name": "AdminEventQuery",
     "operationKind": "query",
-    "text": "query AdminEventQuery {\n  events {\n    totalCount\n    nodes {\n      id\n      name\n      date\n      venue {\n        id\n      }\n    }\n  }\n  venues {\n    totalCount\n    nodes {\n      id\n      name\n      city\n    }\n  }\n  photos {\n    nodes {\n      id\n      event {\n        id\n      }\n    }\n  }\n}\n"
+    "text": "query AdminEventQuery {\n  folders {\n    totalCount\n    nodes {\n      id\n      name\n      photoCount\n    }\n  }\n}\n"
   }
 };
 })();
 
-(node as any).hash = "1686d372bf334caf7c3e66b1f593deab";
+(node as any).hash = "34ae59b0248c5ff2494b7778696cdaca";
 
 export default node;

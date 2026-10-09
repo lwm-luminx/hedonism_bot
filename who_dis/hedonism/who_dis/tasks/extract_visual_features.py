@@ -1,19 +1,22 @@
 from io import BytesIO
 
 import requests
-import torch
 from gql import gql
 from PIL import Image
-from transformers import AutoImageProcessor, AutoModel
 
-from hedonism.who_dis.app import app
 from hedonism.who_dis.support import get_photo_url, graph_client
 
 model_name = "google/vit-large-patch32-224-in21k"
-processor = AutoImageProcessor.from_pretrained(model_name)
-model = AutoModel.from_pretrained(model_name)
+processor = None
+model = None
 
-@app.task(name="hedonism.who_dis.worker.extract_visual_features")
+def load_model():
+    global processor, model
+    if processor is None or model is None:
+        from transformers import AutoImageProcessor, AutoModel
+        processor = AutoImageProcessor.from_pretrained(model_name)
+        model = AutoModel.from_pretrained(model_name)
+
 def extract_visual_features(photo_id):
     # 2. Download and prepare the image
     photo_url = get_photo_url(photo_id)
@@ -23,6 +26,9 @@ def extract_visual_features(photo_id):
     response = requests.get(photo_url, timeout=60)
     response.raise_for_status()
     image = Image.open(BytesIO(response.content)).convert("RGB")
+
+    import torch
+    load_model()
 
     # 3. Preprocess the image (resizes to 224x224 and normalizes)
     inputs = processor(images=image, return_tensors="pt")

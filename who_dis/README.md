@@ -1,34 +1,23 @@
-# hedonism_who_dis
+# who_dis
 
-Python Celery worker for hedonism_bot. The Rails app enqueues tasks onto the
-`celery` queue in Redis (see `lib/celery.rb`), and this worker runs the ML
-tasks (image captioning, facial data and visual feature extraction), writing
-results back through the app's GraphQL API.
+Authenticated Action Cable inference worker for Lumière. Rails keeps work in PostgreSQL; workers claim photographer-scoped jobs over a private WebSocket connection. Every action rechecks the service-account credential. Heartbeats renew bounded leases, and results are applied only while the lease is valid. Completion acknowledgments can be retried safely.
 
 ```sh
 cd who_dis
-uv sync
-uv run celery -A hedonism.who_dis.app worker --loglevel INFO --pool=threads
+uv sync --frozen
+uv run python -m hedonism.who_dis
 uv run pytest
 ```
 
-## Configuration
+Set `CABLE_URL=wss://api.lumiere.host/cable`, `GRAPHQL_URL=https://api.lumiere.host/graphql`, and `API_KEY` to a service-account bearer token. Plain WebSocket connections are permitted only on localhost for development. Tokens are sent in the Authorization header, never the URL.
 
-| Variable      | Default                         | Purpose                                   |
-|---------------|---------------------------------|-------------------------------------------|
-| `REDIS_URL`   | `redis://127.0.0.1:6379/0`      | Celery broker and result backend          |
-| `GRAPHQL_URL` | `http://localhost:5000/graphql` | Rails GraphQL endpoint results are sent to |
-| `API_KEY`     | (empty)                         | Bearer token sent to the GraphQL endpoint |
-
-The Rails side reads the same `REDIS_URL` in `lib/celery.rb`.
+Cogsworth embeds Python 3.13 and the frozen dependencies. Models load lazily and download weights on first use; their writable caches live outside the signed app in Application Support/Cogsworth/Models.
 
 ## Docker
 
 ```sh
 docker build -t hedonism_who_dis who_dis
-docker run -v who_dis_models:/models -e REDIS_URL=... -e GRAPHQL_URL=... hedonism_who_dis
+docker run --env-file worker.env -v who_dis_models:/models hedonism_who_dis
 ```
 
-Model weights download on first use into `/models`; mount a volume there to keep them.
-CI (`.github/workflows/docker.yml`) builds this image and the Rails image on every
-PR and pushes both to `ghcr.io/lwm-luminx/` from `main`.
+Keep the service token in a private environment file. Mount `/models` to retain downloaded weights. Celery and a Redis broker are no longer required.

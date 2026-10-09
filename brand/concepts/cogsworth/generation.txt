@@ -1,0 +1,10 @@
+Generated with the built-in imagegen tool on 2026-10-08.
+Concept assets; not installed in the app asset catalog.
+
+framed-v1.png: Original concept: Cogsworth from Beauty and the Beast rendered in Lumière's warm gold, antique brass, and charcoal style, with six camera aperture blades and a luminous ivory opening replacing the clock face. Centered full clock on a rounded-square macOS tile, no text.
+
+transparent-v1.png — edit prompt:
+Edit this Cogsworth by Lumière app icon to create an uncomposed standalone character asset. Preserve exactly the golden mantel clock character, aperture face, shapes, colors, metal texture, lighting and centered full-body composition. Remove the entire dark background, rounded-square tile, tile border, surrounding surface and ground shadow. Output the isolated golden clock character on genuinely transparent background, square canvas, generous clear margin, no text. Do not change the character or aperture.
+
+borderless-v1.png — edit prompt:
+Edit this Cogsworth by Lumière app icon. Preserve exactly the golden mantel clock character, aperture face, character proportions, position, size, metal materials and lighting. Replace the composed rounded-square tile and its outer border with a continuous full-bleed warm charcoal near-black background covering the entire square image edge to edge. No tile, no rounded corners, no bevel, no border, no inset frame, no surrounding outside surface. Background can have a very subtle warm charcoal gradient, but must be seamless and unframed. Keep the complete clock character and clear margin. No text. Output one square icon asset.

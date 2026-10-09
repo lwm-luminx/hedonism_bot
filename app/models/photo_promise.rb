@@ -40,6 +40,7 @@ class PhotoPromise < ApplicationRecord
     if file.raw?
       PhotoMetadataJob.perform_later(take)
     else
+      PhotoMetadataJob.perform_later(take)
       PhotoToJpegJob.perform_later(take)
     end
   end

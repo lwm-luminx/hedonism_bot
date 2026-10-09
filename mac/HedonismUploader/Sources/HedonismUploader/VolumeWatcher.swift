@@ -27,7 +27,10 @@ final class VolumeWatcher {
     static func isRemovableCameraCard(_ volume: URL) -> Bool {
         let values = try? volume.resourceValues(forKeys: [.volumeIsRemovableKey, .volumeIsEjectableKey])
         let removable = values?.volumeIsRemovable == true || values?.volumeIsEjectable == true
-        return removable && CardScanner.isCameraCard(volume)
+        guard removable, let granted = try? FolderPermissions().resolve(volume) else { return false }
+        let accessed = granted.startAccessingSecurityScopedResource()
+        defer { if accessed { granted.stopAccessingSecurityScopedResource() } }
+        return CardScanner.isCameraCard(granted)
     }
 
     static func eject(_ volume: URL) throws {

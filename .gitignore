@@ -47,3 +47,9 @@ node_modules
 .gem_rbs_collection/
 # Mac uploader build output
 /mac/HedonismUploader/.build/
+
+# Xcode per-user state and local build products
+/apple/**/xcuserdata/
+/apple/DerivedData/
+
+.DS_Store

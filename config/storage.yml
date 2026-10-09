@@ -1,10 +1,10 @@
 test:
   service: Disk
-  root: <%= Rails.root.join("tmp/storage/test") %>
+  root: <%= Rails.root.join("tmp/storage/test", Process.pid.to_s) %>
 
 test_archive:
   service: Disk
-  root: <%= Rails.root.join("tmp/storage/test_archive") %>
+  root: <%= Rails.root.join("tmp/storage/test_archive", Process.pid.to_s) %>
 
 disk:
   service: Disk

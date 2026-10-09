@@ -1,27 +1,34 @@
-# README
+# Hedonism Bot
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+A Rails application with a React/Relay frontend built by Vite, a Python ML worker,
+and a macOS photo uploader.
 
-Things you may want to cover:
+## Development
 
-* Ruby version
+Use the Ruby and Bun versions in `.ruby-version` and `.bun-version`. The app needs
+PostgreSQL with PostGIS and pgvector, Redis, libvips, exiftool, and OpenBLAS.
 
-* System dependencies
+```sh
+bin/setup --skip-server
+bin/dev
+```
 
-* Configuration
+Vite serves the frontend; Relay regenerates GraphQL artifacts in watch mode.
 
-* Database creation
+## Checks
 
-* Database initialization
+```sh
+bin/rubocop
+bundle exec rspec
+bun run test:run
+bun run build
+bun run knip
+bin/steep check
+```
 
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+RSpec isolates local uploads by process and removes them after each suite.
+Keep the RAW/HEIF fixtures: image processing tests use all six pairs.
+Knip excludes CSS imports and tools used outside frontend source from dependency checks.
 
 ## Python worker
 
@@ -63,8 +70,8 @@ sooner still costs the remaining days.
 
 ## Photographers (tenants)
 
-Every request is served for one photographer, picked by its host: a hostname registered in
-`photographer_domains` first, then the host's first label as the photographer's subdomain. Hosts that
+Gallery requests are served for one photographer, picked by their host: a hostname registered in
+`photographer_domains` first, then a single subdomain under `lumiere.host`. Hosts that
 match no photographer get a 404. GraphQL IDs only resolve to records the request's photographer owns.
 
 ```sh
@@ -72,3 +79,36 @@ bin/rails photographers:create SUBDOMAIN=luminx NAME="Luminx"
 bin/rails photographers:add_domain SUBDOMAIN=luminx HOST=gallery.luminx.media
 bin/rails photographers:list
 ```
+
+### Service domains
+
+`SERVICE_DOMAIN` defaults to `lumiere.host`:
+
+- `lumiere.host` hosts the static marketing site on GitHub Pages; `www.lumiere.host` redirects to it.
+- `api.lumiere.host/graphql` serves the shared GraphQL API on Heroku; pass a photographer’s service-account bearer token.
+- `<photographer>.lumiere.host` serves that photographer’s gallery on Heroku, including its same-origin GraphQL endpoint.
+- `api` and `www` are reserved and cannot be photographer subdomains.
+- Registered custom domains continue to serve their assigned photographers.
+
+The static marketing source lives in `marketing/`. The published copy is on the `gh-pages`
+branch of `lwm-luminx/hedonism_bot`; GitHub Pages publishes that branch’s root.
+To update the marketing site, publish the files in `marketing/` to that branch.
+The `CNAME` file sets `lumiere.host` as the canonical domain.
+
+Heroku domain routing for `api.lumiere.host` and `*.lumiere.host` is registered on
+`hedonism-bot`, with ACM enabled and `SERVICE_DOMAIN=lumiere.host`.
+Namecheap BasicDNS uses these records (configured October 8, 2026):
+
+| Type | Host | Target |
+| --- | --- | --- |
+| ALIAS | `@` | `lwm-luminx.github.io` |
+| CNAME | `www` | `lwm-luminx.github.io` |
+| CNAME | `api` | `integrative-cod-dr5iwtm5lgnuqswrupj8330t.herokudns.com` |
+| CNAME | `*` | `crystalline-wildwood-b778qrj3zc1qt0dhbudux90g.herokudns.com` |
+
+Create the `luminx` photographer using the command above to serve `luminx.lumiere.host`.
+Heroku ACM issued certificates for the API and wildcard domains on October 8, 2026;
+both API health and the Luminx gallery returned HTTP 200 over HTTPS. GitHub Pages
+built the marketing site, and it returned HTTP 200 when queried directly at a Pages
+address. DNS propagation and the marketing certificate are still pending. Enable
+HTTPS enforcement in the repository’s Pages settings once its certificate is issued. The Rails domain-routing changes need a separate app deployment.

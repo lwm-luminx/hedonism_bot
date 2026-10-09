@@ -1,0 +1,13 @@
+module Facebook
+  class SignedRequestVerifier
+    class InvalidRequest < StandardError
+    end
+    class ConfigurationError < StandardError
+    end
+
+    MAX_BYTES: Integer
+
+    def self.call: (untyped, ?secret: String?, ?app_id: String?) -> Hash[String, untyped]
+    def self.decode: (String) -> String
+  end
+end

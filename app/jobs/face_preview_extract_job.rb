@@ -1,7 +1,18 @@
 class FacePreviewExtractJob < ApplicationJob
   queue_as :default
+  discard_on ActiveJob::DeserializationError
 
   def perform(person_photo)
+    PrivacyLock.biometric do
+      person_photo = PhotoFace.find_by(id: person_photo.id)
+      return unless person_photo && !person_photo.photo_take.face_processing_disabled?
+      extract(person_photo)
+    end
+  end
+
+  private
+
+  def extract(person_photo)
     face_image = person_photo.photo_take.images.select { |image| image.content_type == "image/jpeg" }.first
     return unless face_image
 

@@ -48,11 +48,27 @@ public final class HedonismClient: @unchecked Sendable {
         return name
     }
 
-    /// Starts an upload batch whose photos go into the named album (created if missing).
-    public func createPromise(albumName: String) async throws -> String {
+    public func photographerSubdomain() async throws -> String {
+        let data = try await graphQL("query { photographer { subdomain } }")
+        guard let subdomain = (data["photographer"] as? [String: Any])?["subdomain"] as? String else {
+            throw HedonismClientError.unexpectedResponse("photographer subdomain")
+        }
+        return subdomain
+    }
+
+    /// Starts a standard upload batch; an explicitly supplied album overrides the server destination.
+    public func createPromise(albumName: String? = nil, context: UploadContext? = nil) async throws -> String {
+        var variables: [String: Any] = [:]
+        if let albumName { variables["album"] = albumName }
+        if let context {
+            variables["context"] = ["event": context.event, "venue": context.venue]
+            if !context.locationRecordings.isEmpty {
+                variables["recordings"] = context.locationRecordings.map(\.uploadValue)
+            }
+        }
         let data = try await graphQL(
-            "mutation($album: String) { createPhotoPromise(albumName: $album) { promise { id } } }",
-            variables: ["album": albumName]
+            "mutation($album: String, $context: JSON, $recordings: JSON) { createPhotoPromise(albumName: $album, uploadContext: $context, locationRecordings: $recordings) { promise { id } } }",
+            variables: variables
         )
         guard let id = ((data["createPhotoPromise"] as? [String: Any])?["promise"] as? [String: Any])?["id"] as? String else {
             throw HedonismClientError.unexpectedResponse("createPhotoPromise")
@@ -92,6 +108,33 @@ public final class HedonismClient: @unchecked Sendable {
             let headers = (node["uploadHeaders"] as? [String: Any] ?? [:]).compactMapValues { $0 as? String }
             return PendingUpload(id: id, originalFilename: name, uploadURL: url, uploadHeaders: headers)
         }
+    }
+
+    /// Checks completed server uploads by content hash, scoped to the authenticated photographer.
+    public func uploadedHashes(_ hashes: [Data]) async throws -> Set<Data> {
+        var found = Set<Data>()
+        for start in stride(from: 0, to: hashes.count, by: 200) {
+            try Task.checkCancellation()
+            let batch = Array(hashes[start..<min(start + 200, hashes.count)])
+            var request = URLRequest(url: serverURL.appendingPathComponent("auth/uploaded_contents"))
+            request.httpMethod = "POST"
+            request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+            request.setValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
+            request.httpBody = try JSONSerialization.data(withJSONObject: ["hashes": batch.map { $0.base64EncodedString() }])
+            let (body, response) = try await session.data(for: request)
+            try Self.check(response, body)
+            guard let json = try JSONSerialization.jsonObject(with: body) as? [String: Any],
+                  let values = json["hashes"] as? [String] else {
+                throw HedonismClientError.unexpectedResponse("uploaded content hashes")
+            }
+            for value in values {
+                guard let hash = Data(base64Encoded: value), hash.count == 32, batch.contains(hash) else {
+                    throw HedonismClientError.unexpectedResponse("invalid uploaded content hash")
+                }
+                found.insert(hash)
+            }
+        }
+        return found
     }
 
     /// PUTs the file to storage, streaming it from disk.

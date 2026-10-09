@@ -4,8 +4,9 @@ import { Dialog, DialogContent, DialogTitle } from "../controls/Dialog";
 import { Input } from "../controls/Input";
 import { Label } from "../controls/Label";
 import { ScrollArea } from "../controls/ScrollArea";
-import { graphql, useLazyLoadQuery } from "react-relay";
+import { graphql, useLazyLoadQuery, useMutation } from "react-relay";
 import { AdminPhotosQuery } from "./__generated__/AdminPhotosQuery.graphql";
+import { AdminPhotosPanelDeleteMutation } from "./__generated__/AdminPhotosPanelDeleteMutation.graphql";
 
 const ADMIN_PHOTOS_QUERY = graphql`
   query AdminPhotosQuery {
@@ -47,6 +48,14 @@ const ADMIN_PHOTOS_QUERY = graphql`
   }
 `;
 
+const DELETE_PHOTOS_MUTATION = graphql`
+  mutation AdminPhotosPanelDeleteMutation($ids: [ID!]!) {
+    deletePhotos(ids: $ids) {
+      deletedIds @deleteRecord
+    }
+  }
+`;
+
 interface Photo {
   name: string;
   eventId: string;
@@ -68,10 +77,15 @@ export function AdminPhotosPanel() {
   });
   const [bulkEventId, setBulkEventId] = useState("");
   const [viewMode, setViewMode] = useState<"grid" | "list">("grid");
-  const [deleteConfirm, setDeleteConfirm] = useState<string | null>(null);
+  const [deleteConfirm, setDeleteConfirm] = useState<string[] | null>(null);
+  const [deleteError, setDeleteError] = useState<string | null>(null);
+  const [commitDelete, isDeleting] =
+    useMutation<AdminPhotosPanelDeleteMutation>(DELETE_PHOTOS_MUTATION);
 
   const filtered = useMemo(() => {
     return data.photos.nodes.filter((p) => {
+      // Deleted photos stay in the list as nulls until the next fetch.
+      if (!p) return false;
       const matchSearch = search
         ? p!.name.toLowerCase().includes(search.toLowerCase())
         : true;
@@ -116,17 +130,28 @@ export function AdminPhotosPanel() {
     setBulkModal(false);
   };
 
-  const handleDelete = (id: string) => {
-    setDeleteConfirm(null);
-    setSelected((prev) => {
-      const n = new Set(prev);
-      n.delete(id);
-      return n;
+  const handleDelete = (ids: string[]) => {
+    setDeleteError(null);
+    commitDelete({
+      variables: { ids },
+      onCompleted: (_response, errors) => {
+        if (errors?.length) {
+          setDeleteError(errors.map((e) => e.message).join(", "));
+          return;
+        }
+        setDeleteConfirm(null);
+        setSelected((prev) => {
+          const n = new Set(prev);
+          ids.forEach((id) => n.delete(id));
+          return n;
+        });
+      },
+      onError: (error) => setDeleteError(error.message),
     });
   };
 
   const bulkDelete = () => {
-    setSelected(new Set());
+    setDeleteConfirm([...selected]);
   };
 
   return (
@@ -377,7 +402,7 @@ export function AdminPhotosPanel() {
                         color: "#fff",
                         borderRadius: "var(--radius-sm)",
                       }}
-                      onClick={() => setDeleteConfirm(p!.id)}
+                      onClick={() => setDeleteConfirm([p!.id])}
                       title="Delete"
                     >
                       <Trash2 className="h-3 w-3" />
@@ -524,7 +549,7 @@ export function AdminPhotosPanel() {
                           color: "var(--muted-foreground)",
                           borderRadius: "var(--radius-sm)",
                         }}
-                        onClick={() => setDeleteConfirm(p!.id)}
+                        onClick={() => setDeleteConfirm([p!.id])}
                       >
                         <Trash2 className="h-3.5 w-3.5" />
                       </button>
@@ -815,7 +840,10 @@ export function AdminPhotosPanel() {
       {/* Delete confirm */}
       <Dialog
         open={deleteConfirm !== null}
-        onOpenChange={() => setDeleteConfirm(null)}
+        onOpenChange={() => {
+          setDeleteConfirm(null);
+          setDeleteError(null);
+        }}
       >
         <DialogContent
           style={{
@@ -838,7 +866,9 @@ export function AdminPhotosPanel() {
                 fontSize: "1.125rem",
               }}
             >
-              Delete photo?
+              {deleteConfirm && deleteConfirm.length > 1
+                ? `Delete ${deleteConfirm.length} photos?`
+                : "Delete photo?"}
             </DialogTitle>
           </div>
           <div className="flex flex-col gap-4 p-6">
@@ -849,11 +879,25 @@ export function AdminPhotosPanel() {
                 fontFamily: "'Inter', sans-serif",
               }}
             >
-              This will permanently remove the photo from the archive.
+              This will permanently remove{" "}
+              {deleteConfirm && deleteConfirm.length > 1 ? "them" : "the photo"}{" "}
+              from the archive.
             </p>
+            {deleteError && (
+              <p
+                className="text-sm"
+                style={{
+                  color: "var(--destructive)",
+                  fontFamily: "'Inter', sans-serif",
+                }}
+              >
+                {deleteError}
+              </p>
+            )}
             <div className="flex gap-2">
               <button
                 onClick={() => deleteConfirm && handleDelete(deleteConfirm)}
+                disabled={isDeleting}
                 className="flex-1 rounded py-2 text-sm"
                 style={{
                   background: "var(--destructive)",
@@ -862,7 +906,7 @@ export function AdminPhotosPanel() {
                   fontFamily: "'Inter', sans-serif",
                 }}
               >
-                Delete
+                {isDeleting ? "Deleting…" : "Delete"}
               </button>
               <button
                 onClick={() => setDeleteConfirm(null)}
