@@ -14,6 +14,11 @@ class PhotoPromiseFile < ApplicationRecord
   # so uploaders should send it; image_hash (SHA-256) is used when it is missing.
   attribute :checksum, :string
 
+  validates :status, inclusion: { in: %w[pending success failed] }
+  validates :original_filename, :content_type, :image_hash, presence: true
+  validates :file_size_bytes, numericality: { greater_than: 0 }
+  validates :checksum, format: { with: /\A[A-Za-z0-9+\/]{22}==\z/ }, allow_nil: true, on: :create
+
   before_create do
     blob = ActiveStorage::Blob.create_before_direct_upload!(
       filename: self.original_filename,

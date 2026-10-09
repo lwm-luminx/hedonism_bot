@@ -57,7 +57,7 @@ Rust extension, installs exiftool and libvips, and builds the Vite frontend).
 ```sh
 heroku create <app> --stack container
 heroku addons:create heroku-postgresql:essential-1 -a <app>   # postgis + pgvector are enabled by the schema
-heroku addons:create bucketeer:hobbyist -a <app>               # Active Storage uses Bucketeer when BUCKETEER_BUCKET_NAME is set
+heroku config:set HOT_BUCKET_NAME=… HOT_ACCESS_KEY_ID=… HOT_SECRET_ACCESS_KEY=… HOT_ENDPOINT=… -a <app>  # photo storage (R2), see Storage tiers
 heroku config:set RAILS_MASTER_KEY=… RAILS_MAX_THREADS=5 SOLID_QUEUE_IN_PUMA=1 -a <app>
 git push heroku main
 ```
@@ -68,10 +68,29 @@ Solid Cache/Queue/Cable schemas, which share the one Heroku database. Set `REDIS
 
 ## Storage tiers
 
+Photos are stored in a hot bucket billed per GB, Cloudflare R2 in production, set with these
+config vars (without them the app falls back to Bucketeer when `BUCKETEER_BUCKET_NAME` is set):
+
+```sh
+heroku config:set HOT_BUCKET_NAME=… HOT_ACCESS_KEY_ID=… HOT_SECRET_ACCESS_KEY=… \
+  HOT_ENDPOINT=https://<account id>.r2.cloudflarestorage.com -a <app>   # HOT_REGION defaults to auto
+```
+
+Browsers upload originals straight to the bucket, so give it a CORS rule allowing `PUT` from the
+gallery hosts with the `Content-Type`, `Content-MD5` and `Content-Disposition` headers. Each file
+remembers the service it was stored on, so photos already on Bucketeer keep loading after the switch;
+copy them over (and delete them from Bucketeer) with:
+
+```sh
+heroku run bin/rails storage:move_to_hot FROM=bucketeer -a <app>   # safe to rerun
+```
+
+Once it reports nothing left to move, the Bucketeer add-on can be removed.
+
 Admin → Storage shows how much each album stores and lets a photographer move an album's
 originals (RAW and camera HEIF) to cheaper archive storage and back; JPEG previews always stay in
-the main service so galleries keep loading. Bucketeer is billed by flat plan tier, so the archive is
-a separate bucket billed per GB, enabled by setting these config vars:
+the hot service so galleries keep loading. The archive is a separate bucket, enabled by setting
+these config vars:
 
 ```sh
 heroku config:set ARCHIVE_BUCKET_NAME=… ARCHIVE_ACCESS_KEY_ID=… ARCHIVE_SECRET_ACCESS_KEY=… -a <app>

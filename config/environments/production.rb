@@ -18,8 +18,14 @@ Rails.application.configure do
   # Enable serving of images, stylesheets, and JavaScripts from an asset server.
   # config.asset_host = "http://assets.example.com"
 
-  # Store uploaded files in Bucketeer on Heroku, else the S3/MinIO service (see config/storage.yml).
-  config.active_storage.service = ENV["BUCKETEER_BUCKET_NAME"].present? ? :bucketeer : :local
+  # Store uploaded files in the per-GB hot bucket (R2) when configured, else Bucketeer on Heroku, else
+  # the S3/MinIO service (see config/storage.yml). Blobs remember their service, so files already on
+  # Bucketeer keep loading until `bin/rails storage:move_to_hot FROM=bucketeer` copies them over.
+  config.active_storage.service =
+    if ENV["HOT_BUCKET_NAME"].present? then :hot
+    elsif ENV["BUCKETEER_BUCKET_NAME"].present? then :bucketeer
+    else :local
+    end
 
   # Assume all access to the app is happening through a SSL-terminating reverse proxy.
   config.assume_ssl = true

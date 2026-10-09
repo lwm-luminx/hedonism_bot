@@ -28,6 +28,19 @@ bucketeer:
   secret_access_key: <%= ENV["BUCKETEER_AWS_SECRET_ACCESS_KEY"] %>
   region: <%= ENV.fetch("BUCKETEER_AWS_REGION", "us-east-1") %>
 
+# Main photo storage billed per GB, enabled by setting HOT_BUCKET_NAME; takes over from Bucketeer.
+# Cloudflare R2: HOT_ENDPOINT=https://<account id>.r2.cloudflarestorage.com, region auto (default).
+# Browsers upload straight to it, so the bucket needs a CORS rule allowing PUT from the gallery hosts.
+hot:
+  service: S3
+  bucket: <%= ENV["HOT_BUCKET_NAME"] %>
+  access_key_id: <%= ENV["HOT_ACCESS_KEY_ID"] %>
+  secret_access_key: <%= ENV["HOT_SECRET_ACCESS_KEY"] %>
+  region: <%= ENV.fetch("HOT_REGION", "auto") %>
+<% if ENV["HOT_ENDPOINT"].present? %>
+  endpoint: <%= ENV["HOT_ENDPOINT"] %>
+<% end %>
+
 # Cheaper storage for photo originals, enabled by setting ARCHIVE_BUCKET_NAME. Any S3-compatible
 # bucket billed per GB works: AWS S3 (originals are written with ARCHIVE_STORAGE_CLASS, default
 # GLACIER_IR, which still reads instantly), or Backblaze B2 / Cloudflare R2 via ARCHIVE_ENDPOINT

@@ -15,7 +15,7 @@
   },
   "knip": {
     "entry": [
-      "app/frontend/entrypoints/*.tsx"
+      "app/frontend/entrypoints/*.{ts,tsx}"
     ],
     "project": [
       "app/frontend/**/*.ts",

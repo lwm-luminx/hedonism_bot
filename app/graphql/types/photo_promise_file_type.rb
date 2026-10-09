@@ -13,6 +13,10 @@ module Types
     field :updated_at, GraphQL::Types::ISO8601DateTime, null: false
     field :upload_url, String, null: false
     field :upload_headers, GraphQL::Types::JSON, null: false, description: "Headers to send with the PUT to uploadUrl"
+    def upload_url
+      object.blob.service_url_for_direct_upload
+    end
+
     field :photo, Types::PhotoType, null: true, method: :photo_take, description: "The photo take this file became once uploaded"
   end
 end

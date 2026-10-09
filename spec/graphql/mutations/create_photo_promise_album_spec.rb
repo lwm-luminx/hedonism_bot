@@ -21,7 +21,7 @@ RSpec.describe Mutations::CreatePhotoPromise, type: :graphql do
       GQL
     end
 
-    before { execute_graphql(query, variables: { context: details }, context: { photographer: photographer }) }
+    before { execute_graphql(query, variables: { context: details }, context: uploader_context(photographer)) }
 
     it "persists details on the tenant's album" do
       expect(PhotoPromise.last.album.upload_context).to eq("event" => "Launch", "venue" => "The Hall")
