@@ -1,6 +1,6 @@
 # Cogsworth: Mac App Store preparation
 
-Kickoff: 2026-10-08. Status: bundle identity corrected to `host.lumiere.Cogsworth`. Earlier build 3 was delivered to the wrong app record (`social.hotmess.LumiereMac`); delivery to the correct app is pending.
+Kickoff: 2026-10-08. Status: bundle identity corrected to `host.lumiere.Cogsworth`. Build 4 was uploaded successfully to the correct app record and is processing in App Store Connect. Earlier build 3 was delivered to the wrong app record (`social.hotmess.LumiereMac`).
 
 ## Release identity
 
@@ -9,7 +9,7 @@ Kickoff: 2026-10-08. Status: bundle identity corrected to `host.lumiere.Cogswort
 | Name | Cogsworth |
 | Bundle identifier | `host.lumiere.Cogsworth` |
 | SKU | `lumiere-cogsworth` |
-| Version / build | 1.0.0 / 3 |
+| Version / build | 1.0.0 / 4 |
 | Platform | macOS 14+, Apple silicon |
 | Category | Photography |
 | Suggested locale / release | en-US / manual release |
@@ -188,9 +188,14 @@ Implementation validation (2026-10-08):
 - RuboCop is clean. Existing unused Keychain return-value and optional App Intents
   metadata warnings do not prevent the native build.
 
-Real authenticated uploads, model inference/downloads and distribution provisioning
-remain acceptance gates for release. Build 3 was uploaded to TestFlight on 2026-10-08;
-it has not been submitted for App Review.
+Real authenticated uploads and model inference/downloads remain acceptance gates
+for release. Distribution provisioning and the build 4 archive succeeded for
+`host.lumiere.Cogsworth`; the distribution-signed entitlement audit passed.
+Upload `a83051f4-bbcb-4008-a42c-be31a3f588f8` targets app `6820789559`.
+Xcode reported `EXPORT SUCCEEDED`; App Store Connect reports `PROCESSING`
+(verified 2026-10-09). This confirms delivery, not TestFlight installation readiness.
+Third-party Python binaries produced nonblocking missing-dSYM warnings.
+No build has been submitted for App Review.
 
 Historical delivery to the incorrect app record (not the intended Cogsworth app):
 
