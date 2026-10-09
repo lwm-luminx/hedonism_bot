@@ -51,3 +51,5 @@ node_modules
 # Xcode per-user state and local build products
 /apple/**/xcuserdata/
 /apple/DerivedData/
+
+.DS_Store
