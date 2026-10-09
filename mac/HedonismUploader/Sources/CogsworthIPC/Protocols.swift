@@ -1,8 +1,8 @@
 import Foundation
 
 public enum CogsworthService {
-    public static let uploader = "social.hotmess.LumiereMac.Uploader"
-    public static let machineLearning = "social.hotmess.LumiereMac.ML"
+    public static let uploader = "host.lumiere.Cogsworth.Uploader"
+    public static let machineLearning = "host.lumiere.Cogsworth.ML"
 }
 
 @objc public protocol UploaderXPCProtocol {

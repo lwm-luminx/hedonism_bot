@@ -45,7 +45,7 @@ cat > "$version/Resources/Info.plist" <<'PLIST'
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0"><dict>
-<key>CFBundleIdentifier</key><string>social.hotmess.LumiereMac.Python</string>
+<key>CFBundleIdentifier</key><string>host.lumiere.Cogsworth.Python</string>
 <key>CFBundleName</key><string>Python</string>
 <key>CFBundleExecutable</key><string>Python</string>
 <key>CFBundlePackageType</key><string>FMWK</string>

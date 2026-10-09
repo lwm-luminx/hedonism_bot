@@ -1,14 +1,14 @@
 # Cogsworth: Mac App Store preparation
 
-Kickoff: 2026-10-08. Status: version 1.0.0 build 3 uploaded to TestFlight; Apple processing complete (VALID). Not submitted for App Review.
+Kickoff: 2026-10-08. Status: bundle identity corrected to `host.lumiere.Cogsworth`. Earlier build 3 was delivered to the wrong app record (`social.hotmess.LumiereMac`); delivery to the correct app is pending.
 
 ## Release identity
 
 | Field | Value |
 | --- | --- |
 | Name | Cogsworth |
-| Bundle identifier | `social.hotmess.LumiereMac` |
-| Suggested SKU | `social.hotmess.LumiereMac` |
+| Bundle identifier | `host.lumiere.Cogsworth` |
+| SKU | `lumiere-cogsworth` |
 | Version / build | 1.0.0 / 3 |
 | Platform | macOS 14+, Apple silicon |
 | Category | Photography |
@@ -16,6 +16,9 @@ Kickoff: 2026-10-08. Status: version 1.0.0 build 3 uploaded to TestFlight; Apple
 
 The Xcode target includes the Lumière icon, version/build metadata, category and
 required-reason declarations for preferences and user-granted file timestamps.
+
+Correct App Store Connect record: **Cogsworth by Lumiere**, app ID `6820789559`,
+verified against bundle ID `host.lumiere.Cogsworth`.
 
 ## Implemented XPC split
 
@@ -42,7 +45,7 @@ required-reason declarations for preferences and user-granted file timestamps.
   their framework. Static development archives are omitted so Xcode embedding does
   not invalidate the resource seal. No interpreter executable is needed by the host.
 
-App Store Connect now contains **Cogsworth by Lumière**, app ID `6820751783`,
+The previously used, incorrect App Store Connect record is **Cogsworth by Lumière**, app ID `6820751783`,
 bundle ID `social.hotmess.LumiereMac`, under team `DWVXMLB45Y`.
 The user authorized a TestFlight upload on 2026-10-08. Distribution provisioning
 succeeded. The first upload validation found unsandboxed PyTorch utilities; the
@@ -61,7 +64,7 @@ it is not another XPC worker and gains no independent network or file permission
    native package binaries, licenses, required-reason APIs and model behavior before
    submission; imports alone are not full model testing.
 3. Validate migration from the old standalone `social.hotmess.hedonism-uploader`
-   identity to `social.hotmess.LumiereMac`, including credentials and preferences.
+   identity to `host.lumiere.Cogsworth`, including credentials and preferences.
    The uploader service has its own ledger; server hash preflight remains authoritative
    for avoiding duplicate content when old local history is absent.
 4. Complete App Privacy and third-party SDK manifests against the final ML environment.
@@ -189,7 +192,7 @@ Real authenticated uploads, model inference/downloads and distribution provision
 remain acceptance gates for release. Build 3 was uploaded to TestFlight on 2026-10-08;
 it has not been submitted for App Review.
 
-TestFlight delivery:
+Historical delivery to the incorrect app record (not the intended Cogsworth app):
 
 - App: `6820751783`; version `1.0.0`, build `3`.
 - Upload: `dd559567-7f3a-424c-8b17-24d812aade0b`.
