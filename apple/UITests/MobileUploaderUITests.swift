@@ -71,11 +71,15 @@ final class MobileUploaderUITests: XCTestCase {
         let browser = app.webViews.firstMatch
         let continueButton = browser.buttons["Continue with Facebook"]
         if continueButton.waitForExistence(timeout: 15) { continueButton.tap() }
+        var confirmedFacebook = false
         for _ in 0..<45 {
             if app.navigationBars["Add account"].exists == false,
                app.descendants(matching: .any)["uploadAccountPicker"].firstMatch.exists { break }
             let facebookContinue = app.buttons.matching(NSPredicate(format: "label BEGINSWITH 'Continue as '")).firstMatch
-            if facebookContinue.exists && facebookContinue.isHittable { facebookContinue.tap() }
+            if !confirmedFacebook && facebookContinue.exists && facebookContinue.isHittable {
+                confirmedFacebook = true
+                facebookContinue.tap()
+            }
             Thread.sleep(forTimeInterval: 1)
         }
         let screenshot = XCTAttachment(screenshot: app.screenshot())

@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  mount ActionCable.server => "/cable"
   post "callbacks/facebook/data-deletion", to: "facebook_data_deletions#create"
   get "privacy/deletion/:confirmation_code", to: "facebook_data_deletions#show", as: :facebook_deletion_status
   # Rails serves these static views, including the existing .html URLs.
@@ -18,6 +19,10 @@ Rails.application.routes.draw do
   get "auth/native", to: "native_accounts#new"
   get "auth/native/complete", to: "native_accounts#complete"
   post "auth/native/exchange", to: "native_accounts#exchange"
+  get "admin/archive_storage_connections", to: "archive_storage_connections#index"
+  put "auth/archive_storage", to: "archive_storage_connections#update"
+  post "admin/device_codes", to: "admin_device_codes#create"
+  post "auth/uploaded_contents", to: "uploaded_contents#create"
   post "auth/device/code", to: "device_accounts#create"
   post "auth/device/exchange", to: "device_accounts#exchange"
   delete "auth/native/session", to: "native_accounts#destroy"

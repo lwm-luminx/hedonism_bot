@@ -813,6 +813,14 @@ class ::User < ::ApplicationRecord
   def sessions=: (::Session::ActiveRecord_Associations_CollectionProxy | ::Array[::Session]) -> (::Session::ActiveRecord_Associations_CollectionProxy | ::Array[::Session])
   def session_ids: () -> ::Array[::String]
   def session_ids=: (::Array[::String]) -> ::Array[::String]
+  def native_login_grants: () -> ::NativeLoginGrant::ActiveRecord_Associations_CollectionProxy
+  def native_login_grants=: (::NativeLoginGrant::ActiveRecord_Associations_CollectionProxy | ::Array[::NativeLoginGrant]) -> (::NativeLoginGrant::ActiveRecord_Associations_CollectionProxy | ::Array[::NativeLoginGrant])
+  def native_login_grant_ids: () -> ::Array[::Integer]
+  def native_login_grant_ids=: (::Array[::Integer]) -> ::Array[::Integer]
+  def service_accounts: () -> ::ServiceAccount::ActiveRecord_Associations_CollectionProxy
+  def service_accounts=: (::ServiceAccount::ActiveRecord_Associations_CollectionProxy | ::Array[::ServiceAccount]) -> (::ServiceAccount::ActiveRecord_Associations_CollectionProxy | ::Array[::ServiceAccount])
+  def service_account_ids: () -> ::Array[::String]
+  def service_account_ids=: (::Array[::String]) -> ::Array[::String]
   def user_likes: () -> ::UserLike::ActiveRecord_Associations_CollectionProxy
   def user_likes=: (::UserLike::ActiveRecord_Associations_CollectionProxy | ::Array[::UserLike]) -> (::UserLike::ActiveRecord_Associations_CollectionProxy | ::Array[::UserLike])
   def user_like_ids: () -> ::Array[::String]
@@ -877,6 +885,14 @@ end
 class ::Session < ::ApplicationRecord
 end
 class ::Session::ActiveRecord_Associations_CollectionProxy < ::ActiveRecord::Associations::CollectionProxy
+end
+class ::NativeLoginGrant < ::ApplicationRecord
+end
+class ::NativeLoginGrant::ActiveRecord_Associations_CollectionProxy < ::ActiveRecord::Associations::CollectionProxy
+end
+class ::ServiceAccount < ::ApplicationRecord
+end
+class ::ServiceAccount::ActiveRecord_Associations_CollectionProxy < ::ActiveRecord::Associations::CollectionProxy
 end
 class ::UserLike < ::ApplicationRecord
 end

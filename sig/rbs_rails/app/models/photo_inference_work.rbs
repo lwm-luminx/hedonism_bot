@@ -1,0 +1,593 @@
+# resolve-type-names: false
+
+class ::PhotoInferenceWork < ::ApplicationRecord
+  extend ::ActiveRecord::Base::ClassMethods[::PhotoInferenceWork, ::PhotoInferenceWork::ActiveRecord_Relation, ::String]
+
+  module ::PhotoInferenceWork::GeneratedAttributeMethods
+    def id: () -> ::String
+
+    def id=: (::String) -> ::String
+
+    def id?: () -> bool
+
+    def id_changed?: (?from: ::String?, ?to: ::String?) -> bool
+
+    def id_change: () -> [ ::String?, ::String? ]
+
+    def id_will_change!: () -> void
+
+    def id_was: () -> ::String?
+
+    def id_previously_changed?: (?from: ::String?, ?to: ::String?) -> bool
+
+    def id_previous_change: () -> ::Array[::String?]?
+
+    def id_previously_was: () -> ::String?
+
+    def id_before_last_save: () -> ::String?
+
+    def id_change_to_be_saved: () -> ::Array[::String?]?
+
+    def id_in_database: () -> ::String?
+
+    def saved_change_to_id: () -> ::Array[::String?]?
+
+    def saved_change_to_id?: (?from: ::String?, ?to: ::String?) -> bool
+
+    def will_save_change_to_id?: (?from: ::String?, ?to: ::String?) -> bool
+
+    def restore_id!: () -> void
+
+    def clear_id_change: () -> void
+
+    def id_before_type_cast: () -> ::String
+
+    def id_for_database: () -> ::String
+
+    def photographer_id: () -> ::String
+
+    def photographer_id=: (::String) -> ::String
+
+    def photographer_id?: () -> bool
+
+    def photographer_id_changed?: (?from: ::String?, ?to: ::String?) -> bool
+
+    def photographer_id_change: () -> [ ::String?, ::String? ]
+
+    def photographer_id_will_change!: () -> void
+
+    def photographer_id_was: () -> ::String?
+
+    def photographer_id_previously_changed?: (?from: ::String?, ?to: ::String?) -> bool
+
+    def photographer_id_previous_change: () -> ::Array[::String?]?
+
+    def photographer_id_previously_was: () -> ::String?
+
+    def photographer_id_before_last_save: () -> ::String?
+
+    def photographer_id_change_to_be_saved: () -> ::Array[::String?]?
+
+    def photographer_id_in_database: () -> ::String?
+
+    def saved_change_to_photographer_id: () -> ::Array[::String?]?
+
+    def saved_change_to_photographer_id?: (?from: ::String?, ?to: ::String?) -> bool
+
+    def will_save_change_to_photographer_id?: (?from: ::String?, ?to: ::String?) -> bool
+
+    def restore_photographer_id!: () -> void
+
+    def clear_photographer_id_change: () -> void
+
+    def photographer_id_before_type_cast: () -> ::String
+
+    def photographer_id_for_database: () -> ::String
+
+    def photo_take_id: () -> ::String
+
+    def photo_take_id=: (::String) -> ::String
+
+    def photo_take_id?: () -> bool
+
+    def photo_take_id_changed?: (?from: ::String?, ?to: ::String?) -> bool
+
+    def photo_take_id_change: () -> [ ::String?, ::String? ]
+
+    def photo_take_id_will_change!: () -> void
+
+    def photo_take_id_was: () -> ::String?
+
+    def photo_take_id_previously_changed?: (?from: ::String?, ?to: ::String?) -> bool
+
+    def photo_take_id_previous_change: () -> ::Array[::String?]?
+
+    def photo_take_id_previously_was: () -> ::String?
+
+    def photo_take_id_before_last_save: () -> ::String?
+
+    def photo_take_id_change_to_be_saved: () -> ::Array[::String?]?
+
+    def photo_take_id_in_database: () -> ::String?
+
+    def saved_change_to_photo_take_id: () -> ::Array[::String?]?
+
+    def saved_change_to_photo_take_id?: (?from: ::String?, ?to: ::String?) -> bool
+
+    def will_save_change_to_photo_take_id?: (?from: ::String?, ?to: ::String?) -> bool
+
+    def restore_photo_take_id!: () -> void
+
+    def clear_photo_take_id_change: () -> void
+
+    def photo_take_id_before_type_cast: () -> ::String
+
+    def photo_take_id_for_database: () -> ::String
+
+    def service_account_id: () -> ::String?
+
+    def service_account_id=: (::String?) -> ::String?
+
+    def service_account_id?: () -> bool
+
+    def service_account_id_changed?: (?from: ::String?, ?to: ::String?) -> bool
+
+    def service_account_id_change: () -> [ ::String?, ::String? ]
+
+    def service_account_id_will_change!: () -> void
+
+    def service_account_id_was: () -> ::String?
+
+    def service_account_id_previously_changed?: (?from: ::String?, ?to: ::String?) -> bool
+
+    def service_account_id_previous_change: () -> ::Array[::String?]?
+
+    def service_account_id_previously_was: () -> ::String?
+
+    def service_account_id_before_last_save: () -> ::String?
+
+    def service_account_id_change_to_be_saved: () -> ::Array[::String?]?
+
+    def service_account_id_in_database: () -> ::String?
+
+    def saved_change_to_service_account_id: () -> ::Array[::String?]?
+
+    def saved_change_to_service_account_id?: (?from: ::String?, ?to: ::String?) -> bool
+
+    def will_save_change_to_service_account_id?: (?from: ::String?, ?to: ::String?) -> bool
+
+    def restore_service_account_id!: () -> void
+
+    def clear_service_account_id_change: () -> void
+
+    def service_account_id_before_type_cast: () -> ::String?
+
+    def service_account_id_for_database: () -> ::String?
+
+    def task: () -> ::String
+
+    def task=: (::String) -> ::String
+
+    def task?: () -> bool
+
+    def task_changed?: (?from: ::String?, ?to: ::String?) -> bool
+
+    def task_change: () -> [ ::String?, ::String? ]
+
+    def task_will_change!: () -> void
+
+    def task_was: () -> ::String?
+
+    def task_previously_changed?: (?from: ::String?, ?to: ::String?) -> bool
+
+    def task_previous_change: () -> ::Array[::String?]?
+
+    def task_previously_was: () -> ::String?
+
+    def task_before_last_save: () -> ::String?
+
+    def task_change_to_be_saved: () -> ::Array[::String?]?
+
+    def task_in_database: () -> ::String?
+
+    def saved_change_to_task: () -> ::Array[::String?]?
+
+    def saved_change_to_task?: (?from: ::String?, ?to: ::String?) -> bool
+
+    def will_save_change_to_task?: (?from: ::String?, ?to: ::String?) -> bool
+
+    def restore_task!: () -> void
+
+    def clear_task_change: () -> void
+
+    def task_before_type_cast: () -> ::String
+
+    def task_for_database: () -> ::String
+
+    def state: () -> ::String
+
+    def state=: (::String) -> ::String
+
+    def state?: () -> bool
+
+    def state_changed?: (?from: ::String?, ?to: ::String?) -> bool
+
+    def state_change: () -> [ ::String?, ::String? ]
+
+    def state_will_change!: () -> void
+
+    def state_was: () -> ::String?
+
+    def state_previously_changed?: (?from: ::String?, ?to: ::String?) -> bool
+
+    def state_previous_change: () -> ::Array[::String?]?
+
+    def state_previously_was: () -> ::String?
+
+    def state_before_last_save: () -> ::String?
+
+    def state_change_to_be_saved: () -> ::Array[::String?]?
+
+    def state_in_database: () -> ::String?
+
+    def saved_change_to_state: () -> ::Array[::String?]?
+
+    def saved_change_to_state?: (?from: ::String?, ?to: ::String?) -> bool
+
+    def will_save_change_to_state?: (?from: ::String?, ?to: ::String?) -> bool
+
+    def restore_state!: () -> void
+
+    def clear_state_change: () -> void
+
+    def state_before_type_cast: () -> ::String
+
+    def state_for_database: () -> ::String
+
+    def lease_token: () -> ::String?
+
+    def lease_token=: (::String?) -> ::String?
+
+    def lease_token?: () -> bool
+
+    def lease_token_changed?: (?from: ::String?, ?to: ::String?) -> bool
+
+    def lease_token_change: () -> [ ::String?, ::String? ]
+
+    def lease_token_will_change!: () -> void
+
+    def lease_token_was: () -> ::String?
+
+    def lease_token_previously_changed?: (?from: ::String?, ?to: ::String?) -> bool
+
+    def lease_token_previous_change: () -> ::Array[::String?]?
+
+    def lease_token_previously_was: () -> ::String?
+
+    def lease_token_before_last_save: () -> ::String?
+
+    def lease_token_change_to_be_saved: () -> ::Array[::String?]?
+
+    def lease_token_in_database: () -> ::String?
+
+    def saved_change_to_lease_token: () -> ::Array[::String?]?
+
+    def saved_change_to_lease_token?: (?from: ::String?, ?to: ::String?) -> bool
+
+    def will_save_change_to_lease_token?: (?from: ::String?, ?to: ::String?) -> bool
+
+    def restore_lease_token!: () -> void
+
+    def clear_lease_token_change: () -> void
+
+    def lease_token_before_type_cast: () -> ::String?
+
+    def lease_token_for_database: () -> ::String?
+
+    def lease_expires_at: () -> ::ActiveSupport::TimeWithZone?
+
+    def lease_expires_at=: (::ActiveSupport::TimeWithZone?) -> ::ActiveSupport::TimeWithZone?
+
+    def lease_expires_at?: () -> bool
+
+    def lease_expires_at_changed?: (?from: ::ActiveSupport::TimeWithZone?, ?to: ::ActiveSupport::TimeWithZone?) -> bool
+
+    def lease_expires_at_change: () -> [ ::ActiveSupport::TimeWithZone?, ::ActiveSupport::TimeWithZone? ]
+
+    def lease_expires_at_will_change!: () -> void
+
+    def lease_expires_at_was: () -> ::ActiveSupport::TimeWithZone?
+
+    def lease_expires_at_previously_changed?: (?from: ::ActiveSupport::TimeWithZone?, ?to: ::ActiveSupport::TimeWithZone?) -> bool
+
+    def lease_expires_at_previous_change: () -> ::Array[::ActiveSupport::TimeWithZone?]?
+
+    def lease_expires_at_previously_was: () -> ::ActiveSupport::TimeWithZone?
+
+    def lease_expires_at_before_last_save: () -> ::ActiveSupport::TimeWithZone?
+
+    def lease_expires_at_change_to_be_saved: () -> ::Array[::ActiveSupport::TimeWithZone?]?
+
+    def lease_expires_at_in_database: () -> ::ActiveSupport::TimeWithZone?
+
+    def saved_change_to_lease_expires_at: () -> ::Array[::ActiveSupport::TimeWithZone?]?
+
+    def saved_change_to_lease_expires_at?: (?from: ::ActiveSupport::TimeWithZone?, ?to: ::ActiveSupport::TimeWithZone?) -> bool
+
+    def will_save_change_to_lease_expires_at?: (?from: ::ActiveSupport::TimeWithZone?, ?to: ::ActiveSupport::TimeWithZone?) -> bool
+
+    def restore_lease_expires_at!: () -> void
+
+    def clear_lease_expires_at_change: () -> void
+
+    def lease_expires_at_before_type_cast: () -> ::Time?
+
+    def lease_expires_at_for_database: () -> ::Time?
+
+    def deadline_at: () -> ::ActiveSupport::TimeWithZone?
+
+    def deadline_at=: (::ActiveSupport::TimeWithZone?) -> ::ActiveSupport::TimeWithZone?
+
+    def deadline_at?: () -> bool
+
+    def deadline_at_changed?: (?from: ::ActiveSupport::TimeWithZone?, ?to: ::ActiveSupport::TimeWithZone?) -> bool
+
+    def deadline_at_change: () -> [ ::ActiveSupport::TimeWithZone?, ::ActiveSupport::TimeWithZone? ]
+
+    def deadline_at_will_change!: () -> void
+
+    def deadline_at_was: () -> ::ActiveSupport::TimeWithZone?
+
+    def deadline_at_previously_changed?: (?from: ::ActiveSupport::TimeWithZone?, ?to: ::ActiveSupport::TimeWithZone?) -> bool
+
+    def deadline_at_previous_change: () -> ::Array[::ActiveSupport::TimeWithZone?]?
+
+    def deadline_at_previously_was: () -> ::ActiveSupport::TimeWithZone?
+
+    def deadline_at_before_last_save: () -> ::ActiveSupport::TimeWithZone?
+
+    def deadline_at_change_to_be_saved: () -> ::Array[::ActiveSupport::TimeWithZone?]?
+
+    def deadline_at_in_database: () -> ::ActiveSupport::TimeWithZone?
+
+    def saved_change_to_deadline_at: () -> ::Array[::ActiveSupport::TimeWithZone?]?
+
+    def saved_change_to_deadline_at?: (?from: ::ActiveSupport::TimeWithZone?, ?to: ::ActiveSupport::TimeWithZone?) -> bool
+
+    def will_save_change_to_deadline_at?: (?from: ::ActiveSupport::TimeWithZone?, ?to: ::ActiveSupport::TimeWithZone?) -> bool
+
+    def restore_deadline_at!: () -> void
+
+    def clear_deadline_at_change: () -> void
+
+    def deadline_at_before_type_cast: () -> ::Time?
+
+    def deadline_at_for_database: () -> ::Time?
+
+    def attempts: () -> ::Integer
+
+    def attempts=: (::Integer) -> ::Integer
+
+    def attempts?: () -> bool
+
+    def attempts_changed?: (?from: ::Integer?, ?to: ::Integer?) -> bool
+
+    def attempts_change: () -> [ ::Integer?, ::Integer? ]
+
+    def attempts_will_change!: () -> void
+
+    def attempts_was: () -> ::Integer?
+
+    def attempts_previously_changed?: (?from: ::Integer?, ?to: ::Integer?) -> bool
+
+    def attempts_previous_change: () -> ::Array[::Integer?]?
+
+    def attempts_previously_was: () -> ::Integer?
+
+    def attempts_before_last_save: () -> ::Integer?
+
+    def attempts_change_to_be_saved: () -> ::Array[::Integer?]?
+
+    def attempts_in_database: () -> ::Integer?
+
+    def saved_change_to_attempts: () -> ::Array[::Integer?]?
+
+    def saved_change_to_attempts?: (?from: ::Integer?, ?to: ::Integer?) -> bool
+
+    def will_save_change_to_attempts?: (?from: ::Integer?, ?to: ::Integer?) -> bool
+
+    def restore_attempts!: () -> void
+
+    def clear_attempts_change: () -> void
+
+    def attempts_before_type_cast: () -> ::Integer
+
+    def attempts_for_database: () -> ::Integer
+
+    def created_at: () -> ::ActiveSupport::TimeWithZone
+
+    def created_at=: (::ActiveSupport::TimeWithZone) -> ::ActiveSupport::TimeWithZone
+
+    def created_at?: () -> bool
+
+    def created_at_changed?: (?from: ::ActiveSupport::TimeWithZone?, ?to: ::ActiveSupport::TimeWithZone?) -> bool
+
+    def created_at_change: () -> [ ::ActiveSupport::TimeWithZone?, ::ActiveSupport::TimeWithZone? ]
+
+    def created_at_will_change!: () -> void
+
+    def created_at_was: () -> ::ActiveSupport::TimeWithZone?
+
+    def created_at_previously_changed?: (?from: ::ActiveSupport::TimeWithZone?, ?to: ::ActiveSupport::TimeWithZone?) -> bool
+
+    def created_at_previous_change: () -> ::Array[::ActiveSupport::TimeWithZone?]?
+
+    def created_at_previously_was: () -> ::ActiveSupport::TimeWithZone?
+
+    def created_at_before_last_save: () -> ::ActiveSupport::TimeWithZone?
+
+    def created_at_change_to_be_saved: () -> ::Array[::ActiveSupport::TimeWithZone?]?
+
+    def created_at_in_database: () -> ::ActiveSupport::TimeWithZone?
+
+    def saved_change_to_created_at: () -> ::Array[::ActiveSupport::TimeWithZone?]?
+
+    def saved_change_to_created_at?: (?from: ::ActiveSupport::TimeWithZone?, ?to: ::ActiveSupport::TimeWithZone?) -> bool
+
+    def will_save_change_to_created_at?: (?from: ::ActiveSupport::TimeWithZone?, ?to: ::ActiveSupport::TimeWithZone?) -> bool
+
+    def restore_created_at!: () -> void
+
+    def clear_created_at_change: () -> void
+
+    def created_at_before_type_cast: () -> ::Time
+
+    def created_at_for_database: () -> ::Time
+
+    def updated_at: () -> ::ActiveSupport::TimeWithZone
+
+    def updated_at=: (::ActiveSupport::TimeWithZone) -> ::ActiveSupport::TimeWithZone
+
+    def updated_at?: () -> bool
+
+    def updated_at_changed?: (?from: ::ActiveSupport::TimeWithZone?, ?to: ::ActiveSupport::TimeWithZone?) -> bool
+
+    def updated_at_change: () -> [ ::ActiveSupport::TimeWithZone?, ::ActiveSupport::TimeWithZone? ]
+
+    def updated_at_will_change!: () -> void
+
+    def updated_at_was: () -> ::ActiveSupport::TimeWithZone?
+
+    def updated_at_previously_changed?: (?from: ::ActiveSupport::TimeWithZone?, ?to: ::ActiveSupport::TimeWithZone?) -> bool
+
+    def updated_at_previous_change: () -> ::Array[::ActiveSupport::TimeWithZone?]?
+
+    def updated_at_previously_was: () -> ::ActiveSupport::TimeWithZone?
+
+    def updated_at_before_last_save: () -> ::ActiveSupport::TimeWithZone?
+
+    def updated_at_change_to_be_saved: () -> ::Array[::ActiveSupport::TimeWithZone?]?
+
+    def updated_at_in_database: () -> ::ActiveSupport::TimeWithZone?
+
+    def saved_change_to_updated_at: () -> ::Array[::ActiveSupport::TimeWithZone?]?
+
+    def saved_change_to_updated_at?: (?from: ::ActiveSupport::TimeWithZone?, ?to: ::ActiveSupport::TimeWithZone?) -> bool
+
+    def will_save_change_to_updated_at?: (?from: ::ActiveSupport::TimeWithZone?, ?to: ::ActiveSupport::TimeWithZone?) -> bool
+
+    def restore_updated_at!: () -> void
+
+    def clear_updated_at_change: () -> void
+
+    def updated_at_before_type_cast: () -> ::Time
+
+    def updated_at_for_database: () -> ::Time
+  end
+  include ::PhotoInferenceWork::GeneratedAttributeMethods
+  module ::PhotoInferenceWork::GeneratedAliasAttributeMethods
+    include ::PhotoInferenceWork::GeneratedAttributeMethods
+
+    alias id_value id
+
+    alias id_value= id=
+
+    alias id_value? id?
+
+    alias id_value_changed? id_changed?
+
+    alias id_value_change id_change
+
+    alias id_value_will_change! id_will_change!
+
+    alias id_value_was id_was
+
+    alias id_value_previously_changed? id_previously_changed?
+
+    alias id_value_previous_change id_previous_change
+
+    alias id_value_previously_was id_previously_was
+
+    alias id_value_before_last_save id_before_last_save
+
+    alias id_value_change_to_be_saved id_change_to_be_saved
+
+    alias id_value_in_database id_in_database
+
+    alias saved_change_to_id_value saved_change_to_id
+
+    alias saved_change_to_id_value? saved_change_to_id?
+
+    alias will_save_change_to_id_value? will_save_change_to_id?
+
+    alias restore_id_value! restore_id!
+
+    alias clear_id_value_change clear_id_change
+
+    alias id_value_before_type_cast id_before_type_cast
+
+    alias id_value_for_database id_for_database
+  end
+  include ::PhotoInferenceWork::GeneratedAliasAttributeMethods
+
+  def photographer: () -> ::Photographer
+  def photographer=: (::Photographer?) -> ::Photographer?
+  def reload_photographer: () -> ::Photographer?
+  def build_photographer: (?untyped) -> ::Photographer
+  def create_photographer: (?untyped) -> ::Photographer
+  def create_photographer!: (?untyped) -> ::Photographer
+  def photo_take: () -> ::PhotoTake
+  def photo_take=: (::PhotoTake?) -> ::PhotoTake?
+  def reload_photo_take: () -> ::PhotoTake?
+  def build_photo_take: (?untyped) -> ::PhotoTake
+  def create_photo_take: (?untyped) -> ::PhotoTake
+  def create_photo_take!: (?untyped) -> ::PhotoTake
+  def service_account: () -> ::ServiceAccount?
+  def service_account=: (::ServiceAccount?) -> ::ServiceAccount?
+  def reload_service_account: () -> ::ServiceAccount?
+  def build_service_account: (?untyped) -> ::ServiceAccount
+  def create_service_account: (?untyped) -> ::ServiceAccount
+  def create_service_account!: (?untyped) -> ::ServiceAccount
+
+  module ::PhotoInferenceWork::GeneratedAssociationMethods
+  end
+  include ::PhotoInferenceWork::GeneratedAssociationMethods
+
+  module ::PhotoInferenceWork::GeneratedRelationMethods
+  end
+
+  class ::PhotoInferenceWork::ActiveRecord_Relation < ::ActiveRecord::Relation
+    include ::Enumerable[::PhotoInferenceWork]
+    include ::PhotoInferenceWork::GeneratedRelationMethods
+    include ::ActiveRecord::Relation::Methods[::PhotoInferenceWork, ::String]
+  end
+
+  class ::PhotoInferenceWork::ActiveRecord_Associations_CollectionProxy < ::ActiveRecord::Associations::CollectionProxy
+    include ::Enumerable[::PhotoInferenceWork]
+    include ::PhotoInferenceWork::GeneratedRelationMethods
+    include ::ActiveRecord::Relation::Methods[::PhotoInferenceWork, ::String]
+
+    def build: (?::ActiveRecord::Associations::CollectionProxy::_EachPair attributes) ?{ () -> untyped } -> ::PhotoInferenceWork
+             | (::Array[::ActiveRecord::Associations::CollectionProxy::_EachPair] attributes) ?{ () -> untyped } -> ::Array[::PhotoInferenceWork]
+    def create: (?::ActiveRecord::Associations::CollectionProxy::_EachPair attributes) ?{ () -> untyped } -> ::PhotoInferenceWork
+              | (::Array[::ActiveRecord::Associations::CollectionProxy::_EachPair] attributes) ?{ () -> untyped } -> ::Array[::PhotoInferenceWork]
+    def create!: (?::ActiveRecord::Associations::CollectionProxy::_EachPair attributes) ?{ () -> untyped } -> ::PhotoInferenceWork
+               | (::Array[::ActiveRecord::Associations::CollectionProxy::_EachPair] attributes) ?{ () -> untyped } -> ::Array[::PhotoInferenceWork]
+    def reload: () -> ::Array[::PhotoInferenceWork]
+
+    def replace: (::Array[::PhotoInferenceWork]) -> void
+    def delete: (*::PhotoInferenceWork | ::String) -> ::Array[::PhotoInferenceWork]
+    def destroy: (*::PhotoInferenceWork | ::String) -> ::Array[::PhotoInferenceWork]
+    def <<: (*::PhotoInferenceWork | ::Array[::PhotoInferenceWork]) -> self
+    def prepend: (*::PhotoInferenceWork | ::Array[::PhotoInferenceWork]) -> self
+  end
+end
+
+class ::ApplicationRecord < ::ActiveRecord::Base
+end
+class ::Photographer < ::ApplicationRecord
+end
+class ::PhotoTake < ::ApplicationRecord
+end
+class ::ServiceAccount < ::ApplicationRecord
+end

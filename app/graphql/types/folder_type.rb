@@ -14,7 +14,7 @@ module Types
     end
 
     def name
-      @object.id
+      @object.name
     end
   end
 end

@@ -9,9 +9,9 @@ public enum CardScanner {
         return fileManager.fileExists(atPath: dcim.path, isDirectory: &isDirectory) && isDirectory.boolValue
     }
 
-    /// Every supported photo under DCIM, oldest first. Hidden files (macOS ._ files) are skipped.
+    /// Every supported photo under DCIM (or the selected photo folder), oldest first. Hidden files (macOS ._ files) are skipped.
     public static func photos(on volume: URL, fileManager: FileManager = .default) -> [PhotoFile] {
-        let dcim = volume.lastPathComponent.uppercased() == "DCIM" ? volume : volume.appendingPathComponent("DCIM", isDirectory: true)
+        let dcim = isCameraCard(volume, fileManager: fileManager) ? volume.appendingPathComponent("DCIM", isDirectory: true) : volume
         let keys: [URLResourceKey] = [.isRegularFileKey, .fileSizeKey, .contentModificationDateKey]
         guard let enumerator = fileManager.enumerator(
             at: dcim, includingPropertiesForKeys: keys, options: [.skipsHiddenFiles, .skipsPackageDescendants]

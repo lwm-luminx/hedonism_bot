@@ -13,6 +13,19 @@ interface ::_RbsRailsPathHelpers
   def graphql_path: (*untyped) -> ::String
   def graphiql_rails_path: (*untyped) -> ::String
   def client_errors_path: (*untyped) -> ::String
+  def auth_native_path: (*untyped) -> ::String
+  def auth_native_complete_path: (*untyped) -> ::String
+  def auth_native_exchange_path: (*untyped) -> ::String
+  def admin_archive_storage_connections_path: (*untyped) -> ::String
+  def auth_archive_storage_path: (*untyped) -> ::String
+  def admin_device_codes_path: (*untyped) -> ::String
+  def auth_uploaded_contents_path: (*untyped) -> ::String
+  def auth_device_code_path: (*untyped) -> ::String
+  def auth_device_exchange_path: (*untyped) -> ::String
+  def auth_native_session_path: (*untyped) -> ::String
+  def auth_start_path: (*untyped) -> ::String
+  def auth_bridge_path: (*untyped) -> ::String
+  def auth_return_path: (*untyped) -> ::String
   def auth_facebook_callback_path: (*untyped) -> ::String
   def auth_failure_path: (*untyped) -> ::String
   def auth_me_path: (*untyped) -> ::String
@@ -58,6 +71,19 @@ interface ::_RbsRailsPathHelpers
   def graphql_url: (*untyped) -> ::String
   def graphiql_rails_url: (*untyped) -> ::String
   def client_errors_url: (*untyped) -> ::String
+  def auth_native_url: (*untyped) -> ::String
+  def auth_native_complete_url: (*untyped) -> ::String
+  def auth_native_exchange_url: (*untyped) -> ::String
+  def admin_archive_storage_connections_url: (*untyped) -> ::String
+  def auth_archive_storage_url: (*untyped) -> ::String
+  def admin_device_codes_url: (*untyped) -> ::String
+  def auth_uploaded_contents_url: (*untyped) -> ::String
+  def auth_device_code_url: (*untyped) -> ::String
+  def auth_device_exchange_url: (*untyped) -> ::String
+  def auth_native_session_url: (*untyped) -> ::String
+  def auth_start_url: (*untyped) -> ::String
+  def auth_bridge_url: (*untyped) -> ::String
+  def auth_return_url: (*untyped) -> ::String
   def auth_facebook_callback_url: (*untyped) -> ::String
   def auth_failure_url: (*untyped) -> ::String
   def auth_me_url: (*untyped) -> ::String

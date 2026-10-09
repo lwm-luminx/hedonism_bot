@@ -3,12 +3,92 @@ import UniformTypeIdentifiers
 import UploaderCore
 import AuthenticationServices
 import CryptoKit
-#if os(macOS)
+#if os(iOS)
+import CoreLocation
+#else
 import AppKit
 #endif
 
 @MainActor
-final class MobileUploadModel: ObservableObject {
+final class MobileUploadModel: NSObject, ObservableObject {
+    #if os(iOS)
+    private let locationManager = CLLocationManager()
+    @Published var recordings: [LocationRecording] = []
+    @Published var recordingLocation = false
+    @Published var locationStatus = "Record during your shoot to match photos to venues later."
+    private var recordingURL: URL {
+        FileManager.default.urls(for: .applicationSupportDirectory, in: .userDomainMask)[0]
+            .appendingPathComponent("Chip-location-recordings.json")
+    }
+
+    private func saveRecordings() {
+        do {
+            try FileManager.default.createDirectory(at: recordingURL.deletingLastPathComponent(), withIntermediateDirectories: true)
+            try JSONEncoder().encode(recordings).write(to: recordingURL, options: [.atomic, .completeFileProtectionUntilFirstUserAuthentication])
+        } catch {
+            stopRecording()
+            locationStatus = "Could not save location history: \(error.localizedDescription)"
+        }
+    }
+
+    func startRecording() {
+        guard !recordingLocation else { return }
+        switch locationManager.authorizationStatus {
+        case .notDetermined:
+            requestedRecording = true
+            locationManager.requestWhenInUseAuthorization()
+        case .authorizedAlways, .authorizedWhenInUse:
+            recordings.append(LocationRecording())
+            recordingLocation = true
+            locationManager.allowsBackgroundLocationUpdates = true
+            locationManager.showsBackgroundLocationIndicator = true
+            locationManager.startUpdatingLocation()
+            locationStatus = "Recording location. Stop when your shoot ends."
+            saveRecordings()
+        default: locationStatus = "Allow location access in Settings to record your shoot."
+        }
+    }
+
+    func stopRecording() {
+        locationManager.stopUpdatingLocation()
+        guard recordingLocation else { return }
+        recordingLocation = false
+        recordings[recordings.count - 1].stoppedAt = Date()
+        locationStatus = "Recording stopped. History is saved for later uploads."
+        saveRecordings()
+    }
+
+    func deleteRecordings() {
+        stopRecording()
+        recordings.removeAll()
+        saveRecordings()
+        locationStatus = "Location history deleted from this phone."
+    }
+
+    func locationManagerDidChangeAuthorization(_ manager: CLLocationManager) {
+        if manager.authorizationStatus == .authorizedWhenInUse || manager.authorizationStatus == .authorizedAlways {
+            if requestedRecording { requestedRecording = false; startRecording() }
+        } else if manager.authorizationStatus != .notDetermined {
+            requestedRecording = false
+            stopRecording()
+            locationStatus = "Location permission is unavailable. Enable it in Settings to record."
+        }
+    }
+    private var requestedRecording = false
+
+    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        guard recordingLocation, !recordings.isEmpty else { return }
+        let start = recordings[recordings.count - 1].startedAt
+        for location in locations where location.horizontalAccuracy >= 0 && location.horizontalAccuracy <= 100 && location.timestamp >= start {
+            recordings[recordings.count - 1].samples.append(LocationSample(timestamp: location.timestamp, latitude: location.coordinate.latitude, longitude: location.coordinate.longitude, accuracy: location.horizontalAccuracy))
+        }
+        saveRecordings()
+    }
+
+    func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
+        locationStatus = "Location update failed: \(error.localizedDescription)"
+    }
+    #endif
     @Published var accounts: [UploadAccount] = []
     @Published var selectedID: UUID? { didSet { defaults.set(selectedID?.uuidString, forKey: "selectedAccount") } }
     @Published var signingIn = false
@@ -21,7 +101,23 @@ final class MobileUploadModel: ObservableObject {
         return .standard
     }()
 
-    init() {
+    override init() {
+        super.init()
+        #if os(iOS)
+        locationManager.delegate = self
+        locationManager.desiredAccuracy = kCLLocationAccuracyNearestTenMeters
+        locationManager.distanceFilter = 20
+        locationManager.pausesLocationUpdatesAutomatically = false
+        if !ProcessInfo.processInfo.arguments.contains("--ui-testing"),
+           let data = try? Data(contentsOf: recordingURL),
+           let saved = try? JSONDecoder().decode([LocationRecording].self, from: data) {
+            recordings = saved
+            // A terminated app cannot guarantee coverage after its last saved sample.
+            for index in recordings.indices where recordings[index].stoppedAt == nil {
+                recordings[index].stoppedAt = recordings[index].samples.last?.timestamp ?? recordings[index].startedAt
+            }
+        }
+        #endif
         #if DEBUG
         if ProcessInfo.processInfo.arguments.contains("--reset-test-accounts") { defaults.removePersistentDomain(forName: "LumiereUITests") }
         if ProcessInfo.processInfo.arguments.contains("--ui-test-accounts"), defaults.data(forKey: "uploadAccounts") == nil {
@@ -137,8 +233,13 @@ final class MobileUploadModel: ObservableObject {
             status = "Choose a signed-in account, enter an album, then select a card"
             return
         }
+        #if os(iOS)
+        let locationRecordings = recordings
+        #else
+        let locationRecordings: [LocationRecording] = []
+        #endif
         let uploader = CardUploader(client: HedonismClient(serverURL: account.server, token: token), ledger: ledger,
-                                    albumPrefix: "", context: UploadContext(albumName: album, event: event, venue: venue))
+                                    context: UploadContext(albumName: album, event: event, venue: venue, locationRecordings: locationRecordings))
         running = true
         task = Task {
             defer { running = false; task = nil }
@@ -153,6 +254,10 @@ final class MobileUploadModel: ObservableObject {
         }
     }
 }
+
+#if os(iOS)
+extension MobileUploadModel: @preconcurrency CLLocationManagerDelegate {}
+#endif
 
 @main
 struct MobileUploaderApp: App {
@@ -192,6 +297,19 @@ struct MobileUploaderApp: App {
                         TextField("Venue", text: $model.venue)
                     }
                     .disabled(model.running)
+                    #if os(iOS)
+                    Section("Shoot location") {
+                        DisclosureGroup(model.recordingLocation ? "Recording your shoot location" : "Record shoot location") {
+                        Text(model.locationStatus)
+                        Button(model.recordingLocation ? "Stop recording location" : "Start recording location") {
+                            if model.recordingLocation { model.stopRecording() } else { model.startRecording() }
+                        }
+                        Text("\(model.recordings.reduce(0) { $0 + $1.samples.count }) saved samples. History accompanies uploads from this phone. Camera time must match phone time.").font(.caption)
+                        Button("Delete saved location history", role: .destructive) { model.deleteRecordings() }
+                            .disabled(model.running || model.recordings.isEmpty)
+                        }
+                    }
+                    #endif
                     Section("Camera card") {
                         Button("Select card / DCIM folder") { picking = true }.disabled(model.running)
                         Text(model.status)
@@ -269,17 +387,10 @@ struct AddAccountView: View {
                         .accessibilityHidden(true)
                     Text("Chip").font(.system(size: 48, weight: .medium, design: .serif))
                     Text("BY LUMIÈRE").font(.caption.weight(.semibold)).tracking(4).foregroundStyle(ChipBrand.gold)
-                    Text("From your camera to your archive.").font(.body).foregroundStyle(.secondary)
                 }
                 .frame(maxWidth: .infinity).padding(.top, isFirstPage ? 44 : 12)
 
                 VStack(alignment: .leading, spacing: 16) {
-                    Text(usingDeviceCode ? "Sign in with device code" : "Welcome to your archive")
-                        .font(.title2.weight(.semibold)).foregroundStyle(ChipBrand.paper)
-                    Text(usingDeviceCode
-                         ? "Enter the one-time code supplied by your archive administrator. Codes expire after 10 minutes."
-                         : "Sign in to choose the account your photos belong to.")
-                        .foregroundStyle(.secondary).fixedSize(horizontal: false, vertical: true)
                     if usingDeviceCode {
                         TextField("Device code", text: $deviceCode)
                             #if os(iOS)
@@ -289,6 +400,7 @@ struct AddAccountView: View {
                             .font(.system(.body, design: .monospaced)).focused($focusedField, equals: "code")
                             .accessibilityIdentifier("deviceCodeField")
                             .padding(16).background(.white.opacity(0.07), in: RoundedRectangle(cornerRadius: 12))
+                        Text("One-time code · expires in 10 minutes").font(.caption).foregroundStyle(.secondary)
                         primaryButton("Sign in with device code", disabled: deviceCode.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty) {
                             Task {
                                 focusedField = nil
@@ -296,14 +408,15 @@ struct AddAccountView: View {
                             }
                         }
                     } else {
-                        TextField("Photographer subdomain", text: $photographer)
+                        TextField("Archive name", text: $photographer)
+                            .accessibilityLabel("Photographer subdomain")
                             #if os(iOS)
                             .textInputAutocapitalization(.never)
                             #endif
                             .autocorrectionDisabled()
                             .focused($focusedField, equals: "photographer")
                             .padding(16).background(.white.opacity(0.07), in: RoundedRectangle(cornerRadius: 12))
-                        Text("Your archive name — for luminx.lumiere.host, enter luminx.")
+                        Text("e.g. luminx")
                             .font(.caption).foregroundStyle(.secondary)
                         primaryButton("Continue with Facebook", disabled: photographer.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty) {
                             Task {
@@ -326,7 +439,7 @@ struct AddAccountView: View {
                 .frame(maxWidth: .infinity).disabled(model.signingIn)
                 .accessibilityIdentifier("switchSignInMethod")
 
-                DisclosureGroup("Connection settings", isExpanded: $advanced) {
+                DisclosureGroup("Server", isExpanded: $advanced) {
                     TextField("Server URL", text: $server)
                         #if os(iOS)
                         .textInputAutocapitalization(.never).keyboardType(.URL)
@@ -334,8 +447,6 @@ struct AddAccountView: View {
                         .autocorrectionDisabled().padding(.top, 12)
                 }
                 .font(.footnote).foregroundStyle(.secondary).disabled(model.signingIn)
-                Text("Your sign-in is saved securely on this device. You can add more accounts and choose one before uploading.")
-                    .font(.footnote).foregroundStyle(.secondary).fixedSize(horizontal: false, vertical: true)
             }
             .padding(28).frame(maxWidth: 520).frame(maxWidth: .infinity)
         }

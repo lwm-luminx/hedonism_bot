@@ -29,6 +29,14 @@ final class CardScannerTests: XCTestCase {
         XCTAssertEqual(shots.map { $0.map(\.filename).sorted() }, [["DSC00001.ARW", "DSC00001.HIF"], ["DSC00002.ARW"]])
     }
 
+    func testScansAnExplicitlySelectedFolderWithoutDCIM() throws {
+        let folder = FileManager.default.temporaryDirectory.appendingPathComponent(UUID().uuidString)
+        try FileManager.default.createDirectory(at: folder, withIntermediateDirectories: true)
+        defer { try? FileManager.default.removeItem(at: folder) }
+        try Data([1, 2, 3]).write(to: folder.appendingPathComponent("sample.jpg"))
+        XCTAssertEqual(CardScanner.photos(on: folder).map(\.filename), ["sample.jpg"])
+    }
+
     func testContentTypes() {
         let file = PhotoFile(url: URL(fileURLWithPath: "/DCIM/DSC00001.ARW"), size: 1, modified: .distantPast)
         XCTAssertEqual(file.contentType, "image/x-sony-arw")

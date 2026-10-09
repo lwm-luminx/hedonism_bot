@@ -2,6 +2,6 @@ class PhotoDescriptionJob < ApplicationJob
   queue_as :default
 
   def perform(photo)
-    Celery.enqueue "hedonism.who_dis.worker.caption_image", photo.to_gid_param
+    PhotoInferenceWork.enqueue! photo, "hedonism.who_dis.worker.caption_image"
   end
 end

@@ -40,6 +40,10 @@ RSpec.describe "Gallery query", type: :request do
     expect(face_ids(body)).to contain_exactly(face.to_gid_param, other_face.to_gid_param)
   end
 
+  it "displays album names instead of UUIDs" do
+    expect(run.dig("data", "folders", "nodes")).to include(include("name" => album.name))
+  end
+
   it "narrows faces to a folder" do
     expect(face_ids(run(folderId: album.to_gid_param))).to eq([ face.to_gid_param ])
   end

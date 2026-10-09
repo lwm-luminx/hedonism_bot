@@ -10,8 +10,13 @@ module Mutations
 
     argument :upload_context, GraphQL::Types::JSON, required: false, description: "Event and venue supplied by the uploader"
 
-    def resolve(album_name: nil, upload_context: nil)
+    argument :location_recordings, GraphQL::Types::JSON, required: false, description: "Recorded phone location sessions for capture-time venue matching"
+
+    def resolve(album_name: nil, upload_context: nil, location_recordings: nil)
       photographer = context[:photographer]
+      if location_recordings && !ShootLocationHistory.valid?(location_recordings)
+        raise GraphQL::ExecutionError, "Invalid location recordings"
+      end
       if upload_context
         raise GraphQL::ExecutionError, "An album is required for shoot details" unless album_name.present?
         unless upload_context.is_a?(Hash) && upload_context.keys.all? { |key| %w[event venue].include?(key) } &&
@@ -21,7 +26,7 @@ module Mutations
       end
       album = photographer.albums.find_or_create_by!(name: album_name) if album_name.present?
       album.update!(upload_context: upload_context) if upload_context
-      @promise = PhotoPromise.create(photographer: photographer, album: album)
+      @promise = PhotoPromise.create!(photographer: photographer, album: album, location_recordings: location_recordings || [])
 
       { promise: @promise }
     end

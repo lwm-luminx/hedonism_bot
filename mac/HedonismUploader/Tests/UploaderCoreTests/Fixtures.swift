@@ -27,9 +27,10 @@ final class FakeServer: URLProtocol {
     static var bodies: [Data] = []
     static var failUploadsNamed: Set<String> = []
     static var status = 200
+    static var uploadedHashes: Set<String> = []
 
     static func reset() {
-        requests = []; bodies = []; failUploadsNamed = []; status = 200
+        requests = []; bodies = []; failUploadsNamed = []; status = 200; uploadedHashes = []
     }
 
     static func session() -> URLSession {
@@ -51,6 +52,10 @@ final class FakeServer: URLProtocol {
         var json: Any = [String: Any]()
         if request.httpMethod == "PUT" {
             if Self.failUploadsNamed.contains(request.url!.lastPathComponent) { status = 400 }
+        } else if request.url?.path == "/auth/uploaded_contents",
+                  let payload = try? JSONSerialization.jsonObject(with: body) as? [String: Any] {
+            let hashes = payload["hashes"] as? [String] ?? []
+            json = ["hashes": hashes.filter { Self.uploadedHashes.contains($0) }]
         } else if let payload = try? JSONSerialization.jsonObject(with: body) as? [String: Any],
                   let query = payload["query"] as? String {
             json = ["data": Self.answer(query, variables: payload["variables"] as? [String: Any] ?? [:])]

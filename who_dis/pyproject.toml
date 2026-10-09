@@ -5,7 +5,7 @@ description = "Add your description here"
 readme = "README.md"
 requires-python = ">=3.13"
 dependencies = [
-    "celery[redis]>=5.6.3",
+    "websockets>=15.0",
     "deepface>=0.0.100",
     "tf-keras>=2.21.0",
     "gql[all]>=4.0.0",
@@ -20,7 +20,6 @@ dependencies = [
 [dependency-groups]
 dev = [
     "pyrefly>=0.60.0",
-    "celery-types>=0.26.0",
     "pytest>=8.0.0",
 ]
 
