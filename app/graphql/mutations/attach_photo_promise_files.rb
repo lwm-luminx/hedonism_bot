@@ -16,10 +16,15 @@ module Mutations
       unless @promise.is_a?(PhotoPromise)
         raise GraphQL::ExecutionError, "Photo promise not found"
       end
-      added = files.map do |file|
-        @promise.photo_promise_files.build file.to_h
+      added = @promise.with_lock do
+        files.map do |file|
+          attributes = file.to_h
+          existing = @promise.photo_promise_files.find_by(
+            original_filename: attributes[:original_filename], image_hash: attributes[:image_hash]
+          )
+          existing || @promise.photo_promise_files.create!(attributes)
+        end
       end
-      @promise.save!
 
       { promise: @promise, files: added }
     end

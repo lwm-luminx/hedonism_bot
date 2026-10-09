@@ -16,12 +16,12 @@ RSpec.describe Mutations::CreatePhotoPromise, type: :graphql do
   end
 
   it "retains validated recording history on the upload promise" do
-    execute_graphql(query, variables: { recordings: recordings })
+    execute_graphql(query, variables: { recordings: recordings }, context: uploader_context)
     promise = PhotoPromise.find(GlobalID.parse(Base64.decode64(data.dig("createPhotoPromise", "promise", "id"))).model_id)
     expect(promise.location_recordings).to eq(recordings)
   end
 
   it "rejects invalid history before creating a promise" do
-    expect { execute_graphql(query, variables: { recordings: [ {} ] }) }.not_to change(PhotoPromise, :count)
+    expect { execute_graphql(query, variables: { recordings: [ {} ] }, context: uploader_context) }.not_to change(PhotoPromise, :count)
   end
 end

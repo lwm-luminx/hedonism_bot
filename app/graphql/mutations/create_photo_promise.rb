@@ -18,7 +18,6 @@ module Mutations
     argument :location_recordings, GraphQL::Types::JSON, required: false, description: "Recorded phone location sessions for capture-time venue matching"
 
     def resolve(album_name: nil, upload_context: nil, location_recordings: nil)
-
       photographer = context[:photographer]
       if location_recordings && !ShootLocationHistory.valid?(location_recordings)
         raise GraphQL::ExecutionError, "Invalid location recordings"
