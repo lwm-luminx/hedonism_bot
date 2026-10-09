@@ -1,5 +1,5 @@
 class GlobalID
   module Locator
-    def self.locate: (string) -> top
+    def self.locate: (_ToStr) -> untyped
   end
 end

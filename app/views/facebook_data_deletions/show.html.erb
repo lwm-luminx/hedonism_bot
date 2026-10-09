@@ -1,0 +1,25 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Data deletion status | Lumière Archive</title>
+  <style>body{font:17px/1.7 system-ui,sans-serif;background:#faf8f4;color:#25231f;margin:0}main{max-width:700px;margin:auto;padding:48px 24px}code{overflow-wrap:anywhere}</style>
+</head>
+<body><main>
+  <h1>Data deletion status</h1>
+  <p>Confirmation code: <code><%= @receipt.confirmation_code %></code></p>
+  <p>Requested: <%= @receipt.created_at.utc.iso8601 %></p>
+  <% case @receipt.public_status %>
+  <% when "completed" %>
+    <p>Your deletion request is complete.</p>
+    <p>Completed: <%= @receipt.completed_at.utc.iso8601 %></p>
+    <p>Any remaining backup copies expire under the backup lifecycle and are subject to deletion before restored data is used.</p>
+  <% when "delayed" %>
+    <p>Deletion is delayed while we complete cleanup and review. Please check this page again.</p>
+  <% else %>
+    <p>Your deletion request is being processed. Please check this page again.</p>
+  <% end %>
+  <p>Keep this link private. See our <a href="/data-deletion">data deletion information</a> for help.</p>
+</main></body>
+</html>

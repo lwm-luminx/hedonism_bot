@@ -1,5 +1,5 @@
 class ::Types::FaceDataInputType < ::Types::BaseInputObject
   attr_accessor embedding: [Float]
   attr_accessor face_confidence: Float
-  attr_accessor facial_area: Hash[string, untyped]
+  attr_accessor facial_area: Hash[String, untyped]
 end

@@ -1,0 +1,4 @@
+class LegalController < ApplicationController
+  def privacy: () -> nil
+  def data_deletion: () -> nil
+end

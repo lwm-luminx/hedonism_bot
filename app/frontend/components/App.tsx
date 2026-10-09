@@ -9,6 +9,7 @@ import { AdminOverview } from "./admin/AdminOverview";
 import { VenuesPanel } from "./admin/VenuesPanel";
 import { EventsPanel } from "./admin/EventsPanel";
 import { AdminPhotosPanel } from "./admin/AdminPhotosPanel";
+import { DevicesPanel } from "./admin/DevicesPanel";
 import { StoragePanel } from "./admin/StoragePanel";
 import { CreatePhotoPromise } from "./pages/CreatePhotoPromise";
 import { QueryBoundary } from "./QueryBoundary";
@@ -36,6 +37,7 @@ export default function App() {
               <Route path="venues" element={<VenuesPanel />} />
               <Route path="events" element={<EventsPanel />} />
               <Route path="photos" element={<AdminPhotosPanel />} />
+              <Route path="devices" element={<DevicesPanel />} />
               <Route path="storage" element={<StoragePanel />} />
             </Route>
           </Routes>

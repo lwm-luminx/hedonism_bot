@@ -6,8 +6,8 @@ module ActiveStorage
   end
 
   class Attachment
-    def url: -> string
+    def url: -> _ToStr
     def open: () { (File) -> void } -> void
-    attr_reader content_type: string
+    attr_reader content_type: _ToStr
   end
 end

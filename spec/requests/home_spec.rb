@@ -7,7 +7,7 @@ RSpec.describe "Homes", type: :request do
 
   describe "GET /index" do
     it 'renders the react component' do
-      get '/', headers: { "Host": 'test.hedonism.local' }
+      get '/', headers: { "Host": 'test.lumiere.host' }
       expect(response).to render_template('home/index')
     end
   end

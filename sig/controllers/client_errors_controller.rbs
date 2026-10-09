@@ -1,0 +1,13 @@
+class ClientErrorsController < ApplicationController
+  FIELDS: Hash[Symbol, Integer]
+  MAX_BODY: Integer
+  RATE_LIMIT: Integer
+
+  def create: () -> untyped
+
+  private
+
+  def parse_report: () -> Hash[Symbol, String]?
+  def throttled?: () -> bool
+  def log: (Hash[Symbol, String]) -> untyped
+end

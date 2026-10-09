@@ -1,5 +1,8 @@
 class User < ApplicationRecord
+  class DeletionPending < StandardError
+  end
+  def admin_of?: (Photographer?) -> bool
   def admin?: -> bool
   def update_from: (Hash[String, untyped]) -> void
-  def self.from_facebook_graph: (Hash[String, untyped], ?token: String?) -> instance?
+  def self.from_facebook_graph: (Hash[String, untyped], ?token: String?) -> User
 end

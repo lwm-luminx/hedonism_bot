@@ -1,6 +1,7 @@
 require_relative "boot"
 
 require "rails/all"
+require_relative "../lib/middleware/facebook_deletion_body_limit"
 
 # Require the gems listed in Gemfile, including any gems
 # you've limited to :test, :development, or :production.
@@ -19,6 +20,8 @@ module HedonismBot
     ]
     # Initialize configuration defaults for originally generated Rails version.
     config.load_defaults 8.1
+    config.x.service_domain = ENV.fetch("SERVICE_DOMAIN", "lumiere.host").strip.downcase.delete_suffix(".")
+    config.middleware.insert_before Rails::Rack::Logger, Middleware::FacebookDeletionBodyLimit
 
     # Please, add to the `ignore` list any other `lib` subdirectories that do
     # not contain `.rb` files, or that should not be reloaded or eager loaded.
@@ -44,6 +47,8 @@ module HedonismBot
     # Admin sign-in (Facebook via OmniAuth) needs a cookie-backed session, which api_only strips out.
     config.middleware.use ActionDispatch::Cookies
     config.middleware.use ActionDispatch::Session::CookieStore, key: "_hedonism_bot_session", same_site: :lax
+    # CSRF's null-session handler clears flash as well as the browser session.
+    config.middleware.use ActionDispatch::Flash
 
     config.generators do |g|
       g.orm :active_record, primary_key_type: :uuid

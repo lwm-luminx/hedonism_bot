@@ -1,5 +1,5 @@
 module Mutations
   class BaseMutation < GraphQL::Schema::Mutation
-    def self.argument: (Symbol, Array[Class] | Class | "ID", required?: bool) -> void
+    def self.argument: (Symbol, untyped, ?String?, required: bool, **untyped) ?{ (untyped) -> untyped } -> GraphQL::Schema::Argument
   end
 end

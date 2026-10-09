@@ -3,7 +3,7 @@ module ClusterKit
     class HDBSCAN
       type metric = "euclidean"
       def initialize: (min_samples: Integer, min_cluster_size: Integer, metric: metric) -> void
-      def fit_predict: (array[array[float]]) -> untyped
+      def fit_predict: (Array[Array[_ToF]]) -> untyped
     end
   end
 end

@@ -7,12 +7,26 @@ export type SessionUser = {
   admin: boolean;
 };
 
-export async function signOut() {
+export async function signOut(returnTo = "/admin") {
   await fetch("/auth/session", {
     method: "DELETE",
     headers: { "X-CSRF-Token": csrfToken() },
   });
-  window.location.assign("/admin");
+  window.location.assign(returnTo);
+}
+
+// The signed-in user, or null when nobody is (or while loading).
+export function useSessionUser() {
+  const [user, setUser] = useState<SessionUser | null>(null);
+
+  useEffect(() => {
+    fetch("/auth/me", { headers: { Accept: "application/json" } })
+      .then((response) => response.json())
+      .then((body: { user: SessionUser | null }) => setUser(body.user))
+      .catch(() => setUser(null));
+  }, []);
+
+  return user;
 }
 
 // Shows the Facebook sign-in screen until an admin is signed in, then renders its children.
@@ -39,7 +53,11 @@ export function AuthGate({ children }: { children: ReactNode }) {
         style={{ background: "var(--background)" }}
       >
         <div className="flex flex-col items-center gap-3">
-          <img src="/lumiere-mark.svg" alt="" className="h-8 w-8 animate-pulse" />
+          <img
+            src="/lumiere-mark.svg"
+            alt=""
+            className="h-8 w-8 animate-pulse"
+          />
           <p
             className="text-sm"
             style={{
@@ -129,10 +147,11 @@ export function AuthGate({ children }: { children: ReactNode }) {
             >
               Ask an admin to run
               <br />
-              admins:grant[{user.facebook_id},{window.location.hostname.split(".")[0]}]
+              admins:grant[{user.facebook_id},
+              {window.location.hostname.split(".")[0]}]
             </p>
             <button
-              onClick={signOut}
+              onClick={() => signOut()}
               className="mt-2 w-full border px-4 py-2.5 transition-colors"
               style={{
                 borderColor: "var(--border)",
@@ -149,7 +168,7 @@ export function AuthGate({ children }: { children: ReactNode }) {
         ) : (
           <form
             method="post"
-            action="/auth/facebook"
+            action="/auth/start"
             onSubmit={() => {
               setSigningIn(true);
               setError(null);
@@ -230,6 +249,14 @@ export function AuthGate({ children }: { children: ReactNode }) {
             )}
           </form>
         )}
+        <nav aria-label="Privacy" className="flex justify-center gap-4 text-xs">
+          <a href="/privacy.html" className="underline">
+            Privacy policy
+          </a>
+          <a href="/data-deletion.html" className="underline">
+            Data deletion
+          </a>
+        </nav>
       </div>
     </div>
   );

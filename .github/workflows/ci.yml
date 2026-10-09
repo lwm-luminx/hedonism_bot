@@ -73,6 +73,12 @@ jobs:
       - name: Install JavaScript dependencies
         run: bun install --frozen-lockfile
 
+      - name: Check unused frontend code and dependencies
+        run: bun run knip
+
+      - name: Build frontend
+        run: bun run build
+
       - name: Run Vitest
         run: bun run test:run
 

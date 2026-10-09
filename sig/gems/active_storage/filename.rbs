@@ -4,6 +4,6 @@ module ActiveStorage
     include ::_ToStr
     include ::_ToS
 
-    def initialize: (string) -> void
+    def initialize: (_ToStr) -> void
   end
 end

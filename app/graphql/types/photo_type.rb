@@ -15,6 +15,7 @@ module Types
     field :alternate_description, String, null: false, description: "Description of the photo for the visually impaired"
     field :taken_at, GraphQL::Types::ISO8601DateTime, null: false, description: "Date and time the photo was taken"
     field :facial_recognition_url, String, null: true, description: "URL to a preview image of the photo for facial recognition"
+    field :inferred_venue, VenueType, null: true, description: "Venue inferred from recorded phone location at capture time"
     field :event, EventType
     field :price, Float
 

@@ -18,7 +18,7 @@ RSpec.describe "Tenancy", type: :request do
   end
 
   it "serves the photographer named by the subdomain" do
-    expect(subdomain_for("sam.hedonism.bot")).to eq("sam")
+    expect(subdomain_for("sam.lumiere.host")).to eq("sam")
   end
 
   it "returns 404 for a host no photographer serves" do
@@ -28,6 +28,22 @@ RSpec.describe "Tenancy", type: :request do
 
   it "returns 404 for the site on an unknown host" do
     get "/", headers: { "Host" => "unknown.herokuapp.com" }
+    expect(response).to have_http_status(:not_found)
+  end
+
+  it "serves Luminx on its service subdomain" do
+    expect(subdomain_for("luminx.lumiere.host")).to eq("luminx")
+  end
+
+  it "does not infer a photographer on an unrelated or nested hostname" do
+    %w[luminx.example.com luminx.other.lumiere.host].each do |host|
+      get "/", headers: { "Host" => host }
+      expect(response).to have_http_status(:not_found)
+    end
+  end
+
+  it "requires a photographer token on the shared API" do
+    post "/graphql", params: photographer_query, headers: { "Host" => "api.lumiere.host" }
     expect(response).to have_http_status(:not_found)
   end
 

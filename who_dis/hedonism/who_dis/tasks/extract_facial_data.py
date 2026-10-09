@@ -1,14 +1,18 @@
-from deepface import DeepFace
 from gql import gql
 
-from hedonism.who_dis.app import app
 from hedonism.who_dis.support import get_photo_url, graph_client
 
-@app.task(name="hedonism.who_dis.worker.extract_facial_data")
+DeepFace = None
+
 def extract_facial_data(photo_id):
     photo_url = get_photo_url(photo_id)
     if not photo_url:
         return
+
+    global DeepFace
+    if DeepFace is None:
+        from deepface import DeepFace as backend
+        DeepFace = backend
 
     # Extract embeddings for all faces found in the image
     try:
@@ -49,4 +53,5 @@ def extract_facial_data(photo_id):
         print(f"Result of Mutation => {result}")
 
     except Exception as e:
-        print(f"An error occurred: {e}")
+        print(f"An error occurred: {type(e).__name__}")
+        raise

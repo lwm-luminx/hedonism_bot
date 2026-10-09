@@ -9,8 +9,6 @@ plugins:
 
 AllCops:
   NewCops: enable
-  Exclude:
-    - 'lib/tasks/cucumber.rake'
 
 Layout/LeadingCommentSpace:
   AllowRBSInlineAnnotation: true

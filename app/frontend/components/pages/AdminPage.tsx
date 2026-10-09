@@ -6,6 +6,7 @@ import {
   LayoutDashboard,
   LogOut,
   MapPin,
+  Monitor,
 } from "lucide-react";
 import { NavLink, Outlet, useNavigate } from "react-router";
 import { Suspense } from "react";
@@ -47,7 +48,7 @@ export function AdminPage() {
             Admin
           </span>
           <button
-            onClick={signOut}
+            onClick={() => signOut()}
             className="ml-auto flex items-center gap-1.5 transition-opacity hover:opacity-70"
             style={{ color: "var(--muted-foreground)", fontSize: "0.875rem" }}
           >
@@ -83,6 +84,10 @@ export function AdminPage() {
             <NavLink to="/admin/photos" className="admin-nav">
               <Image />
               Photos
+            </NavLink>
+            <NavLink to="/admin/devices" className="admin-nav">
+              <Monitor />
+              Devices
             </NavLink>
             <NavLink to="/admin/storage" className="admin-nav">
               <HardDrive />

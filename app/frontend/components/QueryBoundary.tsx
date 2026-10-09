@@ -29,7 +29,7 @@ interface ErrorBoundaryState {
 
 // Catches a failed query (or any render error) below it and shows a retry
 // instead of unmounting the whole page.
-export class ErrorBoundary extends Component<
+class ErrorBoundary extends Component<
   ErrorBoundaryProps,
   ErrorBoundaryState
 > {

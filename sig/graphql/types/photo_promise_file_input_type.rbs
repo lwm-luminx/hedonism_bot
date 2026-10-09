@@ -1,0 +1,4 @@
+module Types
+  class PhotoPromiseFileInputType < Types::BaseInputObject
+  end
+end

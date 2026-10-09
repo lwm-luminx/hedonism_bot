@@ -1,0 +1,4 @@
+class Current < ActiveSupport::CurrentAttributes
+  def self.photographer: () -> Photographer?
+  def self.photographer=: (Photographer?) -> Photographer?
+end

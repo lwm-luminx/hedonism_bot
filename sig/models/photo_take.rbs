@@ -12,7 +12,7 @@ class PhotoTake
   def attach_format: (String, String, filename: String) -> void
   def metadata_image: -> ActiveStorage::Attachment
   def composite_image: -> ActiveStorage::Attachment
-  def preview_url: -> string?
+  def preview_url: -> _ToStr?
   def update_faces: (Array[PhotoFace]) -> void
   def mark_failed!: (StandardError) -> void
   def mark_processing!: -> void

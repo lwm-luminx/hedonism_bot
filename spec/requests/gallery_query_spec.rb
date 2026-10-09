@@ -23,7 +23,7 @@ RSpec.describe "Gallery query", type: :request do
         faces(folderId: $folderId) { nodes { id thumbnailUrl photoCount } }
       }
     GRAPHQL
-    post "/graphql", params: { query: query, variables: variables.to_json }, headers: { "Host" => "luminx.hedonism.bot" }
+    post "/graphql", params: { query: query, variables: variables.to_json }, headers: { "Host" => "luminx.lumiere.host" }
     JSON.parse(response.body)
   end
 
@@ -38,6 +38,10 @@ RSpec.describe "Gallery query", type: :request do
     expect(body["errors"]).to be_nil
     expect(body.dig("data", "folders", "nodes").size).to eq(2)
     expect(face_ids(body)).to contain_exactly(face.to_gid_param, other_face.to_gid_param)
+  end
+
+  it "displays album names instead of UUIDs" do
+    expect(run.dig("data", "folders", "nodes")).to include(include("name" => album.name))
   end
 
   it "narrows faces to a folder" do

@@ -283,6 +283,46 @@ class ::PhotoPromise < ::ApplicationRecord
     def album_id_before_type_cast: () -> ::String?
 
     def album_id_for_database: () -> ::String?
+
+    def location_recordings: () -> untyped
+
+    def location_recordings=: (untyped) -> untyped
+
+    def location_recordings?: () -> bool
+
+    def location_recordings_changed?: (?from: untyped, ?to: untyped) -> bool
+
+    def location_recordings_change: () -> [ untyped, untyped ]
+
+    def location_recordings_will_change!: () -> void
+
+    def location_recordings_was: () -> untyped
+
+    def location_recordings_previously_changed?: (?from: untyped, ?to: untyped) -> bool
+
+    def location_recordings_previous_change: () -> ::Array[untyped]?
+
+    def location_recordings_previously_was: () -> untyped
+
+    def location_recordings_before_last_save: () -> untyped
+
+    def location_recordings_change_to_be_saved: () -> ::Array[untyped]?
+
+    def location_recordings_in_database: () -> untyped
+
+    def saved_change_to_location_recordings: () -> ::Array[untyped]?
+
+    def saved_change_to_location_recordings?: (?from: untyped, ?to: untyped) -> bool
+
+    def will_save_change_to_location_recordings?: (?from: untyped, ?to: untyped) -> bool
+
+    def restore_location_recordings!: () -> void
+
+    def clear_location_recordings_change: () -> void
+
+    def location_recordings_before_type_cast: () -> untyped
+
+    def location_recordings_for_database: () -> untyped
   end
   include ::PhotoPromise::GeneratedAttributeMethods
   module ::PhotoPromise::GeneratedAliasAttributeMethods

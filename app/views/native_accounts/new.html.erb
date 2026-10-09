@@ -1,0 +1,6 @@
+<h1>Opening Facebook…</h1>
+<p>You’ll return to the app after signing in.</p>
+<%= button_to "Continue with Facebook", "/auth/facebook", method: :post,
+              form: { id: "native-facebook-sign-in" }, data: { turbo: false } %>
+<noscript><p>Choose Continue with Facebook to sign in.</p></noscript>
+<script src="/native-facebook-sign-in.js" defer></script>

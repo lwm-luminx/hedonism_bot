@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Archive, ArchiveRestore } from "lucide-react";
 import { graphql, useLazyLoadQuery, useMutation } from "react-relay";
+import { ArchiveConnections } from "./ArchiveConnections";
 import { Button } from "../controls/Button";
 import { StoragePanelQuery } from "./__generated__/StoragePanelQuery.graphql";
 import { StoragePanelArchiveMutation } from "./__generated__/StoragePanelArchiveMutation.graphql";
@@ -110,6 +111,8 @@ export function StoragePanel() {
           {formatBytes(storage.archivedBytes)} archived
         </p>
       </div>
+
+      <ArchiveConnections />
 
       <div
         className="h-2 w-full overflow-hidden"

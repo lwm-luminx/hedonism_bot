@@ -1,7 +1,0 @@
-class UploadController < ApplicationController
-  def cluster: () -> untyped
-
-  def infer: () -> untyped
-
-  def upload: () -> untyped
-end

@@ -1,9 +1,0 @@
-class ::Photographer < ::ApplicationRecord
-def self.default_photographer: -> ::Photographer
-
-def folders: -> array[Folder]
-
-private
-
-def ensure_api_key: -> void
-end

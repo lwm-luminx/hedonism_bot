@@ -313,6 +313,10 @@ class ::Photographer < ::ApplicationRecord
   def service_accounts=: (::ServiceAccount::ActiveRecord_Associations_CollectionProxy | ::Array[::ServiceAccount]) -> (::ServiceAccount::ActiveRecord_Associations_CollectionProxy | ::Array[::ServiceAccount])
   def service_account_ids: () -> ::Array[::String]
   def service_account_ids=: (::Array[::String]) -> ::Array[::String]
+  def native_login_grants: () -> ::NativeLoginGrant::ActiveRecord_Associations_CollectionProxy
+  def native_login_grants=: (::NativeLoginGrant::ActiveRecord_Associations_CollectionProxy | ::Array[::NativeLoginGrant]) -> (::NativeLoginGrant::ActiveRecord_Associations_CollectionProxy | ::Array[::NativeLoginGrant])
+  def native_login_grant_ids: () -> ::Array[::Integer]
+  def native_login_grant_ids=: (::Array[::Integer]) -> ::Array[::Integer]
   def photographer_admins: () -> ::PhotographerAdmin::ActiveRecord_Associations_CollectionProxy
   def photographer_admins=: (::PhotographerAdmin::ActiveRecord_Associations_CollectionProxy | ::Array[::PhotographerAdmin]) -> (::PhotographerAdmin::ActiveRecord_Associations_CollectionProxy | ::Array[::PhotographerAdmin])
   def photographer_admin_ids: () -> ::Array[::String]
@@ -388,6 +392,10 @@ end
 class ::ServiceAccount < ::ApplicationRecord
 end
 class ::ServiceAccount::ActiveRecord_Associations_CollectionProxy < ::ActiveRecord::Associations::CollectionProxy
+end
+class ::NativeLoginGrant < ::ApplicationRecord
+end
+class ::NativeLoginGrant::ActiveRecord_Associations_CollectionProxy < ::ActiveRecord::Associations::CollectionProxy
 end
 class ::PhotographerAdmin < ::ApplicationRecord
 end
