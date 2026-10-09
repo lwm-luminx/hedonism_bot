@@ -3,6 +3,19 @@
 A Rails application with a React/Relay frontend built by Vite, a Python ML worker,
 and a macOS photo uploader.
 
+## Public integration details
+
+The photography integration endpoint exposes `integrationMetadata { websiteUrl
+companyName supportUrl supportEmail }` without credentials. AudienceKit uses this
+for the integration card; photo access still requires a scoped photographer grant.
+
+Configure the provider using `INTEGRATION_WEBSITE_URL` (default
+`https://lumiere.host`), `INTEGRATION_COMPANY_NAME` (default `Love Wins Media, Inc.`),
+`INTEGRATION_SUPPORT_URL`, and `INTEGRATION_SUPPORT_EMAIL`. Support fields are
+optional and have no fabricated defaults. URLs must use HTTPS and the email must
+be a plain address. Restart the service after changing environment variables.
+
+
 ## Development
 
 When checked out as AudienceKit's `apps/hedonism_bot` submodule, follow its

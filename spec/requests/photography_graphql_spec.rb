@@ -9,6 +9,22 @@ RSpec.describe "Photography provider", type: :request do
   let(:grant) { issued.first }
   let(:token) { issued.last }
 
+  it "publishes service metadata without granting anonymous photo access" do
+    allow(IntegrationMetadata).to receive(:details).and_return(
+      website_url: "https://photos.example", company_name: "Example Company",
+      support_url: "https://photos.example/help", support_email: "help@photos.example"
+    )
+    metadata = { query: "{ integrationMetadata { websiteUrl companyName supportUrl supportEmail } }",
+                 variables: {}, extensions: {} }
+    post "/extensions/photography/graphql", params: [ metadata, operation("invalid") ], as: :json
+    expect(response.parsed_body.first.dig("data", "integrationMetadata")).to eq(
+      "websiteUrl" => "https://photos.example", "companyName" => "Example Company",
+      "supportUrl" => "https://photos.example/help", "supportEmail" => "help@photos.example"
+    )
+    expect(response.parsed_body.last.dig("data", "photographer")).to be_nil
+    expect(response.parsed_body.last["errors"]).to be_present
+  end
+
   def query
     'query($audience: ID!) { contractVersion photographer(audienceId: $audience) { id name photos(first: 1) ' \
       '{ nodes { id takeCount previewUrl } pageInfo { endCursor hasNextPage } } } }'

@@ -54,6 +54,13 @@ interface IPhotographer {
   ): PhotographyPhotoConnection!
 }
 
+type IntegrationMetadata {
+  companyName: String
+  supportEmail: String
+  supportUrl: String
+  websiteUrl: String
+}
+
 """
 Information about pagination in a connection.
 """
@@ -125,5 +132,6 @@ type PhotographyPhotoEdge {
 
 type PhotographyQuery {
   contractVersion: String!
+  integrationMetadata: IntegrationMetadata!
   photographer(audienceId: ID!): HedonismPhotographer
 }
