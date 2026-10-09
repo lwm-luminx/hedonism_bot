@@ -1,0 +1,129 @@
+schema {
+  query: PhotographyQuery
+}
+
+type HedonismPhotographer implements IPhotographer {
+  id: ID!
+  name: String!
+  photos(
+    """
+    Returns the elements in the list that come after the specified cursor.
+    """
+    after: String
+
+    """
+    Returns the elements in the list that come before the specified cursor.
+    """
+    before: String
+
+    """
+    Returns the first _n_ elements from the list.
+    """
+    first: Int
+
+    """
+    Returns the last _n_ elements from the list.
+    """
+    last: Int
+  ): PhotographyPhotoConnection!
+}
+
+interface IPhotographer {
+  id: ID!
+  name: String!
+  photos(
+    """
+    Returns the elements in the list that come after the specified cursor.
+    """
+    after: String
+
+    """
+    Returns the elements in the list that come before the specified cursor.
+    """
+    before: String
+
+    """
+    Returns the first _n_ elements from the list.
+    """
+    first: Int
+
+    """
+    Returns the last _n_ elements from the list.
+    """
+    last: Int
+  ): PhotographyPhotoConnection!
+}
+
+"""
+Information about pagination in a connection.
+"""
+type PageInfo {
+  """
+  When paginating forwards, the cursor to continue.
+  """
+  endCursor: String
+
+  """
+  When paginating forwards, are there more items?
+  """
+  hasNextPage: Boolean!
+
+  """
+  When paginating backwards, are there more items?
+  """
+  hasPreviousPage: Boolean!
+
+  """
+  When paginating backwards, the cursor to continue.
+  """
+  startCursor: String
+}
+
+"""
+A logical Photo containing takes; never a legacy GraphQL Photo (PhotoTake).
+"""
+type PhotographyPhoto {
+  id: ID!
+  previewUrl: String
+  takeCount: Int!
+}
+
+"""
+The connection type for PhotographyPhoto.
+"""
+type PhotographyPhotoConnection {
+  """
+  A list of edges.
+  """
+  edges: [PhotographyPhotoEdge]
+
+  """
+  A list of nodes.
+  """
+  nodes: [PhotographyPhoto]
+
+  """
+  Information to aid in pagination.
+  """
+  pageInfo: PageInfo!
+}
+
+"""
+An edge in a connection.
+"""
+type PhotographyPhotoEdge {
+  """
+  A cursor for use in pagination.
+  """
+  cursor: String!
+
+  """
+  The item at the end of the edge.
+  """
+  node: PhotographyPhoto
+}
+
+type PhotographyQuery {
+  contractVersion: String!
+  photographer(audienceId: ID!): HedonismPhotographer
+}

@@ -5,10 +5,24 @@ and a macOS photo uploader.
 
 ## Development
 
+When checked out as AudienceKit's `apps/hedonism_bot` submodule, follow its
+[local stack guide](../../docs/development/LOCAL_STACK.md). From the monorepo root,
+`mise run hedonism:setup` prepares dependencies and databases, and
+`mise run hedonism:dev` starts Rails on **3100**, Vite on **3036**, the Relay watcher
+and the Solid Queue worker. The IntelliJ **AudienceKit - Full development stack**
+target also starts the AudienceKit API and admin Vite server. The Python ML worker
+is configured separately below.
+
+AudienceKit's **Local HTTPS stack** compound (or `mise run dev:https` at the
+monorepo root) serves this app at `https://hedonism.local.audiencekit.com` through
+nginx. Its HTTPS task uses relative Vite asset URLs and wss on port 443; nginx
+routes `/vite-dev/` directly to port 3036. Follow the guide's mkcert setup first.
+
 Use the Ruby and Bun versions in `.ruby-version` and `.bun-version`. The app needs
 PostgreSQL with PostGIS and pgvector, Redis, libvips, exiftool, and OpenBLAS.
 
 ```sh
+bun install --frozen-lockfile
 bin/setup --skip-server
 bin/dev
 ```
@@ -112,3 +126,54 @@ both API health and the Luminx gallery returned HTTP 200 over HTTPS. GitHub Page
 built the marketing site, and it returned HTTP 200 when queried directly at a Pages
 address. DNS propagation and the marketing certificate are still pending. Enable
 HTTPS enforcement in the repository’s Pages settings once its certificate is issued. The Rails domain-routing changes need a separate app deployment.
+
+
+### AudienceKit Photography provider
+
+`POST /extensions/photography/graphql` exposes a separate read-only schema,
+exported at `app/graphql/photography/schema.graphql`. The existing `/graphql`
+endpoint continues to expose its legacy PhotoTake-as-Photo contract.
+
+Create an explicit audience grant (UUIDs belong to the provider photographer and
+AudienceKit audience respectively):
+
+```sh
+bundle exec rake 'photography:grant[PHOTOGRAPHER_UUID,AUDIENCE_UUID]'
+bundle exec rake 'photography:publish[GRANT_UUID,PHOTO_UUID]'
+bundle exec rake 'photography:unpublish[GRANT_UUID,PHOTO_UUID]'
+bundle exec rake 'photography:revoke[GRANT_UUID]'
+```
+
+The grant command prints a credential once; only its SHA-256 digest is stored.
+Give it to the AudienceKit platform admin configuring the connection. Each grant
+belongs to exactly one photographer and audience. An empty grant shares no photos;
+publication accepts only logical Photos owned by that photographer. Reads further
+exclude unprocessed/hidden takes and photos moved to another photographer. Revoked
+grants and inactive photographers cannot read data. These credentials are distinct
+from the service accounts used by uploaders.
+
+The endpoint accepts either a single operation object or a JSON array of 1–20
+operations. Each operation includes `query`, `variables` and
+`extensions: {"accessToken": "..."}`. Credentials are independently authenticated
+and parameter-filtered per operation. Responses retain request order and errors
+are isolated per query. There is no mutation root and no access to faces or user
+identities through this schema.
+
+```graphql
+query ProviderPhotos($audience: ID!, $first: Int!, $after: String) {
+  contractVersion
+  photographer(audienceId: $audience) {
+    id
+    name
+    photos(first: $first, after: $after) {
+      nodes { id previewUrl takeCount }
+      pageInfo { endCursor hasNextPage }
+    }
+  }
+}
+```
+
+Photo IDs represent logical Photo groups. Previews and counts use processed takes;
+the complete PhotoTake/PhotoPerson contract and venue/event mapping follow in later
+slices. The maximum photo page is 50. Deploy this endpoint and issue grants before
+activating AudienceKit connections; no existing photo library is automatically shared.
