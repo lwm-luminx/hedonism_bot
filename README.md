@@ -9,7 +9,8 @@ When checked out as AudienceKit's `apps/hedonism_bot` submodule, follow its
 [local stack guide](../../docs/development/LOCAL_STACK.md). From the monorepo root,
 `mise run hedonism:setup` prepares dependencies and databases, and
 `mise run hedonism:dev` starts Rails on **3100**, Vite on **3036**, the Relay watcher
-and the Solid Queue worker. The IntelliJ **AudienceKit - Full development stack**
+and the Solid Queue worker. `Procfile.dev` uses Solid Queue's `async` mode so the
+development worker does not fork after native libraries have loaded on macOS. The IntelliJ **AudienceKit - Full development stack**
 target also starts the AudienceKit API and admin Vite server. The Python ML worker
 is configured separately below.
 

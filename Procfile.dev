@@ -1,4 +1,4 @@
 web: env RUBY_DEBUG_OPEN=true bin/rails server
 vite: bin/vite dev
 relay: bun run relay
-worker: env RAILS_ENV=development bin/jobs
+worker: env RAILS_ENV=development bin/jobs --mode async

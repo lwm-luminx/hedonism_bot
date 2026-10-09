@@ -9,6 +9,11 @@
 # with it fail to load into rustc.
 #
 #   CARGO="$PWD/bin/cargo-chained-fixups" bundle pristine clusterkit
+# clusterkit enables Magnus's embed feature, which otherwise links a second Ruby
+# into the extension when using mise's statically linked Ruby. rb-sys gives its
+# no-link-ruby switch precedence over embed; resolve Ruby symbols from the host.
+export CARGO_FEATURE_NO_LINK_RUBY=1
+
 if [ "$1" = rustc ]; then
   for arg in "$@"; do
     [ "$arg" = -- ] && exec cargo "$@" -C link-arg=-Wl,-fixup_chains
