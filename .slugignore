@@ -1,0 +1,2 @@
+# Tests and their fixtures (about 500 MB of LFS camera files) stay out of the Heroku slug.
+spec/
