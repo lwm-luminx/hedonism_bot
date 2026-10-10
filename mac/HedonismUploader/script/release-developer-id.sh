@@ -36,7 +36,7 @@ notary="--key $key_path --key-id $key_id --issuer $issuer"
 
 notarize() {
   # Submit, wait, and print Apple's log when the submission is not accepted.
-  result=$(xcrun notarytool submit "$1" $notary --wait --output-format plist)
+  result=$(xcrun notarytool submit "$1" $notary --wait --output-format plist || true)
   status=$(printf '%s' "$result" | plutil -extract status raw -o - -)
   id=$(printf '%s' "$result" | plutil -extract id raw -o - -)
   echo "Notarization $id: $status"
@@ -63,7 +63,7 @@ xcodebuild -exportArchive -archivePath "$archive" -exportPath "$export_dir" \
   -allowProvisioningUpdates $auth
 
 codesign --verify --deep --strict --verbose=2 "$app"
-codesign -dv "$app" 2>&1 | grep -q "Authority=Developer ID Application" \
+codesign -dvv "$app" 2>&1 | grep -q "Authority=Developer ID Application" \
   || { echo "Exported app is not Developer ID signed" >&2; exit 1; }
 python3 "$repo_dir/apple/macOS/Tests/verify_entitlements.py" "$app"
 
