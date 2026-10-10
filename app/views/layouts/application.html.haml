@@ -17,4 +17,7 @@
 
     = vite_react_refresh_tag
   %body
+    = render 'shared/love_wins_band'
     = yield
+    %footer{ style: 'padding: 16px; color: var(--muted-foreground)' }
+      = render 'shared/love_wins_footer'
