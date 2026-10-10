@@ -3,7 +3,7 @@ class PrivacyLock
   def self.with(key)
     ApplicationRecord.transaction do
       lock_id = Digest::SHA256.digest(key).unpack1("q>")
-      ApplicationRecord.connection.execute("SELECT pg_advisory_xact_lock(#{lock_id})")
+      ApplicationRecord.connection.execute(ApplicationRecord.sanitize_sql_array(["SELECT pg_advisory_xact_lock(?)", lock_id]))
       yield
     end
   end
