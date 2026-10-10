@@ -1,23 +1,78 @@
-<?xml version='1.0' encoding='UTF-8'?>
-<Scheme LastUpgradeVersion="2700" version="1.3">
-  <BuildAction parallelizeBuildables="YES" buildImplicitDependencies="YES">
-    <BuildActionEntries>
-      <BuildActionEntry buildForTesting="YES" buildForRunning="YES" buildForProfiling="YES" buildForArchiving="YES" buildForAnalyzing="YES">
-        <BuildableReference BuildableIdentifier="primary" BlueprintIdentifier="0A3B52F20478AFF17656659D" BuildableName="Chip by Lumière.app" BlueprintName="Chip" ReferencedContainer="container:LumiereUploader.xcodeproj" />
-      </BuildActionEntry>
-    </BuildActionEntries>
-  </BuildAction>
-  <LaunchAction buildConfiguration="Debug" selectedDebuggerIdentifier="Xcode.DebuggerFoundation.Debugger.LLDB" selectedLauncherIdentifier="Xcode.IDEFoundation.Launcher.LLDB">
-    <BuildableProductRunnable runnableDebuggingMode="0">
-      <BuildableReference BuildableIdentifier="primary" BlueprintIdentifier="0A3B52F20478AFF17656659D" BuildableName="Chip by Lumière.app" BlueprintName="Chip" ReferencedContainer="container:LumiereUploader.xcodeproj" />
-    </BuildableProductRunnable>
-  </LaunchAction>
-  <ArchiveAction buildConfiguration="Release" revealArchiveInOrganizer="YES" />
-  <TestAction buildConfiguration="Debug" selectedDebuggerIdentifier="Xcode.DebuggerFoundation.Debugger.LLDB" selectedLauncherIdentifier="Xcode.IDEFoundation.Launcher.LLDB">
-    <Testables>
-      <TestableReference skipped="NO">
-        <BuildableReference BuildableIdentifier="primary" BlueprintIdentifier="D24B997AF00C71C20D86BE4D" BuildableName="ChipUITests.xctest" BlueprintName="ChipUITests" ReferencedContainer="container:LumiereUploader.xcodeproj" />
-      </TestableReference>
-    </Testables>
-  </TestAction>
+<?xml version="1.0" encoding="UTF-8"?>
+<Scheme
+   LastUpgradeVersion = "2700"
+   version = "1.3">
+   <BuildAction
+      parallelizeBuildables = "YES"
+      buildImplicitDependencies = "YES">
+      <BuildActionEntries>
+         <BuildActionEntry
+            buildForTesting = "YES"
+            buildForRunning = "YES"
+            buildForProfiling = "YES"
+            buildForArchiving = "YES"
+            buildForAnalyzing = "YES">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "0A3B52F20478AFF17656659D"
+               BuildableName = "Chip.app"
+               BlueprintName = "Chip"
+               ReferencedContainer = "container:LumiereUploader.xcodeproj">
+            </BuildableReference>
+         </BuildActionEntry>
+      </BuildActionEntries>
+   </BuildAction>
+   <TestAction
+      buildConfiguration = "Debug"
+      selectedDebuggerIdentifier = "Xcode.DebuggerFoundation.Debugger.LLDB"
+      selectedLauncherIdentifier = "Xcode.DebuggerFoundation.Launcher.LLDB"
+      shouldUseLaunchSchemeArgsEnv = "NO">
+      <Testables>
+         <TestableReference
+            skipped = "NO">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "D24B997AF00C71C20D86BE4D"
+               BuildableName = "ChipUITests.xctest"
+               BlueprintName = "ChipUITests"
+               ReferencedContainer = "container:LumiereUploader.xcodeproj">
+            </BuildableReference>
+         </TestableReference>
+      </Testables>
+   </TestAction>
+   <LaunchAction
+      buildConfiguration = "Debug"
+      selectedDebuggerIdentifier = "Xcode.DebuggerFoundation.Debugger.LLDB"
+      selectedLauncherIdentifier = "Xcode.DebuggerFoundation.Launcher.LLDB"
+      launchStyle = "0"
+      useCustomWorkingDirectory = "NO"
+      ignoresPersistentStateOnLaunch = "NO"
+      debugDocumentVersioning = "YES"
+      debugServiceExtension = "internal"
+      allowLocationSimulation = "YES">
+      <BuildableProductRunnable
+         runnableDebuggingMode = "0">
+         <BuildableReference
+            BuildableIdentifier = "primary"
+            BlueprintIdentifier = "0A3B52F20478AFF17656659D"
+            BuildableName = "Chip.app"
+            BlueprintName = "Chip"
+            ReferencedContainer = "container:LumiereUploader.xcodeproj">
+         </BuildableReference>
+      </BuildableProductRunnable>
+   </LaunchAction>
+   <ProfileAction
+      buildConfiguration = "Release"
+      shouldUseLaunchSchemeArgsEnv = "YES"
+      savedToolIdentifier = ""
+      useCustomWorkingDirectory = "NO"
+      debugDocumentVersioning = "YES">
+   </ProfileAction>
+   <AnalyzeAction
+      buildConfiguration = "Debug">
+   </AnalyzeAction>
+   <ArchiveAction
+      buildConfiguration = "Release"
+      revealArchiveInOrganizer = "YES">
+   </ArchiveAction>
 </Scheme>
