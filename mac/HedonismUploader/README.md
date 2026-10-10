@@ -37,7 +37,9 @@ submission. Revoke a token with
 ## Develop
 
 `swift test` runs the core tests (scanning, ledger, hashing, and the upload flow against an
-in-process fake server). CI builds and tests on macOS.
+in-process fake server). CI doesn't build it (macOS runners cost ten times Linux ones):
+before merging, run AudienceKit's `scripts/verify-apple.sh uploader` on a Mac, which runs
+`swift test` and `script/bundle-app.sh`.
 
 ## macOS and iOS Xcode apps
 
