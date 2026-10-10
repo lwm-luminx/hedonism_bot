@@ -6,7 +6,9 @@
   <title>Data deletion status | Lumière Archive</title>
   <style>body{font:17px/1.7 system-ui,sans-serif;background:#faf8f4;color:#25231f;margin:0}main{max-width:700px;margin:auto;padding:48px 24px}code{overflow-wrap:anywhere}</style>
 </head>
-<body><main>
+<body>
+<%= render "shared/love_wins_band" %>
+<main>
   <h1>Data deletion status</h1>
   <p>Confirmation code: <code><%= @receipt.confirmation_code %></code></p>
   <p>Requested: <%= @receipt.created_at.utc.iso8601 %></p>
@@ -21,5 +23,6 @@
     <p>Your deletion request is being processed. Please check this page again.</p>
   <% end %>
   <p>Keep this link private. See our <a href="/data-deletion">data deletion information</a> for help.</p>
+  <footer style="margin-top: 40px"><%= render "shared/love_wins_footer", align: "flex-start" %></footer>
 </main></body>
 </html>

@@ -79,6 +79,10 @@ RSpec.describe "Facebook data deletion", type: :request do
       it "prevents caching" do
         expect(response.headers["Cache-Control"]).to eq("no-store")
       end
+
+      it "credits Love Wins Media" do
+        expect(response.body).to include("A Love Wins Media product")
+      end
     end
   end
 
