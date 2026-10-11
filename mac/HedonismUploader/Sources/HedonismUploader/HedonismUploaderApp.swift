@@ -7,6 +7,9 @@ struct HedonismUploaderApp: App {
     @StateObject private var model: AppModel
     @StateObject private var services: DesktopServices
     @StateObject private var settings: SettingsWindowController
+    #if SPARKLE
+    @StateObject private var updater = SoftwareUpdater()
+    #endif
 
     init() {
         let model = AppModel()
@@ -25,7 +28,7 @@ struct HedonismUploaderApp: App {
 
     var body: some Scene {
         MenuBarExtra {
-            MenuContent(model: model, services: services, settings: settings)
+            MenuContent(model: model, services: services, settings: settings, checkForUpdates: checkForUpdates)
         } label: {
             HStack(spacing: 4) {
                 Image(systemName: model.isUploading ? "arrow.up.circle.fill" : "sdcard")
@@ -43,6 +46,14 @@ struct HedonismUploaderApp: App {
             }
         }
 
+    }
+
+    private var checkForUpdates: (() -> Void)? {
+        #if SPARKLE
+        updater.canCheckForUpdates ? { updater.checkForUpdates() } : nil
+        #else
+        nil
+        #endif
     }
 }
 
@@ -69,6 +80,7 @@ struct MenuContent: View {
     @ObservedObject var model: AppModel
     @ObservedObject var services: DesktopServices
     let settings: SettingsWindowController
+    var checkForUpdates: (() -> Void)? = nil
     @AppStorage("synologyURL") private var synologyURL = ""
 
     var body: some View {
@@ -156,6 +168,9 @@ struct MenuContent: View {
                 menuAction(services.isRunning ? "Stop service" : "Start service", icon: services.isRunning ? "stop.circle" : "play.circle", enabled: !services.isStopping) {
                     if services.isRunning { services.stop() }
                     else { services.start(server: model.serverURL, token: model.token) }
+                }
+                if let checkForUpdates {
+                    menuAction("Check for updates", icon: "arrow.triangle.2.circlepath", action: checkForUpdates)
                 }
             }
 
