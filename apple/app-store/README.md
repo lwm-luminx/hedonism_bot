@@ -12,6 +12,7 @@ This is preparation work; no build has been uploaded or submitted for review.
 
 - Name: Chip by Lumière
 - Bundle ID: `social.hotmess.LumiereMobile` (preserves the existing project identity)
+- Chip for Mac: separate record, bundle ID `social.hotmess.LumiereMac` (app ID `6820751783`)
 - Suggested SKU: `social.hotmess.LumiereMobile`
 - Primary locale: en-US
 - Initial version: 1.0.0, build 1; increment the build number for each upload.
