@@ -2,12 +2,14 @@
 # Download the pinned Sparkle release, verify it, and embed Sparkle.framework in the app.
 # Run by Xcode for the DeveloperID configuration only; the App Store build never ships Sparkle.
 # Usage: script/embed-sparkle.sh <app Frameworks folder>
+#        script/embed-sparkle.sh --fetch   (download only; run before xcodebuild, because Swift
+#                                          resolves `import Sparkle` before build phases run)
 set -eu
 version=2.10.0
 sha256=c2bf58aa8387266ac179357b1415d6f2635f044da8be41042af32425dae6da0c
 package_dir=$(CDPATH= cd -- "$(dirname -- "$0")/.." && pwd)
 cache="$package_dir/.build/sparkle"
-frameworks=${1:?Pass the app Frameworks folder}
+frameworks=${1:?Pass the app Frameworks folder or --fetch}
 
 if [ ! -d "$cache/$version/Sparkle.framework" ]; then
   mkdir -p "$cache"
@@ -23,6 +25,7 @@ if [ ! -d "$cache/$version/Sparkle.framework" ]; then
 fi
 # The linker finds Sparkle through FRAMEWORK_SEARCH_PATHS = .build/sparkle/current.
 ln -sfn "$version" "$cache/current"
+[ "$frameworks" = --fetch ] && exit 0
 
 mkdir -p "$frameworks"
 rm -rf "$frameworks/Sparkle.framework"
