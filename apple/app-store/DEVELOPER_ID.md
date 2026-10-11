@@ -56,7 +56,9 @@ so its users install the first Sparkle build by hand once.
   `~/.appstoreconnect/private_keys/`; nothing secret is committed.
 - Xcode 26 and the bundled Python inputs that `bundle-python.sh` expects.
 - Sparkle 2.10.0's tools in `~/Developer/Sparkle-tools/2.10.0` (or `SPARKLE_BIN`) and the
-  EdDSA key in the login Keychain. Publishing also needs the `gh` CLI signed in.
+  EdDSA key in the login Keychain (the first signing run asks to allow Keychain access;
+  choose Always Allow), or `SPARKLE_KEY_FILE` pointing at an exported key file.
+  Publishing also needs the `gh` CLI signed in.
 
 ## Release
 

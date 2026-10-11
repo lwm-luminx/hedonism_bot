@@ -24,6 +24,8 @@ if [ ! -d "$cache/$version/Sparkle.framework" ]; then
   mv "$cache/$version.tmp" "$cache/$version"
 fi
 # The linker finds Sparkle through FRAMEWORK_SEARCH_PATHS = .build/sparkle/current.
+# A real folder here (left by an older build listing a path inside it) would capture the link.
+[ -L "$cache/current" ] || rm -rf "$cache/current"
 ln -sfn "$version" "$cache/current"
 [ "$frameworks" = --fetch ] && exit 0
 

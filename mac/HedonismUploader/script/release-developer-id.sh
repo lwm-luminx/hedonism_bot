@@ -10,6 +10,7 @@
 #   ASC_KEY_PATH    defaults to ~/.appstoreconnect/private_keys/AuthKey_$ASC_KEY_ID.p8
 # Sparkle's EdDSA private key is in the login Keychain under account lumiere-cogsworth;
 # SPARKLE_BIN points at the bin folder of the Sparkle release that holds sign_update.
+# SPARKLE_KEY_FILE signs with an exported key file instead (no Keychain access prompt).
 set -eu
 version=${1:?Pass the marketing version, e.g. 1.0.0}
 build=${2:?Pass a build number higher than any earlier upload}
@@ -95,7 +96,12 @@ spctl --assess --type open --context context:primary-signature -vvv "$dmg"
 shasum -a 256 "$dmg"
 
 # Sparkle compares CFBundleVersion (the build number); the feed lists only the newest build.
-signature=$("$sparkle_bin/sign_update" --account lumiere-cogsworth "$dmg")
+if [ -n "${SPARKLE_KEY_FILE:-}" ]; then
+  signature=$("$sparkle_bin/sign_update" --ed-key-file "$SPARKLE_KEY_FILE" "$dmg")
+else
+  # The first run asks to let sign_update read the Keychain item; choose Always Allow.
+  signature=$("$sparkle_bin/sign_update" --account lumiere-cogsworth "$dmg")
+fi
 cat > "$appcast" <<XML
 <?xml version="1.0" encoding="utf-8"?>
 <rss version="2.0" xmlns:sparkle="http://www.andymatuschak.org/xml-namespaces/sparkle">
