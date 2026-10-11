@@ -134,9 +134,9 @@ xcodebuild -project apple/LumiereUploader.xcodeproj -scheme ChipMac \
 
 Debug, Release, and AppStore configurations use App Sandbox, outgoing networking,
 and read-only user-selected file access. The target embeds no XPC services or
-Python runtime. Its bundle identifier matches iOS Chip (`social.hotmess.LumiereMobile`)
-for the intended single App Store record; Cogsworth retains its separate identity.
-The project configuration does not add macOS to App Store Connect or publish a build.
+Python runtime. Its bundle identifier is `host.lumiere.ChipMac`, the Mac counterpart
+of iOS Chip (`host.lumiere.Chip`), and it ships under its own App Store Connect record.
+Cogsworth (`host.lumiere.Cogsworth`) retains its separate identity.
 Before distribution, select the signing team, validate a signed sandboxed build's
 browser/device-code login and physical-card upload/cancel/retry, and complete the
 macOS listing, screenshots, privacy disclosures, and provisioning. The Mac privacy
