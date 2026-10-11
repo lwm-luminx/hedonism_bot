@@ -11,9 +11,10 @@ This is preparation work; no build has been uploaded or submitted for review.
 ## Release identity
 
 - Name: Chip by Lumière
-- Bundle ID: `social.hotmess.LumiereMobile` (preserves the existing project identity)
-- Chip for Mac: separate record, bundle ID `social.hotmess.LumiereMac` (app ID `6820751783`)
-- Suggested SKU: `social.hotmess.LumiereMobile`
+- Bundle ID: `host.lumiere.Chip` (2026-10-11: moved from `social.hotmess.LumiereMobile`,
+  which needs a new App Store Connect record; see below)
+- Chip for Mac: separate record, bundle ID `host.lumiere.ChipMac`
+- Suggested SKU: `lumiere-chip` (Mac: `lumiere-chip-mac`)
 - Primary locale: en-US
 - Initial version: 1.0.0, build 1; increment the build number for each upload.
 - Suggested category: Photo & Video
@@ -205,3 +206,12 @@ Apple processing completed: build ID `da58396c-9b16-479e-a440-f134afdc369e`,
 processing state `VALID`. The user explicitly approved the “None of the algorithms
 mentioned above” export-compliance answer after review of Apple-provided HTTPS,
 Keychain and SHA-256 APIs; that answer was saved in App Store Connect.
+
+## Bundle identifiers moved to host.lumiere — 2026-10-11
+
+Chip now builds as `host.lumiere.Chip` (iOS/iPadOS, UI tests `host.lumiere.ChipUITests`)
+and Chip for Mac as `host.lumiere.ChipMac`, matching Cogsworth's `host.lumiere.Cogsworth`.
+App Store Connect cannot change a record's bundle ID, so register both identifiers under
+team `DWVXMLB45Y` and create new Chip records; build numbers restart at 1. The earlier
+`social.hotmess.LumiereMobile` record (`6820711553`) and its build 3 belong to the old
+identity, and the entries above that name it are historical.
