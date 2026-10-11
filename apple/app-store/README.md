@@ -211,7 +211,15 @@ Keychain and SHA-256 APIs; that answer was saved in App Store Connect.
 
 Chip now builds as `host.lumiere.Chip` (iOS/iPadOS, UI tests `host.lumiere.ChipUITests`)
 and Chip for Mac as `host.lumiere.ChipMac`, matching Cogsworth's `host.lumiere.Cogsworth`.
-App Store Connect cannot change a record's bundle ID, so register both identifiers under
-team `DWVXMLB45Y` and create new Chip records; build numbers restart at 1. The earlier
-`social.hotmess.LumiereMobile` record (`6820711553`) and its build 3 belong to the old
-identity, and the entries above that name it are historical.
+App Store Connect cannot change a record's bundle ID, so both identifiers were registered
+under team `DWVXMLB45Y` (explicit, no capabilities) and new records created; build numbers
+restart at 1:
+
+| App | App ID | Bundle ID | SKU |
+| --- | --- | --- | --- |
+| Chip by Lumière (iOS) | `6821703521` | `host.lumiere.Chip` | `lumiere-chip` |
+| Chip by Lumière for Mac | `6821703428` | `host.lumiere.ChipMac` | `lumiere-chip-mac` |
+
+The earlier `social.hotmess.LumiereMobile` record (`6820711553`) is renamed
+**Chip by Lumière (legacy)**; it and its build 3 belong to the old identity, and the
+entries above that name it are historical. User access on the new records is Full Access.
