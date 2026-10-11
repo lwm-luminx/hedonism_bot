@@ -47,8 +47,8 @@ verified against bundle ID `host.lumiere.Cogsworth`.
 
 The previously used, incorrect App Store Connect record is **Cogsworth by Lumière**, app ID `6820751783`,
 bundle ID `social.hotmess.LumiereMac`, under team `DWVXMLB45Y`.
-That record and bundle ID now belong to Chip for Mac (the `ChipMac` target); rename the
-record to Chip by Lumière in App Store Connect and expire Cogsworth's stray build 3 there.
+All Lumière apps now use `host.lumiere.*` identifiers, so nothing builds against that
+record any more; remove it from sale or leave it unreleased.
 The user authorized a TestFlight upload on 2026-10-08. Distribution provisioning
 succeeded. The first upload validation found unsandboxed PyTorch utilities; the
 packaging fix removes unused `protoc` compilers and signs `torch_shm_manager` with
