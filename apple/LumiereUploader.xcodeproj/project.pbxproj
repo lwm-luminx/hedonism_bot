@@ -1,6 +1,6 @@
 // !$*UTF8*$!
 { archiveVersion = 1; classes = {}; objectVersion = 56; objects = {
-C86000000000000000000001 = { isa = PBXShellScriptBuildPhase; alwaysOutOfDate = 1; buildActionMask = 2147483647; files = (); inputPaths = (); outputPaths = ("$(SRCROOT)/../mac/HedonismUploader/.build/sparkle/current/Sparkle.framework/Versions/B/Sparkle"); runOnlyForDeploymentPostprocessing = 0; shellPath = /bin/sh; name = "Embed Sparkle (Developer ID only)"; shellScript = "set -eu\n[ \"$CONFIGURATION\" = DeveloperID ] || exit 0\n\"$SRCROOT/../mac/HedonismUploader/script/embed-sparkle.sh\" \"$TARGET_BUILD_DIR/$FRAMEWORKS_FOLDER_PATH\"\n"; };
+C86000000000000000000001 = { isa = PBXShellScriptBuildPhase; alwaysOutOfDate = 1; buildActionMask = 2147483647; files = (); inputPaths = (); outputPaths = (); runOnlyForDeploymentPostprocessing = 0; shellPath = /bin/sh; name = "Embed Sparkle (Developer ID only)"; shellScript = "set -eu\n[ \"$CONFIGURATION\" = DeveloperID ] || exit 0\n\"$SRCROOT/../mac/HedonismUploader/script/embed-sparkle.sh\" \"$TARGET_BUILD_DIR/$FRAMEWORKS_FOLDER_PATH\"\n"; };
 C86000000000000000000006 = { isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "../mac/HedonismUploader/Sources/HedonismUploader/SoftwareUpdater.swift"; sourceTree = SOURCE_ROOT; };
 C86000000000000000000007 = { isa = PBXBuildFile; fileRef = C86000000000000000000006; };
 C86000000000000000000008 = { isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "macOS/Cogsworth-DeveloperID.entitlements"; sourceTree = SOURCE_ROOT; };
