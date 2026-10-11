@@ -12,7 +12,9 @@ additions for [Sparkle](https://sparkle-project.org) updates:
 
 - `mac/HedonismUploader/script/embed-sparkle.sh` downloads the pinned Sparkle release,
   checks its SHA-256 and embeds `Sparkle.framework`. The build phase exits immediately
-  for every other configuration, so the App Store build never contains Sparkle.
+  for every other configuration, so the App Store build never contains Sparkle. Swift
+  resolves `import Sparkle` before build phases run, so run `embed-sparkle.sh --fetch`
+  once before building `DeveloperID` in Xcode (the release script does this itself).
 - [`macOS/Cogsworth-DeveloperID.entitlements`](../macOS/Cogsworth-DeveloperID.entitlements)
   adds only the two Mach services Sparkle's sandboxed installer uses
   (`<bundle id>-spks`, `<bundle id>-spki`).

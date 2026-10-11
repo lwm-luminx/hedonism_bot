@@ -58,6 +58,7 @@ rm -rf "$out"
 mkdir -p "$out"
 
 # DeveloperID matches the AppStore configuration plus Sparkle and its installer entitlement.
+"$package_dir/script/embed-sparkle.sh" --fetch
 # shellcheck disable=SC2086
 xcodebuild -project "$repo_dir/apple/LumiereUploader.xcodeproj" \
   -scheme Cogsworth-DeveloperID -configuration DeveloperID \
