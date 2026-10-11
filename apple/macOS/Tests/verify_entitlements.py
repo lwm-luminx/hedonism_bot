@@ -5,7 +5,7 @@ import sys
 from pathlib import Path
 
 
-def verify(bundle, expected):
+def verify(bundle, expected, extra=None):
     result = subprocess.run(
         ["codesign", "--display", "--entitlements", ":-", str(bundle)],
         check=True, capture_output=True,
@@ -13,14 +13,27 @@ def verify(bundle, expected):
     entitlements = plistlib.loads(result.stdout)
     security = {key: value for key, value in entitlements.items()
                 if key.startswith("com.apple.security.")}
-    if security != {key: True for key in expected}:
+    wanted = {key: True for key in expected}
+    wanted.update(extra or {})
+    if security != wanted:
         raise SystemExit(f"Unexpected sandbox entitlements in {bundle.name}: {security}")
 
 
-app = Path(sys.argv[1])
+developer_id = "--developer-id" in sys.argv[1:]
+app = Path([arg for arg in sys.argv[1:] if not arg.startswith("--")][0])
 base = {"com.apple.security.app-sandbox", "com.apple.security.network.client"}
+# The Developer ID build adds Sparkle, whose sandboxed installer needs these two Mach services.
+sparkle = None
+if developer_id:
+    identifier = plistlib.load(open(app / "Contents/Info.plist", "rb"))["CFBundleIdentifier"]
+    sparkle = {"com.apple.security.temporary-exception.mach-lookup.global-name":
+               [f"{identifier}-spks", f"{identifier}-spki"]}
+    if not (app / "Contents/Frameworks/Sparkle.framework").is_dir():
+        raise SystemExit("The Developer ID build is missing Sparkle.framework")
+elif (app / "Contents/Frameworks/Sparkle.framework").exists():
+    raise SystemExit("Sparkle must not ship in the App Store build")
 verify(app, base | {"com.apple.security.files.user-selected.read-only",
-                    "com.apple.security.files.bookmarks.app-scope"})
+                    "com.apple.security.files.bookmarks.app-scope"}, sparkle)
 services = app / "Contents/XPCServices"
 if {path.name for path in services.glob("*.xpc")} != {"CogsworthUploader.xpc", "CogsworthML.xpc"}:
     raise SystemExit("Expected exactly the native uploader and ML XPC services")
