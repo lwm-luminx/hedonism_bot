@@ -63,6 +63,8 @@ find "$version" -type f \( -name "*.so" -o -name "*.dylib" -o -perm -111 \) -exe
     case "$(file -b "$binary")" in *Mach-O*) ;; *) continue ;; esac
     # CPython extensions may link the interpreter using the build-host install path.
     otool -L "$binary" | tail -n +2 | while IFS= read -r entry; do
+      # Universal binaries print a "<path> (architecture …):" header per slice.
+      case "$entry" in *:) continue ;; esac
       dependency=${entry%% (compatibility*}
       dependency=$(printf "%s" "$dependency" | sed "s/^[[:space:]]*//")
       case "$dependency" in
