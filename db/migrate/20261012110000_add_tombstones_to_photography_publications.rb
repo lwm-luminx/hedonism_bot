@@ -14,9 +14,9 @@ class AddTombstonesToPhotographyPublications < ActiveRecord::Migration[8.1]
     remove_foreign_key :photography_publications, :photos
     add_foreign_key :photography_publications, :photos, on_delete: :nullify
     remove_index :photography_publications, [ :photography_grant_id, :photo_id ]
-    add_index :photography_publications, [ :photography_grant_id, :photo_key ], unique: true
-    add_index :photography_publications, [ :photography_grant_id, :published_at, :photo_key ]
-    add_index :photography_publications, [ :photography_grant_id, :updated_at ]
+    add_index :photography_publications, [ :photography_grant_id, :photo_key ], unique: true, name: "idx_photography_publications_grant_photo_key"
+    add_index :photography_publications, [ :photography_grant_id, :published_at, :photo_key ], name: "idx_photography_publications_grant_published_at_photo_key"
+    add_index :photography_publications, [ :photography_grant_id, :updated_at ], name: "idx_photography_publications_grant_updated_at"
 
     add_column :photography_grants, :expires_at, :datetime
   end
@@ -24,9 +24,9 @@ class AddTombstonesToPhotographyPublications < ActiveRecord::Migration[8.1]
   def down
     remove_column :photography_grants, :expires_at
 
-    remove_index :photography_publications, [ :photography_grant_id, :updated_at ]
-    remove_index :photography_publications, [ :photography_grant_id, :published_at, :photo_key ]
-    remove_index :photography_publications, [ :photography_grant_id, :photo_key ]
+    remove_index :photography_publications, name: "idx_photography_publications_grant_updated_at"
+    remove_index :photography_publications, name: "idx_photography_publications_grant_published_at_photo_key"
+    remove_index :photography_publications, name: "idx_photography_publications_grant_photo_key"
     execute "DELETE FROM photography_publications WHERE photo_id IS NULL"
     add_index :photography_publications, [ :photography_grant_id, :photo_id ], unique: true
     remove_foreign_key :photography_publications, :photos

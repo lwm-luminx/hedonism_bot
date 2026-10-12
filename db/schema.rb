@@ -499,9 +499,9 @@ ActiveRecord::Schema[8.1].define(version: 2026_10_12_110000) do
     t.datetime "removed_at"
     t.uuid "photo_key", null: false
     t.index ["photo_id"], name: "index_photography_publications_on_photo_id"
-    t.index ["photography_grant_id", "photo_key"], name: "idx_on_photography_grant_id_photo_key_c7f4ab5c3d", unique: true
-    t.index ["photography_grant_id", "published_at", "photo_key"], name: "idx_on_photography_grant_id_published_at_photo_key_b2a8e4f1d0"
-    t.index ["photography_grant_id", "updated_at"], name: "index_photography_publications_on_photography_grant_id_and_updated_at"
+    t.index ["photography_grant_id", "photo_key"], name: "idx_photography_publications_grant_photo_key", unique: true
+    t.index ["photography_grant_id", "published_at", "photo_key"], name: "idx_photography_publications_grant_published_at_photo_key"
+    t.index ["photography_grant_id", "updated_at"], name: "idx_photography_publications_grant_updated_at"
     t.index ["photography_grant_id"], name: "index_photography_publications_on_photography_grant_id"
   end
 
