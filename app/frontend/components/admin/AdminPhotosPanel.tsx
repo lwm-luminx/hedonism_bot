@@ -15,7 +15,8 @@ const ADMIN_PHOTOS_QUERY = graphql`
       nodes @required(action: THROW) {
         id
         name
-        price
+        priceCents
+        currency
         previewUrl
         takenAt
         event {
@@ -59,8 +60,18 @@ const DELETE_PHOTOS_MUTATION = graphql`
 interface Photo {
   name: string;
   eventId: string;
-  price: number;
+  priceCents: number;
+  currency: string;
   previewUrl: string;
+}
+
+// Prices are integer minor units in a three-letter currency (the AudienceKit Money shape).
+function formatPrice(priceCents: number, currency: string): string {
+  try {
+    return new Intl.NumberFormat(undefined, { style: "currency", currency }).format(priceCents / 100);
+  } catch {
+    return `${(priceCents / 100).toFixed(2)} ${currency}`;
+  }
 }
 
 export function AdminPhotosPanel() {
@@ -527,7 +538,7 @@ export function AdminPhotosPanel() {
                         fontFamily: "'DM Mono', monospace",
                       }}
                     >
-                      ${p!.price}
+                      {formatPrice(p!.priceCents, p!.currency)}
                     </span>
                     <div
                       className="flex w-16 items-center justify-end gap-1"
@@ -702,12 +713,12 @@ export function AdminPhotosPanel() {
                     fontFamily: "'DM Mono', monospace",
                   }}
                 >
-                  Price ($)
+                  Price (cents)
                 </Label>
                 <Input
                   type="number"
                   min="0"
-                  step="0.01"
+                  step="1"
                   value={editForm.price}
                   onChange={(e) =>
                     setEditForm((f) => ({ ...f, price: e.target.value }))

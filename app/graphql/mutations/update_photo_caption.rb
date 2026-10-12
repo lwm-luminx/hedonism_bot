@@ -4,7 +4,7 @@ module Mutations
   class UpdatePhotoCaption < BaseMutation
     description "Updates a caption_photo by id"
 
-    field :photo, Types::PhotoType, null: false
+    field :photo, Types::PhotoTakeType, null: false
 
     argument :id, ID, "The ID of the photo to update", required: true
     argument :caption, String, "The new caption for the photo", required: true

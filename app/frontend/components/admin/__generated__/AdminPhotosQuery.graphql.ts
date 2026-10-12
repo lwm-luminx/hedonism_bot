@@ -1,6 +1,6 @@
 /**
- * @generated SignedSource<<f59125969524856d2a9ce2a1be9fd6ee>>
- * @relayHash 564a29a528c2a72fdc91977951591017
+ * @generated SignedSource<<12760ee4c06b95c32c61269ceaec6553>>
+ * @relayHash 8d316adff00fa4fa60a48b951d4832c4
  * @lightSyntaxTransform
  */
 
@@ -8,7 +8,7 @@
 /* eslint-disable */
 // @ts-nocheck
 
-// @relayRequestID 564a29a528c2a72fdc91977951591017
+// @relayRequestID 8d316adff00fa4fa60a48b951d4832c4
 
 import { ConcreteRequest } from 'relay-runtime';
 export type AdminPhotosQuery$variables = Record<PropertyKey, never>;
@@ -25,6 +25,7 @@ export type AdminPhotosQuery$data = {
   };
   readonly photos: {
     readonly nodes: ReadonlyArray<{
+      readonly currency: string;
       readonly event: {
         readonly id: string;
         readonly name: string | null | undefined;
@@ -36,7 +37,7 @@ export type AdminPhotosQuery$data = {
       readonly id: string;
       readonly name: string;
       readonly previewUrl: string | null | undefined;
-      readonly price: number | null | undefined;
+      readonly priceCents: number;
       readonly takenAt: any;
     } | null | undefined>;
     readonly totalCount: number;
@@ -79,7 +80,7 @@ v2 = {
 v3 = {
   "alias": null,
   "args": null,
-  "concreteType": "Photo",
+  "concreteType": "PhotoTake",
   "kind": "LinkedField",
   "name": "nodes",
   "plural": true,
@@ -90,7 +91,14 @@ v3 = {
       "alias": null,
       "args": null,
       "kind": "ScalarField",
-      "name": "price",
+      "name": "priceCents",
+      "storageKey": null
+    },
+    {
+      "alias": null,
+      "args": null,
+      "kind": "ScalarField",
+      "name": "currency",
       "storageKey": null
     },
     {
@@ -193,7 +201,7 @@ return {
         "field": {
           "alias": null,
           "args": null,
-          "concreteType": "PhotoConnection",
+          "concreteType": "PhotoTakeConnection",
           "kind": "LinkedField",
           "name": "photos",
           "plural": false,
@@ -263,7 +271,7 @@ return {
       {
         "alias": null,
         "args": null,
-        "concreteType": "PhotoConnection",
+        "concreteType": "PhotoTakeConnection",
         "kind": "LinkedField",
         "name": "photos",
         "plural": false,
@@ -301,16 +309,16 @@ return {
     ]
   },
   "params": {
-    "cacheID": "564a29a528c2a72fdc91977951591017",
-    "id": "564a29a528c2a72fdc91977951591017",
+    "cacheID": "8d316adff00fa4fa60a48b951d4832c4",
+    "id": "8d316adff00fa4fa60a48b951d4832c4",
     "metadata": {},
     "name": "AdminPhotosQuery",
     "operationKind": "query",
-    "text": "query AdminPhotosQuery {\n  photos {\n    totalCount\n    nodes {\n      id\n      name\n      price\n      previewUrl\n      takenAt\n      event {\n        id\n        name\n        venue {\n          id\n          name\n        }\n      }\n    }\n  }\n  events {\n    totalCount\n    nodes {\n      id\n      name\n      venue {\n        id\n      }\n    }\n  }\n  venues {\n    nodes {\n      id\n      name\n      city\n    }\n  }\n}\n"
+    "text": "query AdminPhotosQuery {\n  photos {\n    totalCount\n    nodes {\n      id\n      name\n      priceCents\n      currency\n      previewUrl\n      takenAt\n      event {\n        id\n        name\n        venue {\n          id\n          name\n        }\n      }\n    }\n  }\n  events {\n    totalCount\n    nodes {\n      id\n      name\n      venue {\n        id\n      }\n    }\n  }\n  venues {\n    nodes {\n      id\n      name\n      city\n    }\n  }\n}\n"
   }
 };
 })();
 
-(node as any).hash = "4c6d93d975ccfdcc9b0aac257f89a75d";
+(node as any).hash = "7c5e50013eed830663428a20ec2778ba";
 
 export default node;

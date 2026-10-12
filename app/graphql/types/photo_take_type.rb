@@ -1,5 +1,7 @@
 module Types
-  class PhotoType < Types::BaseObject
+  # One take (an uploaded file) of a Photo, which the gallery and admin pages treat as the photo. Named PhotoTake in
+  # GraphQL since the provider contract (Photography::PhotoType) reserves "photo" for the logical Photo.
+  class PhotoTakeType < Types::BaseObject
     implements GraphQL::Types::Relay::Node
 
     field :name, String, null: false
@@ -17,15 +19,20 @@ module Types
     field :facial_recognition_url, String, null: true, description: "URL to a preview image of the photo for facial recognition"
     field :inferred_venue, VenueType, null: true, description: "Venue inferred from recorded phone location at capture time"
     field :event, EventType
-    field :price, Float
+    field :price_cents, Integer, null: false, description: "Price of the photo in minor units (cents) of currency"
+    field :currency, String, null: false, description: "Three-letter currency code of priceCents, e.g. USD"
 
     # Photos are backed by PhotoTake; the album, price and event live on its Photo.
     def name
       @object.caption.presence || @object.original_filename || "Untitled"
     end
 
-    def price
-      @object.photo&.price
+    def price_cents
+      @object.photo&.price_cents || 0
+    end
+
+    def currency
+      @object.photo&.currency || "USD"
     end
 
     def folder

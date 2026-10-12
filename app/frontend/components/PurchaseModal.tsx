@@ -20,7 +20,7 @@ const PHOTO_PURCHASE_QUERY = graphql`
   query PhotoPurchaseQuery($photoId: ID!) {
     node(id: $photoId) {
       id
-      ... on Photo {
+      ... on PhotoTake {
         id
         alternateDescription
         previewUrl

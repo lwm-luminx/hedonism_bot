@@ -3,8 +3,20 @@ schema {
 }
 
 type HedonismPhotographer implements IPhotographer {
+  """
+  When the credential this request carries stops working; null when it does not expire.
+  """
+  grantExpiresAt: ISO8601DateTime
+
+  """
+  The photographer's opaque identifier; AudienceKit compares it case-insensitively.
+  """
   id: ID!
   name: String!
+
+  """
+  Photos shared with the audience, oldest publication first, by keyset cursor on (publishedAt, id).
+  """
   photos(
     """
     Returns the elements in the list that come after the specified cursor.
@@ -25,12 +37,29 @@ type HedonismPhotographer implements IPhotographer {
     Returns the last _n_ elements from the list.
     """
     last: Int
+
+    """
+    Only photos shared, changed or removed at or after this time, tombstones included.
+    """
+    updatedSince: ISO8601DateTime
   ): PhotographyPhotoConnection!
 }
 
 interface IPhotographer {
+  """
+  When the credential this request carries stops working; null when it does not expire.
+  """
+  grantExpiresAt: ISO8601DateTime
+
+  """
+  The photographer's opaque identifier; AudienceKit compares it case-insensitively.
+  """
   id: ID!
   name: String!
+
+  """
+  Photos shared with the audience, oldest publication first, by keyset cursor on (publishedAt, id).
+  """
   photos(
     """
     Returns the elements in the list that come after the specified cursor.
@@ -51,8 +80,18 @@ interface IPhotographer {
     Returns the last _n_ elements from the list.
     """
     last: Int
+
+    """
+    Only photos shared, changed or removed at or after this time, tombstones included.
+    """
+    updatedSince: ISO8601DateTime
   ): PhotographyPhotoConnection!
 }
+
+"""
+An ISO 8601-encoded datetime
+"""
+scalar ISO8601DateTime @specifiedBy(url: "https://tools.ietf.org/html/rfc3339")
 
 type IntegrationMetadata {
   companyName: String
@@ -87,12 +126,41 @@ type PageInfo {
 }
 
 """
-A logical Photo containing takes; never a legacy GraphQL Photo (PhotoTake).
+A logical Photo containing takes, as shared with an audience; never a PhotoTake
+of the gallery API. With photos(updatedSince:), a photo that was unpublished or
+deleted is still listed, as a tombstone (removed: true, no takes, no preview),
+so a consumer can drop it without re-crawling.
 """
 type PhotographyPhoto {
+  """
+  The photo's opaque, stable identifier; the same across pages and crawls.
+  """
   id: ID!
+
+  """
+  A stable HTTPS link to the current preview (redirects to the stored image); null without one.
+  """
   previewUrl: String
+
+  """
+  When it was shared; the page order.
+  """
+  publishedAt: ISO8601DateTime!
+
+  """
+  The photo is no longer shared with this audience: drop it.
+  """
+  removed: Boolean!
+
+  """
+  Processed takes of the photo; 0 for a tombstone.
+  """
   takeCount: Int!
+
+  """
+  When it was last shared, changed or removed; feed it back as updatedSince.
+  """
+  updatedAt: ISO8601DateTime!
 }
 
 """
@@ -131,7 +199,14 @@ type PhotographyPhotoEdge {
 }
 
 type PhotographyQuery {
+  """
+  The provider contract this endpoint serves, major.minor; consumers match the major part.
+  """
   contractVersion: String!
   integrationMetadata: IntegrationMetadata!
+
+  """
+  The photographer the request's credential acts for, in this audience.
+  """
   photographer(audienceId: ID!): HedonismPhotographer
 }

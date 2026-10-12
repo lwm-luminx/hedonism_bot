@@ -26,12 +26,17 @@ RSpec.describe "Photography provider", type: :request do
   end
 
   def query
-    'query($audience: ID!) { contractVersion photographer(audienceId: $audience) { id name photos(first: 1) ' \
-      '{ nodes { id takeCount previewUrl } pageInfo { endCursor hasNextPage } } } }'
+    'query($audience: ID!, $after: String, $since: ISO8601DateTime, $first: Int = 1) { contractVersion ' \
+      'photographer(audienceId: $audience) { id name grantExpiresAt photos(first: $first, after: $after, updatedSince: $since) ' \
+      '{ nodes { id takeCount previewUrl removed } pageInfo { endCursor hasNextPage } } } }'
   end
 
-  def operation(access_token = token, audience = audience_id)
-    { query: query, variables: { audience: audience }, extensions: { accessToken: access_token } }
+  def operation(access_token = token, audience = audience_id, **variables)
+    { query: query, variables: { audience: audience, **variables }, extensions: { accessToken: access_token } }
+  end
+
+  def nodes
+    response.parsed_body.dig("data", "photographer", "photos", "nodes")
   end
 
   def make_photo(owner = photographer, status: "processed")
@@ -50,9 +55,35 @@ RSpec.describe "Photography provider", type: :request do
     post "/extensions/photography/graphql", params: operation, as: :json
     expect(response).to have_http_status(:ok)
     expect(response.parsed_body["errors"]).to be_nil
-    expect(response.parsed_body.dig("data", "photographer", "photos", "nodes")).to eq [
-      { "id" => shared.id, "takeCount" => 1, "previewUrl" => nil }
-    ]
+    expect(nodes).to eq [ { "id" => shared.id, "takeCount" => 1, "previewUrl" => nil, "removed" => false } ]
+  end
+
+  it "serves the contract version and the grant's expiry" do
+    grant.update!(expires_at: 1.day.from_now)
+    post "/extensions/photography/graphql", params: operation, as: :json
+    expect(response.parsed_body.dig("data", "contractVersion")).to eq Photography::QueryType::CONTRACT_VERSION
+    expect(response.parsed_body.dig("data", "photographer", "grantExpiresAt")).to eq grant.expires_at.utc.iso8601
+  end
+
+  it "rejects expired grants" do
+    grant.update!(expires_at: 1.minute.ago)
+    post "/extensions/photography/graphql", params: operation, as: :json
+    expect(response.parsed_body.dig("data", "photographer")).to be_nil
+    expect(response.parsed_body["errors"]).to be_present
+  end
+
+  it "matches the audience id case-insensitively" do
+    post "/extensions/photography/graphql", params: operation(token, audience_id.upcase), as: :json
+    expect(response.parsed_body["errors"]).to be_nil
+    expect(response.parsed_body.dig("data", "photographer", "id")).to eq photographer.id
+  end
+
+  it "links previews through the photographer's stable /previews route" do
+    shared = make_photo
+    shared.processed_takes.first.images.attach(io: Rails.root.join("spec/fixtures/test.jpg").open, filename: "test.jpg", content_type: "image/jpeg")
+    grant.publish!(shared)
+    post "/extensions/photography/graphql", params: operation, as: :json
+    expect(nodes.first["previewUrl"]).to eq "https://photo-contract.lumiere.host/previews/#{shared.processed_takes.first.id}"
   end
 
   it "authenticates each batched operation independently" do
@@ -90,12 +121,65 @@ RSpec.describe "Photography provider", type: :request do
     expect(response.parsed_body.dig("data", "photographer", "photos", "nodes")).to eq []
   end
 
-  it "paginates logical photos with a provider cursor" do
-    2.times { grant.photography_publications.create!(photo: make_photo) }
+  it "paginates logical photos by keyset cursor on (publishedAt, id), oldest publication first" do
+    first, second = 2.times.map { make_photo }
+    grant.publish!(first)
+    travel 1.minute
+    grant.publish!(second)
     post "/extensions/photography/graphql", params: operation, as: :json
     page = response.parsed_body.dig("data", "photographer", "photos")
-    expect(page.fetch("nodes").length).to eq 1
+    expect(page.fetch("nodes").pluck("id")).to eq [ first.id ]
     expect(page.fetch("pageInfo")).to include("hasNextPage" => true, "endCursor" => be_present)
+    post "/extensions/photography/graphql", params: operation(after: page.dig("pageInfo", "endCursor")), as: :json
+    page = response.parsed_body.dig("data", "photographer", "photos")
+    expect(page.fetch("nodes").pluck("id")).to eq [ second.id ]
+    expect(page.fetch("pageInfo")).to include("hasNextPage" => false)
+  end
+
+  it "keeps the cursor valid when a photo is removed behind it" do
+    first, second, third = 3.times.map { make_photo }
+    [ first, second, third ].each { |photo| grant.publish!(photo) && travel(1.minute) }
+    post "/extensions/photography/graphql", params: operation, as: :json
+    cursor = response.parsed_body.dig("data", "photographer", "photos", "pageInfo", "endCursor")
+    grant.unpublish!(first)
+    post "/extensions/photography/graphql", params: operation(after: cursor), as: :json
+    expect(nodes.pluck("id")).to eq [ second.id ]
+  end
+
+  it "rejects a cursor it did not issue" do
+    post "/extensions/photography/graphql", params: operation(after: "not-a-cursor"), as: :json
+    # Every connection field (nodes, pageInfo) reports the bad cursor; the message is the same for each.
+    expect(response.parsed_body["errors"].pluck("message").uniq).to eq [ "Invalid photo cursor" ]
+  end
+
+  it "lists unpublished and deleted photos as tombstones for updatedSince, and hides them otherwise" do
+    kept, unpublished, deleted = 3.times.map { make_photo }
+    [ kept, unpublished, deleted ].each { |photo| grant.publish!(photo) }
+    travel 1.hour
+    since = Time.current
+    grant.unpublish!(unpublished)
+    deleted_id = deleted.id
+    deleted.photo_takes.destroy_all
+    deleted.destroy!
+
+    post "/extensions/photography/graphql", params: operation(since: since.iso8601, first: 10), as: :json
+    expect(response.parsed_body["errors"]).to be_nil
+    expect(nodes).to contain_exactly(
+      { "id" => unpublished.id, "takeCount" => 0, "previewUrl" => nil, "removed" => true },
+      { "id" => deleted_id, "takeCount" => 0, "previewUrl" => nil, "removed" => true }
+    )
+    post "/extensions/photography/graphql", params: operation, as: :json
+    expect(nodes.pluck("id")).to eq [ kept.id ]
+  end
+
+  it "shares a photo again after it was unpublished" do
+    photo = make_photo
+    grant.publish!(photo)
+    grant.unpublish!(photo)
+    grant.publish!(photo)
+    post "/extensions/photography/graphql", params: operation, as: :json
+    expect(nodes).to eq [ { "id" => photo.id, "takeCount" => 1, "previewUrl" => nil, "removed" => false } ]
+    expect(grant.photography_publications.count).to eq 1
   end
 
   it "rejects publications from a different photographer" do

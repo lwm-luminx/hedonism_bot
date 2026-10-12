@@ -40,4 +40,10 @@ RSpec.describe Photographer, type: :model do
       expect(described_class.for_host("hedonism-bot-f74c04df64ff.herokuapp.com")).to be_nil
     end
   end
+
+  describe "#host" do
+    it "is the subdomain under the service domain" do
+      expect(described_class.new(subdomain: "sam").host).to eq "sam.#{Rails.configuration.x.service_domain}"
+    end
+  end
 end

@@ -13,7 +13,7 @@ import { PhotoViewerQuery } from "./__generated__/PhotoViewerQuery.graphql";
 const PHOTO_QUERY = graphql`
   query PhotoViewerQuery($id: ID!) {
     node(id: $id) {
-      ... on Photo {
+      ... on PhotoTake {
         id @required(action: THROW)
         previewUrl
         alternateDescription
