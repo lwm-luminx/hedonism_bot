@@ -41,3 +41,9 @@ RSpec.describe Photographer, type: :model do
     end
   end
 end
+
+RSpec.describe Photographer, "host" do
+  it "is the subdomain under the service domain" do
+    expect(Photographer.new(subdomain: "sam").host).to eq "sam.#{Rails.configuration.x.service_domain}"
+  end
+end

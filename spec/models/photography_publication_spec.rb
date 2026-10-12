@@ -27,4 +27,12 @@ RSpec.describe PhotographyPublication, type: :model do
     expect(publication.reload).to have_attributes(removed?: false, photo: photo)
     expect(publication.published_at).to be > first_published_at
   end
+
+  it "tells whether a photo is currently served by its previews" do
+    expect(photo.published?).to be false
+    grant.publish!(photo)
+    expect(photo.published?).to be true
+    grant.update!(expires_at: 1.minute.ago)
+    expect(photo.published?).to be false
+  end
 end

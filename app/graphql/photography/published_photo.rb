@@ -37,8 +37,15 @@ module Photography
       removed? ? 0 : processed_takes.size
     end
 
+    # A stable link (PreviewsController) rather than the storage URL, which expires within minutes.
     def preview_url
-      processed_takes.first&.preview_url unless removed?
+      return if removed?
+
+      take = processed_takes.find { |candidate| candidate.images_attachments.any? { |image| image.blob.content_type == "image/jpeg" } }
+      return unless take
+
+      Rails.application.routes.url_helpers.preview_url(take, host: publication.photography_grant.photographer.host,
+                                                             protocol: "https")
     end
   end
 end

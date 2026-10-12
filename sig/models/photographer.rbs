@@ -6,4 +6,6 @@ class Photographer < ApplicationRecord
   def owner_photographer_id: () -> untyped
 
   def folders: () -> untyped
+
+  def host: () -> String
 end
