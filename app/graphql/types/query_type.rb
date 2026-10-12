@@ -6,7 +6,7 @@ module Types
     include GraphQL::Types::Relay::HasNodesField
 
     field :photographer, Types::PhotographerType, null: false, description: "The current Photographer for the request"
-    field :photos, Types::PhotoType.connection_type, null: false, description: "All photos for a particular Photographer" do
+    field :photos, Types::PhotoTakeType.connection_type, null: false, description: "All photos for a particular Photographer" do
       argument :face_id, ID, required: false, description: "Filter photos by face ID"
       argument :folder_id, ID, required: false, description: "Filter photos by folder ID"
     end

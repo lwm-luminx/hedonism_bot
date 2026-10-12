@@ -1,5 +1,7 @@
 module Types
-  class PhotoType < Types::BaseObject
+  # One take (an uploaded file) of a Photo, which the gallery and admin pages treat as the photo. Named PhotoTake in
+  # GraphQL since the provider contract (Photography::PhotoType) reserves "photo" for the logical Photo.
+  class PhotoTakeType < Types::BaseObject
     implements GraphQL::Types::Relay::Node
 
     field :name, String, null: false

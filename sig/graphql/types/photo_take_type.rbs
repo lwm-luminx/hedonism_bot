@@ -1,5 +1,5 @@
 module Types
-  class PhotoType < Types::BaseObject
+  class PhotoTakeType < Types::BaseObject
     def facial_recognition_url: () -> untyped
 
     def event_name: () -> nil

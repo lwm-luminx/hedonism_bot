@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<edbccbd50b51658232307dbe50680953>>
+ * @generated SignedSource<<7a04380e51f057989c3cdbe4deafa3c7>>
  * @lightSyntaxTransform
  */
 
@@ -80,10 +80,10 @@ const node: ReaderFragment = {
       "storageKey": null
     }
   ],
-  "type": "Photo",
+  "type": "PhotoTake",
   "abstractKey": null
 };
 
-(node as any).hash = "8d28c1bfc9f035e971ad6f4187b9e2a0";
+(node as any).hash = "c0aa7e70ec7e9e2a64fbe6a27c0c33dc";
 
 export default node;

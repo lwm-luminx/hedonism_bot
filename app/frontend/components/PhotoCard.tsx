@@ -7,7 +7,7 @@ import { graphql, useFragment } from "react-relay";
 import { PhotoFragment$key } from "./__generated__/PhotoFragment.graphql";
 
 const PHOTO_CARD_FRAGMENT = graphql`
-  fragment PhotoFragment on Photo {
+  fragment PhotoFragment on PhotoTake {
     id
     eventName
     isPurchased

@@ -20,6 +20,9 @@ module HedonismBot
     ]
     # Initialize configuration defaults for originally generated Rails version.
     config.load_defaults 8.1
+    # Pinned: GlobalIDs (gid://hedonism-bot/...) are the GraphQL node IDs and the worker channel's photo_id, so the
+    # app name must not follow the module name.
+    config.global_id.app = "hedonism-bot"
     config.x.service_domain = ENV.fetch("SERVICE_DOMAIN", "lumiere.host").strip.downcase.delete_suffix(".")
     config.middleware.insert_before Rails::Rack::Logger, Middleware::FacebookDeletionBodyLimit
 
