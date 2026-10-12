@@ -491,6 +491,11 @@ type PhotoTake implements Node {
   MIME type of the photo
   """
   contentType: String!
+
+  """
+  Three-letter currency code of priceCents, e.g. USD
+  """
+  currency: String!
   event: Event
 
   """
@@ -559,7 +564,11 @@ type PhotoTake implements Node {
   URL to a preview image of the photo
   """
   previewUrl: String
-  price: Float
+
+  """
+  Price of the photo in minor units (cents) of currency
+  """
+  priceCents: Int!
 
   """
   Date and time the photo was taken

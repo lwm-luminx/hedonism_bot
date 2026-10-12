@@ -14,7 +14,8 @@ RSpec.describe Types::PhotoTakeType, type: :graphql do
           nodes {
             id
             name
-            price
+            priceCents
+            currency
             takenAt
             folder { name }
             event { id }
@@ -38,6 +39,8 @@ RSpec.describe Types::PhotoTakeType, type: :graphql do
       expect(node["name"]).to match(/\ADSC\d+\.arw\z/)
       expect(node["folder"]).to be_present
       expect(node["event"]).to be_nil
+      expect(node["priceCents"]).to eq(0)
+      expect(node["currency"]).to eq("USD")
     end
   end
 end
