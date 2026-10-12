@@ -4,7 +4,7 @@ module Mutations
   class UpdatePhotoFacialRecognition < BaseMutation
     description "Updates a PhotoTake by id"
 
-    field :photo, ::Types::PhotoType, null: false
+    field :photo, ::Types::PhotoTakeType, null: false
 
     argument :id, ID, "The ID of the photo to update", required: true
     argument :faces, [ ::Types::FaceDataInputType ], "The new facial recognition data for the photo", required: true

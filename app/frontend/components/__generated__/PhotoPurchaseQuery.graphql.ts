@@ -1,6 +1,6 @@
 /**
- * @generated SignedSource<<e099edbb0cf52c0f8e86c51bbc675d05>>
- * @relayHash e16814f500b39701f8422d37a19c34f2
+ * @generated SignedSource<<273a8f7dba6ae1fa0a5737115376a54d>>
+ * @relayHash cdc39673a687ce9c8747d951db797b3c
  * @lightSyntaxTransform
  */
 
@@ -8,7 +8,7 @@
 /* eslint-disable */
 // @ts-nocheck
 
-// @relayRequestID e16814f500b39701f8422d37a19c34f2
+// @relayRequestID cdc39673a687ce9c8747d951db797b3c
 
 import { ConcreteRequest } from 'relay-runtime';
 export type PhotoPurchaseQuery$variables = {
@@ -74,7 +74,7 @@ v3 = {
       "storageKey": null
     }
   ],
-  "type": "Photo",
+  "type": "PhotoTake",
   "abstractKey": null
 };
 return {
@@ -130,16 +130,16 @@ return {
     ]
   },
   "params": {
-    "cacheID": "e16814f500b39701f8422d37a19c34f2",
-    "id": "e16814f500b39701f8422d37a19c34f2",
+    "cacheID": "cdc39673a687ce9c8747d951db797b3c",
+    "id": "cdc39673a687ce9c8747d951db797b3c",
     "metadata": {},
     "name": "PhotoPurchaseQuery",
     "operationKind": "query",
-    "text": "query PhotoPurchaseQuery(\n  $photoId: ID!\n) {\n  node(id: $photoId) {\n    __typename\n    id\n    ... on Photo {\n      id\n      alternateDescription\n      previewUrl\n      takenAt\n    }\n  }\n}\n"
+    "text": "query PhotoPurchaseQuery(\n  $photoId: ID!\n) {\n  node(id: $photoId) {\n    __typename\n    id\n    ... on PhotoTake {\n      id\n      alternateDescription\n      previewUrl\n      takenAt\n    }\n  }\n}\n"
   }
 };
 })();
 
-(node as any).hash = "753e08bbe939b4303a46187817a3fec5";
+(node as any).hash = "faddbb024471fb1063fe0585a1b4cd5c";
 
 export default node;

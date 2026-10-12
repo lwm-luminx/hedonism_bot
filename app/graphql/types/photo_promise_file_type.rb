@@ -17,6 +17,6 @@ module Types
       object.blob.service_url_for_direct_upload
     end
 
-    field :photo, Types::PhotoType, null: true, method: :photo_take, description: "The photo take this file became once uploaded"
+    field :photo, Types::PhotoTakeType, null: true, method: :photo_take, description: "The photo take this file became once uploaded"
   end
 end

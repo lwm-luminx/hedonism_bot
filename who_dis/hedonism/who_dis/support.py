@@ -52,7 +52,7 @@ def get_photo_url(photo_id):
         query FacialRecognitionPhoto($photoId: ID!) {
           node(id: $photoId) {
             id
-            ... on Photo {
+            ... on PhotoTake {
               facialRecognitionUrl
             }
           }

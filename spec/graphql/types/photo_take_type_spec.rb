@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe Types::PhotoType, type: :graphql do
+RSpec.describe Types::PhotoTakeType, type: :graphql do
   before do
     mock_photographer
   end

@@ -19,11 +19,9 @@ class HedonismBotSchema < GraphQL::Schema
   end
 
   # Union and Interface Resolution
-  # Every model exposed through `node` has a matching Types::<Model>Type (PhotoPromise → PhotoPromiseType),
-  # except PhotoTake, which the API calls Photo.
+  # Every model exposed through `node` has a matching Types::<Model>Type (PhotoPromise → PhotoPromiseType,
+  # PhotoTake → PhotoTakeType).
   def self.resolve_type(abstract_type, obj, ctx)
-    return Types::PhotoType if obj.is_a?(PhotoTake)
-
     "Types::#{obj.class.name}Type".safe_constantize || raise("Unexpected object type: #{obj.class}")
   end
 
@@ -35,9 +33,9 @@ class HedonismBotSchema < GraphQL::Schema
 
   # Relay-style Object Identification:
 
-  # Return a string UUID for `object`
+  # A GlobalID (gid://hedonism-bot/<Model>/<uuid>, config.global_id.app) as the Relay node ID. Clients, workers
+  # and the uploaders treat it as opaque.
   def self.id_from_object(object, type_definition, query_ctx)
-    # For example, use Rails' GlobalID library (https://github.com/rails/globalid):
     object.to_gid_param
   end
 

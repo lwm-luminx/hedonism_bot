@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<f59125969524856d2a9ce2a1be9fd6ee>>
+ * @generated SignedSource<<a04bf0ca2b38c21f5eadc4467fba019f>>
  * @relayHash 564a29a528c2a72fdc91977951591017
  * @lightSyntaxTransform
  */
@@ -79,7 +79,7 @@ v2 = {
 v3 = {
   "alias": null,
   "args": null,
-  "concreteType": "Photo",
+  "concreteType": "PhotoTake",
   "kind": "LinkedField",
   "name": "nodes",
   "plural": true,
@@ -193,7 +193,7 @@ return {
         "field": {
           "alias": null,
           "args": null,
-          "concreteType": "PhotoConnection",
+          "concreteType": "PhotoTakeConnection",
           "kind": "LinkedField",
           "name": "photos",
           "plural": false,
@@ -263,7 +263,7 @@ return {
       {
         "alias": null,
         "args": null,
-        "concreteType": "PhotoConnection",
+        "concreteType": "PhotoTakeConnection",
         "kind": "LinkedField",
         "name": "photos",
         "plural": false,

@@ -1,6 +1,6 @@
 /**
- * @generated SignedSource<<88968464da5e2cdfa4fbcce230b76bd0>>
- * @relayHash b12ef6bb1cff4d6a315e20a450ea989f
+ * @generated SignedSource<<608ffcee4f09a5cfd0aeccee5045062b>>
+ * @relayHash 6b353e8b7503eedfa6ac9059a6548ced
  * @lightSyntaxTransform
  */
 
@@ -8,7 +8,7 @@
 /* eslint-disable */
 // @ts-nocheck
 
-// @relayRequestID b12ef6bb1cff4d6a315e20a450ea989f
+// @relayRequestID 6b353e8b7503eedfa6ac9059a6548ced
 
 import { ConcreteRequest } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
@@ -71,7 +71,7 @@ return {
       {
         "alias": null,
         "args": (v1/*:: as any*/),
-        "concreteType": "PhotoConnection",
+        "concreteType": "PhotoTakeConnection",
         "kind": "LinkedField",
         "name": "photos",
         "plural": false,
@@ -79,7 +79,7 @@ return {
           {
             "alias": null,
             "args": null,
-            "concreteType": "Photo",
+            "concreteType": "PhotoTake",
             "kind": "LinkedField",
             "name": "nodes",
             "plural": true,
@@ -109,7 +109,7 @@ return {
       {
         "alias": null,
         "args": (v1/*:: as any*/),
-        "concreteType": "PhotoConnection",
+        "concreteType": "PhotoTakeConnection",
         "kind": "LinkedField",
         "name": "photos",
         "plural": false,
@@ -117,7 +117,7 @@ return {
           {
             "alias": null,
             "args": null,
-            "concreteType": "Photo",
+            "concreteType": "PhotoTake",
             "kind": "LinkedField",
             "name": "nodes",
             "plural": true,
@@ -174,12 +174,12 @@ return {
     ]
   },
   "params": {
-    "cacheID": "b12ef6bb1cff4d6a315e20a450ea989f",
-    "id": "b12ef6bb1cff4d6a315e20a450ea989f",
+    "cacheID": "6b353e8b7503eedfa6ac9059a6548ced",
+    "id": "6b353e8b7503eedfa6ac9059a6548ced",
     "metadata": {},
     "name": "PhotosViewQuery",
     "operationKind": "query",
-    "text": "query PhotosViewQuery(\n  $faceId: ID\n  $folderId: ID\n) {\n  photos(faceId: $faceId, folderId: $folderId) {\n    nodes {\n      id\n      ...PhotoFragment\n    }\n  }\n}\n\nfragment PhotoFragment on Photo {\n  id\n  eventName\n  isPurchased\n  previewUrl\n  takenAt\n  caption\n  alternateDescription\n}\n"
+    "text": "query PhotosViewQuery(\n  $faceId: ID\n  $folderId: ID\n) {\n  photos(faceId: $faceId, folderId: $folderId) {\n    nodes {\n      id\n      ...PhotoFragment\n    }\n  }\n}\n\nfragment PhotoFragment on PhotoTake {\n  id\n  eventName\n  isPurchased\n  previewUrl\n  takenAt\n  caption\n  alternateDescription\n}\n"
   }
 };
 })();

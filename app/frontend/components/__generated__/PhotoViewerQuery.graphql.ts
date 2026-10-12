@@ -1,6 +1,6 @@
 /**
- * @generated SignedSource<<81687342b11fe4ea77cb72c18e50ba4f>>
- * @relayHash 9070abfef7d604370378709c3eb37b8d
+ * @generated SignedSource<<26fe212516b957ed6fe3745307df718d>>
+ * @relayHash 84d2099cc4aa3c2efc2a8bc3ccbee185
  * @lightSyntaxTransform
  */
 
@@ -8,7 +8,7 @@
 /* eslint-disable */
 // @ts-nocheck
 
-// @relayRequestID 9070abfef7d604370378709c3eb37b8d
+// @relayRequestID 84d2099cc4aa3c2efc2a8bc3ccbee185
 
 import { ConcreteRequest } from 'relay-runtime';
 export type PhotoViewerQuery$variables = {
@@ -106,7 +106,7 @@ return {
               (v5/*:: as any*/),
               (v6/*:: as any*/)
             ],
-            "type": "Photo",
+            "type": "PhotoTake",
             "abstractKey": null
           }
         ],
@@ -146,7 +146,7 @@ return {
               (v5/*:: as any*/),
               (v6/*:: as any*/)
             ],
-            "type": "Photo",
+            "type": "PhotoTake",
             "abstractKey": null
           }
         ],
@@ -155,16 +155,16 @@ return {
     ]
   },
   "params": {
-    "cacheID": "9070abfef7d604370378709c3eb37b8d",
-    "id": "9070abfef7d604370378709c3eb37b8d",
+    "cacheID": "84d2099cc4aa3c2efc2a8bc3ccbee185",
+    "id": "84d2099cc4aa3c2efc2a8bc3ccbee185",
     "metadata": {},
     "name": "PhotoViewerQuery",
     "operationKind": "query",
-    "text": "query PhotoViewerQuery(\n  $id: ID!\n) {\n  node(id: $id) {\n    __typename\n    ... on Photo {\n      id\n      previewUrl\n      alternateDescription\n      isPurchased\n      takenAt\n    }\n    id\n  }\n}\n"
+    "text": "query PhotoViewerQuery(\n  $id: ID!\n) {\n  node(id: $id) {\n    __typename\n    ... on PhotoTake {\n      id\n      previewUrl\n      alternateDescription\n      isPurchased\n      takenAt\n    }\n    id\n  }\n}\n"
   }
 };
 })();
 
-(node as any).hash = "3cac21238634f94fe51d994c3950329b";
+(node as any).hash = "530641db5467230b2b1254cf52c12230";
 
 export default node;

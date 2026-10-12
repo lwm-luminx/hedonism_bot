@@ -1,7 +1,7 @@
 module Photography
   class PhotoType < GraphQL::Schema::Object
     graphql_name "PhotographyPhoto"
-    description "A logical Photo containing takes; never a legacy GraphQL Photo (PhotoTake)."
+    description "A logical Photo containing takes; never a PhotoTake of the gallery API."
     field :id, ID, null: false
     field :take_count, Integer, null: false
     field :preview_url, String, null: true

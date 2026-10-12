@@ -87,7 +87,7 @@ type PageInfo {
 }
 
 """
-A logical Photo containing takes; never a legacy GraphQL Photo (PhotoTake).
+A logical Photo containing takes; never a PhotoTake of the gallery API.
 """
 type PhotographyPhoto {
   id: ID!
