@@ -15,5 +15,9 @@ module Types
     def alternate_description: () -> "TODO: Replace me with a for the blind description of the image"
 
     def preview_url: () -> untyped
+
+    def price_cents: () -> Integer
+
+    def currency: () -> String
   end
 end

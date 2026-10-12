@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_10_09_230000) do
+ActiveRecord::Schema[8.1].define(version: 2026_10_12_100000) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
   enable_extension "postgis"
@@ -502,7 +502,8 @@ ActiveRecord::Schema[8.1].define(version: 2026_10_09_230000) do
   create_table "photos", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.uuid "album_id"
     t.datetime "created_at", null: false
-    t.float "price"
+    t.string "currency", limit: 3, default: "USD", null: false
+    t.integer "price_cents", default: 0, null: false
     t.datetime "updated_at", null: false
     t.index ["album_id"], name: "index_photos_on_album_id"
   end
