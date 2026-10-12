@@ -1,5 +1,7 @@
 require "rails_helper"
 
+# rubocop:disable RSpec/ExampleLength
+
 # The stable preview links the photography contract hands to AudienceKit.
 RSpec.describe "Photo previews", type: :request do
   let(:photographer) { Photographer.create!(name: "Sam", subdomain: "sam", active: true) }
@@ -16,7 +18,7 @@ RSpec.describe "Photo previews", type: :request do
     get "/previews/#{id}", headers: { "Host" => host }
   end
 
-  it "redirects a published take to its current JPEG, publicly cacheable for a minute" do
+  it "redirects a published take to its current JPEG, publicly cacheable for a minute", :aggregate_failures do
     grant.publish!(photo)
     fetch
     expect(response).to have_http_status(:found)
@@ -24,7 +26,7 @@ RSpec.describe "Photo previews", type: :request do
     expect(response.headers["Cache-Control"]).to include("public").and include("max-age=60")
   end
 
-  it "is not found before the photo is shared, or once it is unpublished" do
+  it "is not found before the photo is shared, or once it is unpublished", :aggregate_failures do
     fetch
     expect(response).to have_http_status(:not_found)
     grant.publish!(photo)
@@ -33,7 +35,7 @@ RSpec.describe "Photo previews", type: :request do
     expect(response).to have_http_status(:not_found)
   end
 
-  it "is not found once the grant is revoked or expired" do
+  it "is not found once the grant is revoked or expired", :aggregate_failures do
     grant.publish!(photo)
     grant.update!(revoked_at: Time.current)
     fetch
@@ -50,7 +52,7 @@ RSpec.describe "Photo previews", type: :request do
     expect(response).to have_http_status(:not_found)
   end
 
-  it "is not found for takes without a JPEG or unknown ids" do
+  it "is not found for takes without a JPEG or unknown ids", :aggregate_failures do
     grant.publish!(photo)
     take.images.each(&:purge)
     fetch
@@ -59,3 +61,4 @@ RSpec.describe "Photo previews", type: :request do
     expect(response).to have_http_status(:not_found)
   end
 end
+# rubocop:enable RSpec/ExampleLength
