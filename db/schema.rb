@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_10_12_100000) do
+ActiveRecord::Schema[8.1].define(version: 2026_10_12_110000) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
   enable_extension "postgis"
@@ -485,17 +485,23 @@ ActiveRecord::Schema[8.1].define(version: 2026_10_12_100000) do
     t.datetime "revoked_at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.datetime "expires_at"
     t.index ["photographer_id"], name: "index_photography_grants_on_photographer_id"
     t.index ["token_digest"], name: "index_photography_grants_on_token_digest", unique: true
   end
 
   create_table "photography_publications", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.uuid "photography_grant_id", null: false
-    t.uuid "photo_id", null: false
+    t.uuid "photo_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.datetime "published_at", default: -> { "CURRENT_TIMESTAMP" }, null: false
+    t.datetime "removed_at"
+    t.uuid "photo_key", null: false
     t.index ["photo_id"], name: "index_photography_publications_on_photo_id"
-    t.index ["photography_grant_id", "photo_id"], name: "idx_on_photography_grant_id_photo_id_8beaedf06e", unique: true
+    t.index ["photography_grant_id", "photo_key"], name: "idx_on_photography_grant_id_photo_key_c7f4ab5c3d", unique: true
+    t.index ["photography_grant_id", "published_at", "photo_key"], name: "idx_on_photography_grant_id_published_at_photo_key_b2a8e4f1d0"
+    t.index ["photography_grant_id", "updated_at"], name: "index_photography_publications_on_photography_grant_id_and_updated_at"
     t.index ["photography_grant_id"], name: "index_photography_publications_on_photography_grant_id"
   end
 
@@ -805,7 +811,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_10_12_100000) do
   add_foreign_key "photographer_domains", "photographers"
   add_foreign_key "photography_grants", "photographers"
   add_foreign_key "photography_publications", "photography_grants"
-  add_foreign_key "photography_publications", "photos"
+  add_foreign_key "photography_publications", "photos", on_delete: :nullify
   add_foreign_key "photos", "albums"
   add_foreign_key "pings", "locales"
   add_foreign_key "pings", "users"
