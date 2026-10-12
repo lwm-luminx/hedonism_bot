@@ -38,9 +38,7 @@ RSpec.describe Types::PhotoTakeType, type: :graphql do
       node = data["photos"]["nodes"].first
       expect(node["name"]).to match(/\ADSC\d+\.arw\z/)
       expect(node["folder"]).to be_present
-      expect(node["event"]).to be_nil
-      expect(node["priceCents"]).to eq(0)
-      expect(node["currency"]).to eq("USD")
+      expect(node).to include("event" => nil, "priceCents" => 0, "currency" => "USD")
     end
   end
 end
