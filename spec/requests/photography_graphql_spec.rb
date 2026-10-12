@@ -78,6 +78,14 @@ RSpec.describe "Photography provider", type: :request do
     expect(response.parsed_body.dig("data", "photographer", "id")).to eq photographer.id
   end
 
+  it "links previews through the photographer's stable /previews route" do
+    shared = make_photo
+    shared.processed_takes.first.images.attach(io: Rails.root.join("spec/fixtures/test.jpg").open, filename: "test.jpg", content_type: "image/jpeg")
+    grant.publish!(shared)
+    post "/extensions/photography/graphql", params: operation, as: :json
+    expect(nodes.first["previewUrl"]).to eq "https://photo-contract.lumiere.host/previews/#{shared.processed_takes.first.id}"
+  end
+
   it "authenticates each batched operation independently" do
     post "/extensions/photography/graphql", params: [ operation, operation("invalid") ], as: :json
     expect(response.parsed_body.first.dig("data", "photographer", "id")).to eq photographer.id

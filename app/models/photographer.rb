@@ -38,6 +38,11 @@ class Photographer < ApplicationRecord
     id
   end
 
+  # The photographer's canonical host (sam.lumiere.host), where public links such as /previews/:id are served.
+  def host
+    "#{subdomain}.#{Rails.configuration.x.service_domain}"
+  end
+
   def folders
     self.albums
   end

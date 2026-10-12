@@ -1,5 +1,7 @@
 Rails.application.routes.draw do
   post "/extensions/photography/graphql", to: "photography_graphql#execute"
+  # Stable preview links the photography contract hands to AudienceKit; redirect to the current stored image.
+  get "/previews/:id", to: "previews#show", as: :preview
   mount ActionCable.server => "/cable"
   post "callbacks/facebook/data-deletion", to: "facebook_data_deletions#create"
   get "privacy/deletion/:confirmation_code", to: "facebook_data_deletions#show", as: :facebook_deletion_status
