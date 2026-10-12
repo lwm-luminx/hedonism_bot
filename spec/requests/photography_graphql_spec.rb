@@ -26,8 +26,8 @@ RSpec.describe "Photography provider", type: :request do
   end
 
   def query
-    'query($audience: ID!, $after: String, $since: ISO8601DateTime) { contractVersion ' \
-      'photographer(audienceId: $audience) { id name grantExpiresAt photos(first: 1, after: $after, updatedSince: $since) ' \
+    'query($audience: ID!, $after: String, $since: ISO8601DateTime, $first: Int = 1) { contractVersion ' \
+      'photographer(audienceId: $audience) { id name grantExpiresAt photos(first: $first, after: $after, updatedSince: $since) ' \
       '{ nodes { id takeCount previewUrl removed } pageInfo { endCursor hasNextPage } } } }'
   end
 
@@ -148,7 +148,8 @@ RSpec.describe "Photography provider", type: :request do
 
   it "rejects a cursor it did not issue" do
     post "/extensions/photography/graphql", params: operation(after: "not-a-cursor"), as: :json
-    expect(response.parsed_body["errors"].pluck("message")).to eq [ "Invalid photo cursor" ]
+    # Every connection field (nodes, pageInfo) reports the bad cursor; the message is the same for each.
+    expect(response.parsed_body["errors"].pluck("message").uniq).to eq [ "Invalid photo cursor" ]
   end
 
   it "lists unpublished and deleted photos as tombstones for updatedSince, and hides them otherwise" do
@@ -161,7 +162,7 @@ RSpec.describe "Photography provider", type: :request do
     deleted.photo_takes.destroy_all
     deleted.destroy!
 
-    post "/extensions/photography/graphql", params: operation(since: since.iso8601), as: :json
+    post "/extensions/photography/graphql", params: operation(since: since.iso8601, first: 10), as: :json
     expect(response.parsed_body["errors"]).to be_nil
     expect(nodes).to contain_exactly(
       { "id" => unpublished.id, "takeCount" => 0, "previewUrl" => nil, "removed" => true },
