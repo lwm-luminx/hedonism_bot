@@ -17,7 +17,7 @@ and a file that failed is retried the next time the card goes in.
 2. Build the app (needs Xcode, build-time `uv`, and Apple silicon macOS 14+):
 
    ```sh
-   cd mac/HedonismUploader
+   cd apple/HedonismUploader
    COGSWORTH_SIGNING_IDENTITY="Developer ID Application: <name> (<team>)" script/bundle-app.sh
    open .build/Cogsworth.app
    ```
@@ -43,7 +43,7 @@ before merging, run AudienceKit's `scripts/verify-apple.sh uploader` on a Mac, w
 
 ## macOS and iOS Xcode apps
 
-The shared Xcode project lives at `../../apple/LumiereUploader.xcodeproj`.
+The shared Xcode project lives at `../LumiereUploader.xcodeproj`.
 See `../../apple/README.md` for the iPhone/iPad upload UI, Synology access,
 local who_dis worker controls, server migration and signing instructions.
 

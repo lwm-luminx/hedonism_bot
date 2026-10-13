@@ -508,9 +508,9 @@ ActiveRecord::Schema[8.1].define(version: 2026_10_12_110000) do
   create_table "photos", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.uuid "album_id"
     t.datetime "created_at", null: false
-    t.string "currency", limit: 3, default: "USD", null: false
-    t.integer "price_cents", default: 0, null: false
     t.datetime "updated_at", null: false
+    t.integer "price_cents", default: 0, null: false
+    t.string "currency", limit: 3, default: "USD", null: false
     t.index ["album_id"], name: "index_photos_on_album_id"
   end
 

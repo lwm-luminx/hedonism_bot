@@ -78,7 +78,7 @@ Xcode 27.0 (27A266a) was detected at kickoff. Apple's current minimum upload req
 is Xcode 26 with the iOS/iPadOS 26 SDK, effective April 28, 2026.
 
 ```sh
-swift test --package-path mac/HedonismUploader
+swift test --package-path apple/HedonismUploader
 xcodebuild -project apple/LumiereUploader.xcodeproj -scheme Chip \
   -configuration Release -sdk iphonesimulator CODE_SIGNING_ALLOWED=NO build
 xcodebuild -project apple/LumiereUploader.xcodeproj -scheme Chip \

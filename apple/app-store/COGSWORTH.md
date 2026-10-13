@@ -159,12 +159,12 @@ every card, NAS archive transfers, bundled AI processing, or uploads while the M
 ## Local validation
 
 ```sh
-swift test --package-path mac/HedonismUploader
+swift test --package-path apple/HedonismUploader
 xcodebuild -project apple/LumiereUploader.xcodeproj -scheme Cogsworth-AppStore \
   -configuration AppStore -destination 'platform=macOS,arch=arm64' \
   -derivedDataPath /tmp/Cogsworth-AppStore-Preparation CODE_SIGNING_ALLOWED=NO build
 COGSWORTH_SIGNING_IDENTITY="<Apple Development or Developer ID identity>" \
-  mac/HedonismUploader/script/test-xpc.sh /tmp/Cogsworth-AppStore-Preparation/Build/Products/AppStore/Cogsworth.app
+  apple/HedonismUploader/script/test-xpc.sh /tmp/Cogsworth-AppStore-Preparation/Build/Products/AppStore/Cogsworth.app
 bundle exec rubocop --cache false --no-parallel
 ```
 

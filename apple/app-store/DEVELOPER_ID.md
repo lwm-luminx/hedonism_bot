@@ -10,7 +10,7 @@ The `DeveloperID` build configuration and `Cogsworth-DeveloperID` scheme match `
 (Hardened Runtime, App Sandbox, the minimal entitlements in COGSWORTH.md) with two
 additions for [Sparkle](https://sparkle-project.org) updates:
 
-- `mac/HedonismUploader/script/embed-sparkle.sh` downloads the pinned Sparkle release,
+- `apple/HedonismUploader/script/embed-sparkle.sh` downloads the pinned Sparkle release,
   checks its SHA-256 and embeds `Sparkle.framework`. The build phase exits immediately
   for every other configuration, so the App Store build never contains Sparkle. Swift
   resolves `import Sparkle` before build phases run, so run `embed-sparkle.sh --fetch`
@@ -64,7 +64,7 @@ so its users install the first Sparkle build by hand once.
 
 ```sh
 ASC_KEY_ID=<key id> ASC_ISSUER_ID=<issuer id> COGSWORTH_PUBLISH=1 \
-  mac/HedonismUploader/script/release-developer-id.sh 1.0.1 6
+  apple/HedonismUploader/script/release-developer-id.sh 1.0.1 6
 ```
 
 The script:
@@ -78,7 +78,7 @@ The script:
 5. Signs the DMG with `sign_update` and writes `appcast.xml`. With `COGSWORTH_PUBLISH=1`
    it creates the GitHub release from the current commit with both files, marked latest.
 
-Output lands in `mac/HedonismUploader/.build/developer-id/<version>-<build>/` (ignored by git).
+Output lands in `apple/HedonismUploader/.build/developer-id/<version>-<build>/` (ignored by git).
 Build numbers are shared with the App Store track, so always use a number higher than
 any earlier upload.
 
