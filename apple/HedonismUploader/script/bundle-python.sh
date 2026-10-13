@@ -1,6 +1,7 @@
 #!/bin/sh
 # Build-time only: assemble a relocatable CPython and the locked worker dependencies.
 set -eu
+export PATH="$HOME/.local/bin:/opt/homebrew/bin:/usr/local/bin:$PATH"
 script_dir=$(CDPATH= cd -- "$(dirname -- "$0")" && pwd)
 package_dir=$(CDPATH= cd -- "$script_dir/.." && pwd)
 repo_dir=$(CDPATH= cd -- "$script_dir/../../.." && pwd)

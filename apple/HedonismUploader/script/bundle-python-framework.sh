@@ -1,6 +1,7 @@
 #!/bin/sh
 # Build-time only. Embed libpython and the locked environment inside the ML XPC bundle.
 set -eu
+export PATH="$HOME/.local/bin:/opt/homebrew/bin:/usr/local/bin:$PATH"
 script_dir=$(CDPATH= cd -- "$(dirname -- "$0")" && pwd)
 package_dir=$(CDPATH= cd -- "$script_dir/.." && pwd)
 framework=${1:?Pass the destination Python.framework}
