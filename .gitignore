@@ -53,3 +53,5 @@ node_modules
 /apple/DerivedData/
 
 .DS_Store
+
+.build
