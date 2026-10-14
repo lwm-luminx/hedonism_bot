@@ -303,7 +303,7 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		81F9E9B37DC6CA47C6407CD8 /* Bundle embedded Python framework */ = {
+		81F9E9B37DC6CA47C6407CD8 /* Build who_dis Rust library */ = {
 			isa = PBXShellScriptBuildPhase;
 			alwaysOutOfDate = 1;
 			buildActionMask = 2147483647;
@@ -311,12 +311,12 @@
 			);
 			inputPaths = (
 			);
-			name = "Bundle embedded Python framework";
+			name = "Build who_dis Rust library";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "set -eu\n\"$SRCROOT/HedonismUploader/script/bundle-python-framework.sh\" \"$TARGET_BUILD_DIR/$FRAMEWORKS_FOLDER_PATH/Python.framework\"\n";
+			shellScript = "set -eu\nexport PATH=\"$HOME/.cargo/bin:$PATH\"\ncargo build --manifest-path \"$SRCROOT/../who_dis/rust/Cargo.toml\" --release\n";
 		};
 		C86000000000000000000001 /* Embed Sparkle (Developer ID only) */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -420,15 +420,20 @@
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				FRAMEWORK_SEARCH_PATHS = "$(TARGET_BUILD_DIR)/$(FRAMEWORKS_FOLDER_PATH)";
-				GENERATE_INFOPLIST_FILE = NO;
-				HEADER_SEARCH_PATHS = "$(SRCROOT)/HedonismUploader/.build/bundled-python/runtime/include/python3.13";
+				LIBRARY_SEARCH_PATHS = (
+					"$(SRCROOT)/../who_dis/rust/target/release",
+				);
 				INFOPLIST_FILE = macOS/MLXPC/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "@executable_path/../Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 14.0;
 				MARKETING_VERSION = 1.0.0;
 				OTHER_LDFLAGS = (
+					"-lwho_dis_onnx",
+					"-lc++",
 					"-framework",
-					Python,
+					CoreML,
+					"-framework",
+					Foundation,
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = host.lumiere.Cogsworth.ML;
 				PRODUCT_NAME = CogsworthML;
@@ -493,6 +498,7 @@
 		89E1FD6268CC0F221A2BE178 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ARCHS = arm64;
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
 				CLANG_WARN_BOOL_CONVERSION = YES;
@@ -606,6 +612,7 @@
 		C85000000000000000000002 /* AppStore */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ARCHS = arm64;
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
 				CLANG_WARN_BOOL_CONVERSION = YES;
@@ -676,6 +683,7 @@
 		C86000000000000000000003 /* DeveloperID */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ARCHS = arm64;
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
 				CLANG_WARN_BOOL_CONVERSION = YES;
@@ -745,15 +753,20 @@
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				FRAMEWORK_SEARCH_PATHS = "$(TARGET_BUILD_DIR)/$(FRAMEWORKS_FOLDER_PATH)";
-				GENERATE_INFOPLIST_FILE = NO;
-				HEADER_SEARCH_PATHS = "$(SRCROOT)/HedonismUploader/.build/bundled-python/runtime/include/python3.13";
+				LIBRARY_SEARCH_PATHS = (
+					"$(SRCROOT)/../who_dis/rust/target/release",
+				);
 				INFOPLIST_FILE = macOS/MLXPC/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "@executable_path/../Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 14.0;
 				MARKETING_VERSION = 1.0.0;
 				OTHER_LDFLAGS = (
+					"-lwho_dis_onnx",
+					"-lc++",
 					"-framework",
-					Python,
+					CoreML,
+					"-framework",
+					Foundation,
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = host.lumiere.Cogsworth.ML;
 				PRODUCT_NAME = CogsworthML;
@@ -777,15 +790,20 @@
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				FRAMEWORK_SEARCH_PATHS = "$(TARGET_BUILD_DIR)/$(FRAMEWORKS_FOLDER_PATH)";
-				GENERATE_INFOPLIST_FILE = NO;
-				HEADER_SEARCH_PATHS = "$(SRCROOT)/HedonismUploader/.build/bundled-python/runtime/include/python3.13";
+				LIBRARY_SEARCH_PATHS = (
+					"$(SRCROOT)/../who_dis/rust/target/release",
+				);
 				INFOPLIST_FILE = macOS/MLXPC/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "@executable_path/../Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 14.0;
 				MARKETING_VERSION = 1.0.0;
 				OTHER_LDFLAGS = (
+					"-lwho_dis_onnx",
+					"-lc++",
 					"-framework",
-					Python,
+					CoreML,
+					"-framework",
+					Foundation,
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = host.lumiere.Cogsworth.ML;
 				PRODUCT_NAME = CogsworthML;
@@ -800,6 +818,7 @@
 		E6DE6C99132752C914FEF632 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ARCHS = arm64;
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
 				CLANG_WARN_BOOL_CONVERSION = YES;
@@ -846,15 +865,20 @@
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				FRAMEWORK_SEARCH_PATHS = "$(TARGET_BUILD_DIR)/$(FRAMEWORKS_FOLDER_PATH)";
-				GENERATE_INFOPLIST_FILE = NO;
-				HEADER_SEARCH_PATHS = "$(SRCROOT)/HedonismUploader/.build/bundled-python/runtime/include/python3.13";
+				LIBRARY_SEARCH_PATHS = (
+					"$(SRCROOT)/../who_dis/rust/target/release",
+				);
 				INFOPLIST_FILE = macOS/MLXPC/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "@executable_path/../Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 14.0;
 				MARKETING_VERSION = 1.0.0;
 				OTHER_LDFLAGS = (
+					"-lwho_dis_onnx",
+					"-lc++",
 					"-framework",
-					Python,
+					CoreML,
+					"-framework",
+					Foundation,
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = host.lumiere.Cogsworth.ML;
 				PRODUCT_NAME = CogsworthML;

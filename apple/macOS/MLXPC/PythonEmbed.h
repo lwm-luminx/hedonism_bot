@@ -1,6 +1,9 @@
 #pragma once
-// Runs exactly once on a dedicated thread; the XPC process owns interpreter lifetime.
-typedef void (*CogsworthPythonOutput)(const char *line);
-int CogsworthRunPython(const char *home, const char *configuration, CogsworthPythonOutput output, int checkOnly);
+#include <stdint.h>
+#include <stddef.h>
 
-const char *CogsworthPythonCheckError(void);
+typedef void (*WhoDisStatusCallback)(const char *status, void *context);
+
+int who_dis_check(void);
+void *who_dis_start(const char *config_json, WhoDisStatusCallback callback, void *context);
+void who_dis_stop(void *handle);

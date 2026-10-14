@@ -27,52 +27,22 @@ fi
 echo "Repository root: $REPO_DIR"
 echo "Apple directory: $APPLE_DIR"
 
-# Install uv if missing
-if ! command -v uv >/dev/null 2>&1; then
-    echo "uv not found; installing uv..."
-    if command -v brew >/dev/null 2>&1; then
-        echo "Installing uv via Homebrew..."
-        brew install uv
-    else
-        echo "Installing uv via standalone installer..."
-        curl -LsSf https://astral.sh/uv/install.sh | sh
-    fi
-    export PATH="$HOME/.local/bin:/opt/homebrew/bin:/usr/local/bin:$PATH"
-fi
-
-echo "uv version: $(uv --version)"
-
 # Install Rust toolchain if missing
 if ! command -v cargo >/dev/null 2>&1 || ! command -v rustc >/dev/null 2>&1; then
     echo "Rust toolchain not found; installing Rust via rustup..."
     curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y --default-toolchain stable --profile minimal
+    if [ -f "$HOME/.cargo/env" ]; then
+        . "$HOME/.cargo/env"
+    fi
     export PATH="$HOME/.cargo/bin:$PATH"
 fi
 
 echo "Rust version: $(rustc --version)"
 echo "Cargo version: $(cargo --version)"
 
-# Check scheme to see if Python bundling is required
-SCHEME="${CI_XCODE_SCHEME:-Cogsworth}"
-echo "Configured scheme: $SCHEME"
-
-case "$SCHEME" in
-    Chip|ChipMac|ChipUITests)
-        echo "Scheme $SCHEME does not require embedded Python runtime. Skipping Python bundling."
-        ;;
-    *)
-        case "$(uname -m)" in
-            arm64)
-                echo "Pre-bundling Python environment for $SCHEME..."
-                STAGE="$APPLE_DIR/HedonismUploader/.build/bundled-python/xpc-input"
-                "$APPLE_DIR/HedonismUploader/script/bundle-python.sh" "$STAGE"
-                echo "Pre-bundled Python runtime ready."
-                ;;
-            *)
-                echo "Skipping Python bundling on $(uname -m) architecture."
-                ;;
-        esac
-        ;;
-esac
+# Build who_dis Rust static library
+echo "Building who_dis Rust library..."
+cargo build --manifest-path "$REPO_DIR/who_dis/rust/Cargo.toml" --release
+echo "who_dis Rust library ready."
 
 echo "=== ci_post_clone.sh complete ==="

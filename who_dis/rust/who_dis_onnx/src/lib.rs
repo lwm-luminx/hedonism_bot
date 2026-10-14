@@ -1,5 +1,6 @@
 pub mod error;
 pub mod face;
+pub mod ffi;
 pub mod image_utils;
 pub mod vit;
 

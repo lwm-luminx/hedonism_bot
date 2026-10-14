@@ -3,6 +3,9 @@ set -eu
 
 echo "=== Xcode Cloud: Running ci_pre_xcodebuild.sh ==="
 
+if [ -f "$HOME/.cargo/env" ]; then
+    . "$HOME/.cargo/env"
+fi
 export PATH="$HOME/.cargo/bin:$HOME/.local/bin:/opt/homebrew/bin:/usr/local/bin:$PATH"
 
 # Resolve directories
@@ -29,32 +32,16 @@ echo "Scheme: $SCHEME"
 
 case "$SCHEME" in
     Chip|ChipMac|ChipUITests)
-        echo "Scheme $SCHEME does not require embedded Python runtime."
+        echo "Scheme $SCHEME does not require who_dis ML runtime."
         ;;
     *)
-        case "$(uname -m)" in
-            arm64)
-                PYTHON_HEADER="$APPLE_DIR/HedonismUploader/.build/bundled-python/runtime/include/python3.13/Python.h"
-                if [ ! -f "$PYTHON_HEADER" ]; then
-                    echo "Python header not found at $PYTHON_HEADER. Ensuring uv and bundling runtime..."
-                    if ! command -v uv >/dev/null 2>&1; then
-                        if command -v brew >/dev/null 2>&1; then
-                            brew install uv
-                        else
-                            curl -LsSf https://astral.sh/uv/install.sh | sh
-                        fi
-                        export PATH="$HOME/.local/bin:/opt/homebrew/bin:/usr/local/bin:$PATH"
-                    fi
-                    STAGE="$APPLE_DIR/HedonismUploader/.build/bundled-python/xpc-input"
-                    "$APPLE_DIR/HedonismUploader/script/bundle-python.sh" "$STAGE"
-                else
-                    echo "Bundled Python headers already verified at $PYTHON_HEADER."
-                fi
-                ;;
-            *)
-                echo "Skipping Python bundling on $(uname -m) architecture."
-                ;;
-        esac
+        RUST_LIB="$REPO_DIR/who_dis/rust/target/release/libwho_dis_onnx.a"
+        if [ ! -f "$RUST_LIB" ]; then
+            echo "Rust library not found at $RUST_LIB. Compiling..."
+            cargo build --manifest-path "$REPO_DIR/who_dis/rust/Cargo.toml" --release
+        else
+            echo "who_dis Rust library verified at $RUST_LIB."
+        fi
         ;;
 esac
 
