@@ -1,0 +1,737 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 60;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		2DA0E62A82EF4B8AC993CF37 /* iOS/MobileUploaderApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = DCB233273F4488AD4F1C2C19 /* iOS/MobileUploaderApp.swift */; };
+		48A098BBF72BB03E8B0B00C1 /* ChipMac/PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = 3B769B9462696F543A56CD47 /* ChipMac/PrivacyInfo.xcprivacy */; };
+		55253D0F709C03E2DAD0FAA0 /* ChipMac/Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 55CA3EACD0978E312CA1B76E /* ChipMac/Assets.xcassets */; };
+		60E51F66DD818DFDB15E2056 /* UploaderCore in Frameworks */ = {isa = PBXBuildFile; productRef = 3C0749D2CCCE32E1FD0E19DF /* UploaderCore */; };
+		8F69D2603037B23E80BB9FA3 /* UITests/MobileUploaderUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DDE1B02B46FB05CF1955EC0 /* UITests/MobileUploaderUITests.swift */; };
+		9EE32B85FF94F508F1A59784 /* iOS/MobileUploaderApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = DCB233273F4488AD4F1C2C19 /* iOS/MobileUploaderApp.swift */; };
+		AA5318248DC10690A31C828F /* HedonismUploader/Sources/HedonismUploader/Keychain.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78F0E1ADB48DD6B5C3D2C0AF /* HedonismUploader/Sources/HedonismUploader/Keychain.swift */; };
+		BBE9C09D137E42960C486612 /* HedonismUploader/Sources/HedonismUploader/Keychain.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78F0E1ADB48DD6B5C3D2C0AF /* HedonismUploader/Sources/HedonismUploader/Keychain.swift */; };
+		C71000000000000000000002 /* iOS/PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = C71000000000000000000001 /* iOS/PrivacyInfo.xcprivacy */; };
+		C72000000000000000000002 /* iOS/Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C72000000000000000000001 /* iOS/Assets.xcassets */; };
+		E29E2ECC4408AAD867BA2C71 /* UploaderCore in Frameworks */ = {isa = PBXBuildFile; productRef = 87D7F891691E3DBB470B522B /* UploaderCore */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		5538D6C94541880BC3B9A168 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 98F54143AB4E86B28C3AFEE1 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 0A3B52F20478AFF17656659D;
+			remoteInfo = Chip;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		0E44D120B02ED5959A5F6EFE /* ChipMac/Chip.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = ChipMac/Chip.entitlements; sourceTree = SOURCE_ROOT; };
+		3B769B9462696F543A56CD47 /* ChipMac/PrivacyInfo.xcprivacy */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = ChipMac/PrivacyInfo.xcprivacy; sourceTree = SOURCE_ROOT; };
+		3E03BFA3BE1F29A895A14844 /* Chip.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; path = Chip.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		4DDE1B02B46FB05CF1955EC0 /* UITests/MobileUploaderUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UITests/MobileUploaderUITests.swift; sourceTree = SOURCE_ROOT; };
+		55CA3EACD0978E312CA1B76E /* ChipMac/Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = ChipMac/Assets.xcassets; sourceTree = SOURCE_ROOT; };
+		78F0E1ADB48DD6B5C3D2C0AF /* HedonismUploader/Sources/HedonismUploader/Keychain.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HedonismUploader/Sources/HedonismUploader/Keychain.swift; sourceTree = SOURCE_ROOT; };
+		87C00A466AC27399F25ACD87 /* Chip.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; path = Chip.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		9D3AD977850B7EAC0E4F6585 /* ChipUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; path = ChipUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		C5EB066E829DFFC2BD6032B5 /* ChipMac/Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = ChipMac/Info.plist; sourceTree = SOURCE_ROOT; };
+		C71000000000000000000001 /* iOS/PrivacyInfo.xcprivacy */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = iOS/PrivacyInfo.xcprivacy; sourceTree = SOURCE_ROOT; };
+		C72000000000000000000001 /* iOS/Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = iOS/Assets.xcassets; sourceTree = SOURCE_ROOT; };
+		DCB233273F4488AD4F1C2C19 /* iOS/MobileUploaderApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = iOS/MobileUploaderApp.swift; sourceTree = SOURCE_ROOT; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		45BD6CC5770382E638123F86 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		78D0CE9C185C5D7C84672C8C /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				60E51F66DD818DFDB15E2056 /* UploaderCore in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		A46ED7209E13E6927ED96C4C /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				E29E2ECC4408AAD867BA2C71 /* UploaderCore in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		6EE8740E3505E8F48301A934 /* ChipMac */ = {
+			isa = PBXGroup;
+			children = (
+				55CA3EACD0978E312CA1B76E /* ChipMac/Assets.xcassets */,
+				3B769B9462696F543A56CD47 /* ChipMac/PrivacyInfo.xcprivacy */,
+				C5EB066E829DFFC2BD6032B5 /* ChipMac/Info.plist */,
+				0E44D120B02ED5959A5F6EFE /* ChipMac/Chip.entitlements */,
+			);
+			name = ChipMac;
+			sourceTree = "<group>";
+		};
+		B28B7AF69320201D1CF206EC = {
+			isa = PBXGroup;
+			children = (
+				6EE8740E3505E8F48301A934 /* ChipMac */,
+				D1E7DC6BB8E080F71C755F9F /* Chip */,
+				FBDC4F23F93125BBEEAE800D /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		D1E7DC6BB8E080F71C755F9F /* Chip */ = {
+			isa = PBXGroup;
+			children = (
+				C72000000000000000000001 /* iOS/Assets.xcassets */,
+				C71000000000000000000001 /* iOS/PrivacyInfo.xcprivacy */,
+				4DDE1B02B46FB05CF1955EC0 /* UITests/MobileUploaderUITests.swift */,
+				DCB233273F4488AD4F1C2C19 /* iOS/MobileUploaderApp.swift */,
+				78F0E1ADB48DD6B5C3D2C0AF /* HedonismUploader/Sources/HedonismUploader/Keychain.swift */,
+			);
+			name = Chip;
+			sourceTree = "<group>";
+		};
+		FBDC4F23F93125BBEEAE800D /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				3E03BFA3BE1F29A895A14844 /* Chip.app */,
+				87C00A466AC27399F25ACD87 /* Chip.app */,
+				9D3AD977850B7EAC0E4F6585 /* ChipUITests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		0A3B52F20478AFF17656659D /* Chip */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 5577C1D1AD7D7F2B93315D4F /* Build configuration list for PBXNativeTarget "Chip" */;
+			buildPhases = (
+				441303537010773F88BE037F /* Sources */,
+				A46ED7209E13E6927ED96C4C /* Frameworks */,
+				C72000000000000000000003 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = Chip;
+			packageProductDependencies = (
+				87D7F891691E3DBB470B522B /* UploaderCore */,
+			);
+			productName = Chip;
+			productReference = 87C00A466AC27399F25ACD87 /* Chip.app */;
+			productType = "com.apple.product-type.application";
+		};
+		776EA9DA6BF80E918C213F13 /* ChipMac */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = F0793021AB07E9BACE18DED9 /* Build configuration list for PBXNativeTarget "ChipMac" */;
+			buildPhases = (
+				C06091B0168D210EADDFE68F /* Sources */,
+				78D0CE9C185C5D7C84672C8C /* Frameworks */,
+				800255A92FBDABAF0CBE9387 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = ChipMac;
+			packageProductDependencies = (
+				3C0749D2CCCE32E1FD0E19DF /* UploaderCore */,
+			);
+			productName = Chip;
+			productReference = 3E03BFA3BE1F29A895A14844 /* Chip.app */;
+			productType = "com.apple.product-type.application";
+		};
+		D24B997AF00C71C20D86BE4D /* ChipUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 3646145E0A90C6FF41610EFE /* Build configuration list for PBXNativeTarget "ChipUITests" */;
+			buildPhases = (
+				10FC09253D179ED4E498250D /* Sources */,
+				45BD6CC5770382E638123F86 /* Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				24A9817702DACA7B798D84ED /* PBXTargetDependency */,
+			);
+			name = ChipUITests;
+			productName = ChipUITests;
+			productReference = 9D3AD977850B7EAC0E4F6585 /* ChipUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		98F54143AB4E86B28C3AFEE1 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = 1;
+				LastSwiftUpdateCheck = 2600;
+				LastUpgradeCheck = 2700;
+				TargetAttributes = {
+					0A3B52F20478AFF17656659D = {
+						CreatedOnToolsVersion = 16.0;
+					};
+					776EA9DA6BF80E918C213F13 = {
+						CreatedOnToolsVersion = 16.0;
+					};
+					D24B997AF00C71C20D86BE4D = {
+						CreatedOnToolsVersion = 16.0;
+						TestTargetID = 0A3B52F20478AFF17656659D;
+					};
+				};
+			};
+			buildConfigurationList = 862894B703A6DEDF96A9DD6D /* Build configuration list for PBXProject "Chip" */;
+			compatibilityVersion = "Xcode 14.0";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = B28B7AF69320201D1CF206EC;
+			packageReferences = (
+				582681C2EAE02B3F3D399C0C /* XCLocalSwiftPackageReference "HedonismUploader" */,
+			);
+			productRefGroup = FBDC4F23F93125BBEEAE800D /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				0A3B52F20478AFF17656659D /* Chip */,
+				776EA9DA6BF80E918C213F13 /* ChipMac */,
+				D24B997AF00C71C20D86BE4D /* ChipUITests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		800255A92FBDABAF0CBE9387 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				55253D0F709C03E2DAD0FAA0 /* ChipMac/Assets.xcassets in Resources */,
+				48A098BBF72BB03E8B0B00C1 /* ChipMac/PrivacyInfo.xcprivacy in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		C72000000000000000000003 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				C71000000000000000000002 /* iOS/PrivacyInfo.xcprivacy in Resources */,
+				C72000000000000000000002 /* iOS/Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		10FC09253D179ED4E498250D /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				8F69D2603037B23E80BB9FA3 /* UITests/MobileUploaderUITests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		441303537010773F88BE037F /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				9EE32B85FF94F508F1A59784 /* iOS/MobileUploaderApp.swift in Sources */,
+				AA5318248DC10690A31C828F /* HedonismUploader/Sources/HedonismUploader/Keychain.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		C06091B0168D210EADDFE68F /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				2DA0E62A82EF4B8AC993CF37 /* iOS/MobileUploaderApp.swift in Sources */,
+				BBE9C09D137E42960C486612 /* HedonismUploader/Sources/HedonismUploader/Keychain.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		24A9817702DACA7B798D84ED /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 0A3B52F20478AFF17656659D /* Chip */;
+			targetProxy = 5538D6C94541880BC3B9A168 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin XCBuildConfiguration section */
+		003254340176A76C2BC8F6D4 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CODE_SIGN_STYLE = Automatic;
+				DEAD_CODE_STRIPPING = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = "$(RECOMMENDED_IPHONEOS_DEPLOYMENT_TARGET)";
+				PRODUCT_BUNDLE_IDENTIFIER = host.lumiere.ChipUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = Chip;
+			};
+			name = Release;
+		};
+		229175B492E5E1FB47276185 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEAD_CODE_STRIPPING = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = iOS/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = "Chip by Lumière";
+				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "Record your location during a shoot to identify venues for photos by their capture time.";
+				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = "$(RECOMMENDED_IPHONEOS_DEPLOYMENT_TARGET)";
+				MARKETING_VERSION = 1.0.0;
+				ONLY_ACTIVE_ARCH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = host.lumiere.Chip;
+				PRODUCT_NAME = Chip;
+				SDKROOT = iphoneos;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		59CE1A55E3C0DC7EDB1A684D /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CODE_SIGN_STYLE = Automatic;
+				DEAD_CODE_STRIPPING = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = "$(RECOMMENDED_IPHONEOS_DEPLOYMENT_TARGET)";
+				PRODUCT_BUNDLE_IDENTIFIER = host.lumiere.ChipUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = Chip;
+			};
+			name = Debug;
+		};
+		5A507174C96BD89EF5157465 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CODE_SIGN_ENTITLEMENTS = ChipMac/Chip.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEAD_CODE_STRIPPING = YES;
+				ENABLE_APP_SANDBOX = YES;
+				ENABLE_HARDENED_RUNTIME = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = ChipMac/Info.plist;
+				MACOSX_DEPLOYMENT_TARGET = "$(RECOMMENDED_MACOSX_DEPLOYMENT_TARGET)";
+				MARKETING_VERSION = 1.0.0;
+				ONLY_ACTIVE_ARCH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = host.lumiere.ChipMac;
+				PRODUCT_NAME = Chip;
+				SDKROOT = macosx;
+				SUPPORTED_PLATFORMS = macosx;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.0;
+			};
+			name = Debug;
+		};
+		7B618C9BF8C13CF60956537D /* AppStore */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CODE_SIGN_ENTITLEMENTS = ChipMac/Chip.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEAD_CODE_STRIPPING = YES;
+				ENABLE_APP_SANDBOX = YES;
+				ENABLE_HARDENED_RUNTIME = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = ChipMac/Info.plist;
+				MACOSX_DEPLOYMENT_TARGET = "$(RECOMMENDED_MACOSX_DEPLOYMENT_TARGET)";
+				MARKETING_VERSION = 1.0.0;
+				PRODUCT_BUNDLE_IDENTIFIER = host.lumiere.ChipMac;
+				PRODUCT_NAME = Chip;
+				SDKROOT = macosx;
+				SUPPORTED_PLATFORMS = macosx;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				SWIFT_VERSION = 5.0;
+			};
+			name = AppStore;
+		};
+		89E1FD6268CC0F221A2BE179 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				DEAD_CODE_STRIPPING = YES;
+				DEVELOPMENT_TEAM = DWVXMLB45Y;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				STRING_CATALOG_GENERATE_SYMBOLS = YES;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		C85000000000000000000003 /* AppStore */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				DEAD_CODE_STRIPPING = YES;
+				DEVELOPMENT_TEAM = DWVXMLB45Y;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				STRING_CATALOG_GENERATE_SYMBOLS = YES;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+			};
+			name = AppStore;
+		};
+		C86000000000000000000004 /* DeveloperID */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				DEAD_CODE_STRIPPING = YES;
+				DEVELOPMENT_TEAM = DWVXMLB45Y;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				STRING_CATALOG_GENERATE_SYMBOLS = YES;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+			};
+			name = DeveloperID;
+		};
+		C9433765307EF62F004328DD /* DeveloperID */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				DEAD_CODE_STRIPPING = YES;
+				MACOSX_DEPLOYMENT_TARGET = "$(RECOMMENDED_MACOSX_DEPLOYMENT_TARGET)";
+				PRODUCT_NAME = Chip;
+			};
+			name = DeveloperID;
+		};
+		C9433766307EF62F004328DD /* AppStore */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				DEAD_CODE_STRIPPING = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = "$(RECOMMENDED_IPHONEOS_DEPLOYMENT_TARGET)";
+				PRODUCT_NAME = ChipUITests;
+			};
+			name = AppStore;
+		};
+		C9433767307EF62F004328DD /* DeveloperID */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				DEAD_CODE_STRIPPING = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = "$(RECOMMENDED_IPHONEOS_DEPLOYMENT_TARGET)";
+				PRODUCT_NAME = ChipUITests;
+			};
+			name = DeveloperID;
+		};
+		C9433768307EF62F004328DD /* AppStore */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				DEAD_CODE_STRIPPING = YES;
+				INFOPLIST_KEY_CFBundleDisplayName = "Chip by Lumière";
+				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "Record your location during a shoot to identify venues for photos by their capture time.";
+				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = "$(RECOMMENDED_IPHONEOS_DEPLOYMENT_TARGET)";
+				PRODUCT_NAME = Chip;
+			};
+			name = AppStore;
+		};
+		C9433769307EF62F004328DD /* DeveloperID */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				DEAD_CODE_STRIPPING = YES;
+				INFOPLIST_KEY_CFBundleDisplayName = "Chip by Lumière";
+				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "Record your location during a shoot to identify venues for photos by their capture time.";
+				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = "$(RECOMMENDED_IPHONEOS_DEPLOYMENT_TARGET)";
+				PRODUCT_NAME = Chip;
+			};
+			name = DeveloperID;
+		};
+		D4DE46F240EA2984DC60E839 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEAD_CODE_STRIPPING = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = iOS/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = "Chip by Lumière";
+				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "Record your location during a shoot to identify venues for photos by their capture time.";
+				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = "$(RECOMMENDED_IPHONEOS_DEPLOYMENT_TARGET)";
+				MARKETING_VERSION = 1.0.0;
+				PRODUCT_BUNDLE_IDENTIFIER = host.lumiere.Chip;
+				PRODUCT_NAME = Chip;
+				SDKROOT = iphoneos;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		E6DE6C99132752C914FEF633 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				DEAD_CODE_STRIPPING = YES;
+				DEVELOPMENT_TEAM = DWVXMLB45Y;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				STRING_CATALOG_GENERATE_SYMBOLS = YES;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+			};
+			name = Release;
+		};
+		FEF6CE6CBA673E60062E01B5 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CODE_SIGN_ENTITLEMENTS = ChipMac/Chip.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEAD_CODE_STRIPPING = YES;
+				ENABLE_APP_SANDBOX = YES;
+				ENABLE_HARDENED_RUNTIME = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = ChipMac/Info.plist;
+				MACOSX_DEPLOYMENT_TARGET = "$(RECOMMENDED_MACOSX_DEPLOYMENT_TARGET)";
+				MARKETING_VERSION = 1.0.0;
+				PRODUCT_BUNDLE_IDENTIFIER = host.lumiere.ChipMac;
+				PRODUCT_NAME = Chip;
+				SDKROOT = macosx;
+				SUPPORTED_PLATFORMS = macosx;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				SWIFT_VERSION = 5.0;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		3646145E0A90C6FF41610EFE /* Build configuration list for PBXNativeTarget "ChipUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				59CE1A55E3C0DC7EDB1A684D /* Debug */,
+				003254340176A76C2BC8F6D4 /* Release */,
+				C9433766307EF62F004328DD /* AppStore */,
+				C9433767307EF62F004328DD /* DeveloperID */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		5577C1D1AD7D7F2B93315D4F /* Build configuration list for PBXNativeTarget "Chip" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				229175B492E5E1FB47276185 /* Debug */,
+				D4DE46F240EA2984DC60E839 /* Release */,
+				C9433768307EF62F004328DD /* AppStore */,
+				C9433769307EF62F004328DD /* DeveloperID */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		862894B703A6DEDF96A9DD6D /* Build configuration list for PBXProject "Chip" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				89E1FD6268CC0F221A2BE179 /* Debug */,
+				E6DE6C99132752C914FEF633 /* Release */,
+				C85000000000000000000003 /* AppStore */,
+				C86000000000000000000004 /* DeveloperID */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		F0793021AB07E9BACE18DED9 /* Build configuration list for PBXNativeTarget "ChipMac" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				5A507174C96BD89EF5157465 /* Debug */,
+				FEF6CE6CBA673E60062E01B5 /* Release */,
+				7B618C9BF8C13CF60956537D /* AppStore */,
+				C9433765307EF62F004328DD /* DeveloperID */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+
+/* Begin XCLocalSwiftPackageReference section */
+		582681C2EAE02B3F3D399C0C /* XCLocalSwiftPackageReference "HedonismUploader" */ = {
+			isa = XCLocalSwiftPackageReference;
+			relativePath = HedonismUploader;
+		};
+/* End XCLocalSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		3C0749D2CCCE32E1FD0E19DF /* UploaderCore */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 582681C2EAE02B3F3D399C0C /* XCLocalSwiftPackageReference "HedonismUploader" */;
+			productName = UploaderCore;
+		};
+		87D7F891691E3DBB470B522B /* UploaderCore */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 582681C2EAE02B3F3D399C0C /* XCLocalSwiftPackageReference "HedonismUploader" */;
+			productName = UploaderCore;
+		};
+/* End XCSwiftPackageProductDependency section */
+	};
+	rootObject = 98F54143AB4E86B28C3AFEE1 /* Project object */;
+}

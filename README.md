@@ -1,7 +1,12 @@
 # Hedonism Bot
 
-A Rails application with a React/Relay frontend built by Vite, a Python ML worker,
-and a macOS photo uploader.
+The Lumière Archive photography service repository, organized into components:
+
+- **`web/`**: Rails application with React/Relay frontend built by Vite.
+- **`who_dis/`**: Python ML face clustering and recognition worker.
+- **`apple/`**: Native Apple applications (Cogsworth for macOS, Chip for iOS & macOS, HedonismUploader package).
+- **`brand/`**: Brand assets and icon generators.
+- **`marketing/`**: Static marketing site.
 
 ## Public integration details
 
@@ -32,10 +37,11 @@ monorepo root) serves this app at `https://hedonism.local.audiencekit.com` throu
 nginx. Its HTTPS task uses relative Vite asset URLs and wss on port 443; nginx
 routes `/vite-dev/` directly to port 3036. Follow the guide's mkcert setup first.
 
-Use the Ruby and Bun versions in `.ruby-version` and `.bun-version`. The app needs
+Use the Ruby and Bun versions in `web/.ruby-version` and `web/.bun-version`. The app needs
 PostgreSQL with PostGIS and pgvector, Redis, libvips, exiftool, and OpenBLAS.
 
 ```sh
+cd web
 bun install --frozen-lockfile
 bin/setup --skip-server
 bin/dev
@@ -46,6 +52,7 @@ Vite serves the frontend; Relay regenerates GraphQL artifacts in watch mode.
 ## Checks
 
 ```sh
+cd web
 bin/rubocop
 bundle exec rspec
 bun run test:run

@@ -34,7 +34,7 @@ for image in json.loads((appicon / "Contents.json").read_text())["images"]:
     resize(SOURCES / "framed-v1.png", appicon / image["filename"], size)
 
 resize(SOURCES / "framed-v1.png",
-       ROOT / "mac/HedonismUploader/Resources/AppIcon-1024.png", 1024)
+       ROOT / "apple/HedonismUploader/Resources/AppIcon-1024.png", 1024)
 # Both Xcode and SwiftPM load this shared resource in the menu and settings header.
 resize(SOURCES / "transparent-v1.png",
-       ROOT / "mac/HedonismUploader/Sources/HedonismUploader/Resources/LumiereMark.png", 1024)
+       ROOT / "apple/HedonismUploader/Sources/HedonismUploader/Resources/LumiereMark.png", 1024)

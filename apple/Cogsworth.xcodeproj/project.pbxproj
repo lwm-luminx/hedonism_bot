@@ -1,0 +1,954 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 60;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		0D7C0FFF9B735A465413C6AE /* macOS/UploaderXPC/PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = B7C46C3F6B77EFB6C1270231 /* macOS/UploaderXPC/PrivacyInfo.xcprivacy */; };
+		0F99D9737A46D959EA26BC9F /* UploaderCore in Frameworks */ = {isa = PBXBuildFile; productRef = 0BB147BB4780F9C6B20C8F7E /* UploaderCore */; };
+		1BDDD26CF7AC88FBCA34FCE8 /* HedonismUploader/Sources/HedonismUploader/AppModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B1BE8378B23BEA60D0D0047 /* HedonismUploader/Sources/HedonismUploader/AppModel.swift */; };
+		1CABDC3D2A5A254FC0C59C64 /* UploaderCore in Frameworks */ = {isa = PBXBuildFile; productRef = C16F71EF0567E9F091FC6CB0 /* UploaderCore */; };
+		2586BB8F2141AAC1AF899398 /* HedonismUploader/Sources/HedonismUploader/Keychain.swift in Sources */ = {isa = PBXBuildFile; fileRef = B09894DA39DE45628BBAF474 /* HedonismUploader/Sources/HedonismUploader/Keychain.swift */; };
+		258B1D2DC3B0F8A58BA4F62D /* CogsworthML.xpc in Embed XPC Services */ = {isa = PBXBuildFile; fileRef = 713EAA004B6F70CC404BD1C8 /* CogsworthML.xpc */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		2A466C248D654AAF86BBE44F /* HedonismUploader/Sources/HedonismUploader/XPCClients.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8159EE251AAB205EBD398E3D /* HedonismUploader/Sources/HedonismUploader/XPCClients.swift */; };
+		41B003AB97F1716D6AA02BC4 /* CogsworthIPC in Frameworks */ = {isa = PBXBuildFile; productRef = 64087FF07CD378C930DAEDBF /* CogsworthIPC */; };
+		4571A3FE838748B0EA795E9E /* HedonismUploader/Sources/HedonismUploader/VolumeWatcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = C38FB9BEFD0F4324A0DC654B /* HedonismUploader/Sources/HedonismUploader/VolumeWatcher.swift */; };
+		5A5EA5FE48F28CAEF8F84C68 /* CogsworthIPC in Frameworks */ = {isa = PBXBuildFile; productRef = 020AAED9B245D70BC4CC43D3 /* CogsworthIPC */; };
+		66A25219DA145F762185F693 /* HedonismUploader/Sources/HedonismUploader/DesktopServices.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE0D31D85940129F06876E29 /* HedonismUploader/Sources/HedonismUploader/DesktopServices.swift */; };
+		8BF41E09B4CB6EF47CE2183F /* macOS/MLXPC/PythonEmbed.c in Sources */ = {isa = PBXBuildFile; fileRef = 60ED2CB82B5328E395C63982 /* macOS/MLXPC/PythonEmbed.c */; };
+		9FB63B912F5262816406F72F /* HedonismUploader/Sources/HedonismUploader/FolderPermissions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06732207E0A8E304A9036164 /* HedonismUploader/Sources/HedonismUploader/FolderPermissions.swift */; };
+		A1D40E623B9747C308258600 /* HedonismUploader/Sources/HedonismUploader/HedonismUploaderApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEC48B0094F280DE8A4A6DBB /* HedonismUploader/Sources/HedonismUploader/HedonismUploaderApp.swift */; };
+		B1B39F221E666A589A54F282 /* CogsworthUploader.xpc in Embed XPC Services */ = {isa = PBXBuildFile; fileRef = FF13BD0A71AAEADC27C86A8F /* CogsworthUploader.xpc */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		BC0099B665340C2CCD7B09EB /* CogsworthIPC in Frameworks */ = {isa = PBXBuildFile; productRef = 5DCE4A90EC065844DFBA3E3F /* CogsworthIPC */; };
+		BFF0A951B4E78DC2B9EA1463 /* macOS/UploaderXPC/main.swift in Sources */ = {isa = PBXBuildFile; fileRef = 447BDC9836FA818DC3680CA8 /* macOS/UploaderXPC/main.swift */; };
+		C83000000000000000000002 /* HedonismUploader/Sources/HedonismUploader/Resources/LumiereMark.png in Resources */ = {isa = PBXBuildFile; fileRef = C83000000000000000000001 /* HedonismUploader/Sources/HedonismUploader/Resources/LumiereMark.png */; };
+		C84000000000000000000002 /* macOS/Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C84000000000000000000001 /* macOS/Assets.xcassets */; };
+		C84000000000000000000004 /* macOS/PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = C84000000000000000000003 /* macOS/PrivacyInfo.xcprivacy */; };
+		C86000000000000000000007 /* HedonismUploader/Sources/HedonismUploader/SoftwareUpdater.swift in Sources */ = {isa = PBXBuildFile; fileRef = C86000000000000000000006 /* HedonismUploader/Sources/HedonismUploader/SoftwareUpdater.swift */; };
+		D546809FC20A010BCF608C1D /* macOS/MLXPC/main.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A6FCD08D8E997F25516578B /* macOS/MLXPC/main.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		1B9D23870E047681089F3390 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 98F54143AB4E86B28C3AFEE0 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 59607F45FC77874012527472;
+			remoteInfo = CogsworthUploader;
+		};
+		2413D5D291E6C3E24CC0A48B /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 98F54143AB4E86B28C3AFEE0 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 57AF573B82D999A490193ABD;
+			remoteInfo = CogsworthML;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		481B82474B56976A0F11024A /* Embed XPC Services */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "$(CONTENTS_FOLDER_PATH)/XPCServices";
+			dstSubfolderSpec = 16;
+			files = (
+				B1B39F221E666A589A54F282 /* CogsworthUploader.xpc in Embed XPC Services */,
+				258B1D2DC3B0F8A58BA4F62D /* CogsworthML.xpc in Embed XPC Services */,
+			);
+			name = "Embed XPC Services";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
+/* Begin PBXFileReference section */
+		06732207E0A8E304A9036164 /* HedonismUploader/Sources/HedonismUploader/FolderPermissions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HedonismUploader/Sources/HedonismUploader/FolderPermissions.swift; sourceTree = SOURCE_ROOT; };
+		2E73743934BC5FC8FCB1A73B /* macOS/MLXPC/PythonEmbed.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = macOS/MLXPC/PythonEmbed.h; sourceTree = SOURCE_ROOT; };
+		447BDC9836FA818DC3680CA8 /* macOS/UploaderXPC/main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = macOS/UploaderXPC/main.swift; sourceTree = SOURCE_ROOT; };
+		4B1BE8378B23BEA60D0D0047 /* HedonismUploader/Sources/HedonismUploader/AppModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HedonismUploader/Sources/HedonismUploader/AppModel.swift; sourceTree = SOURCE_ROOT; };
+		60ED2CB82B5328E395C63982 /* macOS/MLXPC/PythonEmbed.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = macOS/MLXPC/PythonEmbed.c; sourceTree = SOURCE_ROOT; };
+		713EAA004B6F70CC404BD1C8 /* CogsworthML.xpc */ = {isa = PBXFileReference; explicitFileType = "wrapper.xpc-service"; path = CogsworthML.xpc; sourceTree = BUILT_PRODUCTS_DIR; };
+		8159EE251AAB205EBD398E3D /* HedonismUploader/Sources/HedonismUploader/XPCClients.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HedonismUploader/Sources/HedonismUploader/XPCClients.swift; sourceTree = SOURCE_ROOT; };
+		8A6FCD08D8E997F25516578B /* macOS/MLXPC/main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = macOS/MLXPC/main.swift; sourceTree = SOURCE_ROOT; };
+		B09894DA39DE45628BBAF474 /* HedonismUploader/Sources/HedonismUploader/Keychain.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HedonismUploader/Sources/HedonismUploader/Keychain.swift; sourceTree = SOURCE_ROOT; };
+		B7C46C3F6B77EFB6C1270231 /* macOS/UploaderXPC/PrivacyInfo.xcprivacy */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = macOS/UploaderXPC/PrivacyInfo.xcprivacy; sourceTree = SOURCE_ROOT; };
+		BE0D31D85940129F06876E29 /* HedonismUploader/Sources/HedonismUploader/DesktopServices.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HedonismUploader/Sources/HedonismUploader/DesktopServices.swift; sourceTree = SOURCE_ROOT; };
+		C38FB9BEFD0F4324A0DC654B /* HedonismUploader/Sources/HedonismUploader/VolumeWatcher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HedonismUploader/Sources/HedonismUploader/VolumeWatcher.swift; sourceTree = SOURCE_ROOT; };
+		C83000000000000000000001 /* HedonismUploader/Sources/HedonismUploader/Resources/LumiereMark.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = HedonismUploader/Sources/HedonismUploader/Resources/LumiereMark.png; sourceTree = SOURCE_ROOT; };
+		C84000000000000000000001 /* macOS/Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = macOS/Assets.xcassets; sourceTree = SOURCE_ROOT; };
+		C84000000000000000000003 /* macOS/PrivacyInfo.xcprivacy */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = macOS/PrivacyInfo.xcprivacy; sourceTree = SOURCE_ROOT; };
+		C86000000000000000000006 /* HedonismUploader/Sources/HedonismUploader/SoftwareUpdater.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HedonismUploader/Sources/HedonismUploader/SoftwareUpdater.swift; sourceTree = SOURCE_ROOT; };
+		C86000000000000000000008 /* macOS/Cogsworth-DeveloperID.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "macOS/Cogsworth-DeveloperID.entitlements"; sourceTree = SOURCE_ROOT; };
+		C86000000000000000000009 /* macOS/Cogsworth-DeveloperID-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "macOS/Cogsworth-DeveloperID-Info.plist"; sourceTree = SOURCE_ROOT; };
+		DEC48B0094F280DE8A4A6DBB /* HedonismUploader/Sources/HedonismUploader/HedonismUploaderApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HedonismUploader/Sources/HedonismUploader/HedonismUploaderApp.swift; sourceTree = SOURCE_ROOT; };
+		F42B014B10603D581205C9C0 /* Cogsworth.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; path = Cogsworth.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		FF13BD0A71AAEADC27C86A8F /* CogsworthUploader.xpc */ = {isa = PBXFileReference; explicitFileType = "wrapper.xpc-service"; path = CogsworthUploader.xpc; sourceTree = BUILT_PRODUCTS_DIR; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		569469F92F2BB5A67B400502 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				41B003AB97F1716D6AA02BC4 /* CogsworthIPC in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		6C2AAFE92A13E336D34EFDEC /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				1CABDC3D2A5A254FC0C59C64 /* UploaderCore in Frameworks */,
+				BC0099B665340C2CCD7B09EB /* CogsworthIPC in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		B6B54120BCD09DF7BA519588 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				5A5EA5FE48F28CAEF8F84C68 /* CogsworthIPC in Frameworks */,
+				0F99D9737A46D959EA26BC9F /* UploaderCore in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		B28B7AF69320201D1CF206EB = {
+			isa = PBXGroup;
+			children = (
+				E3F63B5789164655488FBB73 /* Cogsworth */,
+				FBDC4F23F93125BBEEAE800C /* Products */,
+				C9433764307EF62B004328DD /* Recovered References */,
+			);
+			sourceTree = "<group>";
+		};
+		C9433764307EF62B004328DD /* Recovered References */ = {
+			isa = PBXGroup;
+			children = (
+				B7C46C3F6B77EFB6C1270231 /* macOS/UploaderXPC/PrivacyInfo.xcprivacy */,
+			);
+			name = "Recovered References";
+			sourceTree = "<group>";
+		};
+		E3F63B5789164655488FBB73 /* Cogsworth */ = {
+			isa = PBXGroup;
+			children = (
+				8159EE251AAB205EBD398E3D /* HedonismUploader/Sources/HedonismUploader/XPCClients.swift */,
+				06732207E0A8E304A9036164 /* HedonismUploader/Sources/HedonismUploader/FolderPermissions.swift */,
+				447BDC9836FA818DC3680CA8 /* macOS/UploaderXPC/main.swift */,
+				8A6FCD08D8E997F25516578B /* macOS/MLXPC/main.swift */,
+				60ED2CB82B5328E395C63982 /* macOS/MLXPC/PythonEmbed.c */,
+				2E73743934BC5FC8FCB1A73B /* macOS/MLXPC/PythonEmbed.h */,
+				C84000000000000000000001 /* macOS/Assets.xcassets */,
+				C84000000000000000000003 /* macOS/PrivacyInfo.xcprivacy */,
+				C83000000000000000000001 /* HedonismUploader/Sources/HedonismUploader/Resources/LumiereMark.png */,
+				4B1BE8378B23BEA60D0D0047 /* HedonismUploader/Sources/HedonismUploader/AppModel.swift */,
+				DEC48B0094F280DE8A4A6DBB /* HedonismUploader/Sources/HedonismUploader/HedonismUploaderApp.swift */,
+				B09894DA39DE45628BBAF474 /* HedonismUploader/Sources/HedonismUploader/Keychain.swift */,
+				BE0D31D85940129F06876E29 /* HedonismUploader/Sources/HedonismUploader/DesktopServices.swift */,
+				C38FB9BEFD0F4324A0DC654B /* HedonismUploader/Sources/HedonismUploader/VolumeWatcher.swift */,
+				C86000000000000000000006 /* HedonismUploader/Sources/HedonismUploader/SoftwareUpdater.swift */,
+				C86000000000000000000008 /* macOS/Cogsworth-DeveloperID.entitlements */,
+				C86000000000000000000009 /* macOS/Cogsworth-DeveloperID-Info.plist */,
+			);
+			name = Cogsworth;
+			sourceTree = "<group>";
+		};
+		FBDC4F23F93125BBEEAE800C /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				FF13BD0A71AAEADC27C86A8F /* CogsworthUploader.xpc */,
+				713EAA004B6F70CC404BD1C8 /* CogsworthML.xpc */,
+				F42B014B10603D581205C9C0 /* Cogsworth.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		57AF573B82D999A490193ABD /* CogsworthML */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = B20CCEB370198ECF7CAE8E5F /* Build configuration list for PBXNativeTarget "CogsworthML" */;
+			buildPhases = (
+				81F9E9B37DC6CA47C6407CD8 /* Bundle embedded Python framework */,
+				0589AD0736909B3615EFD138 /* Sources */,
+				569469F92F2BB5A67B400502 /* Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = CogsworthML;
+			packageProductDependencies = (
+				64087FF07CD378C930DAEDBF /* CogsworthIPC */,
+			);
+			productName = CogsworthML;
+			productReference = 713EAA004B6F70CC404BD1C8 /* CogsworthML.xpc */;
+			productType = "com.apple.product-type.xpc-service";
+		};
+		59607F45FC77874012527472 /* CogsworthUploader */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = C2D42C85432A56DB7F641B3D /* Build configuration list for PBXNativeTarget "CogsworthUploader" */;
+			buildPhases = (
+				1689DAB684BF060AF3475961 /* Sources */,
+				B6B54120BCD09DF7BA519588 /* Frameworks */,
+				64264D503E9664683E698D75 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = CogsworthUploader;
+			packageProductDependencies = (
+				020AAED9B245D70BC4CC43D3 /* CogsworthIPC */,
+				0BB147BB4780F9C6B20C8F7E /* UploaderCore */,
+			);
+			productName = CogsworthUploader;
+			productReference = FF13BD0A71AAEADC27C86A8F /* CogsworthUploader.xpc */;
+			productType = "com.apple.product-type.xpc-service";
+		};
+		C1F24C360BBD9096918EA549 /* Cogsworth */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 1C7EAD79E3A34EE34863AF7C /* Build configuration list for PBXNativeTarget "Cogsworth" */;
+			buildPhases = (
+				C86000000000000000000001 /* Embed Sparkle (Developer ID only) */,
+				CD6ECFF1E85C491801D8D806 /* Sources */,
+				6C2AAFE92A13E336D34EFDEC /* Frameworks */,
+				C83000000000000000000003 /* Resources */,
+				481B82474B56976A0F11024A /* Embed XPC Services */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				41D8549E78069EBB7F3EC873 /* PBXTargetDependency */,
+				757C7CE8E271B078E87BA28B /* PBXTargetDependency */,
+			);
+			name = Cogsworth;
+			packageProductDependencies = (
+				C16F71EF0567E9F091FC6CB0 /* UploaderCore */,
+				5DCE4A90EC065844DFBA3E3F /* CogsworthIPC */,
+			);
+			productName = Cogsworth;
+			productReference = F42B014B10603D581205C9C0 /* Cogsworth.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		98F54143AB4E86B28C3AFEE0 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = 1;
+				LastSwiftUpdateCheck = 2600;
+				LastUpgradeCheck = 2700;
+				TargetAttributes = {
+					57AF573B82D999A490193ABD = {
+						CreatedOnToolsVersion = 16.0;
+					};
+					59607F45FC77874012527472 = {
+						CreatedOnToolsVersion = 16.0;
+					};
+					C1F24C360BBD9096918EA549 = {
+						CreatedOnToolsVersion = 16.0;
+					};
+				};
+			};
+			buildConfigurationList = 862894B703A6DEDF96A9DD6C /* Build configuration list for PBXProject "Cogsworth" */;
+			compatibilityVersion = "Xcode 14.0";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = B28B7AF69320201D1CF206EB;
+			packageReferences = (
+				582681C2EAE02B3F3D399C0C /* XCLocalSwiftPackageReference "HedonismUploader" */,
+			);
+			productRefGroup = FBDC4F23F93125BBEEAE800C /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				57AF573B82D999A490193ABD /* CogsworthML */,
+				59607F45FC77874012527472 /* CogsworthUploader */,
+				C1F24C360BBD9096918EA549 /* Cogsworth */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		64264D503E9664683E698D75 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				0D7C0FFF9B735A465413C6AE /* macOS/UploaderXPC/PrivacyInfo.xcprivacy in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		C83000000000000000000003 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				C83000000000000000000002 /* HedonismUploader/Sources/HedonismUploader/Resources/LumiereMark.png in Resources */,
+				C84000000000000000000002 /* macOS/Assets.xcassets in Resources */,
+				C84000000000000000000004 /* macOS/PrivacyInfo.xcprivacy in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		81F9E9B37DC6CA47C6407CD8 /* Bundle embedded Python framework */ = {
+			isa = PBXShellScriptBuildPhase;
+			alwaysOutOfDate = 1;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Bundle embedded Python framework";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "set -eu\n\"$SRCROOT/HedonismUploader/script/bundle-python-framework.sh\" \"$TARGET_BUILD_DIR/$FRAMEWORKS_FOLDER_PATH/Python.framework\"\n";
+		};
+		C86000000000000000000001 /* Embed Sparkle (Developer ID only) */ = {
+			isa = PBXShellScriptBuildPhase;
+			alwaysOutOfDate = 1;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Embed Sparkle (Developer ID only)";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "set -eu\n[ \"$CONFIGURATION\" = DeveloperID ] || exit 0\n\"$SRCROOT/HedonismUploader/script/embed-sparkle.sh\" \"$TARGET_BUILD_DIR/$FRAMEWORKS_FOLDER_PATH\"\n";
+		};
+/* End PBXShellScriptBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		0589AD0736909B3615EFD138 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D546809FC20A010BCF608C1D /* macOS/MLXPC/main.swift in Sources */,
+				8BF41E09B4CB6EF47CE2183F /* macOS/MLXPC/PythonEmbed.c in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		1689DAB684BF060AF3475961 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				BFF0A951B4E78DC2B9EA1463 /* macOS/UploaderXPC/main.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		CD6ECFF1E85C491801D8D806 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				2A466C248D654AAF86BBE44F /* HedonismUploader/Sources/HedonismUploader/XPCClients.swift in Sources */,
+				9FB63B912F5262816406F72F /* HedonismUploader/Sources/HedonismUploader/FolderPermissions.swift in Sources */,
+				1BDDD26CF7AC88FBCA34FCE8 /* HedonismUploader/Sources/HedonismUploader/AppModel.swift in Sources */,
+				A1D40E623B9747C308258600 /* HedonismUploader/Sources/HedonismUploader/HedonismUploaderApp.swift in Sources */,
+				2586BB8F2141AAC1AF899398 /* HedonismUploader/Sources/HedonismUploader/Keychain.swift in Sources */,
+				66A25219DA145F762185F693 /* HedonismUploader/Sources/HedonismUploader/DesktopServices.swift in Sources */,
+				4571A3FE838748B0EA795E9E /* HedonismUploader/Sources/HedonismUploader/VolumeWatcher.swift in Sources */,
+				C86000000000000000000007 /* HedonismUploader/Sources/HedonismUploader/SoftwareUpdater.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		41D8549E78069EBB7F3EC873 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 59607F45FC77874012527472 /* CogsworthUploader */;
+			targetProxy = 1B9D23870E047681089F3390 /* PBXContainerItemProxy */;
+		};
+		757C7CE8E271B078E87BA28B /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 57AF573B82D999A490193ABD /* CogsworthML */;
+			targetProxy = 2413D5D291E6C3E24CC0A48B /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin XCBuildConfiguration section */
+		01B485A4D2EF53FA2BEEA1D4 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CODE_SIGN_ENTITLEMENTS = macOS/UploaderXPC/Uploader.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEAD_CODE_STRIPPING = YES;
+				ENABLE_APP_SANDBOX = YES;
+				ENABLE_HARDENED_RUNTIME = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = NO;
+				GENERATE_INFOPLIST_FILE = NO;
+				INFOPLIST_FILE = macOS/UploaderXPC/Info.plist;
+				MACOSX_DEPLOYMENT_TARGET = 14.0;
+				MARKETING_VERSION = 1.0.0;
+				PRODUCT_BUNDLE_IDENTIFIER = host.lumiere.Cogsworth.Uploader;
+				PRODUCT_NAME = CogsworthUploader;
+				SDKROOT = macosx;
+				SKIP_INSTALL = YES;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.0;
+			};
+			name = Debug;
+		};
+		03384A5C57F5BFD6E8565B3B /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CODE_SIGN_ENTITLEMENTS = macOS/MLXPC/ML.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEAD_CODE_STRIPPING = YES;
+				ENABLE_APP_SANDBOX = YES;
+				ENABLE_HARDENED_RUNTIME = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = NO;
+				FRAMEWORK_SEARCH_PATHS = "$(TARGET_BUILD_DIR)/$(FRAMEWORKS_FOLDER_PATH)";
+				GENERATE_INFOPLIST_FILE = NO;
+				HEADER_SEARCH_PATHS = "$(SRCROOT)/HedonismUploader/.build/bundled-python/runtime/include/python3.13";
+				INFOPLIST_FILE = macOS/MLXPC/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "@executable_path/../Frameworks";
+				MACOSX_DEPLOYMENT_TARGET = 14.0;
+				MARKETING_VERSION = 1.0.0;
+				OTHER_LDFLAGS = (
+					"-framework",
+					Python,
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = host.lumiere.Cogsworth.ML;
+				PRODUCT_NAME = CogsworthML;
+				SDKROOT = macosx;
+				SKIP_INSTALL = YES;
+				SWIFT_OBJC_BRIDGING_HEADER = macOS/MLXPC/PythonEmbed.h;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				SWIFT_VERSION = 5.0;
+			};
+			name = Release;
+		};
+		5395BFBADEC699125EF5E673 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CODE_SIGN_ENTITLEMENTS = macOS/UploaderXPC/Uploader.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEAD_CODE_STRIPPING = YES;
+				ENABLE_APP_SANDBOX = YES;
+				ENABLE_HARDENED_RUNTIME = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = NO;
+				GENERATE_INFOPLIST_FILE = NO;
+				INFOPLIST_FILE = macOS/UploaderXPC/Info.plist;
+				MACOSX_DEPLOYMENT_TARGET = 14.0;
+				MARKETING_VERSION = 1.0.0;
+				PRODUCT_BUNDLE_IDENTIFIER = host.lumiere.Cogsworth.Uploader;
+				PRODUCT_NAME = CogsworthUploader;
+				SDKROOT = macosx;
+				SKIP_INSTALL = YES;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				SWIFT_VERSION = 5.0;
+			};
+			name = Release;
+		};
+		7B369B0C02138C404FAA0A46 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEAD_CODE_STRIPPING = YES;
+				ENABLE_APP_SANDBOX = NO;
+				ENABLE_USER_SCRIPT_SANDBOXING = NO;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_CFBundleDisplayName = Cogsworth;
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.photography";
+				INFOPLIST_KEY_LSUIElement = YES;
+				MACOSX_DEPLOYMENT_TARGET = 14.0;
+				MARKETING_VERSION = 1.0.0;
+				ONLY_ACTIVE_ARCH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = host.lumiere.Cogsworth;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.0;
+			};
+			name = Debug;
+		};
+		89E1FD6268CC0F221A2BE178 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				DEAD_CODE_STRIPPING = YES;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				STRING_CATALOG_GENERATE_SYMBOLS = YES;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		A8FCE6F4D589794AC04181E7 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEAD_CODE_STRIPPING = YES;
+				ENABLE_APP_SANDBOX = NO;
+				ENABLE_USER_SCRIPT_SANDBOXING = NO;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_CFBundleDisplayName = Cogsworth;
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.photography";
+				INFOPLIST_KEY_LSUIElement = YES;
+				MACOSX_DEPLOYMENT_TARGET = 14.0;
+				MARKETING_VERSION = 1.0.0;
+				PRODUCT_BUNDLE_IDENTIFIER = host.lumiere.Cogsworth;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				SWIFT_VERSION = 5.0;
+			};
+			name = Release;
+		};
+		AAE175B52431B806F8CF4E4D /* AppStore */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CODE_SIGN_ENTITLEMENTS = macOS/UploaderXPC/Uploader.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 4;
+				DEAD_CODE_STRIPPING = YES;
+				ENABLE_APP_SANDBOX = YES;
+				ENABLE_HARDENED_RUNTIME = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = NO;
+				GENERATE_INFOPLIST_FILE = NO;
+				INFOPLIST_FILE = macOS/UploaderXPC/Info.plist;
+				MACOSX_DEPLOYMENT_TARGET = 14.0;
+				MARKETING_VERSION = 1.0.0;
+				PRODUCT_BUNDLE_IDENTIFIER = host.lumiere.Cogsworth.Uploader;
+				PRODUCT_NAME = CogsworthUploader;
+				SDKROOT = macosx;
+				SKIP_INSTALL = YES;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				SWIFT_VERSION = 5.0;
+			};
+			name = AppStore;
+		};
+		C85000000000000000000001 /* AppStore */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CODE_SIGN_ENTITLEMENTS = macOS/Cogsworth.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 4;
+				DEAD_CODE_STRIPPING = YES;
+				ENABLE_APP_SANDBOX = YES;
+				ENABLE_HARDENED_RUNTIME = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = NO;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_CFBundleDisplayName = Cogsworth;
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.photography";
+				INFOPLIST_KEY_LSUIElement = YES;
+				MACOSX_DEPLOYMENT_TARGET = 14.0;
+				MARKETING_VERSION = 1.0.0;
+				PRODUCT_BUNDLE_IDENTIFIER = host.lumiere.Cogsworth;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				SWIFT_VERSION = 5.0;
+			};
+			name = AppStore;
+		};
+		C85000000000000000000002 /* AppStore */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				DEAD_CODE_STRIPPING = YES;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				STRING_CATALOG_GENERATE_SYMBOLS = YES;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+			};
+			name = AppStore;
+		};
+		C86000000000000000000002 /* DeveloperID */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CODE_SIGN_ENTITLEMENTS = "macOS/Cogsworth-DeveloperID.entitlements";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 4;
+				DEAD_CODE_STRIPPING = YES;
+				ENABLE_APP_SANDBOX = YES;
+				ENABLE_HARDENED_RUNTIME = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = NO;
+				FRAMEWORK_SEARCH_PATHS = "$(SRCROOT)/HedonismUploader/.build/sparkle/current";
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "macOS/Cogsworth-DeveloperID-Info.plist";
+				INFOPLIST_KEY_CFBundleDisplayName = Cogsworth;
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.photography";
+				INFOPLIST_KEY_LSUIElement = YES;
+				LD_RUNPATH_SEARCH_PATHS = "@executable_path/../Frameworks";
+				MACOSX_DEPLOYMENT_TARGET = 14.0;
+				MARKETING_VERSION = 1.0.0;
+				OTHER_LDFLAGS = (
+					"-framework",
+					Sparkle,
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = host.lumiere.Cogsworth;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = SPARKLE;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				SWIFT_VERSION = 5.0;
+			};
+			name = DeveloperID;
+		};
+		C86000000000000000000003 /* DeveloperID */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				DEAD_CODE_STRIPPING = YES;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				STRING_CATALOG_GENERATE_SYMBOLS = YES;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+			};
+			name = DeveloperID;
+		};
+		C86000000000000000000004 /* DeveloperID */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CODE_SIGN_ENTITLEMENTS = macOS/UploaderXPC/Uploader.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 4;
+				DEAD_CODE_STRIPPING = YES;
+				ENABLE_APP_SANDBOX = YES;
+				ENABLE_HARDENED_RUNTIME = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = NO;
+				GENERATE_INFOPLIST_FILE = NO;
+				INFOPLIST_FILE = macOS/UploaderXPC/Info.plist;
+				MACOSX_DEPLOYMENT_TARGET = 14.0;
+				MARKETING_VERSION = 1.0.0;
+				PRODUCT_BUNDLE_IDENTIFIER = host.lumiere.Cogsworth.Uploader;
+				PRODUCT_NAME = CogsworthUploader;
+				SDKROOT = macosx;
+				SKIP_INSTALL = YES;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				SWIFT_VERSION = 5.0;
+			};
+			name = DeveloperID;
+		};
+		C86000000000000000000005 /* DeveloperID */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CODE_SIGN_ENTITLEMENTS = macOS/MLXPC/ML.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 4;
+				DEAD_CODE_STRIPPING = YES;
+				ENABLE_APP_SANDBOX = YES;
+				ENABLE_HARDENED_RUNTIME = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = NO;
+				FRAMEWORK_SEARCH_PATHS = "$(TARGET_BUILD_DIR)/$(FRAMEWORKS_FOLDER_PATH)";
+				GENERATE_INFOPLIST_FILE = NO;
+				HEADER_SEARCH_PATHS = "$(SRCROOT)/HedonismUploader/.build/bundled-python/runtime/include/python3.13";
+				INFOPLIST_FILE = macOS/MLXPC/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "@executable_path/../Frameworks";
+				MACOSX_DEPLOYMENT_TARGET = 14.0;
+				MARKETING_VERSION = 1.0.0;
+				OTHER_LDFLAGS = (
+					"-framework",
+					Python,
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = host.lumiere.Cogsworth.ML;
+				PRODUCT_NAME = CogsworthML;
+				SDKROOT = macosx;
+				SKIP_INSTALL = YES;
+				SWIFT_OBJC_BRIDGING_HEADER = macOS/MLXPC/PythonEmbed.h;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				SWIFT_VERSION = 5.0;
+			};
+			name = DeveloperID;
+		};
+		CA8D33202595EC6A486FAB4A /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CODE_SIGN_ENTITLEMENTS = macOS/MLXPC/ML.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEAD_CODE_STRIPPING = YES;
+				ENABLE_APP_SANDBOX = YES;
+				ENABLE_HARDENED_RUNTIME = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = NO;
+				FRAMEWORK_SEARCH_PATHS = "$(TARGET_BUILD_DIR)/$(FRAMEWORKS_FOLDER_PATH)";
+				GENERATE_INFOPLIST_FILE = NO;
+				HEADER_SEARCH_PATHS = "$(SRCROOT)/HedonismUploader/.build/bundled-python/runtime/include/python3.13";
+				INFOPLIST_FILE = macOS/MLXPC/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "@executable_path/../Frameworks";
+				MACOSX_DEPLOYMENT_TARGET = 14.0;
+				MARKETING_VERSION = 1.0.0;
+				OTHER_LDFLAGS = (
+					"-framework",
+					Python,
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = host.lumiere.Cogsworth.ML;
+				PRODUCT_NAME = CogsworthML;
+				SDKROOT = macosx;
+				SKIP_INSTALL = YES;
+				SWIFT_OBJC_BRIDGING_HEADER = macOS/MLXPC/PythonEmbed.h;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.0;
+			};
+			name = Debug;
+		};
+		E6DE6C99132752C914FEF632 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				DEAD_CODE_STRIPPING = YES;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				STRING_CATALOG_GENERATE_SYMBOLS = YES;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+			};
+			name = Release;
+		};
+		EE607C8296FEEDED6CC51784 /* AppStore */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CODE_SIGN_ENTITLEMENTS = macOS/MLXPC/ML.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 4;
+				DEAD_CODE_STRIPPING = YES;
+				ENABLE_APP_SANDBOX = YES;
+				ENABLE_HARDENED_RUNTIME = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = NO;
+				FRAMEWORK_SEARCH_PATHS = "$(TARGET_BUILD_DIR)/$(FRAMEWORKS_FOLDER_PATH)";
+				GENERATE_INFOPLIST_FILE = NO;
+				HEADER_SEARCH_PATHS = "$(SRCROOT)/HedonismUploader/.build/bundled-python/runtime/include/python3.13";
+				INFOPLIST_FILE = macOS/MLXPC/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "@executable_path/../Frameworks";
+				MACOSX_DEPLOYMENT_TARGET = 14.0;
+				MARKETING_VERSION = 1.0.0;
+				OTHER_LDFLAGS = (
+					"-framework",
+					Python,
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = host.lumiere.Cogsworth.ML;
+				PRODUCT_NAME = CogsworthML;
+				SDKROOT = macosx;
+				SKIP_INSTALL = YES;
+				SWIFT_OBJC_BRIDGING_HEADER = macOS/MLXPC/PythonEmbed.h;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				SWIFT_VERSION = 5.0;
+			};
+			name = AppStore;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		1C7EAD79E3A34EE34863AF7C /* Build configuration list for PBXNativeTarget "Cogsworth" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				7B369B0C02138C404FAA0A46 /* Debug */,
+				A8FCE6F4D589794AC04181E7 /* Release */,
+				C85000000000000000000001 /* AppStore */,
+				C86000000000000000000002 /* DeveloperID */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		862894B703A6DEDF96A9DD6C /* Build configuration list for PBXProject "Cogsworth" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				89E1FD6268CC0F221A2BE178 /* Debug */,
+				E6DE6C99132752C914FEF632 /* Release */,
+				C85000000000000000000002 /* AppStore */,
+				C86000000000000000000003 /* DeveloperID */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		B20CCEB370198ECF7CAE8E5F /* Build configuration list for PBXNativeTarget "CogsworthML" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				CA8D33202595EC6A486FAB4A /* Debug */,
+				03384A5C57F5BFD6E8565B3B /* Release */,
+				EE607C8296FEEDED6CC51784 /* AppStore */,
+				C86000000000000000000005 /* DeveloperID */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		C2D42C85432A56DB7F641B3D /* Build configuration list for PBXNativeTarget "CogsworthUploader" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				01B485A4D2EF53FA2BEEA1D4 /* Debug */,
+				5395BFBADEC699125EF5E673 /* Release */,
+				AAE175B52431B806F8CF4E4D /* AppStore */,
+				C86000000000000000000004 /* DeveloperID */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+
+/* Begin XCLocalSwiftPackageReference section */
+		582681C2EAE02B3F3D399C0C /* XCLocalSwiftPackageReference "HedonismUploader" */ = {
+			isa = XCLocalSwiftPackageReference;
+			relativePath = HedonismUploader;
+		};
+/* End XCLocalSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		020AAED9B245D70BC4CC43D3 /* CogsworthIPC */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 582681C2EAE02B3F3D399C0C /* XCLocalSwiftPackageReference "HedonismUploader" */;
+			productName = CogsworthIPC;
+		};
+		0BB147BB4780F9C6B20C8F7E /* UploaderCore */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 582681C2EAE02B3F3D399C0C /* XCLocalSwiftPackageReference "HedonismUploader" */;
+			productName = UploaderCore;
+		};
+		5DCE4A90EC065844DFBA3E3F /* CogsworthIPC */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 582681C2EAE02B3F3D399C0C /* XCLocalSwiftPackageReference "HedonismUploader" */;
+			productName = CogsworthIPC;
+		};
+		64087FF07CD378C930DAEDBF /* CogsworthIPC */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 582681C2EAE02B3F3D399C0C /* XCLocalSwiftPackageReference "HedonismUploader" */;
+			productName = CogsworthIPC;
+		};
+		C16F71EF0567E9F091FC6CB0 /* UploaderCore */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 582681C2EAE02B3F3D399C0C /* XCLocalSwiftPackageReference "HedonismUploader" */;
+			productName = UploaderCore;
+		};
+/* End XCSwiftPackageProductDependency section */
+	};
+	rootObject = 98F54143AB4E86B28C3AFEE0 /* Project object */;
+}

@@ -1,12 +1,12 @@
 # Lumière uploader apps
 
-Open `LumiereUploader.xcodeproj` in Xcode. It contains shared schemes for the native companions:
+Open `Lumiere.xcworkspace` in Xcode (or `Cogsworth.xcodeproj` / `Chip.xcodeproj` directly). It contains shared schemes for the native companions:
 
 - **Cogsworth**: macOS 14+, a persistent menu bar app with automatic camera-card uploads.
 - **ChipMac**: macOS 14+, a sandboxed, upload-only Chip app with manual folder selection and shoot details. No Python, ML services, storage registration, or automatic card watcher.
 - **Chip** (Chip by Lumière): iOS/iPadOS 16+, folder selection, file review, album/event/venue entry, progress, cancellation and retry.
 
-All three app targets link the local **UploaderCore** Swift package in `../mac/HedonismUploader`. The existing `swift build`/bundle script remains supported. Core includes card scanning, RAW/JPEG grouping, hashing, GraphQL requests, signed storage uploads, progress and a persistent upload ledger. Keychain source is shared by both app targets.
+All three app targets link the local **UploaderCore** Swift package in `HedonismUploader`. The existing `swift build`/bundle script remains supported. Core includes card scanning, RAW/JPEG grouping, hashing, GraphQL requests, signed storage uploads, progress and a persistent upload ledger. Keychain source is shared by both app targets.
 
 ## Server and signing
 
@@ -14,7 +14,7 @@ Chip opens on a branded sign-in page until an account is saved. Facebook sign-in
 
 To provision a service-account device, run `bin/rails service_accounts:device_code ID=<existing-service-account-id>` on the server, or POST `/auth/device/code` with that service account's bearer token. Enter the returned code in Chip within ten minutes. Redemption at `/auth/device/exchange` creates a separate device token and consumes the code. Codes cannot be reused; revoked source accounts cannot redeem outstanding codes. Credentials remain in Keychain.
 
-Run `bin/rails db:migrate` on the server before using these builds. Create a photographer service-account token as described in `../mac/HedonismUploader/README.md`. The default API endpoint is `https://api.lumiere.host/graphql`; the bearer token selects the photographer. Photographer websites and admin pages use `https://<photographer>.lumiere.host`. Custom server URLs remain supported. Tokens are stored in Keychain; they are not embedded in the project.
+Run `bin/rails db:migrate` on the server before using these builds. Create a photographer service-account token as described in `HedonismUploader`. The default API endpoint is `https://api.lumiere.host/graphql`; the bearer token selects the photographer. Photographer websites and admin pages use `https://<photographer>.lumiere.host`. Custom server URLs remain supported. Tokens are stored in Keychain; they are not embedded in the project.
 
 Choose your development team under Signing & Capabilities for each target before installing on a physical device or distributing. The Cogsworth-AppStore configuration uses App Sandbox and two bundled XPC services: a native uploader and an embedded-Python AI service. Use Upload now to grant folder access before automatic card uploads. Distribution outside the Mac App Store requires signing/notarization.
 
@@ -45,9 +45,9 @@ This version uses foreground URLSession uploads. It does not promise transfers a
 ## Validation
 
 ```sh
-swift test --package-path mac/HedonismUploader
-xcodebuild -project apple/LumiereUploader.xcodeproj -scheme Cogsworth -destination 'platform=macOS,arch=arm64' CODE_SIGNING_ALLOWED=NO build
-xcodebuild -project apple/LumiereUploader.xcodeproj -scheme Chip -sdk iphonesimulator CODE_SIGNING_ALLOWED=NO build
+swift test --package-path apple/HedonismUploader
+xcodebuild -project apple/Cogsworth.xcodeproj -scheme Cogsworth -destination 'platform=macOS,arch=arm64' CODE_SIGNING_ALLOWED=NO build
+xcodebuild -project apple/Chip.xcodeproj -scheme Chip -sdk iphonesimulator CODE_SIGNING_ALLOWED=NO build
 bundle exec rspec spec/graphql/mutations/create_photo_promise_album_spec.rb spec/graphql/mutations/create_photo_promise_spec.rb spec/graphql/mutations/attach_photo_promise_files_spec.rb spec/graphql/mutations/update_photo_promise_file_update_spec.rb
 bundle exec rubocop
 ```
@@ -62,7 +62,7 @@ and cancellation of the system folder picker. They do not send photos to the liv
 Use Product → Test in Xcode with the connected iPhone selected, or:
 
 ```sh
-xcodebuild -project apple/LumiereUploader.xcodeproj -scheme Chip \
+xcodebuild -project apple/Chip.xcodeproj -scheme Chip \
   -destination 'platform=iOS,id=<device-UDID>' \
   DEVELOPMENT_TEAM=<your-team-ID> -allowProvisioningUpdates test
 ```
@@ -128,7 +128,7 @@ disable Cogsworth's automatic upload before importing the same card in Chip;
 cross-process upload ownership is not yet coordinated.
 
 ```sh
-xcodebuild -project apple/LumiereUploader.xcodeproj -scheme ChipMac \
+xcodebuild -project apple/Chip.xcodeproj -scheme ChipMac \
   -destination 'platform=macOS' CODE_SIGNING_ALLOWED=NO build
 ```
 

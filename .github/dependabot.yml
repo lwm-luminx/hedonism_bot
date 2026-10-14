@@ -1,7 +1,7 @@
 version: 2
 updates:
   - package-ecosystem: bundler
-    directory: "/"
+    directory: "/web"
     schedule:
       interval: weekly
     open-pull-requests-limit: 10
@@ -16,7 +16,7 @@ updates:
       interval: weekly
     open-pull-requests-limit: 10
   - package-ecosystem: docker
-    directories: ["/", "/who_dis"]
+    directories: ["/web", "/who_dis"]
     schedule:
       interval: weekly
     open-pull-requests-limit: 10

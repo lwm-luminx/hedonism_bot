@@ -18,7 +18,7 @@ jobs:
       matrix:
         include:
           - image: hedonism_bot
-            context: .
+            context: web
           - image: hedonism_who_dis
             context: who_dis
 
