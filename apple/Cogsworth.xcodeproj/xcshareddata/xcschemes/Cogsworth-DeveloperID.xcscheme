@@ -17,7 +17,7 @@
                BlueprintIdentifier = "C1F24C360BBD9096918EA549"
                BuildableName = "Cogsworth.app"
                BlueprintName = "Cogsworth"
-               ReferencedContainer = "container:LumiereUploader.xcodeproj">
+               ReferencedContainer = "container:Cogsworth.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -30,7 +30,7 @@
       shouldAutocreateTestPlan = "YES">
    </TestAction>
    <LaunchAction
-      buildConfiguration = "Debug"
+      buildConfiguration = "DeveloperID"
       selectedDebuggerIdentifier = "Xcode.DebuggerFoundation.Debugger.LLDB"
       selectedLauncherIdentifier = "Xcode.DebuggerFoundation.Launcher.LLDB"
       launchStyle = "0"
@@ -46,7 +46,7 @@
             BlueprintIdentifier = "C1F24C360BBD9096918EA549"
             BuildableName = "Cogsworth.app"
             BlueprintName = "Cogsworth"
-            ReferencedContainer = "container:LumiereUploader.xcodeproj">
+            ReferencedContainer = "container:Cogsworth.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </LaunchAction>
@@ -61,7 +61,7 @@
       buildConfiguration = "Debug">
    </AnalyzeAction>
    <ArchiveAction
-      buildConfiguration = "Release"
+      buildConfiguration = "DeveloperID"
       revealArchiveInOrganizer = "YES">
    </ArchiveAction>
 </Scheme>

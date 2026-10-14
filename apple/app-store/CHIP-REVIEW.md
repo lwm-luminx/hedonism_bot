@@ -82,7 +82,7 @@ instructions privately. Do not describe them as available until tested.
 Run existing UI tests with the paired device selected in Xcode, or:
 
 ```sh
-xcodebuild -project apple/LumiereUploader.xcodeproj -scheme Chip \
+xcodebuild -project apple/Chip.xcodeproj -scheme Chip \
   -destination 'platform=iOS,id=<paired-device-UDID>' \
   -resultBundlePath /tmp/Chip-card-ui-tests.xcresult \
   DEVELOPMENT_TEAM=<team-ID> test

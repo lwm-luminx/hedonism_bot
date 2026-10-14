@@ -43,7 +43,7 @@ before merging, run AudienceKit's `scripts/verify-apple.sh uploader` on a Mac, w
 
 ## macOS and iOS Xcode apps
 
-The shared Xcode project lives at `../LumiereUploader.xcodeproj`.
+The Cogsworth Xcode project lives at `../Cogsworth.xcodeproj` (or open `../Lumiere.xcworkspace` with Chip).
 See `../../apple/README.md` for the iPhone/iPad upload UI, Synology access,
 local who_dis worker controls, server migration and signing instructions.
 

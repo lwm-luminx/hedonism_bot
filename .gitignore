@@ -4,47 +4,52 @@
 # belong in git's global ignore instead:
 # `$XDG_CONFIG_HOME/git/ignore` or `~/.config/git/ignore`
 
-# Ignore bundler config.
+# Web app ignored files
+/web/.bundle
+/web/.env*
+/web/log/*
+/web/tmp/*
+!/web/log/.keep
+!/web/tmp/.keep
+/web/tmp/pids/*
+!/web/tmp/pids/
+!/web/tmp/pids/.keep
+/web/storage/*
+!/web/storage/.keep
+/web/tmp/storage/*
+!/web/tmp/storage/
+!/web/tmp/storage/.keep
+/web/config/*.key
+/web/app/assets/builds/*
+!/web/app/assets/builds/.keep
+/web/node_modules
+/web/public/vite*
+/web/.gem_rbs_collection/
+
+# Legacy / root ignores
 /.bundle
-
-# Ignore all environment files.
 /.env*
-
-# Ignore all logfiles and tempfiles.
 /log/*
 /tmp/*
 !/log/.keep
 !/tmp/.keep
-
-# Ignore pidfiles, but keep the directory.
 /tmp/pids/*
 !/tmp/pids/
 !/tmp/pids/.keep
-
-# Ignore storage (uploaded files in development and any SQLite databases).
 /storage/*
 !/storage/.keep
 /tmp/storage/*
 !/tmp/storage/
 !/tmp/storage/.keep
-
-# Ignore key files for decrypting credentials and more.
 /config/*.key
-
-
 /app/assets/builds/*
 !/app/assets/builds/.keep
-
 /node_modules
-
-# Vite Ruby
 /public/vite*
 node_modules
-# Vite uses dotenv and suggests to ignore local-only env files. See
-# https://vitejs.dev/guide/env-and-mode.html#env-files
 *.local
-
 .gem_rbs_collection/
+
 # Mac uploader build output
 /apple/HedonismUploader/.build/
 
@@ -53,5 +58,4 @@ node_modules
 /apple/DerivedData/
 
 .DS_Store
-
 .build

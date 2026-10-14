@@ -2,100 +2,100 @@
 <module version="4">
   <component name="RailsPaths" isManagedAutomatically="true">
     <entry key="app">
-      <value>file://$MODULE_DIR$/hedonism_bot/app</value>
+      <value>file://$MODULE_DIR$/web/app</value>
     </entry>
     <entry key="app/assets">
-      <value>file://$MODULE_DIR$/hedonism_bot/app/assets</value>
+      <value>file://$MODULE_DIR$/web/app/assets</value>
     </entry>
     <entry key="app/channels">
-      <value>file://$MODULE_DIR$/hedonism_bot/app/channels</value>
+      <value>file://$MODULE_DIR$/web/app/channels</value>
     </entry>
     <entry key="app/controllers">
-      <value>file://$MODULE_DIR$/hedonism_bot/app/controllers</value>
+      <value>file://$MODULE_DIR$/web/app/controllers</value>
     </entry>
     <entry key="app/helpers">
-      <value>file://$MODULE_DIR$/hedonism_bot/app/helpers</value>
+      <value>file://$MODULE_DIR$/web/app/helpers</value>
     </entry>
     <entry key="app/mailers">
-      <value>file://$MODULE_DIR$/hedonism_bot/app/mailers</value>
+      <value>file://$MODULE_DIR$/web/app/mailers</value>
     </entry>
     <entry key="app/models">
-      <value>file://$MODULE_DIR$/hedonism_bot/app/models</value>
+      <value>file://$MODULE_DIR$/web/app/models</value>
     </entry>
     <entry key="app/views">
-      <value>file://$MODULE_DIR$/hedonism_bot/app/views</value>
+      <value>file://$MODULE_DIR$/web/app/views</value>
     </entry>
     <entry key="config">
-      <value>file://$MODULE_DIR$/hedonism_bot/config</value>
+      <value>file://$MODULE_DIR$/web/config</value>
     </entry>
     <entry key="config/cable">
-      <value>file://$MODULE_DIR$/hedonism_bot/config/cable.yml</value>
+      <value>file://$MODULE_DIR$/web/config/cable.yml</value>
     </entry>
     <entry key="config/database">
-      <value>file://$MODULE_DIR$/hedonism_bot/config/database.yml</value>
+      <value>file://$MODULE_DIR$/web/config/database.yml</value>
     </entry>
     <entry key="config/environment">
-      <value>file://$MODULE_DIR$/hedonism_bot/config/environment.rb</value>
+      <value>file://$MODULE_DIR$/web/config/environment.rb</value>
     </entry>
     <entry key="config/environments">
-      <value>file://$MODULE_DIR$/hedonism_bot/config/environments</value>
+      <value>file://$MODULE_DIR$/web/config/environments</value>
     </entry>
     <entry key="config/initializers">
-      <value>file://$MODULE_DIR$/hedonism_bot/config/initializers</value>
+      <value>file://$MODULE_DIR$/web/config/initializers</value>
     </entry>
     <entry key="config/locales">
-      <value>file://$MODULE_DIR$/hedonism_bot/config/locales</value>
+      <value>file://$MODULE_DIR$/web/config/locales</value>
     </entry>
     <entry key="config/routes">
-      <value>file://$MODULE_DIR$/hedonism_bot/config/routes</value>
+      <value>file://$MODULE_DIR$/web/config/routes</value>
     </entry>
     <entry key="config/routes.rb">
-      <value>file://$MODULE_DIR$/hedonism_bot/config/routes.rb</value>
+      <value>file://$MODULE_DIR$/web/config/routes.rb</value>
     </entry>
     <entry key="config/secrets">
-      <value>file://$MODULE_DIR$/hedonism_bot/config</value>
+      <value>file://$MODULE_DIR$/web/config</value>
     </entry>
     <entry key="db">
-      <value>file://$MODULE_DIR$/hedonism_bot/db</value>
+      <value>file://$MODULE_DIR$/web/db</value>
     </entry>
     <entry key="db/migrate">
-      <value>file://$MODULE_DIR$/hedonism_bot/db/migrate</value>
+      <value>file://$MODULE_DIR$/web/db/migrate</value>
     </entry>
     <entry key="db/seeds.rb">
-      <value>file://$MODULE_DIR$/hedonism_bot/db/seeds.rb</value>
+      <value>file://$MODULE_DIR$/web/db/seeds.rb</value>
     </entry>
     <entry key="lib">
-      <value>file://$MODULE_DIR$/hedonism_bot/lib</value>
+      <value>file://$MODULE_DIR$/web/lib</value>
     </entry>
     <entry key="lib/assets">
-      <value>file://$MODULE_DIR$/hedonism_bot/lib/assets</value>
+      <value>file://$MODULE_DIR$/web/lib/assets</value>
     </entry>
     <entry key="lib/tasks">
-      <value>file://$MODULE_DIR$/hedonism_bot/lib/tasks</value>
+      <value>file://$MODULE_DIR$/web/lib/tasks</value>
     </entry>
     <entry key="lib/templates">
-      <value>file://$MODULE_DIR$/hedonism_bot/lib/templates</value>
+      <value>file://$MODULE_DIR$/web/lib/templates</value>
     </entry>
     <entry key="log">
-      <value>file://$MODULE_DIR$/hedonism_bot/log/development.log</value>
+      <value>file://$MODULE_DIR$/web/log/development.log</value>
     </entry>
     <entry key="public">
-      <value>file://$MODULE_DIR$/hedonism_bot/public</value>
+      <value>file://$MODULE_DIR$/web/public</value>
     </entry>
     <entry key="public/javascripts">
-      <value>file://$MODULE_DIR$/hedonism_bot/public/javascripts</value>
+      <value>file://$MODULE_DIR$/web/public/javascripts</value>
     </entry>
     <entry key="public/stylesheets">
-      <value>file://$MODULE_DIR$/hedonism_bot/public/stylesheets</value>
+      <value>file://$MODULE_DIR$/web/public/stylesheets</value>
     </entry>
     <entry key="tmp">
-      <value>file://$MODULE_DIR$/hedonism_bot/tmp</value>
+      <value>file://$MODULE_DIR$/web/tmp</value>
     </entry>
     <entry key="vendor">
-      <value>file://$MODULE_DIR$/hedonism_bot/vendor</value>
+      <value>file://$MODULE_DIR$/web/vendor</value>
     </entry>
     <entry key="vendor/assets">
-      <value>file://$MODULE_DIR$/hedonism_bot/vendor/assets</value>
+      <value>file://$MODULE_DIR$/web/vendor/assets</value>
     </entry>
   </component>
 </module>

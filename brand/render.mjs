@@ -23,12 +23,12 @@ async function png(svg, px, out, { inset = 0, shadow = false } = {}) {
   console.log('wrote', out)
 }
 
-await png(master('mark'), 32, 'public/favicon-32.png')
-await png(master('mark'), 64, 'public/favicon-64.png')
-await png(master('square'), 180, 'public/apple-touch-icon.png')
+await png(master('mark'), 32, 'web/public/favicon-32.png')
+await png(master('mark'), 64, 'web/public/favicon-64.png')
+await png(master('square'), 180, 'web/public/apple-touch-icon.png')
 // macOS app icons sit inside the canvas (824px of 1024) with a soft drop shadow.
 await png(master('rounded'), 1024, 'apple/HedonismUploader/Resources/AppIcon-1024.png', { inset: 100, shadow: true })
 await browser.close()
 
-fs.copyFileSync(path.join(brand, 'masters', 'lumiere-mark.svg'), path.join(root, 'public/lumiere-mark.svg'))
-console.log('wrote public/lumiere-mark.svg')
+fs.copyFileSync(path.join(brand, 'masters', 'lumiere-mark.svg'), path.join(root, 'web/public/lumiere-mark.svg'))
+console.log('wrote web/public/lumiere-mark.svg')

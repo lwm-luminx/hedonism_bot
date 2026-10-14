@@ -17,7 +17,7 @@
                BlueprintIdentifier = "0A3B52F20478AFF17656659D"
                BuildableName = "Chip.app"
                BlueprintName = "Chip"
-               ReferencedContainer = "container:LumiereUploader.xcodeproj">
+               ReferencedContainer = "container:Chip.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -35,7 +35,7 @@
                BlueprintIdentifier = "D24B997AF00C71C20D86BE4D"
                BuildableName = "ChipUITests.xctest"
                BlueprintName = "ChipUITests"
-               ReferencedContainer = "container:LumiereUploader.xcodeproj">
+               ReferencedContainer = "container:Chip.xcodeproj">
             </BuildableReference>
          </TestableReference>
       </Testables>
@@ -57,7 +57,7 @@
             BlueprintIdentifier = "0A3B52F20478AFF17656659D"
             BuildableName = "Chip.app"
             BlueprintName = "Chip"
-            ReferencedContainer = "container:LumiereUploader.xcodeproj">
+            ReferencedContainer = "container:Chip.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </LaunchAction>

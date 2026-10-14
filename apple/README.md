@@ -1,6 +1,6 @@
 # Lumière uploader apps
 
-Open `LumiereUploader.xcodeproj` in Xcode. It contains shared schemes for the native companions:
+Open `Lumiere.xcworkspace` in Xcode (or `Cogsworth.xcodeproj` / `Chip.xcodeproj` directly). It contains shared schemes for the native companions:
 
 - **Cogsworth**: macOS 14+, a persistent menu bar app with automatic camera-card uploads.
 - **ChipMac**: macOS 14+, a sandboxed, upload-only Chip app with manual folder selection and shoot details. No Python, ML services, storage registration, or automatic card watcher.
@@ -46,8 +46,8 @@ This version uses foreground URLSession uploads. It does not promise transfers a
 
 ```sh
 swift test --package-path apple/HedonismUploader
-xcodebuild -project apple/LumiereUploader.xcodeproj -scheme Cogsworth -destination 'platform=macOS,arch=arm64' CODE_SIGNING_ALLOWED=NO build
-xcodebuild -project apple/LumiereUploader.xcodeproj -scheme Chip -sdk iphonesimulator CODE_SIGNING_ALLOWED=NO build
+xcodebuild -project apple/Cogsworth.xcodeproj -scheme Cogsworth -destination 'platform=macOS,arch=arm64' CODE_SIGNING_ALLOWED=NO build
+xcodebuild -project apple/Chip.xcodeproj -scheme Chip -sdk iphonesimulator CODE_SIGNING_ALLOWED=NO build
 bundle exec rspec spec/graphql/mutations/create_photo_promise_album_spec.rb spec/graphql/mutations/create_photo_promise_spec.rb spec/graphql/mutations/attach_photo_promise_files_spec.rb spec/graphql/mutations/update_photo_promise_file_update_spec.rb
 bundle exec rubocop
 ```
@@ -62,7 +62,7 @@ and cancellation of the system folder picker. They do not send photos to the liv
 Use Product → Test in Xcode with the connected iPhone selected, or:
 
 ```sh
-xcodebuild -project apple/LumiereUploader.xcodeproj -scheme Chip \
+xcodebuild -project apple/Chip.xcodeproj -scheme Chip \
   -destination 'platform=iOS,id=<device-UDID>' \
   DEVELOPMENT_TEAM=<your-team-ID> -allowProvisioningUpdates test
 ```
@@ -128,7 +128,7 @@ disable Cogsworth's automatic upload before importing the same card in Chip;
 cross-process upload ownership is not yet coordinated.
 
 ```sh
-xcodebuild -project apple/LumiereUploader.xcodeproj -scheme ChipMac \
+xcodebuild -project apple/Chip.xcodeproj -scheme ChipMac \
   -destination 'platform=macOS' CODE_SIGNING_ALLOWED=NO build
 ```
 

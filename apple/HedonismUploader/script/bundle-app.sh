@@ -6,7 +6,7 @@ package_dir=$(CDPATH= cd -- "$(dirname -- "$0")/.." && pwd)
 repo_dir=$(CDPATH= cd -- "$package_dir/../.." && pwd)
 identity=${COGSWORTH_SIGNING_IDENTITY:?Set an Apple Development or Developer ID signing identity; embedded Python requires matching Team IDs with hardened runtime}
 export COGSWORTH_SIGNING_IDENTITY="$identity"
-xcodebuild -project "$repo_dir/apple/LumiereUploader.xcodeproj" \
+xcodebuild -project "$repo_dir/apple/Cogsworth.xcodeproj" \
   -scheme Cogsworth-AppStore -configuration AppStore -destination 'platform=macOS,arch=arm64' \
   -derivedDataPath "$package_dir/.build/xcode" CODE_SIGNING_ALLOWED=NO \
   MARKETING_VERSION="${1:-1.0.0}" CURRENT_PROJECT_VERSION="${2:-1}" build
