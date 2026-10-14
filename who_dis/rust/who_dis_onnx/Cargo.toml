@@ -1,0 +1,21 @@
+[package]
+name = "who_dis_onnx"
+version = "0.1.0"
+edition = "2021"
+description = "Native ONNX inference engine for who_dis visual features and face recognition"
+
+[dependencies]
+ort = { version = "2.0.0-rc.9", default-features = false, features = ["std", "ndarray", "download-binaries", "tls-rustls"] }
+ndarray = { version = "0.17", features = ["rayon"] }
+image = { version = "0.25", default-features = false, features = ["png", "jpeg", "webp"] }
+thiserror = "2.0"
+anyhow = "1.0"
+serde = { version = "1.0", features = ["derive"] }
+serde_json = "1.0"
+
+[features]
+default = ["coreml"]
+coreml = ["ort/coreml"]
+
+[dev-dependencies]
+tempfile = "3"

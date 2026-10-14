@@ -3,7 +3,7 @@ set -eu
 
 echo "=== Xcode Cloud: Running ci_pre_xcodebuild.sh ==="
 
-export PATH="$HOME/.local/bin:/opt/homebrew/bin:/usr/local/bin:$PATH"
+export PATH="$HOME/.cargo/bin:$HOME/.local/bin:/opt/homebrew/bin:/usr/local/bin:$PATH"
 
 # Resolve directories
 SCRIPT_DIR="$(CDPATH= cd -- "$(dirname -- "$0")" && pwd)"

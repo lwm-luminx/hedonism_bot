@@ -57,5 +57,9 @@ node_modules
 /apple/**/xcuserdata/
 /apple/DerivedData/
 
+# Rust build artifacts
+target/
+**/target/
+
 .DS_Store
 .build

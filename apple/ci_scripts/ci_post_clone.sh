@@ -3,7 +3,7 @@ set -eu
 
 echo "=== Xcode Cloud: Running ci_post_clone.sh ==="
 
-export PATH="$HOME/.local/bin:/opt/homebrew/bin:/usr/local/bin:$PATH"
+export PATH="$HOME/.cargo/bin:$HOME/.local/bin:/opt/homebrew/bin:/usr/local/bin:$PATH"
 
 # Resolve directories
 SCRIPT_DIR="$(CDPATH= cd -- "$(dirname -- "$0")" && pwd)"
@@ -41,6 +41,16 @@ if ! command -v uv >/dev/null 2>&1; then
 fi
 
 echo "uv version: $(uv --version)"
+
+# Install Rust toolchain if missing
+if ! command -v cargo >/dev/null 2>&1 || ! command -v rustc >/dev/null 2>&1; then
+    echo "Rust toolchain not found; installing Rust via rustup..."
+    curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y --default-toolchain stable --profile minimal
+    export PATH="$HOME/.cargo/bin:$PATH"
+fi
+
+echo "Rust version: $(rustc --version)"
+echo "Cargo version: $(cargo --version)"
 
 # Check scheme to see if Python bundling is required
 SCHEME="${CI_XCODE_SCHEME:-Cogsworth}"
