@@ -11,7 +11,7 @@ import torch
 from graphql import build_schema, validate
 from PIL import Image
 
-RAILS_ROOT = Path(__file__).resolve().parents[2]
+RAILS_ROOT = Path(__file__).resolve().parents[2] / "web"
 RAILS_JOBS = RAILS_ROOT / "app" / "jobs"
 RAILS_SCHEMA = build_schema((RAILS_ROOT / "app" / "graphql" / "schema.graphql").read_text())
 
