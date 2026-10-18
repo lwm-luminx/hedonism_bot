@@ -33,6 +33,7 @@ class SessionsController < ApplicationController
 
   def failure
     return return_to_tenant(error: params[:message].to_s) if session[:auth_bridge]
+    return return_to_native_app(error: params[:message].to_s) if session[:native_login]
 
     redirect_to "/admin?auth_error=#{CGI.escape(params[:message].to_s)}"
   end
@@ -50,6 +51,14 @@ class SessionsController < ApplicationController
                                                                      purpose: :auth_return, expires_in: 1.minute)
     reset_session
     redirect_to "https://#{context['host']}/auth/return?#{ { ticket: ticket }.to_query }", allow_other_host: true
+  end
+
+  # A failed or cancelled native sign-in goes back to the app instead of the admin console, which
+  # api.<domain> doesn't serve.
+  def return_to_native_app(error:)
+    login = session.delete(:native_login)
+    reset_session
+    redirect_to "lumiere-uploader://signin?#{ { error: error, state: login['state'] }.to_query }", allow_other_host: true
   end
 
   def resolve_photographer

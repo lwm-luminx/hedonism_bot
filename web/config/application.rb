@@ -2,6 +2,7 @@ require_relative "boot"
 
 require "rails/all"
 require_relative "../lib/middleware/facebook_deletion_body_limit"
+require_relative "../lib/middleware/native_login_state"
 
 # Require the gems listed in Gemfile, including any gems
 # you've limited to :test, :development, or :production.
@@ -50,6 +51,8 @@ module HedonismBot
     # Admin sign-in (Facebook via OmniAuth) needs a cookie-backed session, which api_only strips out.
     config.middleware.use ActionDispatch::Cookies
     config.middleware.use ActionDispatch::Session::CookieStore, key: "_hedonism_bot_session", same_site: :lax
+    # Restores a native (Chip) sign-in from its signed OAuth state when iOS drops the cookie mid-login.
+    config.middleware.use Middleware::NativeLoginState
     # CSRF's null-session handler clears flash as well as the browser session.
     config.middleware.use ActionDispatch::Flash
 

@@ -523,8 +523,13 @@ final class FacebookSignIn: NSObject, ASWebAuthenticationPresentationContextProv
         }
         defer { session = nil }
         let items = URLComponents(url: callback, resolvingAgainstBaseURL: false)?.queryItems ?? []
-        guard callback.host == "signin", items.first(where: { $0.name == "state" })?.value == state,
-              let code = items.first(where: { $0.name == "code" })?.value else {
+        guard callback.host == "signin", items.first(where: { $0.name == "state" })?.value == state else {
+            throw HedonismClientError.unexpectedResponse("Invalid sign-in callback")
+        }
+        if let error = items.first(where: { $0.name == "error" })?.value {
+            throw HedonismClientError.unexpectedResponse("Facebook sign-in failed: \(error)")
+        }
+        guard let code = items.first(where: { $0.name == "code" })?.value else {
             throw HedonismClientError.unexpectedResponse("Invalid sign-in callback")
         }
         var request = URLRequest(url: server.appendingPathComponent("auth/native/exchange"))

@@ -17,6 +17,7 @@ jobs:
         working-directory: web
 
     steps:
+      # Runs before checkout, when web/ doesn't exist yet.
       - name: Install packages
         working-directory: .
         run: sudo apt-get update && sudo apt-get install --no-install-recommends -y libpq-dev libvips libopenblas-dev
@@ -44,6 +45,7 @@ jobs:
     env:
       RUBOCOP_CACHE_ROOT: tmp/rubocop
     steps:
+      # Runs before checkout, when web/ doesn't exist yet.
       - name: Install packages
         working-directory: .
         run: sudo apt-get update && sudo apt-get install --no-install-recommends -y libpq-dev libvips libopenblas-dev
