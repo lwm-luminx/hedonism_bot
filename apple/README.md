@@ -40,6 +40,8 @@ This registers local storage; album archive/restore transfers still use the conf
 
 Connect a compatible SD card reader. Select either the card root or its DCIM directory through the system folder picker, review supported files, and enter the album, event and venue. Keep the card connected and the app open until uploading finishes. Cancel stops the active operation; press Upload again to retry remaining files. Completed files are remembered locally. Files are uploaded directly from the card without importing into Photos.
 
+**Take photo** opens the camera and **Choose from photo library** opens the system photo picker, which needs no library permission. Library photos keep their original HEIC, JPEG or PNG file; other formats (ProRAW DNG, GIF) are re-encoded as HEIC with their metadata. Camera shots are saved as HEIC with their EXIF capture time. Both are copied into the app's `Chip-phone-photos` folder and uploaded from there through the same hash-checked flow as a card, then removed once every file uploads. **Remove phone photos** discards copies that have not uploaded yet.
+
 This version uses foreground URLSession uploads. It does not promise transfers after iOS suspends/terminates the app, or after the card is removed. Durable background uploads would require staging originals in app storage and a background transfer/finalization queue.
 
 ## Validation

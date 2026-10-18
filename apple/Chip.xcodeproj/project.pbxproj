@@ -16,6 +16,7 @@
 		AA5318248DC10690A31C828F /* HedonismUploader/Sources/HedonismUploader/Keychain.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78F0E1ADB48DD6B5C3D2C0AF /* HedonismUploader/Sources/HedonismUploader/Keychain.swift */; };
 		BBE9C09D137E42960C486612 /* HedonismUploader/Sources/HedonismUploader/Keychain.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78F0E1ADB48DD6B5C3D2C0AF /* HedonismUploader/Sources/HedonismUploader/Keychain.swift */; };
 		C71000000000000000000002 /* iOS/PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = C71000000000000000000001 /* iOS/PrivacyInfo.xcprivacy */; };
+		C73000000000000000000002 /* iOS/PhonePhotos.swift in Sources */ = {isa = PBXBuildFile; fileRef = C73000000000000000000001 /* iOS/PhonePhotos.swift */; };
 		C72000000000000000000002 /* iOS/Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C72000000000000000000001 /* iOS/Assets.xcassets */; };
 		E29E2ECC4408AAD867BA2C71 /* UploaderCore in Frameworks */ = {isa = PBXBuildFile; productRef = 87D7F891691E3DBB470B522B /* UploaderCore */; };
 /* End PBXBuildFile section */
@@ -42,6 +43,7 @@
 		C5EB066E829DFFC2BD6032B5 /* ChipMac/Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = ChipMac/Info.plist; sourceTree = SOURCE_ROOT; };
 		C71000000000000000000001 /* iOS/PrivacyInfo.xcprivacy */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = iOS/PrivacyInfo.xcprivacy; sourceTree = SOURCE_ROOT; };
 		C72000000000000000000001 /* iOS/Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = iOS/Assets.xcassets; sourceTree = SOURCE_ROOT; };
+		C73000000000000000000001 /* iOS/PhonePhotos.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = iOS/PhonePhotos.swift; sourceTree = SOURCE_ROOT; };
 		DCB233273F4488AD4F1C2C19 /* iOS/MobileUploaderApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = iOS/MobileUploaderApp.swift; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
@@ -99,6 +101,7 @@
 				C71000000000000000000001 /* iOS/PrivacyInfo.xcprivacy */,
 				4DDE1B02B46FB05CF1955EC0 /* UITests/MobileUploaderUITests.swift */,
 				DCB233273F4488AD4F1C2C19 /* iOS/MobileUploaderApp.swift */,
+				C73000000000000000000001 /* iOS/PhonePhotos.swift */,
 				78F0E1ADB48DD6B5C3D2C0AF /* HedonismUploader/Sources/HedonismUploader/Keychain.swift */,
 			);
 			name = Chip;
@@ -254,6 +257,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				9EE32B85FF94F508F1A59784 /* iOS/MobileUploaderApp.swift in Sources */,
+				C73000000000000000000002 /* iOS/PhonePhotos.swift in Sources */,
 				AA5318248DC10690A31C828F /* HedonismUploader/Sources/HedonismUploader/Keychain.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -307,6 +311,7 @@
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = iOS/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = "Chip by Lumière";
+				INFOPLIST_KEY_NSCameraUsageDescription = "Take photos to upload to your Lumière archive.";
 				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "Record your location during a shoot to identify venues for photos by their capture time.";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -547,6 +552,7 @@
 				CLANG_ENABLE_OBJC_WEAK = YES;
 				DEAD_CODE_STRIPPING = YES;
 				INFOPLIST_KEY_CFBundleDisplayName = "Chip by Lumière";
+				INFOPLIST_KEY_NSCameraUsageDescription = "Take photos to upload to your Lumière archive.";
 				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "Record your location during a shoot to identify venues for photos by their capture time.";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -563,6 +569,7 @@
 				CLANG_ENABLE_OBJC_WEAK = YES;
 				DEAD_CODE_STRIPPING = YES;
 				INFOPLIST_KEY_CFBundleDisplayName = "Chip by Lumière";
+				INFOPLIST_KEY_NSCameraUsageDescription = "Take photos to upload to your Lumière archive.";
 				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "Record your location during a shoot to identify venues for photos by their capture time.";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -584,6 +591,7 @@
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = iOS/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = "Chip by Lumière";
+				INFOPLIST_KEY_NSCameraUsageDescription = "Take photos to upload to your Lumière archive.";
 				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "Record your location during a shoot to identify venues for photos by their capture time.";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
