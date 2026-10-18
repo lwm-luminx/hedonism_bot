@@ -9,6 +9,9 @@ Rails.application.config.middleware.use OmniAuth::Builder do
            callback_url: "https://api.#{Rails.configuration.x.service_domain}/auth/facebook/callback",
            scope: "email,public_profile",
            info_fields: "name,email,first_name,last_name",
+           # Native sign-ins carry their context in the state; see Middleware::NativeLoginState.
+           authorize_options: %i[scope display auth_type config_id state],
+           state: ->(env) { Middleware::NativeLoginState.generate(env) },
            client_options: {
              site: "https://graph.facebook.com/#{FACEBOOK_GRAPH_API_VERSION}",
              authorize_url: "https://www.facebook.com/#{FACEBOOK_GRAPH_API_VERSION}/dialog/oauth"
