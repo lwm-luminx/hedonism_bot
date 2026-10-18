@@ -220,6 +220,14 @@ final class MobileUploadModel: NSObject, ObservableObject {
         status = "\(files.count) supported files; \(files.filter { !ledger.contains($0) }.count) new"
     }
 
+    #if os(iOS)
+    /// Points the upload at photos taken or chosen on this phone.
+    func usePhonePhotos() {
+        select(PhoneStaging.folder)
+        status = files.isEmpty ? "Take or choose photos to upload" : "\(files.count) phone photo\(files.count == 1 ? "" : "s") ready to upload"
+    }
+    #endif
+
     private func releaseFolder() {
         if hasAccess, let folder { folder.stopAccessingSecurityScopedResource() }
         hasAccess = false
@@ -248,6 +256,13 @@ final class MobileUploadModel: NSObject, ObservableObject {
                     Task { @MainActor in self.progress = update }
                 }
                 status = "\(result.uploadedFiles) uploaded; \(result.failedFiles) failed. Upload again to retry."
+                #if os(iOS)
+                // Phone photos are copies; drop them once everything is on the server.
+                if folder == PhoneStaging.folder, result.failedFiles == 0 {
+                    PhoneStaging.removeAll()
+                    files = []
+                }
+                #endif
             } catch is CancellationError {
                 status = "Cancelled. Upload again to continue remaining files."
             } catch { status = error.localizedDescription }
@@ -310,8 +325,11 @@ struct MobileUploaderApp: App {
                         }
                     }
                     #endif
-                    Section("Camera card") {
+                    Section("Photos") {
                         Button("Select card / DCIM folder") { picking = true }.disabled(model.running)
+                        #if os(iOS)
+                        PhonePhotoButtons(model: model)
+                        #endif
                         Text(model.status)
                         if let p = model.progress, p.totalFiles > 0 {
                             ProgressView(value: Double(p.uploadedFiles + p.failedFiles), total: Double(p.totalFiles))
@@ -323,7 +341,7 @@ struct MobileUploaderApp: App {
                             Button("Upload new files") { model.upload() }.disabled(!model.canUpload)
                         }
                     }
-                    Section("Files on card") {
+                    Section("Files to upload") {
                         ForEach(model.files, id: \.url) { file in
                             HStack {
                                 Text(file.filename)
