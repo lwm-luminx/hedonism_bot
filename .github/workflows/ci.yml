@@ -17,7 +17,9 @@ jobs:
         working-directory: web
 
     steps:
+      # Runs before checkout, when web/ doesn't exist yet.
       - name: Install packages
+        working-directory: .
         run: sudo apt-get update && sudo apt-get install --no-install-recommends -y libpq-dev libvips libopenblas-dev
 
       - name: Checkout code
@@ -43,7 +45,9 @@ jobs:
     env:
       RUBOCOP_CACHE_ROOT: tmp/rubocop
     steps:
+      # Runs before checkout, when web/ doesn't exist yet.
       - name: Install packages
+        working-directory: .
         run: sudo apt-get update && sudo apt-get install --no-install-recommends -y libpq-dev libvips libopenblas-dev
 
       - name: Checkout code
@@ -139,6 +143,7 @@ jobs:
       # Ubuntu 24.04 ships libheif 1.17, which can't decode the rotated 10-bit HEVC fixture
       # (DSC00006.hif); the strukturag PPA provides a current libheif (libde265 comes from Ubuntu).
       - name: Install packages
+        working-directory: .
         run: |
           sudo add-apt-repository -y ppa:strukturag/libheif
           sudo apt-get update
@@ -149,6 +154,7 @@ jobs:
           dpkg -s libheif1 | grep '^Version'
 
       - name: Start PostgreSQL
+        working-directory: .
         run: |
           sudo systemctl start postgresql.service
           sudo -u postgres psql -c "ALTER USER postgres PASSWORD 'postgres';"
