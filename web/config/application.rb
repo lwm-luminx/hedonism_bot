@@ -25,6 +25,8 @@ module HedonismBot
     # app name must not follow the module name.
     config.global_id.app = "hedonism-bot"
     config.x.service_domain = ENV.fetch("SERVICE_DOMAIN", "lumiere.host").strip.downcase.delete_suffix(".")
+    # Google Analytics 4 measurement ID for the Lumière web stream; production only, so local and test runs send no hits.
+    config.x.google_analytics_id = (ENV["GA4_MEASUREMENT_ID"].presence if Rails.env.production?)
     config.middleware.insert_before Rails::Rack::Logger, Middleware::FacebookDeletionBodyLimit
 
     # Please, add to the `ignore` list any other `lib` subdirectories that do
