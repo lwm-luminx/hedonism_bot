@@ -8,6 +8,9 @@ module Types
     field :faces, Types::FaceType.connection_type, null: false, description: "Faces in the folder"
     field :photos, Types::PhotoTakeType.connection_type, null: false, description: "Photos in the folder"
     field :photo_count, Integer, null: false, description: "Total number of photos in the folder"
+    field :audience_kit_links, [ Types::AlbumEventType ], null: false,
+                                                        description: "The AudienceKit venue and event it is linked to, per audience",
+                                                        method: :album_events
 
     def photo_count
       @object.photos.count

@@ -2,7 +2,7 @@ module Photography
   class QueryType < GraphQL::Schema::Object
     # Major.minor: AudienceKit accepts any provider whose major part matches the version it registered, so additive
     # changes bump the minor part only.
-    CONTRACT_VERSION = "1.1"
+    CONTRACT_VERSION = "1.2"
 
     graphql_name "PhotographyQuery"
     field :contract_version, String, null: false,

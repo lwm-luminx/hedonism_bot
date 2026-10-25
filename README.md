@@ -21,6 +21,16 @@ optional and have no fabricated defaults. URLs must use HTTPS and the email must
 be a plain address. Restart the service after changing environment variables.
 
 
+## Reading AudienceKit
+
+Photographers link albums to AudienceKit venues and events (admin Events panel, `linkAlbumToAudienceKit`, or
+`createPhotoPromise(audienceKitLinks:)`). Lumière reads what they may link to with one platform service token:
+mint it on AudienceKit with `bin/rails service_token:create_platform NAME=lumiere` and set the `akst_…` secret as
+`AUDIENCEKIT_SERVICE_TOKEN` (never commit it). `AUDIENCEKIT_API_URL` defaults to `https://api.audiencekit.com`.
+AudienceKit only lists audiences that connected the photographer, in the metros their grant allows, and Lumière only
+offers those it holds a live `PhotographyGrant` for. Published photos carry the link as `venueId` / `eventId`
+(provider contract 1.2), and AudienceKit's hourly pull puts them on those pages.
+
 ## Development
 
 When checked out as AudienceKit's `apps/hedonism_bot` submodule, follow its

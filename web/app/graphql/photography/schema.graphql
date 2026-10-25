@@ -133,6 +133,11 @@ so a consumer can drop it without re-crawling.
 """
 type PhotographyPhoto {
   """
+  The audience's event (AudienceKit's id) the photographer linked its album to; null without one. Since 1.2.
+  """
+  eventId: ID
+
+  """
   The photo's opaque, stable identifier; the same across pages and crawls.
   """
   id: ID!
@@ -158,9 +163,19 @@ type PhotographyPhoto {
   takeCount: Int!
 
   """
+  When its first take was shot, if known. Since 1.2.
+  """
+  takenAt: ISO8601DateTime
+
+  """
   When it was last shared, changed or removed; feed it back as updatedSince.
   """
   updatedAt: ISO8601DateTime!
+
+  """
+  The audience's venue (AudienceKit's id) the photographer linked its album to; null when unlinked. Since 1.2.
+  """
+  venueId: ID
 }
 
 """

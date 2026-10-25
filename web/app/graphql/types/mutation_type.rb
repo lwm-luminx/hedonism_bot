@@ -11,5 +11,7 @@ module Types
     field :update_photo_face, mutation: Mutations::UpdatePhotoFacialRecognition
     field :archive_album, mutation: Mutations::ArchiveAlbum
     field :restore_album, mutation: Mutations::RestoreAlbum
+    field :link_album_to_audience_kit, mutation: Mutations::LinkAlbumToAudienceKit
+    field :unlink_album_from_audience_kit, mutation: Mutations::UnlinkAlbumFromAudienceKit
   end
 end

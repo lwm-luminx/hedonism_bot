@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_10_12_110000) do
+ActiveRecord::Schema[8.1].define(version: 2026_10_25_080000) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
   enable_extension "postgis"
@@ -43,6 +43,20 @@ ActiveRecord::Schema[8.1].define(version: 2026_10_12_110000) do
     t.uuid "blob_id", null: false
     t.string "variation_digest", null: false
     t.index ["blob_id", "variation_digest"], name: "index_active_storage_variant_records_uniqueness", unique: true
+  end
+
+  create_table "album_events", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.uuid "album_id", null: false
+    t.uuid "audience_id", null: false, comment: "The AudienceKit audience"
+    t.string "audience_name"
+    t.uuid "audience_kit_venue_id", null: false
+    t.string "venue_name"
+    t.uuid "audience_kit_event_id", comment: "Null when the album is linked to a venue with no listed event"
+    t.string "event_name"
+    t.datetime "event_start_at"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["album_id", "audience_id"], name: "index_album_events_on_album_id_and_audience_id", unique: true
   end
 
   create_table "albums", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
@@ -754,6 +768,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_10_12_110000) do
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
+  add_foreign_key "album_events", "albums", on_delete: :cascade
   add_foreign_key "albums", "events"
   add_foreign_key "albums", "photographers"
   add_foreign_key "albums", "venues"
