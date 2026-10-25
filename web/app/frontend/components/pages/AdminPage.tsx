@@ -9,12 +9,19 @@ import {
   Monitor,
 } from "lucide-react";
 import { NavLink, Outlet, useNavigate } from "react-router";
-import { Suspense } from "react";
+import { Suspense, useEffect } from "react";
 import { Spinner } from "../controls/Spinner";
 import { AuthGate, signOut } from "./AuthPage";
 
 export function AdminPage() {
   const navigate = useNavigate();
+  // The layout marks direct /admin loads; this covers arriving from the gallery.
+  useEffect(() => {
+    document.body.dataset.surface = "admin";
+    return () => {
+      delete document.body.dataset.surface;
+    };
+  }, []);
   return (
     <AuthGate>
       <div
@@ -38,6 +45,7 @@ export function AdminPage() {
             Back to gallery
           </button>
           <div className="h-4 w-px" style={{ background: "var(--border)" }} />
+          <img src="/lumiere-mark.svg" alt="" className="h-6 w-6 shrink-0" />
           <span
             style={{
               fontFamily: "'Playfair Display', serif",
@@ -45,7 +53,8 @@ export function AdminPage() {
               fontSize: "1.125rem",
             }}
           >
-            Admin
+            Lumière Archive{" "}
+            <span style={{ color: "var(--muted-foreground)" }}>Admin</span>
           </span>
           <button
             onClick={() => signOut()}

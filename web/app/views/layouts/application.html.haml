@@ -17,7 +17,8 @@
 
     = vite_react_refresh_tag
     = render 'shared/google_analytics'
-  %body
+  -# Admin pages are Lumière-only: theme.css hides the Love Wins Media credit there and keeps the copyright line.
+  %body{ data: { surface: ('admin' if request.path.match?(%r{\A/admin(/|\z)})) } }
     = render 'shared/love_wins_band'
     = yield
     %footer{ style: 'padding: 16px; color: var(--muted-foreground)' }
