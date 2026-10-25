@@ -1,6 +1,6 @@
 /**
- * @generated SignedSource<<ce37b133ec9efdedf80cae90557505e4>>
- * @relayHash b3bb1664a6df453c603d474663920457
+ * @generated SignedSource<<2764c8270c9b64173319dcbcbf1d6645>>
+ * @relayHash 400ffbd7df7147d6412864951a56b9b3
  * @lightSyntaxTransform
  */
 
@@ -8,13 +8,20 @@
 /* eslint-disable */
 // @ts-nocheck
 
-// @relayRequestID b3bb1664a6df453c603d474663920457
+// @relayRequestID 400ffbd7df7147d6412864951a56b9b3
 
 import { ConcreteRequest } from 'relay-runtime';
 export type AdminEventQuery$variables = Record<PropertyKey, never>;
 export type AdminEventQuery$data = {
   readonly folders: {
     readonly nodes: ReadonlyArray<{
+      readonly audienceKitLinks: ReadonlyArray<{
+        readonly audienceId: string;
+        readonly audienceName: string | null | undefined;
+        readonly eventName: string | null | undefined;
+        readonly eventStartAt: any | null | undefined;
+        readonly venueName: string | null | undefined;
+      }>;
       readonly id: string;
       readonly name: string;
       readonly photoCount: number;
@@ -72,6 +79,52 @@ var v0 = [
             "kind": "ScalarField",
             "name": "photoCount",
             "storageKey": null
+          },
+          {
+            "alias": null,
+            "args": null,
+            "concreteType": "AlbumEvent",
+            "kind": "LinkedField",
+            "name": "audienceKitLinks",
+            "plural": true,
+            "selections": [
+              {
+                "alias": null,
+                "args": null,
+                "kind": "ScalarField",
+                "name": "audienceId",
+                "storageKey": null
+              },
+              {
+                "alias": null,
+                "args": null,
+                "kind": "ScalarField",
+                "name": "audienceName",
+                "storageKey": null
+              },
+              {
+                "alias": null,
+                "args": null,
+                "kind": "ScalarField",
+                "name": "venueName",
+                "storageKey": null
+              },
+              {
+                "alias": null,
+                "args": null,
+                "kind": "ScalarField",
+                "name": "eventName",
+                "storageKey": null
+              },
+              {
+                "alias": null,
+                "args": null,
+                "kind": "ScalarField",
+                "name": "eventStartAt",
+                "storageKey": null
+              }
+            ],
+            "storageKey": null
           }
         ],
         "storageKey": null
@@ -98,16 +151,16 @@ return {
     "selections": (v0/*:: as any*/)
   },
   "params": {
-    "cacheID": "b3bb1664a6df453c603d474663920457",
-    "id": "b3bb1664a6df453c603d474663920457",
+    "cacheID": "400ffbd7df7147d6412864951a56b9b3",
+    "id": "400ffbd7df7147d6412864951a56b9b3",
     "metadata": {},
     "name": "AdminEventQuery",
     "operationKind": "query",
-    "text": "query AdminEventQuery {\n  folders {\n    totalCount\n    nodes {\n      id\n      name\n      photoCount\n    }\n  }\n}\n"
+    "text": "query AdminEventQuery {\n  folders {\n    totalCount\n    nodes {\n      id\n      name\n      photoCount\n      audienceKitLinks {\n        audienceId\n        audienceName\n        venueName\n        eventName\n        eventStartAt\n      }\n    }\n  }\n}\n"
   }
 };
 })();
 
-(node as any).hash = "34ae59b0248c5ff2494b7778696cdaca";
+(node as any).hash = "ee0769e09216ca4f232c6cda4053aab3";
 
 export default node;

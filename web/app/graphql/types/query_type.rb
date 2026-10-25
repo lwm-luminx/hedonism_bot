@@ -17,6 +17,14 @@ module Types
       argument :face_id, ID, required: false, description: "Filter folders by face ID"
     end
     field :events, Types::EventType.connection_type
+    field :audience_kit_catalog, [ Types::AudienceKitAudienceType ], null: false,
+                                                                   description: "The AudienceKit venues and events the photographer may link albums to, per connected audience" do
+      argument :from, GraphQL::Types::ISO8601DateTime, required: false, description: "Events starting at or after (default 90 days ago)"
+      argument :to, GraphQL::Types::ISO8601DateTime, required: false, description: "Events starting at or before (default 30 days ahead)"
+      argument :query, String, required: false, description: "Matches event and venue names"
+      argument :latitude, Float, required: false, description: "With longitude: venues near this point"
+      argument :longitude, Float, required: false
+    end
     field :venues, Types::VenueType.connection_type
 
     def photographer
@@ -45,6 +53,17 @@ module Types
 
     def events
       []
+    end
+
+    def audience_kit_catalog(from: nil, to: nil, query: nil, latitude: nil, longitude: nil)
+      unless context[:service_account] || context[:current_user]&.admin_of?(photographer)
+        raise GraphQL::ExecutionError, "Admin sign-in required"
+      end
+
+      AudienceKitCatalog.new(photographer).audiences(from: from, to: to, query: query&.truncate(100),
+                                                     latitude: latitude, longitude: longitude)
+    rescue AudienceKit::Client::Error => e
+      raise GraphQL::ExecutionError, e.message
     end
 
     def venues

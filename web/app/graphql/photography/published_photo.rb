@@ -33,8 +33,27 @@ module Photography
       photo ? photo.processed_takes : []
     end
 
+    # Where the photographer put it in this grant's audience (AlbumEvent); nothing for a tombstone.
+    def event_id
+      link&.audience_kit_event_id
+    end
+
+    def venue_id
+      link&.audience_kit_venue_id
+    end
+
+    def taken_at
+      processed_takes.filter_map(&:taken_at).min unless removed?
+    end
+
     def take_count
       removed? ? 0 : processed_takes.size
+    end
+
+    def link
+      return if removed?
+
+      AlbumEvent.for_grant(photo.album, publication.photography_grant)
     end
 
     # A stable link (PreviewsController) rather than the storage URL, which expires within minutes.

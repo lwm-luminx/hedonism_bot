@@ -10,4 +10,6 @@ class Album < ApplicationRecord
 
   has_many :photos
   has_many :photo_takes, through: :photos
+  # Where it is in AudienceKit, per connected audience.
+  has_many :album_events, dependent: :destroy
 end

@@ -13,5 +13,10 @@ module Photography
     field :published_at, GraphQL::Types::ISO8601DateTime, null: false, description: "When it was shared; the page order."
     field :updated_at, GraphQL::Types::ISO8601DateTime, null: false,
                                                         description: "When it was last shared, changed or removed; feed it back as updatedSince."
+    field :event_id, ID, null: true,
+                         description: "The audience's event (AudienceKit's id) the photographer linked its album to; null without one. Since 1.2."
+    field :venue_id, ID, null: true,
+                         description: "The audience's venue (AudienceKit's id) the photographer linked its album to; null when unlinked. Since 1.2."
+    field :taken_at, GraphQL::Types::ISO8601DateTime, null: true, description: "When its first take was shot, if known. Since 1.2."
   end
 end

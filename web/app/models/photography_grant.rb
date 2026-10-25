@@ -51,7 +51,8 @@ class PhotographyGrant < ApplicationRecord
   # only photos it can show: still shared, still the photographer's and with a processed take. With it, every row
   # changed since then, tombstones included, so a consumer can catch up without a full crawl.
   def publications(updated_since: nil)
-    scope = photography_publications.includes(photo: { processed_takes: { images_attachments: :blob } })
+    scope = photography_publications.includes(photo: [ { processed_takes: { images_attachments: :blob } },
+                                                       { album: :album_events } ])
     return scope.changed_since(updated_since) if updated_since
 
     scope.live.joins(photo: :album).where(albums: { photographer_id: photographer_id })

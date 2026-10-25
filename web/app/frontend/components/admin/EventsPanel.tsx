@@ -2,6 +2,7 @@ import { useState } from "react";
 import { graphql, useLazyLoadQuery, useMutation } from "react-relay";
 import { AdminEventQuery } from "./__generated__/AdminEventQuery.graphql";
 import { EventsPanelDeleteMutation } from "./__generated__/EventsPanelDeleteMutation.graphql";
+import { AudienceKitLinks } from "./AudienceKitLinks";
 
 const QUERY = graphql`
   query AdminEventQuery {
@@ -11,6 +12,13 @@ const QUERY = graphql`
         id
         name
         photoCount
+        audienceKitLinks {
+          audienceId
+          audienceName
+          venueName
+          eventName
+          eventStartAt
+        }
       }
     }
   }
@@ -86,6 +94,11 @@ export function EventsPanel() {
                   Delete
                 </button>
               </div>
+              <AudienceKitLinks
+                folderId={album.id}
+                links={album.audienceKitLinks}
+                onChanged={() => setFetchKey((key) => key + 1)}
+              />
               {confirm === album.id && (
                 <div className="flex flex-col gap-3">
                   <p>

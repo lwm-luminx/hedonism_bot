@@ -188,6 +188,23 @@ RSpec.describe "Photography provider", type: :request do
     expect(publication).not_to be_valid
   end
 
+  it "carries the AudienceKit venue and event the album is linked to in the grant's audience, since 1.2" do
+    photo = make_photo
+    publication = grant.photography_publications.create!(photo: photo)
+    publication.update_columns(updated_at: 1.day.ago) # rubocop:disable Rails/SkipsModelValidations
+    venue_id = SecureRandom.uuid
+    event_id = SecureRandom.uuid
+    photo.album.album_events.create!(audience_id: SecureRandom.uuid, audience_kit_venue_id: SecureRandom.uuid)
+    photo.album.album_events.create!(audience_id: audience_id, audience_kit_venue_id: venue_id, audience_kit_event_id: event_id)
+    expect(publication.reload.updated_at).to be > 1.minute.ago
+
+    linked = operation.merge(query: 'query($audience: ID!) { contractVersion photographer(audienceId: $audience) ' \
+                                    "{ photos(first: 5) { nodes { id venueId eventId takenAt } } } }")
+    post "/extensions/photography/graphql", params: linked, as: :json
+    expect(response.parsed_body.dig("data", "contractVersion")).to eq "1.2"
+    expect(nodes).to eq [ { "id" => photo.id, "venueId" => venue_id, "eventId" => event_id, "takenAt" => nil } ]
+  end
+
   it "bounds batches and exposes no mutation root" do
     post "/extensions/photography/graphql", params: Array.new(21) { operation }, as: :json
     expect(response).to have_http_status(:bad_request)
