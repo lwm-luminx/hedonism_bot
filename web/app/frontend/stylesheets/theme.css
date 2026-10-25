@@ -178,3 +178,10 @@
     line-height: 1.5;
   }
 }
+
+/* Admin pages carry Lumière branding only: drop the Love Wins Media band and
+   credit link, keeping the copyright line in the footer. */
+body[data-surface="admin"] .love-wins-band,
+body[data-surface="admin"] .love-wins-footer a {
+  display: none;
+}

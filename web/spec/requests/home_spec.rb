@@ -17,6 +17,17 @@ RSpec.describe "Homes", type: :request do
       expect(response.body).to include("© #{Time.current.year} Love Wins Media, Inc.")
     end
 
+    it 'leaves the Love Wins Media credit to the copyright line on admin pages', :aggregate_failures do
+      get '/admin/venues', headers: { "Host": 'test.lumiere.host' }
+      expect(response.body).to include('data-surface="admin"')
+      expect(response.body).to include("© #{Time.current.year} Love Wins Media, Inc.")
+    end
+
+    it 'leaves the gallery unmarked' do
+      get '/', headers: { "Host": 'test.lumiere.host' }
+      expect(response.body).not_to include('data-surface')
+    end
+
     it 'leaves Google Analytics out without a measurement ID' do
       get '/', headers: { "Host": 'test.lumiere.host' }
       expect(response.body).not_to include('googletagmanager')
