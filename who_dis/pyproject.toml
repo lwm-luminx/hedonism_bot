@@ -5,22 +5,22 @@ description = "Add your description here"
 readme = "README.md"
 requires-python = ">=3.13"
 dependencies = [
-    "websockets>=15.0",
-    "deepface>=0.0.100",
+    "websockets>=17.3",
+    "deepface>=0.0.103",
     "tf-keras>=2.21.0",
-    "gql[all]>=4.0.0",
-    "transformers>=5.10.2",
-    "torch>=2.12.0",
-    "accelerate>=1.13.0",
+    "gql[all]>=4.4.0",
+    "transformers>=5.20.2",
+    "torch>=2.14.1",
+    "accelerate>=1.15.0",
     "requests>=2.34.2",
-    "pillow>=12.2.0",
-    "torchvision>=0.27.0",
+    "pillow>=13.0.0",
+    "torchvision>=0.29.1",
 ]
 
 [dependency-groups]
 dev = [
-    "pyrefly>=0.60.0",
-    "pytest>=8.0.0",
+    "pyrefly>=1.4.0",
+    "pytest>=9.1.1",
 ]
 
 [tool.pytest.ini_options]
