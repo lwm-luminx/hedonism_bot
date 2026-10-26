@@ -1,6 +1,8 @@
 # This file is copied to spec/ when you run 'rails generate rspec:install'
 require 'spec_helper'
 ENV['RAILS_ENV'] ||= 'test'
+# omniauth-oauth2 1.10+ fails the request phase without a client ID, and test has no Facebook credentials.
+ENV['FACEBOOK_APP_ID'] ||= 'test-facebook-app-id'
 require_relative '../config/environment'
 # Prevent database truncation if the environment is production
 abort("The Rails environment is running in production mode!") if Rails.env.production?
