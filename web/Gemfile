@@ -31,7 +31,7 @@ if (llvm_lib = Dir[File.join(__dir__, ".apt/usr/lib/llvm-*/lib")].first)
     ENV["BINDGEN_EXTRA_CLANG_ARGS"] ||= "-isystem #{clang_include}"
   end
 end
-gem "clusterkit", "0.2.6"
+gem "clusterkit", "0.3.1"
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
 gem "tzinfo-data", platforms: %i[ windows jruby ]
