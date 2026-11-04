@@ -71,5 +71,11 @@
     "vite-plugin-relay": "^2.2.1",
     "vite-plugin-ruby": "^5.2.6",
     "vitest": "^5.0.5"
+  },
+  "overrides": {
+    "minimatch": "^11.0.1"
+  },
+  "patchedDependencies": {
+    "eslint-plugin-react@7.37.5": "patches/eslint-plugin-react@7.37.5.patch"
   }
 }
