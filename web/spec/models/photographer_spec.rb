@@ -36,6 +36,30 @@ RSpec.describe Photographer, type: :model do
       expect(described_class.for_host("sam.lumiere.host")).to eq(sam)
     end
 
+    context "with gallery domains" do
+      around do |example|
+        previous = Rails.configuration.x.gallery_domains
+        Rails.configuration.x.gallery_domains = [ "gallery.luminx.media" ]
+        example.run
+      ensure
+        Rails.configuration.x.gallery_domains = previous
+      end
+
+      it "treats a gallery domain's subdomains like the service domain's" do
+        expect(described_class.for_host("Sam.Gallery.Luminx.Media")).to eq(sam)
+      end
+
+      it "finds nobody for unknown, nested or unconfigured gallery hosts" do
+        hosts = %w[nobody.gallery.luminx.media a.sam.gallery.luminx.media sam.gallery.lovewins.media]
+        expect(hosts.map { |host| described_class.for_host(host) }).to all(be_nil)
+      end
+
+      it "still prefers a registered domain" do
+        create(:photographer_domain, photographer: luminx, hostname: "sam.gallery.luminx.media")
+        expect(described_class.for_host("sam.gallery.luminx.media")).to eq(luminx)
+      end
+    end
+
     it "finds nobody for an unknown host" do
       expect(described_class.for_host("hedonism-bot-f74c04df64ff.herokuapp.com")).to be_nil
     end

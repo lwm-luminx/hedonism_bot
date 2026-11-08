@@ -18,7 +18,7 @@ class Photographer < ApplicationRecord
   scope :active, -> { where("active IS TRUE") }
 
   # The photographer whose site a request host serves: a registered domain first, then the host's
-  # single subdomain under the service domain (sam.lumiere.host → "sam").
+  # single subdomain under the service domain or a gallery domain (sam.lumiere.host, sam.gallery.luminx.media → "sam").
   def self.for_host(host)
     host = host.to_s.downcase.delete_suffix(".")
     return if host.blank?
@@ -28,9 +28,11 @@ class Photographer < ApplicationRecord
 
     registered = PhotographerDomain.find_by(hostname: host)&.photographer
     return registered if registered
-    return unless host.end_with?(".#{domain}")
 
-    subdomain = host.delete_suffix(".#{domain}")
+    parent = [ domain, *Rails.configuration.x.gallery_domains ].find { |candidate| host.end_with?(".#{candidate}") }
+    return unless parent
+
+    subdomain = host.delete_suffix(".#{parent}")
     find_by(subdomain: subdomain) unless subdomain.include?(".")
   end
 
