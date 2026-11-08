@@ -22,7 +22,7 @@ for variant in ("framed", "transparent", "borderless"):
     name = "Cogsworth" + variant.capitalize()
     imageset = CATALOG / (name + ".imageset")
     imageset.mkdir(parents=True, exist_ok=True)
-    shutil.copyfile(SOURCES / (variant + "-v1.png"), imageset / (name + ".png"))
+    shutil.copyfile(SOURCES / (variant + "-v2.png"), imageset / (name + ".png"))
     (imageset / "Contents.json").write_text(json.dumps({
         "images": [{"filename": name + ".png", "idiom": "universal"}],
         "info": {"author": "xcode", "version": 1},
@@ -31,10 +31,10 @@ for variant in ("framed", "transparent", "borderless"):
 appicon = CATALOG / "AppIcon.appiconset"
 for image in json.loads((appicon / "Contents.json").read_text())["images"]:
     size = int(image["size"].split("x")[0]) * int(image["scale"][0])
-    resize(SOURCES / "framed-v1.png", appicon / image["filename"], size)
+    resize(SOURCES / "framed-v2.png", appicon / image["filename"], size)
 
-resize(SOURCES / "framed-v1.png",
+resize(SOURCES / "framed-v2.png",
        ROOT / "apple/HedonismUploader/Resources/AppIcon-1024.png", 1024)
 # Both Xcode and SwiftPM load this shared resource in the menu and settings header.
-resize(SOURCES / "transparent-v1.png",
+resize(SOURCES / "transparent-v2.png",
        ROOT / "apple/HedonismUploader/Sources/HedonismUploader/Resources/LumiereMark.png", 1024)
