@@ -284,7 +284,7 @@ struct SettingsView: View {
                 }
                 CogsworthAppleButton(label: .continue, disabled: model.signingIn) { token, nonce in
                     Task { await model.linkApple(identityToken: token, nonce: nonce) }
-                } onError: { model.status = $0 }
+                } onError: { model.reportSignInError($0) }
                 .frame(maxWidth: 260)
                 Text("Link your Apple ID to use Sign in with Apple next time.").font(.caption).foregroundStyle(MenuBrand.muted)
                 Divider().overlay(MenuBrand.gold.opacity(0.12))
@@ -382,7 +382,7 @@ struct SettingsView: View {
                     let missing = photographer.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty
                     CogsworthAppleButton(label: .signIn, disabled: missing || model.signingIn) { token, nonce in
                         Task { await model.signIn(photographer: photographer, apple: (token, nonce)) }
-                    } onError: { model.status = $0 }
+                    } onError: { model.reportSignInError($0) }
                     Text("First time? Sign in with Facebook or a device code once, then choose Link Apple ID in Settings.")
                         .font(.caption).foregroundStyle(MenuBrand.muted).fixedSize(horizontal: false, vertical: true)
                 } else if signInMethod == "facebook" {

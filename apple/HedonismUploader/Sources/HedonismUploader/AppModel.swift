@@ -105,6 +105,9 @@ final class AppModel: ObservableObject {
         } catch { status = error.localizedDescription }
     }
 
+    /// Shows a sign-in problem reported by the UI, such as a failed Sign in with Apple sheet.
+    func reportSignInError(_ message: String) { status = message }
+
     /// Links an Apple ID to the signed-in person, so Sign in with Apple works on its own next time.
     func linkApple(identityToken: Data, nonce: AppleSignIn.Nonce) async {
         guard !token.isEmpty, let server = URL(string: serverURL.trimmingCharacters(in: .whitespacesAndNewlines)) else { return }

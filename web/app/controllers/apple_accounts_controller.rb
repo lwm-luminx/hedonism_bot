@@ -3,13 +3,11 @@
 # Sign in with Apple for the native apps. Apple only identifies the person; they still have to be
 # an admin of the photographer they sign in to. People who signed up with Facebook are matched by
 # their Apple-verified email, or link their Apple ID from an app session (POST /auth/apple/link).
-# No accounts are created here.
-class AppleAccountsController < ApplicationController
+# No accounts are created here. These JSON endpoints authenticate with Apple's signed token and a
+# bearer credential, never browser cookies, so they are an API controller without a session.
+class AppleAccountsController < ActionController::API
   NOT_LINKED = "This Apple ID isn't linked to an admin of that archive. Sign in with Facebook or a device " \
                "code once, then choose Link Apple ID."
-
-  skip_before_action :set_photographer
-  skip_forgery_protection
 
   def exchange
     claims = AppleIdentityToken.verify(params[:identity_token], nonce: params[:nonce])
