@@ -12,5 +12,14 @@
 	<true/>
 	<key>com.apple.security.network.client</key>
 	<true/>
+	<key>com.apple.developer.associated-domains</key>
+	<array>
+		<string>webcredentials:api.lumiere.host</string>
+		<string>webcredentials:lumiere.host</string>
+	</array>
+	<key>keychain-access-groups</key>
+	<array>
+		<string>$(AppIdentifierPrefix)host.lumiere.shared</string>
+	</array>
 </dict>
 </plist>
