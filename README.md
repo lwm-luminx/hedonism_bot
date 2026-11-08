@@ -82,16 +82,28 @@ The Celery worker that handles the ML tasks enqueued by this app lives in
 
 ## Deploying to Heroku
 
-The web app runs on Heroku's container stack from `heroku.yml` (the Dockerfile builds clusterkit's
-Rust extension, installs exiftool and libvips, and builds the Vite frontend).
+The web app runs on the heroku-24 stack with classic buildpacks (apt for `web/Aptfile`, bun, Rust for
+clusterkit's extension, then Ruby; see `web/Procfile`, `web/Aptfile` and `web/RustConfig`). `web/heroku.yml`
+applies only if the app is switched back to the container stack. Production is the Heroku app `hedonism-bot`.
+
+The buildpacks need the Gemfile at the root of what they build, and the app lives in `web/`, so
+`git push heroku main` doesn't work. Deploy a tarball of `web/` through the Builds API instead
+(`spec/` is left out; `web/.slugignore` drops it anyway):
 
 ```sh
-heroku create <app> --stack container
+heroku create <app> --stack heroku-24
 heroku addons:create heroku-postgresql:essential-1 -a <app>   # postgis + pgvector are enabled by the schema
 heroku config:set HOT_BUCKET_NAME=… HOT_ACCESS_KEY_ID=… HOT_SECRET_ACCESS_KEY=… HOT_ENDPOINT=… -a <app>  # photo storage (R2), see Storage tiers
 heroku config:set RAILS_MASTER_KEY=… RAILS_MAX_THREADS=5 SOLID_QUEUE_IN_PUMA=1 -a <app>
-git push heroku main
+
+# Deploy a commit (main here)
+git archive --format=tar.gz -o /tmp/web.tgz main:web -- $(git ls-tree --name-only main:web | grep -vx spec)
+heroku builds:create -a <app> --source-tar /tmp/web.tgz --version "$(git rev-parse --short main)"
+heroku releases:output -a <app>   # watch the release phase
 ```
+
+`heroku builds:create` comes from the `heroku-builds` CLI plugin (`heroku plugins:install heroku-builds`);
+without it, create a source with `POST /sources`, upload the tarball and `POST /apps/<app>/builds`.
 
 The release phase runs `bin/rails heroku:release`: `db:prepare` for the primary database, then the
 Solid Cache/Queue/Cable schemas, which share the one Heroku database. Set `REDIS_URL` once the
