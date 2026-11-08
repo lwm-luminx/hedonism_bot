@@ -68,6 +68,8 @@ gem "geocoder"
 gem "pundit"
 gem "omniauth-facebook"
 gem "omniauth-rails_csrf_protection"
+# Verifies Sign in with Apple identity tokens from the native apps.
+gem "jwt"
 gem "graphql"
 gem "graphql-persisted_queries"
 

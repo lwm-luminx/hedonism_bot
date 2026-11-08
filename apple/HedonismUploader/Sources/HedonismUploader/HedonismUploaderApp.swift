@@ -1,4 +1,5 @@
 import AppKit
+import AuthenticationServices
 import SwiftUI
 import UploaderCore
 
@@ -281,6 +282,11 @@ struct SettingsView: View {
                     Spacer()
                     Button("Sign out") { model.signOut() }.disabled(model.isUploading || model.signingIn)
                 }
+                CogsworthAppleButton(label: .continue, disabled: model.signingIn) { token, nonce in
+                    Task { await model.linkApple(identityToken: token, nonce: nonce) }
+                } onError: { model.reportSignInError($0) }
+                .frame(maxWidth: 260)
+                Text("Link your Apple ID to use Sign in with Apple next time.").font(.caption).foregroundStyle(MenuBrand.muted)
                 Divider().overlay(MenuBrand.gold.opacity(0.12))
                 settingsField("Server endpoint", text: $model.serverURL)
                 HStack {
@@ -362,13 +368,24 @@ struct SettingsView: View {
 
             if signInMethod == nil {
                 HStack(spacing: 12) {
+                    signInOption("Apple", icon: "apple.logo", prominent: true) { signInMethod = "apple" }
                     signInOption("Facebook", icon: "person.crop.circle", prominent: true) { signInMethod = "facebook" }
                     signInOption("Device code", icon: "key", prominent: false) { signInMethod = "code" }
                 }
             } else {
                 Button { signInMethod = nil } label: { Label("Back", systemImage: "chevron.left") }
                     .buttonStyle(.plain).foregroundStyle(MenuBrand.muted).disabled(model.signingIn)
-                if signInMethod == "facebook" {
+                if signInMethod == "apple" {
+                    TextField("Photographer subdomain", text: $photographer)
+                        .textFieldStyle(.roundedBorder)
+                    Text("Enter the subdomain for the photographer you administer.").font(.caption).foregroundStyle(MenuBrand.muted)
+                    let missing = photographer.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty
+                    CogsworthAppleButton(label: .signIn, disabled: missing || model.signingIn) { token, nonce in
+                        Task { await model.signIn(photographer: photographer, apple: (token, nonce)) }
+                    } onError: { model.reportSignInError($0) }
+                    Text("First time? Sign in with Facebook or a device code once, then choose Link Apple ID in Settings.")
+                        .font(.caption).foregroundStyle(MenuBrand.muted).fixedSize(horizontal: false, vertical: true)
+                } else if signInMethod == "facebook" {
                     TextField("Photographer subdomain", text: $photographer)
                         .textFieldStyle(.roundedBorder)
                     Text("Enter the subdomain for the photographer you administer.").font(.caption).foregroundStyle(MenuBrand.muted)
@@ -464,5 +481,35 @@ final class SettingsWindowController: NSWindowController, ObservableObject {
         window?.deminiaturize(nil)
         showWindow(nil)
         window?.makeKeyAndOrderFront(nil)
+    }
+}
+
+/// Apple's button, wired to a fresh nonce per request. Cancelling is not reported as an error.
+struct CogsworthAppleButton: View {
+    let label: SignInWithAppleButton.Label
+    var disabled = false
+    let completion: (Data, AppleSignIn.Nonce) -> Void
+    let onError: (String) -> Void
+    @State private var nonce = AppleSignIn.Nonce()
+
+    var body: some View {
+        SignInWithAppleButton(label) { request in
+            nonce = AppleSignIn.Nonce()
+            request.requestedScopes = [.email]
+            request.nonce = nonce.hashed
+        } onCompletion: { result in
+            switch result {
+            case .success(let authorization):
+                guard let credential = authorization.credential as? ASAuthorizationAppleIDCredential,
+                      let token = credential.identityToken else { return onError("Sign in with Apple returned no identity token") }
+                completion(token, nonce)
+            case .failure(let error):
+                if (error as? ASAuthorizationError)?.code == .canceled { return }
+                onError(error.localizedDescription)
+            }
+        }
+        .signInWithAppleButtonStyle(.white)
+        .frame(height: 44).frame(maxWidth: .infinity)
+        .disabled(disabled).opacity(disabled ? 0.45 : 1)
     }
 }

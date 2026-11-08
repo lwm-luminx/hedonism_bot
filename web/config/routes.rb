@@ -29,6 +29,8 @@ Rails.application.routes.draw do
   post "auth/device/code", to: "device_accounts#create"
   post "auth/device/exchange", to: "device_accounts#exchange"
   delete "auth/native/session", to: "native_accounts#destroy"
+  post "auth/apple/exchange", to: "apple_accounts#exchange"
+  post "auth/apple/link", to: "apple_accounts#link"
 
   post "auth/start", to: "auth_bridges#start"
   get "auth/bridge", to: "auth_bridges#new"

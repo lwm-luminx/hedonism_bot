@@ -107,6 +107,7 @@ it is not another XPC worker and gains no independent network or file permission
 | `com.apple.security.network.client` | HTTPS API/storage and outgoing Action Cable connections |
 | `com.apple.security.files.user-selected.read-only` | Read selected cards and inspect registered archive folders |
 | `com.apple.security.files.bookmarks.app-scope` | Persist user-granted folder access across launches |
+| `com.apple.developer.applesignin` | Sign in with Apple (guideline 4.8); also in the Developer ID entitlements |
 
 Current archive registration does not write originals, so read/write permission is
 not requested. There is no incoming server, shared Keychain group, Apple Events
