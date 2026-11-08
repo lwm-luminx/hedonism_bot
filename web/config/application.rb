@@ -25,6 +25,11 @@ module HedonismBot
     # app name must not follow the module name.
     config.global_id.app = "hedonism-bot"
     config.x.service_domain = ENV.fetch("SERVICE_DOMAIN", "lumiere.host").strip.downcase.delete_suffix(".")
+    # More domains whose single-label subdomains are photographers' galleries, like the service domain
+    # (GALLERY_DOMAINS="gallery.luminx.media,gallery.lovewins.media" serves sam.gallery.luminx.media). Cloudflare
+    # proxies them and passes the visitor's host in X-Forwarded-Host, which request.host reads.
+    config.x.gallery_domains = ENV.fetch("GALLERY_DOMAINS", "").split(",").map { |d| d.strip.downcase.delete_suffix(".") }
+                                  .compact_blank
     # Google Analytics 4 measurement ID for the Lumière web stream; production only, so local and test runs send no hits.
     config.x.google_analytics_id = (ENV["GA4_MEASUREMENT_ID"].presence if Rails.env.production?)
     config.middleware.insert_before Rails::Rack::Logger, Middleware::FacebookDeletionBodyLimit

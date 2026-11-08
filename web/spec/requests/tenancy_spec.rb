@@ -31,6 +31,19 @@ RSpec.describe "Tenancy", type: :request do
     expect(response).to have_http_status(:not_found)
   end
 
+  it "serves the photographer named by X-Forwarded-Host, as Cloudflare sends it to the Heroku host" do
+    post "/graphql", params: photographer_query,
+                     headers: { "Host" => "hedonism-bot.herokuapp.com", "X-Forwarded-Host" => "gallery.luminx.media" }
+    expect(JSON.parse(response.body).dig("data", "photographer", "subdomain")).to eq("luminx")
+  end
+
+  it "serves a gallery domain's subdomain through Cloudflare" do
+    allow(Rails.configuration.x).to receive(:gallery_domains).and_return([ "gallery.lovewins.media" ])
+    post "/graphql", params: photographer_query,
+                     headers: { "Host" => "hedonism-bot.herokuapp.com", "X-Forwarded-Host" => "sam.gallery.lovewins.media" }
+    expect(JSON.parse(response.body).dig("data", "photographer", "subdomain")).to eq("sam")
+  end
+
   it "serves Luminx on its service subdomain" do
     expect(subdomain_for("luminx.lumiere.host")).to eq("luminx")
   end
