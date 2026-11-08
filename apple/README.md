@@ -54,7 +54,12 @@ bundle exec rspec spec/graphql/mutations/create_photo_promise_album_spec.rb spec
 bundle exec rubocop
 ```
 
-Physical card access, Synology authentication and a live ML worker require hardware/service integration testing with your environment.
+`swift test` attaches small FAT32 and ExFAT disk images with `hdiutil` as stand-in SD cards (`Tests/CardTestSupport`):
+macOS reports them as removable and ejectable, announces them through `NSWorkspace.didMountNotification`, and writes
+the same `._` sidecars onto them, so the card scanner, the uploader and the volume watcher are exercised against real
+mounts, including a locked (read-only) card and a card pulled mid-upload. They need a macOS runner; CI runs them in the
+`uploader` job. Physical card access, Synology authentication and a live ML worker still require hardware/service
+integration testing with your environment.
 
 ## UI tests on a connected iPhone
 

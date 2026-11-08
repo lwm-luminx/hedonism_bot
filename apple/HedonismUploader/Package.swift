@@ -15,7 +15,9 @@ let package = Package(
         .target(name: "CogsworthIPC"),
         // The menu bar app: watches for SD cards and drives UploaderCore.
         .executableTarget(name: "HedonismUploader", dependencies: ["UploaderCore", "CogsworthIPC"], resources: [.process("Resources")]),
-        .testTarget(name: "UploaderCoreTests", dependencies: ["UploaderCore"]),
-        .testTarget(name: "DesktopServicesTests", dependencies: ["HedonismUploader"]),
+        // Disk images attached as stand-in SD cards for the tests (macOS only; needs hdiutil).
+        .target(name: "CardTestSupport", path: "Tests/CardTestSupport"),
+        .testTarget(name: "UploaderCoreTests", dependencies: ["UploaderCore", "CardTestSupport"]),
+        .testTarget(name: "DesktopServicesTests", dependencies: ["HedonismUploader", "CardTestSupport"]),
     ]
 )
