@@ -119,6 +119,20 @@ jobs:
       - name: Run pytest
         run: uv run --frozen pytest
 
+  uploader:
+    # The card tests attach disk images with hdiutil, so this job needs a macOS runner.
+    runs-on: macos-15
+    defaults:
+      run:
+        working-directory: apple/HedonismUploader
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v7
+
+      - name: Run Swift package tests
+        run: swift test
+
   test:
     runs-on: ubuntu-24.04
     defaults:

@@ -1,3 +1,4 @@
+import CryptoKit
 import Foundation
 @testable import UploaderCore
 
@@ -52,6 +53,8 @@ final class FakeServer: URLProtocol {
         var json: Any = [String: Any]()
         if request.httpMethod == "PUT" {
             if Self.failUploadsNamed.contains(request.url!.lastPathComponent) { status = 400 }
+            // Like S3/R2: a body that doesn't match Content-MD5 (for example a file that vanished with its card) is rejected.
+            if request.value(forHTTPHeaderField: "Content-MD5") != Data(Insecure.MD5.hash(data: body)).base64EncodedString() { status = 400 }
         } else if request.url?.path == "/auth/uploaded_contents",
                   let payload = try? JSONSerialization.jsonObject(with: body) as? [String: Any] {
             let hashes = payload["hashes"] as? [String] ?? []
