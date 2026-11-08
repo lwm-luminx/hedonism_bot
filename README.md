@@ -230,9 +230,13 @@ activating AudienceKit connections; no existing photo library is automatically s
 
 ## License
 
-Source-available under the [Lumière Self-Hosting License 1.0](LICENSE.md), not an open
+Source-available under the [Lumière Self-Hosting License 1.1](LICENSE.md), not an open
 source license. You may self-host and modify it for your own use. You may not charge for
 it, bundle or sell it with anything, host it for or on behalf of others, otherwise
 monetize it, or build tooling (deploy buttons, templates, prebuilt images, marketplace
 listings and the like) that makes it rapidly deployable as a service or onto paid
-hosting. Contact Love Wins Media, Inc. for a commercial license.
+hosting. Changes may be made only in a GitHub fork of this repository, after written
+notice to Love Wins Media (open an issue titled "Derived work notice" naming yourself
+and the fork). Misrepresenting the work, its authorship, origin or Love Wins Media's
+endorsement, is expressly prohibited and a breach, and no other license of any kind is
+granted. Contact Love Wins Media, Inc. for a commercial license.
