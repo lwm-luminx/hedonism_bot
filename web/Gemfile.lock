@@ -621,6 +621,7 @@ DEPENDENCIES
   graphql-persisted_queries
   haml-rails
   image_processing (~> 2.0)
+  jwt
   koala
   mini_exiftool
   neighbor

@@ -71,7 +71,8 @@ final class AppModel: ObservableObject {
         return HedonismClient(serverURL: url, token: token)
     }
 
-    func signIn(photographer: String, deviceCode: String? = nil) async {
+    func signIn(photographer: String, deviceCode: String? = nil,
+                apple: (identityToken: Data, nonce: AppleSignIn.Nonce)? = nil) async {
         guard !signingIn, !isUploading else { return }
         guard let server = URL(string: serverURL.trimmingCharacters(in: .whitespacesAndNewlines)),
               server.scheme == "https" || (server.scheme == "http" && ["localhost", "127.0.0.1"].contains(server.host ?? "")) else {
@@ -84,6 +85,9 @@ final class AppModel: ObservableObject {
             let credential: String
             if let deviceCode {
                 credential = try await DeviceCodeSignIn.signIn(server: server, code: deviceCode)
+            } else if let apple {
+                credential = try await AppleSignIn.signIn(server: server, photographer: photographer,
+                                                          identityToken: apple.identityToken, nonce: apple.nonce)
             } else {
                 credential = try await browserSignIn.signIn(server: server, photographer: photographer.trimmingCharacters(in: .whitespacesAndNewlines))
             }
@@ -98,6 +102,15 @@ final class AppModel: ObservableObject {
             loadArchivePaths()
             await syncArchiveStorage()
             status = "Connected as \(name)"
+        } catch { status = error.localizedDescription }
+    }
+
+    /// Links an Apple ID to the signed-in person, so Sign in with Apple works on its own next time.
+    func linkApple(identityToken: Data, nonce: AppleSignIn.Nonce) async {
+        guard !token.isEmpty, let server = URL(string: serverURL.trimmingCharacters(in: .whitespacesAndNewlines)) else { return }
+        do {
+            try await AppleSignIn.link(server: server, credential: token, identityToken: identityToken, nonce: nonce)
+            status = "Apple ID linked. You can use Sign in with Apple next time."
         } catch { status = error.localizedDescription }
     }
 

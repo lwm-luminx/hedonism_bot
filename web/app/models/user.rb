@@ -41,6 +41,18 @@ class User < ApplicationRecord
     self.facebook_graph = graph
   end
 
+  # The admin an Apple ID belongs to: one linked before, or the one whose email Apple verified.
+  # Returns nil (never creates a user) when neither matches or the user is being deleted.
+  def self.from_apple(claims)
+    user = find_by(apple_sub: claims.sub)
+    if user.nil? && (email = claims.matchable_email)
+      # An account already linked to a different Apple ID is not taken over by email.
+      user = where(apple_sub: nil).where("lower(email_address) = ?", email).first
+      user&.update!(apple_sub: claims.sub) unless user&.deletion_pending_at
+    end
+    user unless user&.deletion_pending_at
+  end
+
   def self.from_facebook_graph(graph, token: nil)
     DataDeletionRequest.with_subject(graph.fetch("id").to_s) do
       raise DeletionPending if DataDeletionRequest.pending_for?(graph.fetch("id").to_s)

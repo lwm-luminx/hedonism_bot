@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_10_25_080000) do
+ActiveRecord::Schema[8.1].define(version: 2026_11_08_060000) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
   enable_extension "postgis"
@@ -716,6 +716,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_10_25_080000) do
   end
 
   create_table "users", id: :uuid, default: -> { "uuid_generate_v4()" }, force: :cascade do |t|
+    t.string "apple_sub"
     t.datetime "created_at", null: false
     t.string "culture"
     t.string "email_address"
@@ -734,6 +735,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_10_25_080000) do
     t.string "twitter_id"
     t.datetime "updated_at", null: false
     t.datetime "deletion_pending_at"
+    t.index ["apple_sub"], name: "index_users_on_apple_sub", unique: true
     t.index ["email_address"], name: "index_users_on_email_address", unique: true
     t.index ["facebook_id"], name: "users_facebook_id_uindex", unique: true
     t.index ["image_id"], name: "index_users_on_image_id"

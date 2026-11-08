@@ -37,6 +37,8 @@ team before registration. Configure that team's signing in Xcode.
    Implement a qualifying alternative (typically Sign in with Apple) or establish
    that a documented exception applies to this existing-account service client.
    Do not assume Apple will accept an exception.
+   **2026-11-08: Sign in with Apple added** to Chip, Chip for Mac and Cogsworth (see
+   "Sign in with Apple" below).
 4. Finish privacy and support publication. `docs/privacy-launch.md` identifies
    draft policy/contact and deployment gaps. Verify public HTTPS URLs without login;
    include links in the app. Review whether account creation is available through
@@ -223,3 +225,22 @@ restart at 1:
 The earlier `social.hotmess.LumiereMobile` record (`6820711553`) is renamed
 **Chip by Lumière (legacy)**; it and its build 3 belong to the old identity, and the
 entries above that name it are historical. User access on the new records is Full Access.
+
+## Sign in with Apple — 2026-11-08
+
+Chip (iOS and Mac) and Cogsworth offer Sign in with Apple next to Facebook and device codes,
+to satisfy guideline 4.8. The apps send Apple's identity token and a one-time nonce to
+`POST /auth/apple/exchange` with the photographer subdomain. The server
+(`AppleIdentityToken`) checks Apple's signature against appleid.apple.com/auth/keys, the
+audience (the three bundle IDs, or `APPLE_SIGN_IN_CLIENT_IDS`), expiry and the nonce.
+
+Apple only identifies the person. They must already administer that photographer; no account
+is created. An Apple ID is matched to an existing user by a previously linked Apple ID
+(`users.apple_sub`) or by an Apple-verified, non-relay email equal to the user's email. People
+who hide their email sign in once with Facebook or a device code and choose **Link Apple ID**
+(`POST /auth/apple/link` with their app credential).
+
+Before shipping: run the `AddAppleSubToUsers` migration, and make sure the Sign in with Apple
+capability is enabled on `host.lumiere.Chip`, `host.lumiere.ChipMac` and
+`host.lumiere.Cogsworth` (Xcode's automatic signing does this on the next archive).
+

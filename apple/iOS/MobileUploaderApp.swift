@@ -151,7 +151,8 @@ final class MobileUploadModel: NSObject, ObservableObject {
         defaults.set(try? JSONEncoder().encode(accounts), forKey: "uploadAccounts")
     }
 
-    func addAccount(server: String, token: String, photographer: String, facebook: Bool, deviceCode: String? = nil) async -> Bool {
+    func addAccount(server: String, token: String, photographer: String, facebook: Bool, deviceCode: String? = nil,
+                    apple: (identityToken: Data, nonce: AppleSignIn.Nonce)? = nil) async -> Bool {
         accountError = nil
         guard let url = URL(string: server), url.scheme == "https", url.host != nil else {
             accountError = "Enter a valid HTTPS server URL"; return false
@@ -162,6 +163,9 @@ final class MobileUploadModel: NSObject, ObservableObject {
             let credential: String
             if let deviceCode {
                 credential = try await DeviceCodeSignIn.signIn(server: url, code: deviceCode)
+            } else if let apple {
+                credential = try await AppleSignIn.signIn(server: url, photographer: photographer,
+                                                          identityToken: apple.identityToken, nonce: apple.nonce)
             } else if facebook {
                 credential = try await authentication.signIn(server: url, photographer: photographer)
             } else { credential = token }
@@ -179,6 +183,15 @@ final class MobileUploadModel: NSObject, ObservableObject {
             saveAccounts()
             return true
         } catch { accountError = error.localizedDescription; return false }
+    }
+
+    /// Links an Apple ID to the person signed in to the selected account, for Sign in with Apple later.
+    func linkApple(identityToken: Data, nonce: AppleSignIn.Nonce) async {
+        guard let account = selectedAccount, let credential = Keychain.token(accountID: account.id.uuidString) else { return }
+        do {
+            try await AppleSignIn.link(server: account.server, credential: credential, identityToken: identityToken, nonce: nonce)
+            status = "Apple ID linked. You can now use Sign in with Apple for \(account.name)."
+        } catch { status = error.localizedDescription }
     }
 
     func signOut() {
@@ -301,6 +314,11 @@ struct MobileUploaderApp: App {
                             if let account = model.selectedAccount {
                                 Text(account.server.host ?? "").font(.caption).foregroundStyle(.secondary)
                             }
+                            AppleSignInButton(label: .continue, disabled: model.running) { token, nonce in
+                                Task { await model.linkApple(identityToken: token, nonce: nonce) }
+                            } onError: { model.status = $0 }
+                            .accessibilityHint("Links your Apple ID so you can use Sign in with Apple next time")
+                            Text("Link your Apple ID to use Sign in with Apple next time.").font(.caption).foregroundStyle(.secondary)
                             Button("Sign out of selected account", role: .destructive) { model.signOut() }
                         }
                         Button("Add account") { addingAccount = true }
@@ -442,6 +460,13 @@ struct AddAccountView: View {
                                 if await model.addAccount(server: server, token: "", photographer: photographer.trimmingCharacters(in: .whitespacesAndNewlines), facebook: true) { dismiss() }
                             }
                         }
+                        AppleSignInButton(label: .signIn, disabled: photographer.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty || model.signingIn) { token, nonce in
+                            Task {
+                                focusedField = nil
+                                if await model.addAccount(server: server, token: "", photographer: photographer.trimmingCharacters(in: .whitespacesAndNewlines),
+                                                          facebook: false, apple: (token, nonce)) { dismiss() }
+                            }
+                        } onError: { model.accountError = $0 }
                     }
                     if model.signingIn { ProgressView("Signing in…").accessibilityIdentifier("signInProgress") }
                     if let error = model.accountError {
@@ -449,7 +474,7 @@ struct AddAccountView: View {
                             .accessibilityIdentifier("signInError")
                     }
                 }
-                Button(usingDeviceCode ? "Sign in with Facebook" : "or sign in with device code") {
+                Button(usingDeviceCode ? "Sign in with Apple or Facebook" : "or sign in with device code") {
                     usingDeviceCode.toggle()
                     model.accountError = nil
                     focusedField = nil
@@ -487,6 +512,37 @@ struct AddAccountView: View {
         }
         .buttonStyle(.borderedProminent).tint(ChipBrand.gold).foregroundStyle(ChipBrand.ink)
         .disabled(disabled || model.signingIn)
+    }
+}
+
+/// Apple's button, wired to a fresh nonce per request. Cancelling is not reported as an error.
+struct AppleSignInButton: View {
+    let label: SignInWithAppleButton.Label
+    var disabled = false
+    let completion: (Data, AppleSignIn.Nonce) -> Void
+    let onError: (String) -> Void
+    @State private var nonce = AppleSignIn.Nonce()
+
+    var body: some View {
+        SignInWithAppleButton(label) { request in
+            nonce = AppleSignIn.Nonce()
+            request.requestedScopes = [.email]
+            request.nonce = nonce.hashed
+        } onCompletion: { result in
+            switch result {
+            case .success(let authorization):
+                guard let credential = authorization.credential as? ASAuthorizationAppleIDCredential,
+                      let token = credential.identityToken else { return onError("Sign in with Apple returned no identity token") }
+                completion(token, nonce)
+            case .failure(let error):
+                if (error as? ASAuthorizationError)?.code == .canceled { return }
+                onError(error.localizedDescription)
+            }
+        }
+        .signInWithAppleButtonStyle(.white)
+        .frame(height: 50).frame(maxWidth: .infinity)
+        .disabled(disabled).opacity(disabled ? 0.45 : 1)
+        .accessibilityIdentifier("signInWithApple")
     }
 }
 
