@@ -227,3 +227,12 @@ Photo IDs represent logical Photo groups. Previews and counts use processed take
 the complete PhotoTake/PhotoPerson contract and venue/event mapping follow in later
 slices. The maximum photo page is 50. Deploy this endpoint and issue grants before
 activating AudienceKit connections; no existing photo library is automatically shared.
+
+## License
+
+Source-available under the [Lumière Self-Hosting License 1.0](LICENSE.md), not an open
+source license. You may self-host and modify it for your own use. You may not charge for
+it, bundle or sell it with anything, host it for or on behalf of others, otherwise
+monetize it, or build tooling (deploy buttons, templates, prebuilt images, marketplace
+listings and the like) that makes it rapidly deployable as a service or onto paid
+hosting. Contact Love Wins Media, Inc. for a commercial license.
