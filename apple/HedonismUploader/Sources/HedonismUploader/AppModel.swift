@@ -37,6 +37,10 @@ final class AppModel: ObservableObject {
         autoUpload = defaults.object(forKey: "autoUpload") as? Bool ?? true
         ejectWhenDone = defaults.bool(forKey: "ejectWhenDone")
         token = Keychain.token() ?? ""
+        if token.isEmpty, let shared = SharedCredentials.all().first(where: { $0.server.absoluteString == serverURL }) {
+            // Signed in from Chip or Cogsworth on another device, or from Chip on this Mac.
+            token = shared.token
+        }
 
         watcher.start { [weak self] volume in
             guard let self, self.autoUpload else { return }
@@ -91,7 +95,9 @@ final class AppModel: ObservableObject {
             } else {
                 credential = try await browserSignIn.signIn(server: server, photographer: photographer.trimmingCharacters(in: .whitespacesAndNewlines))
             }
-            let name = try await HedonismClient(serverURL: server, token: credential).photographerName()
+            let client = HedonismClient(serverURL: server, token: credential)
+            let name = try await client.photographerName()
+            let subdomain = try await client.photographerSubdomain()
             guard server.absoluteString == serverURL.trimmingCharacters(in: .whitespacesAndNewlines) else { return }
             guard Keychain.setToken(credential) else {
                 status = "Could not save the credential in Keychain. Please try again."
@@ -99,6 +105,7 @@ final class AppModel: ObservableObject {
             }
             token = credential
             connectedAs = name
+            SharedCredentials.save(.init(server: server, subdomain: subdomain, name: name, token: credential))
             loadArchivePaths()
             await syncArchiveStorage()
             status = "Connected as \(name)"
@@ -119,6 +126,7 @@ final class AppModel: ObservableObject {
 
     func signOut() {
         guard !isUploading, !signingIn else { return }
+        if !token.isEmpty { SharedCredentials.remove(token: token) }
         guard Keychain.setToken(nil) else {
             status = "Could not remove the credential from Keychain"
             return

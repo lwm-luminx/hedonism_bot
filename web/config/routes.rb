@@ -31,6 +31,7 @@ Rails.application.routes.draw do
   delete "auth/native/session", to: "native_accounts#destroy"
   post "auth/apple/exchange", to: "apple_accounts#exchange"
   post "auth/apple/link", to: "apple_accounts#link"
+  get ".well-known/apple-app-site-association", to: "apple_app_site_associations#show", format: false
 
   post "auth/start", to: "auth_bridges#start"
   get "auth/bridge", to: "auth_bridges#new"

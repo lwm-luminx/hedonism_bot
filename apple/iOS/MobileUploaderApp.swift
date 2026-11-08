@@ -128,6 +128,7 @@ final class MobileUploadModel: NSObject, ObservableObject {
         #endif
         if let data = defaults.data(forKey: "uploadAccounts"),
            let saved = try? JSONDecoder().decode([UploadAccount].self, from: data) { accounts = saved }
+        if !ProcessInfo.processInfo.arguments.contains("--ui-testing") { importSharedCredentials() }
         selectedID = defaults.string(forKey: "selectedAccount").flatMap(UUID.init(uuidString:))
         if !accounts.contains(where: { $0.id == selectedID }) { selectedID = accounts.first?.id }
         if accounts.isEmpty, !ProcessInfo.processInfo.arguments.contains("--ui-testing"), let legacy = Keychain.token(), !legacy.isEmpty {
@@ -142,6 +143,16 @@ final class MobileUploadModel: NSObject, ObservableObject {
                 }
             }
         }
+    }
+
+    /// Adds accounts signed in from another Lumière app (Cogsworth, or Chip on another device).
+    private func importSharedCredentials() {
+        for shared in SharedCredentials.all() where !accounts.contains(where: { $0.server == shared.server && $0.subdomain == shared.subdomain }) {
+            let account = UploadAccount(name: shared.name.isEmpty ? shared.subdomain : shared.name, subdomain: shared.subdomain, server: shared.server)
+            guard Keychain.setToken(shared.token, accountID: account.id.uuidString) else { continue }
+            accounts.append(account)
+        }
+        saveAccounts()
     }
 
     var selectedAccount: UploadAccount? { accounts.first { $0.id == selectedID } }
@@ -181,6 +192,7 @@ final class MobileUploadModel: NSObject, ObservableObject {
             accounts.append(account)
             selectedID = account.id
             saveAccounts()
+            SharedCredentials.save(.init(server: url, subdomain: subdomain, name: name, token: credential))
             return true
         } catch { accountError = error.localizedDescription; return false }
     }
@@ -196,6 +208,7 @@ final class MobileUploadModel: NSObject, ObservableObject {
 
     func signOut() {
         guard let account = selectedAccount, !running else { return }
+        if let credential = Keychain.token(accountID: account.id.uuidString) { SharedCredentials.remove(token: credential) }
         guard Keychain.setToken(nil, accountID: account.id.uuidString) else {
             status = "Could not remove the saved credential. Try signing out again."; return
         }
