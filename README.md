@@ -240,3 +240,5 @@ notice to Love Wins Media (open an issue titled "Derived work notice" naming you
 and the fork). Misrepresenting the work, its authorship, origin or Love Wins Media's
 endorsement, is expressly prohibited and a breach, and no other license of any kind is
 granted. Contact Love Wins Media, Inc. for a commercial license.
+
+**Copying is prohibited.** Copying this work beyond what [LICENSE.md](LICENSE.md) allows is copyright infringement, and willful copying can be a federal crime (17 U.S.C. §§ 501, 506). Removing, altering or faking copyright or attribution notices is unlawful under 17 U.S.C. § 1202, and a federal crime under § 1204 when done willfully for commercial advantage or private financial gain. See [NOTICE.md](NOTICE.md) for the details.
