@@ -44,6 +44,10 @@ public final class DiskImageCard {
         image = FileManager.default.temporaryDirectory.appendingPathComponent("\(name).dmg")
         // FAT32 needs at least 33 MB; hdiutil refuses smaller FAT32 images.
         _ = try Self.hdiutil(["create", "-quiet", "-size", "40m", "-fs", format.rawValue, "-volname", name, image.path])
+        // Mount once and let go before the real attach: on some macOS releases the first mount of a fresh FAT
+        // image gets a throwaway volume UUID, and grants (security-scoped bookmarks) follow the volume by its UUID.
+        try attach(options: .hidden)
+        try detach()
         let root = try attach(options: options)
         if !options.contains(.readOnly) {
             try FileManager.default.createDirectory(at: root.appendingPathComponent("DCIM/100MSDCF"), withIntermediateDirectories: true)
@@ -84,9 +88,26 @@ public final class DiskImageCard {
         self.volume = nil
         // Already gone (for example ejected through NSWorkspace): nothing to detach.
         guard FileManager.default.fileExists(atPath: volume.path) else { return }
-        var arguments = ["detach", "-quiet", volume.path]
-        if force { arguments.append("-force") }
-        _ = try Self.hdiutil(arguments)
+        if force {
+            _ = try Self.hdiutil(["detach", "-quiet", "-force", volume.path])
+            return
+        }
+        // Spotlight and fseventsd hold a freshly mounted volume open for a moment; wait them out like Finder does.
+        var attempt = 0
+        while true {
+            do {
+                _ = try Self.hdiutil(["detach", "-quiet", volume.path])
+                return
+            } catch where attempt < 10 {
+                attempt += 1
+                Thread.sleep(forTimeInterval: 0.5)
+            }
+        }
+    }
+
+    /// The volume UUID macOS assigned, which grants (security-scoped bookmarks) use to find the volume again.
+    public func identity() throws -> String? {
+        try root().resourceValues(forKeys: [.volumeUUIDStringKey]).volumeUUIDString
     }
 
     /// Detaches and attaches again, for example to flip the write-protect switch.
