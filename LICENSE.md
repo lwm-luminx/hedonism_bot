@@ -1,6 +1,6 @@
 # Lumière Self-Hosting License
 
-Version 1.0
+Version 1.1
 
 Copyright © 2026 Love Wins Media, Inc. All rights reserved except as granted below.
 
@@ -76,15 +76,51 @@ charge, only for a permitted purpose, and only if every recipient gets a complet
 copy of these terms (or a link to them) together with the following notice:
 
 > Required Notice: Copyright © 2026 Love Wins Media, Inc. Licensed under the
-> Lumière Self-Hosting License 1.0. Self-hosting for your own use only;
+> Lumière Self-Hosting License 1.1. Self-hosting for your own use only;
 > charging for, bundling, hosting for others, otherwise monetizing, and
-> rapid-deployment tooling are prohibited.
+> rapid-deployment tooling are prohibited. Changes only in a fork, after
+> written notice to Love Wins Media, Inc.
 
 ## Changes and New Works License
 
 The licensor grants you an additional copyright license to make changes and new
-works based on the software for any permitted purpose. Those changes and new works
-are subject to all of these terms, including the Prohibited Uses.
+works based on the software for any permitted purpose, but only if both of these
+are true:
+
+1. **In a fork.** The changes or new works are made and kept in a fork of the
+   licensor's own repository of the software, created with the fork function of
+   the service where the licensor publishes that repository (for example,
+   GitHub), so that the fork shows its link to the licensor's repository.
+
+2. **After written notice.** Before you make them, you give the licensor written
+   notice that names you, gives a way to contact you, and identifies the fork. You
+   may give notice by opening an issue titled "Derived work notice" in the
+   licensor's repository, or by any other written means the licensor accepts in
+   writing.
+
+Changes and new works made any other way are not licensed. Those you make under
+this license are subject to all of these terms, including the Prohibited Uses.
+
+## No Misrepresentation
+
+You must not misrepresent the software or the licensor's work. In particular, you
+must not:
+
+1. claim or imply that you or anyone other than the licensor wrote, owns or
+   originated the software or any part of it;
+2. remove, alter or obscure any copyright, authorship or license notice in the
+   software;
+3. present a change or new work based on the software as the licensor's original
+   work, or present the software as yours; or
+4. claim or imply that the licensor sponsors, endorses, approves or is affiliated
+   with you or with anything you make, unless the licensor has agreed to it in
+   writing.
+
+This prohibition is express. Any misrepresentation is a material breach of these
+terms and is not a use your licenses allow. It may also violate laws on copyright
+management information, false designation of origin, false endorsement or unfair
+competition, and nothing in these terms waives any right or remedy the licensor
+has under them.
 
 ## Commercial Licenses
 
@@ -105,9 +141,12 @@ the licensor's own work.
 
 ## No Other Rights
 
-These terms do not allow you to sublicense or transfer any of your licenses to
-anyone else, or prevent the licensor from granting licenses to anyone else. These
-terms do not imply any other licenses.
+The licenses these terms expressly grant are the only licenses granted. No other
+license or right of any kind is granted, whether expressly, by implication, by
+estoppel, by exhaustion or otherwise, and the licensor reserves every right these
+terms do not expressly grant. These terms do not allow you to sublicense or
+transfer any of your licenses to anyone else, or prevent the licensor from granting
+licenses to anyone else.
 
 ## Trademarks
 
@@ -132,7 +171,8 @@ terms, and take practical steps to correct past violations, within 32 days of
 receiving notice. Otherwise, all your licenses end immediately.
 
 The 32-day cure period does not apply to a violation of Prohibited Uses item 1, 2
-or 3 that you committed after having previously received notice of any violation.
+or 3, or of No Misrepresentation, that you committed after having previously
+received notice of any violation.
 
 ## No Liability
 
