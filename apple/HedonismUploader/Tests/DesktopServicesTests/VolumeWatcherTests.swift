@@ -53,8 +53,15 @@ final class VolumeWatcherTests: XCTestCase {
         let card = try insertCard()
         try card.add("DSC00001.ARW")
         try permissions.remember(try card.root())
-        try card.reattach(options: .readOnly)
-        XCTAssertTrue(VolumeWatcher.isRemovableCameraCard(try card.root(), permissions: permissions))
+        let identityBefore = try card.root().resourceValues(forKeys: [.volumeUUIDStringKey]).volumeUUIDString
+
+        let root = try card.reattach(options: .readOnly)
+
+        XCTAssertEqual(try root.resourceValues(forKeys: [.volumeUUIDStringKey]).volumeUUIDString, identityBefore,
+                       "the volume keeps its identity across a remount")
+        XCTAssertEqual(try permissions.resolve(root).standardizedFileURL.path, root.standardizedFileURL.path,
+                       "the grant made before the remount still resolves to the card")
+        XCTAssertTrue(VolumeWatcher.isRemovableCameraCard(root, permissions: permissions))
     }
 
     func testListsMountedCardsAndSkipsHiddenVolumes() throws {
@@ -80,8 +87,22 @@ final class VolumeWatcherTests: XCTestCase {
             volumes.append(volume)
             reported.fulfill()
         }
+        // Also listen to the system directly, to tell "no announcement" from "announced but not recognised".
+        let announced = expectation(description: "mount announced")
+        var announcedVolumes: [URL] = []
+        let listener = NSWorkspace.shared.notificationCenter.addObserver(forName: NSWorkspace.didMountNotification, object: nil, queue: .main) { notification in
+            if let volume = notification.userInfo?[NSWorkspace.volumeURLUserInfoKey] as? URL {
+                announcedVolumes.append(volume)
+                announced.fulfill()
+            }
+        }
+        defer { NSWorkspace.shared.notificationCenter.removeObserver(listener) }
         let root = try card.attach()
 
+        wait(for: [announced], timeout: 10)
+        XCTAssertEqual(announcedVolumes, [root], "NSWorkspace announced the mount")
+        XCTAssertEqual(try permissions.resolve(root).standardizedFileURL.path, root.standardizedFileURL.path,
+                       "the grant made before the remount still resolves to the card")
         wait(for: [reported], timeout: 10)
         XCTAssertEqual(volumes, [root])
     }
