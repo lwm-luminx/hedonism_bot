@@ -143,7 +143,33 @@ final class MobileUploadModel: NSObject, ObservableObject {
                 }
             }
         }
+        #if DEBUG
+        loadUITestFolder()
+        #endif
     }
+
+    #if DEBUG
+    /// UI tests can't drive the system folder picker, and the sandboxed app can't read the test
+    /// runner's files. With `--ui-test-folder`, the photos the test generated arrive in
+    /// CHIP_UI_TEST_FILES (JSON: filename → base64 bytes); they're written to a DCIM folder
+    /// inside the app's container and selected as if picked.
+    private func loadUITestFolder() {
+        guard ProcessInfo.processInfo.arguments.contains("--ui-test-folder"),
+              let json = ProcessInfo.processInfo.environment["CHIP_UI_TEST_FILES"],
+              let encoded = try? JSONDecoder().decode([String: String].self, from: Data(json.utf8)) else { return }
+        let card = FileManager.default.temporaryDirectory.appendingPathComponent("ChipUITestCard", isDirectory: true)
+        let folder = card.appendingPathComponent("DCIM/100CHIPT", isDirectory: true)
+        do {
+            try? FileManager.default.removeItem(at: card)
+            try FileManager.default.createDirectory(at: folder, withIntermediateDirectories: true)
+            for (name, base64) in encoded {
+                guard let data = Data(base64Encoded: base64) else { continue }
+                try data.write(to: folder.appendingPathComponent((name as NSString).lastPathComponent))
+            }
+            select(card)
+        } catch { status = "Could not prepare the UI test folder: \(error.localizedDescription)" }
+    }
+    #endif
 
     /// Adds accounts signed in from another Lumière app (Cogsworth, or Chip on another device).
     private func importSharedCredentials() {
@@ -192,7 +218,10 @@ final class MobileUploadModel: NSObject, ObservableObject {
             accounts.append(account)
             selectedID = account.id
             saveAccounts()
-            SharedCredentials.save(.init(server: url, subdomain: subdomain, name: name, token: credential))
+            // UI tests don't import shared credentials either; keep their sign-ins out of Cogsworth.
+            if !ProcessInfo.processInfo.arguments.contains("--ui-testing") {
+                SharedCredentials.save(.init(server: url, subdomain: subdomain, name: name, token: credential))
+            }
             return true
         } catch { accountError = error.localizedDescription; return false }
     }
@@ -363,7 +392,7 @@ struct MobileUploaderApp: App {
                         #if os(iOS)
                         PhonePhotoButtons(model: model)
                         #endif
-                        Text(model.status)
+                        Text(model.status).accessibilityIdentifier("uploadStatus")
                         if let p = model.progress, p.totalFiles > 0 {
                             ProgressView(value: Double(p.uploadedFiles + p.failedFiles), total: Double(p.totalFiles))
                             Text(p.currentFile ?? "").font(.caption)
