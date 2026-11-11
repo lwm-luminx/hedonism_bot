@@ -335,6 +335,8 @@ struct MobileUploaderApp: App {
                             Button("Sign out of selected account", role: .destructive) { model.signOut() }
                         }
                         Button("Add account") { addingAccount = true }
+                        Link("Privacy policy", destination: (model.selectedAccount?.server ?? ServiceEndpoints.api).appendingPathComponent("privacy"))
+                        Link("Delete my account and data", destination: (model.selectedAccount?.server ?? ServiceEndpoints.api).appendingPathComponent("data-deletion"))
                     }
                     .disabled(model.running)
                     Section("Shoot details") {

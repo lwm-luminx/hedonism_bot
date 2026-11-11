@@ -287,6 +287,13 @@ struct SettingsView: View {
                 } onError: { model.reportSignInError($0) }
                 .frame(maxWidth: 260)
                 Text("Link your Apple ID to use Sign in with Apple next time.").font(.caption).foregroundStyle(MenuBrand.muted)
+                HStack(spacing: 16) {
+                    if let server = URL(string: model.serverURL) {
+                        Link("Privacy policy", destination: server.appendingPathComponent("privacy"))
+                        Link("Delete my account and data", destination: server.appendingPathComponent("data-deletion"))
+                    }
+                }
+                .font(.caption)
                 Divider().overlay(MenuBrand.gold.opacity(0.12))
                 settingsField("Server endpoint", text: $model.serverURL)
                 HStack {

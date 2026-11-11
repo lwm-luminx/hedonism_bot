@@ -125,3 +125,13 @@ submission or credential provisioning is performed by this document.
 - [Apple: wireless Xcode devices](https://help.apple.com/xcode/mac/current/en.lproj/dev3e2f4ee6d.html)
 - [Apple: iPhone external storage](https://support.apple.com/guide/iphone/external-storage-devices-iph95baac91f/ios)
 - [Apple: Simulator differences](https://developer.apple.com/library/archive/documentation/IDEs/Conceptual/iOS_Simulator_Guide/TestingontheiOSSimulator/TestingontheiOSSimulator.html)
+
+## Reusable review code — 2026-11-10
+
+`ReviewAccess` adds one fixed device code (`REVIEW_DEVICE_CODE` config var) that signs in to the
+review photographer only (`REVIEW_PHOTOGRAPHER`, default `review`) and works every time. Run
+`bin/rails review:setup` on Heroku once to create the photographer and print a code, set the
+config var, and give App Review the code in App Store Connect's review notes (never in this repo).
+Chip, Chip for Mac and Cogsworth accept it in their existing device-code sign-in. The apps also
+link the privacy policy and the data-deletion page from their account settings.
+
