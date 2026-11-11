@@ -12,7 +12,7 @@ class DeviceAccountsController < ApplicationController
   end
 
   def exchange
-    pair = DeviceLoginGrant.exchange(code: params[:code])
+    pair = DeviceLoginGrant.exchange(code: params[:code]) || ReviewAccess.exchange(params[:code])
     return render json: { error: "This code is invalid or expired. Ask for a new device code." }, status: :unauthorized unless pair
 
     account, token = pair
