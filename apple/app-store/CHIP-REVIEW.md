@@ -158,3 +158,32 @@ trailer plus a JPEG paired with the first, and check the server stores all three
 (the RAW+JPEG pair is one). The test runner serves them to the sandboxed app over loopback.
 The same zip is the reviewer's sample download; its Dropbox link must be set to anyone-with-link
 before submission.
+
+## Sample RAW set (`chip-sample-raw.zip`) — 2026-11-10
+
+The sample set used by the ChipMac RAW tests and offered to App Review as the sample download.
+
+- **Where:** Rick's Dropbox, `/Chip Test Data/chip-sample-raw.zip` (75 MB). The Dropbox link is
+  currently view-only for Rick's account; switch it to **Anyone with the link** before putting it in
+  App Store Connect's review notes. Not committed to git (size); rebuild it with
+  [`sample-raw/build.sh`](sample-raw/build.sh).
+- **Format:** 11 DNG 1.4 files, uncompressed 14-bit RGGB Bayer, Make `Lumiere`, Model
+  `Synthetic RAW`, capture dates 2026-11-01 to 2026-11-08. All decode with LibRaw (rawpy).
+- **Scenery, 01–06:** self-generated synthetic images (sunset, color chart, zone plate, bokeh,
+  forest, ocean), 3000×2000. CC0.
+- **Faces for face match, 07–11:** official White House photographs (US federal government works,
+  public domain), taken from the `face_recognition` project's examples and converted to DNG. The
+  same two people recur so face grouping has matches:
+
+  | File | Person A | Person B |
+  | --- | --- | --- |
+  | `sample-07-portrait-a.dng` | ✓ | |
+  | `sample-08-podium-a.dng` | ✓ | |
+  | `sample-09-portrait-b.dng` | | ✓ |
+  | `sample-10-pair-a-b.dng` | ✓ | ✓ |
+  | `sample-11-blue-room-a.dng` | ✓ | |
+
+  Expected result: two face groups, A with 4 photos and B with 2, with photo 10 in both.
+  The people are recognizable public figures (Obama and Biden). Swap in other faces if that is
+  unsuitable for the review archive.
+- `README.txt` inside the zip repeats the provenance and the face mapping.
