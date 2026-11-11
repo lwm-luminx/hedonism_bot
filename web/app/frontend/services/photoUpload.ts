@@ -35,6 +35,7 @@ const FINISH_MUTATION = graphql`
 // Browsers often report an empty type for camera RAW files; the server keys RAW handling off this type.
 const CONTENT_TYPES_BY_EXTENSION: Record<string, string> = {
   ".arw": "image/x-sony-arw",
+  ".dng": "image/x-adobe-dng",
   ".hif": "image/heif",
   ".heif": "image/heif",
   ".heic": "image/heic",

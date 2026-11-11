@@ -9,7 +9,8 @@ class PhotoTake < ApplicationRecord
   COMPOSITE_PREFERENCE_LIST = %w[image/heif image/heic image/jpeg image/png video/quicktime]
 
   RAW_FORMATS = {
-    arw: { mime_type: "image/x-sony-arw" }
+    arw: { mime_type: "image/x-sony-arw" },
+    dng: { mime_type: "image/x-adobe-dng" }
   }
 
   PROCESSED_FORMATS = {
@@ -21,6 +22,7 @@ class PhotoTake < ApplicationRecord
 
   CONFIGURATIONS = {
     arw: { mime_type: "image/x-sony-arw", variant: :raw, raw: true },
+    dng: { mime_type: "image/x-adobe-dng", variant: :raw, raw: true },
     hif: { mime_type: "image/heif", variant: :heif },
     jpg: { mime_type: "image/jpeg", variant: :jpeg },
     jpeg: { mime_type: "image/jpeg", variant: :jpeg },

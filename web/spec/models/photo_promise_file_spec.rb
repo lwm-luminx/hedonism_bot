@@ -28,6 +28,12 @@ RSpec.describe PhotoPromiseFile,  :aggregate_failures, type: :model do
     expect(blob.service.exist?(blob.key)).to be(false)
   end
 
+  it 'treats Sony ARW and Adobe DNG files as RAW' do
+    expect(described_class.new(attributes.merge(original_filename: 'CHIP0001.DNG', content_type: 'image/x-adobe-dng'))).to be_raw
+    expect(described_class.new(attributes.merge(original_filename: 'DSC00001.ARW', content_type: 'image/x-sony-arw'))).to be_raw
+    expect(described_class.new(attributes)).not_to be_raw
+  end
+
   %i[original_filename content_type image_hash photo_promise].each do |attribute|
     it "requires #{attribute}" do
       record = described_class.new(attributes.merge(attribute => nil))
