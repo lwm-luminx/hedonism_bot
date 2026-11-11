@@ -40,7 +40,7 @@ RSpec.describe "App Review device code", type: :request do
   end
 
   it "does nothing until the review photographer exists" do
-    review.destroy!
+    review.update!(subdomain: "renamed")
     exchange(code)
     expect(response).to have_http_status(:unauthorized)
   end
