@@ -151,3 +151,10 @@ TEST_RUNNER_CHIP_REVIEW_CODE=<review code> xcodebuild -project apple/Chip.xcodep
 ```
 
 Without the code the live test is skipped and only the sign-in page test runs.
+
+The RAW tests read the sample set (`chip-sample-raw.zip`, 11 DNGs; kept out of git) from
+`TEST_RUNNER_CHIP_SAMPLE_DIR`, the extracted folder. They upload the first two DNGs with a unique
+trailer plus a JPEG paired with the first, and check the server stores all three as two photos
+(the RAW+JPEG pair is one). The test runner serves them to the sandboxed app over loopback.
+The same zip is the reviewer's sample download; its Dropbox link must be set to anyone-with-link
+before submission.

@@ -150,24 +150,40 @@ final class MobileUploadModel: NSObject, ObservableObject {
 
     #if DEBUG
     /// UI tests can't drive the system folder picker, and the sandboxed app can't read the test
-    /// runner's files. With `--ui-test-folder`, the photos the test generated arrive in
-    /// CHIP_UI_TEST_FILES (JSON: filename → base64 bytes); they're written to a DCIM folder
-    /// inside the app's container and selected as if picked.
+    /// runner's files. With `--ui-test-folder`, the test's photos arrive in CHIP_UI_TEST_FILES
+    /// (JSON: filename → base64 bytes) and, for files too large for the environment, in
+    /// CHIP_UI_TEST_DOWNLOADS (JSON: filename → loopback URL served by the test). They're written
+    /// to a DCIM folder inside the app's container and selected as if picked.
     private func loadUITestFolder() {
-        guard ProcessInfo.processInfo.arguments.contains("--ui-test-folder"),
-              let json = ProcessInfo.processInfo.environment["CHIP_UI_TEST_FILES"],
-              let encoded = try? JSONDecoder().decode([String: String].self, from: Data(json.utf8)) else { return }
+        let environment = ProcessInfo.processInfo.environment
+        guard ProcessInfo.processInfo.arguments.contains("--ui-test-folder") else { return }
+        func decode(_ key: String) -> [String: String] {
+            environment[key].flatMap { try? JSONDecoder().decode([String: String].self, from: Data($0.utf8)) } ?? [:]
+        }
+        let inline = decode("CHIP_UI_TEST_FILES"), downloads = decode("CHIP_UI_TEST_DOWNLOADS")
         let card = FileManager.default.temporaryDirectory.appendingPathComponent("ChipUITestCard", isDirectory: true)
         let folder = card.appendingPathComponent("DCIM/100CHIPT", isDirectory: true)
-        do {
-            try? FileManager.default.removeItem(at: card)
-            try FileManager.default.createDirectory(at: folder, withIntermediateDirectories: true)
-            for (name, base64) in encoded {
-                guard let data = Data(base64Encoded: base64) else { continue }
-                try data.write(to: folder.appendingPathComponent((name as NSString).lastPathComponent))
-            }
-            select(card)
-        } catch { status = "Could not prepare the UI test folder: \(error.localizedDescription)" }
+        func destination(_ name: String) -> URL { folder.appendingPathComponent((name as NSString).lastPathComponent) }
+        status = "Preparing UI test folder…"
+        Task {
+            do {
+                try? FileManager.default.removeItem(at: card)
+                try FileManager.default.createDirectory(at: folder, withIntermediateDirectories: true)
+                for (name, base64) in inline {
+                    guard let data = Data(base64Encoded: base64) else { continue }
+                    try data.write(to: destination(name))
+                }
+                for (name, address) in downloads {
+                    guard let url = URL(string: address), url.host == "127.0.0.1" else { continue }
+                    let (data, response) = try await URLSession.shared.data(from: url)
+                    guard (response as? HTTPURLResponse)?.statusCode == 200 else {
+                        throw HedonismClientError.unexpectedResponse("UI test download \(name) failed")
+                    }
+                    try data.write(to: destination(name))
+                }
+                select(card)
+            } catch { status = "Could not prepare the UI test folder: \(error)" }
+        }
     }
     #endif
 

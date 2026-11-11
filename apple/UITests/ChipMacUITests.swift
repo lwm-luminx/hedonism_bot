@@ -2,6 +2,7 @@ import XCTest
 import CoreGraphics
 import CryptoKit
 import ImageIO
+import Network
 import UniformTypeIdentifiers
 
 /// End-to-end tests for Chip for Mac against a live server's review archive.
@@ -10,6 +11,8 @@ import UniformTypeIdentifiers
 /// generated JPEGs. Pass the code to the test runner with
 /// `TEST_RUNNER_CHIP_REVIEW_CODE=<code> xcodebuild … test`; without it the live tests are skipped.
 /// `TEST_RUNNER_CHIP_REVIEW_SERVER` overrides the default https://api.lumiere.host.
+/// `TEST_RUNNER_CHIP_SAMPLE_DIR` points at the extracted sample RAW set (chip-sample-raw.zip, kept out
+/// of git); the RAW tests are skipped without it.
 @MainActor
 final class ChipMacUITests: XCTestCase {
     private var environment: [String: String] { ProcessInfo.processInfo.environment }
@@ -61,25 +64,7 @@ final class ChipMacUITests: XCTestCase {
         app.launchEnvironment["CHIP_UI_TEST_FILES"] = String(decoding: try JSONEncoder().encode(encoded), as: UTF8.self)
         app.launch()
 
-        // Sign in with the review code.
-        XCTAssertTrue(app.staticTexts["Chip"].waitForExistence(timeout: 10))
-        if server.absoluteString != "https://api.lumiere.host" {
-            app.disclosureTriangles.firstMatch.click()
-            let field = app.textFields["Server URL"]
-            field.click()
-            field.typeKey("a", modifierFlags: .command)
-            field.typeText(server.absoluteString)
-        }
-        app.buttons["switchSignInMethod"].click()
-        let codeField = app.textFields["deviceCodeField"]
-        XCTAssertTrue(codeField.waitForExistence(timeout: 5))
-        codeField.click()
-        codeField.typeText(code)
-        app.buttons["Sign in with device code"].click()
-
-        let picker = element(app, "uploadAccountPicker")
-        XCTAssertTrue(picker.waitForExistence(timeout: 30), signInFailure(app))
-        XCTAssertTrue(pickerTitle(picker).contains("review"), "Signed in to \(pickerTitle(picker)), not the review archive")
+        signInToReviewArchive(app, code: code)
 
         // Account settings App Review asks for.
         XCTAssertTrue(element(app, "Privacy policy").exists, "Privacy policy link is missing")
@@ -129,7 +114,104 @@ final class ChipMacUITests: XCTestCase {
         XCTAssertTrue(app.staticTexts["Chip"].waitForExistence(timeout: 10), "The signed-out account came back after relaunch")
     }
 
+    // MARK: Sample RAW set
+
+    func testSampleRawFilesAreListedAndPaired() async throws {
+        let photos = try Self.rawFixtures()
+        let server = try FixtureServer(photos)
+        defer { server.stop() }
+        let app = XCUIApplication()
+        app.launchArguments = ["--ui-testing", "--ui-test-accounts", "--reset-test-accounts", "--ui-test-folder"]
+        app.launchEnvironment["CHIP_UI_TEST_DOWNLOADS"] = try server.downloadsJSON()
+        app.launch()
+        let status = element(app, "uploadStatus")
+        XCTAssertTrue(wait(for: status, toContain: "\(photos.count) supported files", timeout: 60), "Sample RAW files not selected: \(text(status))")
+        for photo in photos { XCTAssertTrue(app.staticTexts[photo.name].exists, "\(photo.name) is not listed") }
+        attachScreenshot(app, "Sample RAW files")
+    }
+
+    func testUploadsSampleRawFilesToReviewArchive() async throws {
+        guard let code = environment["CHIP_REVIEW_CODE"], !code.isEmpty else {
+            throw XCTSkip("Set TEST_RUNNER_CHIP_REVIEW_CODE to the review device code to run the live upload test")
+        }
+        let photos = try Self.rawFixtures()
+        let server = try FixtureServer(photos)
+        defer { server.stop() }
+        let album = "UI test RAW \(ISO8601DateFormatter().string(from: Date()))"
+
+        let app = XCUIApplication()
+        app.launchArguments = ["--ui-testing", "--reset-test-accounts", "--ui-test-folder"]
+        app.launchEnvironment["CHIP_UI_TEST_DOWNLOADS"] = try server.downloadsJSON()
+        app.launch()
+        signInToReviewArchive(app, code: code)
+
+        let status = element(app, "uploadStatus")
+        XCTAssertTrue(wait(for: status, toContain: "\(photos.count) supported files", timeout: 60), "Sample RAW files not selected: \(text(status))")
+        fill(app, "Album", album)
+        fill(app, "Event", "Chip for Mac RAW UI test")
+        fill(app, "Venue", "Xcode test runner")
+        app.buttons["Upload new files"].click()
+        XCTAssertTrue(wait(for: status, toContain: "\(photos.count) uploaded; 0 failed", timeout: 600), "RAW upload did not complete: \(text(status))")
+        attachScreenshot(app, "Sample RAW uploaded")
+
+        // Every file is stored, and the RAW+JPEG pair became one photo: three files, two photos.
+        let token = try await Self.exchange(code: code, server: self.server)
+        let stored = try await Self.uploadedHashes(photos.map(\.sha256), token: token, server: self.server)
+        XCTAssertEqual(stored, Set(photos.map(\.sha256)), "The server does not have every sample file")
+        let shots = Set(photos.map { ($0.name as NSString).deletingPathExtension.lowercased() }).count
+        let folder = try await Self.waitForFolder(named: album, photos: shots, token: token, server: self.server)
+        XCTAssertEqual(folder["photoCount"] as? Int, shots, "RAW and JPEG files with one basename should be one photo")
+
+        app.buttons["Sign out of selected account"].click()
+        XCTAssertTrue(app.staticTexts["Chip"].waitForExistence(timeout: 10))
+    }
+
+    /// The first two DNGs of the sample set, each with a unique trailer so every run uploads new
+    /// content, plus a generated JPEG paired with the first DNG (a camera's RAW+JPEG shot).
+    static func rawFixtures() throws -> [Photo] {
+        guard let path = ProcessInfo.processInfo.environment["CHIP_SAMPLE_DIR"], !path.isEmpty else {
+            throw XCTSkip("Set TEST_RUNNER_CHIP_SAMPLE_DIR to the extracted chip-sample-raw folder to run the RAW tests")
+        }
+        let root = URL(fileURLWithPath: path, isDirectory: true)
+        let enumerator = FileManager.default.enumerator(at: root, includingPropertiesForKeys: nil)
+        let dngs = (enumerator?.allObjects as? [URL] ?? [])
+            .filter { $0.pathExtension.lowercased() == "dng" }
+            .sorted { $0.lastPathComponent < $1.lastPathComponent }
+            .prefix(2)
+        guard dngs.count == 2 else { throw XCTSkip("Expected at least two DNG files under \(path)") }
+        var photos = try dngs.map { url -> Photo in
+            var data = try Data(contentsOf: url)
+            data.append(Data("\0Chip for Mac UI test \(UUID().uuidString)".utf8))
+            return Photo(name: url.lastPathComponent, data: data)
+        }
+        let jpeg = try uniqueJPEG(index: 1)
+        let pairName = (photos[0].name as NSString).deletingPathExtension + ".JPG"
+        photos.append(Photo(name: pairName, data: jpeg.data))
+        return photos
+    }
+
     // MARK: UI helpers
+
+    private func signInToReviewArchive(_ app: XCUIApplication, code: String) {
+        XCTAssertTrue(app.staticTexts["Chip"].waitForExistence(timeout: 10))
+        if server.absoluteString != "https://api.lumiere.host" {
+            app.disclosureTriangles.firstMatch.click()
+            let field = app.textFields["Server URL"]
+            field.click()
+            field.typeKey("a", modifierFlags: .command)
+            field.typeText(server.absoluteString)
+        }
+        app.buttons["switchSignInMethod"].click()
+        let codeField = app.textFields["deviceCodeField"]
+        XCTAssertTrue(codeField.waitForExistence(timeout: 5))
+        codeField.click()
+        codeField.typeText(code)
+        app.buttons["Sign in with device code"].click()
+
+        let picker = element(app, "uploadAccountPicker")
+        XCTAssertTrue(picker.waitForExistence(timeout: 30), signInFailure(app))
+        XCTAssertTrue(pickerTitle(picker).contains("review"), "Signed in to \(pickerTitle(picker)), not the review archive")
+    }
 
     private func launch(_ arguments: [String]) -> XCUIApplication {
         let app = XCUIApplication()
@@ -289,5 +371,67 @@ final class ChipMacUITests: XCTestCase {
 
     private static func failure(_ message: String) -> Error {
         NSError(domain: "ChipMacUITests", code: 1, userInfo: [NSLocalizedDescriptionKey: message])
+    }
+}
+
+/// Serves fixture files to the app over loopback. The sandboxed app can't read the runner's files,
+/// and photos of several megabytes don't fit in its launch environment.
+final class FixtureServer: @unchecked Sendable {
+    private let listener: NWListener
+    private let files: [String: Data]
+    private let queue = DispatchQueue(label: "ChipMacUITests.FixtureServer")
+
+    init(_ photos: [ChipMacUITests.Photo]) throws {
+        files = Dictionary(uniqueKeysWithValues: photos.map { ($0.name, $0.data) })
+        let parameters = NWParameters.tcp
+        parameters.requiredLocalEndpoint = NWEndpoint.hostPort(host: "127.0.0.1", port: .any)
+        listener = try NWListener(using: parameters)
+        listener.newConnectionHandler = { [weak self] connection in self?.serve(connection) }
+        let ready = DispatchSemaphore(value: 0)
+        listener.stateUpdateHandler = { state in
+            if case .ready = state { ready.signal() }
+            if case .failed = state { ready.signal() }
+        }
+        listener.start(queue: queue)
+        guard ready.wait(timeout: .now() + 10) == .success, listener.port != nil else {
+            throw XCTSkip("Could not start the loopback fixture server")
+        }
+    }
+
+    func downloadsJSON() throws -> String {
+        let port = listener.port!.rawValue
+        let urls = Dictionary(uniqueKeysWithValues: files.keys.map { name in
+            (name, "http://127.0.0.1:\(port)/\(name.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? name)")
+        })
+        return String(decoding: try JSONEncoder().encode(urls), as: UTF8.self)
+    }
+
+    func stop() { listener.cancel() }
+
+    private func serve(_ connection: NWConnection) {
+        connection.start(queue: queue)
+        receive(connection, buffer: Data())
+    }
+
+    private func receive(_ connection: NWConnection, buffer: Data) {
+        connection.receive(minimumIncompleteLength: 1, maximumLength: 65_536) { [weak self] data, _, done, error in
+            guard let self, error == nil else { connection.cancel(); return }
+            let request = buffer + (data ?? Data())
+            guard let end = request.range(of: Data("\r\n\r\n".utf8)) else {
+                if done { connection.cancel() } else { self.receive(connection, buffer: request) }
+                return
+            }
+            let line = String(decoding: request[..<end.lowerBound], as: UTF8.self).components(separatedBy: "\r\n").first ?? ""
+            let path = line.split(separator: " ").dropFirst().first.map(String.init) ?? "/"
+            let name = String(path.dropFirst()).removingPercentEncoding ?? ""
+            var response: Data
+            if let body = self.files[name] {
+                response = Data("HTTP/1.1 200 OK\r\nContent-Type: application/octet-stream\r\nContent-Length: \(body.count)\r\nConnection: close\r\n\r\n".utf8)
+                response.append(body)
+            } else {
+                response = Data("HTTP/1.1 404 Not Found\r\nContent-Length: 0\r\nConnection: close\r\n\r\n".utf8)
+            }
+            connection.send(content: response, completion: .contentProcessed { _ in connection.cancel() })
+        }
     }
 }
