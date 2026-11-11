@@ -135,3 +135,26 @@ config var, and give App Review the code in App Store Connect's review notes (ne
 Chip, Chip for Mac and Cogsworth accept it in their existing device-code sign-in. The apps also
 link the privacy policy and the data-deletion page from their account settings.
 
+
+## Chip for Mac UI tests
+
+`ChipMacUITests` (in the ChipMac scheme's Test action) signs in with the review code, uploads two
+freshly generated JPEGs to a new `UI test <timestamp>` album with event and venue, and confirms on
+the server that both reached the review archive (content hashes and the album's photo count and
+shoot details). It then re-uploads to check that completed files are skipped, checks the privacy,
+data-deletion and Sign in with Apple controls, and signs out. The UI test hook `--ui-test-folder`
+(DEBUG builds only) stands in for the folder picker. UI-test sign-ins are not shared with Cogsworth.
+
+```sh
+TEST_RUNNER_CHIP_REVIEW_CODE=<review code> xcodebuild -project apple/Chip.xcodeproj -scheme ChipMac \
+  -destination 'platform=macOS,arch=arm64' -resultBundlePath /tmp/ChipMac-ui.xcresult test
+```
+
+Without the code the live test is skipped and only the sign-in page test runs.
+
+The RAW tests read the sample set (`chip-sample-raw.zip`, 11 DNGs; kept out of git) from
+`TEST_RUNNER_CHIP_SAMPLE_DIR`, the extracted folder. They upload the first two DNGs with a unique
+trailer plus a JPEG paired with the first, and check the server stores all three as two photos
+(the RAW+JPEG pair is one). The test runner serves them to the sandboxed app over loopback.
+The same zip is the reviewer's sample download; its Dropbox link must be set to anyone-with-link
+before submission.

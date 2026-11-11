@@ -14,7 +14,7 @@ import { graphql, useLazyLoadQuery } from "react-relay";
 import { contentTypeFor, uploadTake } from "../../services/photoUpload";
 import type { PhotoPromiseQuery } from "./__generated__/PhotoPromiseQuery.graphql";
 
-const RAW_FORMAT_EXTENSIONS = [".arw"];
+const RAW_FORMAT_EXTENSIONS = [".arw", ".dng"];
 
 export interface UploadFile {
   id: string;

@@ -25,6 +25,7 @@ public struct PhotoFile: Equatable, Hashable, Sendable {
     /// The formats hedonism_bot accepts (PhotoTake::CONFIGURATIONS on the server).
     public static let contentTypes: [String: String] = [
         "arw": "image/x-sony-arw",
+        "dng": "image/x-adobe-dng",
         "hif": "image/heif",
         "heif": "image/heif",
         "heic": "image/heic",

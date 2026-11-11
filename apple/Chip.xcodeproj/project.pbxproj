@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		CAC000000000000000000002 /* UITests/ChipMacUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAC000000000000000000001 /* UITests/ChipMacUITests.swift */; };
 		2DA0E62A82EF4B8AC993CF37 /* iOS/MobileUploaderApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = DCB233273F4488AD4F1C2C19 /* iOS/MobileUploaderApp.swift */; };
 		48A098BBF72BB03E8B0B00C1 /* ChipMac/PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = 3B769B9462696F543A56CD47 /* ChipMac/PrivacyInfo.xcprivacy */; };
 		55253D0F709C03E2DAD0FAA0 /* ChipMac/Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 55CA3EACD0978E312CA1B76E /* ChipMac/Assets.xcassets */; };
@@ -22,6 +23,13 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		CAC000000000000000000007 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 98F54143AB4E86B28C3AFEE1 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 776EA9DA6BF80E918C213F13;
+			remoteInfo = ChipMac;
+		};
 		5538D6C94541880BC3B9A168 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 98F54143AB4E86B28C3AFEE1 /* Project object */;
@@ -32,6 +40,9 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		CAC00000000000000000000E /* UITests/ChipMacUITests.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = UITests/ChipMacUITests.entitlements; sourceTree = SOURCE_ROOT; };
+		CAC000000000000000000001 /* UITests/ChipMacUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UITests/ChipMacUITests.swift; sourceTree = SOURCE_ROOT; };
+		CAC000000000000000000003 /* ChipMacUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; path = ChipMacUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		0E44D120B02ED5959A5F6EFE /* ChipMac/Chip.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = ChipMac/Chip.entitlements; sourceTree = SOURCE_ROOT; };
 		3B769B9462696F543A56CD47 /* ChipMac/PrivacyInfo.xcprivacy */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = ChipMac/PrivacyInfo.xcprivacy; sourceTree = SOURCE_ROOT; };
 		3E03BFA3BE1F29A895A14844 /* Chip.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; path = Chip.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -48,6 +59,13 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		CAC000000000000000000006 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		45BD6CC5770382E638123F86 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -81,6 +99,8 @@
 				3B769B9462696F543A56CD47 /* ChipMac/PrivacyInfo.xcprivacy */,
 				C5EB066E829DFFC2BD6032B5 /* ChipMac/Info.plist */,
 				0E44D120B02ED5959A5F6EFE /* ChipMac/Chip.entitlements */,
+				CAC000000000000000000001 /* UITests/ChipMacUITests.swift */,
+				CAC00000000000000000000E /* UITests/ChipMacUITests.entitlements */,
 			);
 			name = ChipMac;
 			sourceTree = "<group>";
@@ -113,6 +133,7 @@
 				3E03BFA3BE1F29A895A14844 /* Chip.app */,
 				87C00A466AC27399F25ACD87 /* Chip.app */,
 				9D3AD977850B7EAC0E4F6585 /* ChipUITests.xctest */,
+				CAC000000000000000000003 /* ChipMacUITests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -120,6 +141,23 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
+		CAC000000000000000000004 /* ChipMacUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = CAC000000000000000000009 /* Build configuration list for PBXNativeTarget "ChipMacUITests" */;
+			buildPhases = (
+				CAC000000000000000000005 /* Sources */,
+				CAC000000000000000000006 /* Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				CAC000000000000000000008 /* PBXTargetDependency */,
+			);
+			name = ChipMacUITests;
+			productName = ChipMacUITests;
+			productReference = CAC000000000000000000003 /* ChipMacUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
 		0A3B52F20478AFF17656659D /* Chip */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 5577C1D1AD7D7F2B93315D4F /* Build configuration list for PBXNativeTarget "Chip" */;
@@ -197,6 +235,10 @@
 						CreatedOnToolsVersion = 16.0;
 						TestTargetID = 0A3B52F20478AFF17656659D;
 					};
+					CAC000000000000000000004 = {
+						CreatedOnToolsVersion = 16.0;
+						TestTargetID = 776EA9DA6BF80E918C213F13;
+					};
 				};
 			};
 			buildConfigurationList = 862894B703A6DEDF96A9DD6D /* Build configuration list for PBXProject "Chip" */;
@@ -218,6 +260,7 @@
 				0A3B52F20478AFF17656659D /* Chip */,
 				776EA9DA6BF80E918C213F13 /* ChipMac */,
 				D24B997AF00C71C20D86BE4D /* ChipUITests */,
+				CAC000000000000000000004 /* ChipMacUITests */,
 			);
 		};
 /* End PBXProject section */
@@ -244,6 +287,14 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		CAC000000000000000000005 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				CAC000000000000000000002 /* UITests/ChipMacUITests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		10FC09253D179ED4E498250D /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -274,6 +325,11 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
+		CAC000000000000000000008 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 776EA9DA6BF80E918C213F13 /* ChipMac */;
+			targetProxy = CAC000000000000000000007 /* PBXContainerItemProxy */;
+		};
 		24A9817702DACA7B798D84ED /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = 0A3B52F20478AFF17656659D /* Chip */;
@@ -282,6 +338,75 @@
 /* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
+		CAC00000000000000000000A /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				DEAD_CODE_STRIPPING = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				MACOSX_DEPLOYMENT_TARGET = "$(RECOMMENDED_MACOSX_DEPLOYMENT_TARGET)";
+				CODE_SIGN_ENTITLEMENTS = UITests/ChipMacUITests.entitlements;
+				PRODUCT_BUNDLE_IDENTIFIER = host.lumiere.ChipMacUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+				SUPPORTED_PLATFORMS = macosx;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_VERSION = 5.0;
+				TEST_TARGET_NAME = ChipMac;
+			};
+			name = Debug;
+		};
+		CAC00000000000000000000B /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				DEAD_CODE_STRIPPING = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				MACOSX_DEPLOYMENT_TARGET = "$(RECOMMENDED_MACOSX_DEPLOYMENT_TARGET)";
+				CODE_SIGN_ENTITLEMENTS = UITests/ChipMacUITests.entitlements;
+				PRODUCT_BUNDLE_IDENTIFIER = host.lumiere.ChipMacUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+				SUPPORTED_PLATFORMS = macosx;
+				SWIFT_VERSION = 5.0;
+				TEST_TARGET_NAME = ChipMac;
+			};
+			name = Release;
+		};
+		CAC00000000000000000000C /* AppStore */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				DEAD_CODE_STRIPPING = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				MACOSX_DEPLOYMENT_TARGET = "$(RECOMMENDED_MACOSX_DEPLOYMENT_TARGET)";
+				CODE_SIGN_ENTITLEMENTS = UITests/ChipMacUITests.entitlements;
+				PRODUCT_BUNDLE_IDENTIFIER = host.lumiere.ChipMacUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+				SUPPORTED_PLATFORMS = macosx;
+				SWIFT_VERSION = 5.0;
+				TEST_TARGET_NAME = ChipMac;
+			};
+			name = AppStore;
+		};
+		CAC00000000000000000000D /* DeveloperID */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				DEAD_CODE_STRIPPING = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				MACOSX_DEPLOYMENT_TARGET = "$(RECOMMENDED_MACOSX_DEPLOYMENT_TARGET)";
+				CODE_SIGN_ENTITLEMENTS = UITests/ChipMacUITests.entitlements;
+				PRODUCT_BUNDLE_IDENTIFIER = host.lumiere.ChipMacUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+				SUPPORTED_PLATFORMS = macosx;
+				SWIFT_VERSION = 5.0;
+				TEST_TARGET_NAME = ChipMac;
+			};
+			name = DeveloperID;
+		};
 		003254340176A76C2BC8F6D4 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -677,6 +802,17 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		CAC000000000000000000009 /* Build configuration list for PBXNativeTarget "ChipMacUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				CAC00000000000000000000A /* Debug */,
+				CAC00000000000000000000B /* Release */,
+				CAC00000000000000000000C /* AppStore */,
+				CAC00000000000000000000D /* DeveloperID */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		3646145E0A90C6FF41610EFE /* Build configuration list for PBXNativeTarget "ChipUITests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (

@@ -19,6 +19,18 @@ final class CardScannerTests: XCTestCase {
         XCTAssertEqual(names, ["DSC00001.ARW", "DSC00001.HIF"])
     }
 
+    func testFindsDNGRawFilesAndPairsThemWithJPEGs() throws {
+        let card = try TemporaryCard()
+        try card.add("CHIP0001.DNG")
+        try card.add("CHIP0001.JPG")
+        try card.add("CHIP0002.dng", modified: Date(timeIntervalSince1970: 1_791_331_300))
+
+        let photos = CardScanner.photos(on: card.root)
+        XCTAssertEqual(photos.first { $0.filename == "CHIP0001.DNG" }?.contentType, "image/x-adobe-dng")
+        let shots = CardScanner.shots(photos)
+        XCTAssertEqual(shots.map { $0.map(\.filename).sorted() }, [["CHIP0001.DNG", "CHIP0001.JPG"], ["CHIP0002.dng"]])
+    }
+
     func testGroupsFilesIntoShotsByBasename() throws {
         let card = try TemporaryCard()
         try card.add("DSC00001.ARW")
