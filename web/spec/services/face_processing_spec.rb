@@ -7,14 +7,23 @@ RSpec.describe FaceProcessing do
     ENV["FACE_PROCESSING_ENABLED"] = before
   end
 
-  it "is on in test unless switched off, and off in production unless switched on" do
-    ENV.delete("FACE_PROCESSING_ENABLED")
-    expect(described_class).to be_enabled
+  describe ".enabled?" do
+    before { ENV.delete("FACE_PROCESSING_ENABLED") }
 
-    allow(Rails.env).to receive(:production?).and_return(true)
-    expect(described_class).not_to be_enabled
-    ENV["FACE_PROCESSING_ENABLED"] = "1"
-    expect(described_class).to be_enabled
+    it "is on in test unless switched off" do
+      expect(described_class).to be_enabled
+    end
+
+    it "is off in production unless switched on" do
+      allow(Rails.env).to receive(:production?).and_return(true)
+      expect(described_class).not_to be_enabled
+    end
+
+    it "is on in production once switched on" do
+      allow(Rails.env).to receive(:production?).and_return(true)
+      ENV["FACE_PROCESSING_ENABLED"] = "1"
+      expect(described_class).to be_enabled
+    end
   end
 
   it "keeps clustering from making faces while off" do
@@ -24,12 +33,18 @@ RSpec.describe FaceProcessing do
     expect { ClusterFacesJob.perform_now }.not_to change(Face, :count)
   end
 
-  it "purges stored embeddings and clusters" do
-    create_list :photo_face, 2
+  describe ".purge!" do
+    before do
+      create_list :photo_face, 2
+      described_class.purge!
+    end
 
-    described_class.purge!
+    it "removes stored embeddings" do
+      expect(PhotoFace.count).to eq 0
+    end
 
-    expect(PhotoFace.count).to eq 0
-    expect(Face.count).to eq 0
+    it "removes clusters" do
+      expect(Face.count).to eq 0
+    end
   end
 end
