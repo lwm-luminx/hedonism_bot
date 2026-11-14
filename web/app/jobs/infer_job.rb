@@ -6,6 +6,8 @@ class InferJob < ApplicationJob
       PhotoInferenceWork.enqueue! p, "hedonism.who_dis.worker.caption_image"
     end
 
+    return unless FaceProcessing.enabled?
+
     PhotoTake.where(facial_metadata: nil, face_processing_disabled: false).each do |p|
       PhotoInferenceWork.enqueue! p, "hedonism.who_dis.worker.extract_facial_data"
     end
