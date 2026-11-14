@@ -3,6 +3,8 @@ class ClusterFacesJob < ApplicationJob
   limits_concurrency to: 1, key: nil
 
   def perform
+    return unless FaceProcessing.enabled?
+
     PrivacyLock.biometric do
       # Keep identified faces: deleting them loses the user mapping needed for erasure.
       Face.where(user_id: nil).destroy_all

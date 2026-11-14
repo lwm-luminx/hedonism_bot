@@ -108,7 +108,7 @@ class PhotoTake < ApplicationRecord
   def update_faces(faces)
     PrivacyLock.biometric do
       reload
-      return false if face_processing_disabled?
+      return false if face_processing_disabled? || !FaceProcessing.enabled?
 
       self.facial_metadata = faces.map(&:to_h)
       photo_faces.destroy_all

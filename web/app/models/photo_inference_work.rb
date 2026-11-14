@@ -21,7 +21,9 @@ class PhotoInferenceWork < ApplicationRecord
                   .order(:created_at).lock("FOR UPDATE SKIP LOCKED").first
       return unless work
       return work.update!(state: "failed") && nil if work.photo_take.owner_photographer_id != account.photographer_id
-      return work.update!(state: "completed") && nil if work.face_task? && work.photo_take.face_processing_disabled?
+      if work.face_task? && (work.photo_take.face_processing_disabled? || !FaceProcessing.enabled?)
+        return work.update!(state: "completed") && nil
+      end
 
       work.update!(state: "running", service_account: account, lease_token: SecureRandom.hex(24),
                    lease_expires_at: 2.minutes.from_now, deadline_at: 1.hour.from_now, attempts: work.attempts + 1)
