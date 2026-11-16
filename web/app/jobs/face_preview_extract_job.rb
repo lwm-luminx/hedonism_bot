@@ -3,6 +3,8 @@ class FacePreviewExtractJob < ApplicationJob
   discard_on ActiveJob::DeserializationError
 
   def perform(person_photo)
+    return unless FaceProcessing.enabled?
+
     PrivacyLock.biometric do
       person_photo = PhotoFace.find_by(id: person_photo.id)
       return unless person_photo && !person_photo.photo_take.face_processing_disabled?
