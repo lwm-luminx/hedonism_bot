@@ -230,7 +230,7 @@ entries above that name it are historical. User access on the new records is Ful
 
 Chip (iOS and Mac) and Cogsworth offer Sign in with Apple next to Facebook and device codes,
 to satisfy guideline 4.8. The apps send Apple's identity token and a one-time nonce to
-`POST /auth/apple/exchange` with the photographer subdomain. The server
+`POST /auth/apple/exchange`. The server
 (`AppleIdentityToken`) checks Apple's signature against appleid.apple.com/auth/keys, the
 audience (the three bundle IDs, or `APPLE_SIGN_IN_CLIENT_IDS`), expiry and the nonce.
 
@@ -261,4 +261,12 @@ Developer portal setup (once, team `DWVXMLB45Y`):
    domain `api.lumiere.host` with return URL `https://api.lumiere.host/auth/apple/callback`.
 3. No key or client secret is needed: the server only verifies the signed identity token and never
    redeems the authorization code.
+
+## Choosing an archive after sign-in — 2026-11-17
+
+Chip and Cogsworth no longer ask for an archive (photographer subdomain) before Facebook or Apple
+sign-in. After sign-in the server (`ArchiveChoice`) issues a credential straight away when the person
+administers one archive. Otherwise it returns their archives and a signed selection that is valid
+for 10 minutes. The app shows a picker and posts the choice to `POST /auth/archives/select`. Device
+codes already name their archive. Older builds that still send `photographer` keep working.
 

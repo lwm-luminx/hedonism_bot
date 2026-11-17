@@ -5,6 +5,9 @@
 class SessionsController < ApplicationController
   include TenantAuthReturn
 
+  # A native sign-in that hasn't picked an archive yet has no photographer on api.<SERVICE_DOMAIN>.
+  skip_before_action :set_photographer, only: %i[create failure], if: :native_login_without_archive?
+
   def show
     user = current_user
     render json: { user: user && {
@@ -59,6 +62,11 @@ class SessionsController < ApplicationController
     login = session.delete(:native_login)
     reset_session
     redirect_to "lumiere-uploader://signin?#{ { error: error, state: login['state'] }.to_query }", allow_other_host: true
+  end
+
+  def native_login_without_archive?
+    login = session[:native_login]
+    login.is_a?(Hash) && login.key?("photographer_id") && login["photographer_id"].nil?
   end
 
   def resolve_photographer

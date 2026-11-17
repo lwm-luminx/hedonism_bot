@@ -34,6 +34,7 @@ Rails.application.routes.draw do
   # Website sign-in; register https://api.<SERVICE_DOMAIN>/auth/apple/callback on the Services ID.
   post "auth/apple", to: "apple_web_sign_ins#start"
   post "auth/apple/callback", to: "apple_web_callbacks#create"
+  post "auth/archives/select", to: "archive_choices#create"
   get ".well-known/apple-app-site-association", to: "apple_app_site_associations#show", format: false
 
   post "auth/start", to: "auth_bridges#start"
