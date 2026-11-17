@@ -93,6 +93,8 @@ final class MobileUploadModel: NSObject, ObservableObject {
     @Published var selectedID: UUID? { didSet { defaults.set(selectedID?.uuidString, forKey: "selectedAccount") } }
     @Published var signingIn = false
     @Published var accountError: String?
+    /// Set after signing in when the person administers several archives and must pick one.
+    @Published var pendingArchiveChoice: PendingArchiveChoice?
     private let authentication = FacebookSignIn()
     private let defaults: UserDefaults = {
         #if DEBUG
@@ -134,7 +136,7 @@ final class MobileUploadModel: NSObject, ObservableObject {
         if accounts.isEmpty, !ProcessInfo.processInfo.arguments.contains("--ui-testing"), let legacy = Keychain.token(), !legacy.isEmpty {
             Task {
                 if await addAccount(server: UserDefaults.standard.string(forKey: "serverURL") ?? ServiceEndpoints.api.absoluteString,
-                                    token: legacy, photographer: "", facebook: false) {
+                                    token: legacy, facebook: false) {
                     _ = Keychain.setToken(nil)
                     if let account = selectedAccount, FileManager.default.fileExists(atPath: UploadLedger.defaultURL.path) {
                         try? FileManager.default.createDirectory(at: account.ledgerURL.deletingLastPathComponent(), withIntermediateDirectories: true)
@@ -204,42 +206,68 @@ final class MobileUploadModel: NSObject, ObservableObject {
         defaults.set(try? JSONEncoder().encode(accounts), forKey: "uploadAccounts")
     }
 
-    func addAccount(server: String, token: String, photographer: String, facebook: Bool, deviceCode: String? = nil,
+    /// Signs in with a saved token, device code, Sign in with Apple or Facebook. Returns true once an
+    /// account is added; people who administer several archives first pick one (`pendingArchiveChoice`).
+    func addAccount(server: String, token: String, facebook: Bool, deviceCode: String? = nil,
                     apple: (identityToken: Data, nonce: AppleSignIn.Nonce)? = nil) async -> Bool {
         accountError = nil
+        pendingArchiveChoice = nil
         guard let url = URL(string: server), url.scheme == "https", url.host != nil else {
             accountError = "Enter a valid HTTPS server URL"; return false
         }
         signingIn = true
         defer { signingIn = false }
         do {
-            let credential: String
+            let outcome: SignInOutcome
             if let deviceCode {
-                credential = try await DeviceCodeSignIn.signIn(server: url, code: deviceCode)
+                outcome = .credential(try await DeviceCodeSignIn.signIn(server: url, code: deviceCode))
             } else if let apple {
-                credential = try await AppleSignIn.signIn(server: url, photographer: photographer,
-                                                          identityToken: apple.identityToken, nonce: apple.nonce)
+                outcome = try await AppleSignIn.signIn(server: url, identityToken: apple.identityToken, nonce: apple.nonce)
             } else if facebook {
-                credential = try await authentication.signIn(server: url, photographer: photographer)
-            } else { credential = token }
-            let client = HedonismClient(serverURL: url, token: credential)
-            let subdomain = try await client.photographerSubdomain()
-            let name = try await client.photographerName()
-            let existing = accounts.first { $0.server == url && $0.subdomain == subdomain }
-            let account = UploadAccount(id: existing?.id ?? UUID(), name: name, subdomain: subdomain, server: url)
-            guard Keychain.setToken(credential, accountID: account.id.uuidString) else {
-                throw HedonismClientError.unexpectedResponse("Could not save credentials in Keychain")
+                outcome = try await authentication.signIn(server: url)
+            } else { outcome = .credential(token) }
+            switch outcome {
+            case .credential(let credential):
+                try await saveAccount(server: url, credential: credential)
+                return true
+            case .chooseArchive(let selection, let archives):
+                pendingArchiveChoice = PendingArchiveChoice(server: url, selection: selection, archives: archives)
+                return false
             }
-            accounts.removeAll { $0.id == account.id }
-            accounts.append(account)
-            selectedID = account.id
-            saveAccounts()
-            // UI tests don't import shared credentials either; keep their sign-ins out of Cogsworth.
-            if !ProcessInfo.processInfo.arguments.contains("--ui-testing") {
-                SharedCredentials.save(.init(server: url, subdomain: subdomain, name: name, token: credential))
-            }
+        } catch { accountError = error.localizedDescription; return false }
+    }
+
+    /// Adds the archive picked after signing in. Returns true once the account is added.
+    func chooseArchive(_ archive: ArchiveOption) async -> Bool {
+        guard let pending = pendingArchiveChoice, !signingIn else { return false }
+        accountError = nil
+        signingIn = true
+        defer { signingIn = false }
+        do {
+            let credential = try await ArchiveChoice.choose(server: pending.server, selection: pending.selection, subdomain: archive.subdomain)
+            pendingArchiveChoice = nil
+            try await saveAccount(server: pending.server, credential: credential)
             return true
         } catch { accountError = error.localizedDescription; return false }
+    }
+
+    private func saveAccount(server url: URL, credential: String) async throws {
+        let client = HedonismClient(serverURL: url, token: credential)
+        let subdomain = try await client.photographerSubdomain()
+        let name = try await client.photographerName()
+        let existing = accounts.first { $0.server == url && $0.subdomain == subdomain }
+        let account = UploadAccount(id: existing?.id ?? UUID(), name: name, subdomain: subdomain, server: url)
+        guard Keychain.setToken(credential, accountID: account.id.uuidString) else {
+            throw HedonismClientError.unexpectedResponse("Could not save credentials in Keychain")
+        }
+        accounts.removeAll { $0.id == account.id }
+        accounts.append(account)
+        selectedID = account.id
+        saveAccounts()
+        // UI tests don't import shared credentials either; keep their sign-ins out of Cogsworth.
+        if !ProcessInfo.processInfo.arguments.contains("--ui-testing") {
+            SharedCredentials.save(.init(server: url, subdomain: subdomain, name: name, token: credential))
+        }
     }
 
     /// Links an Apple ID to the person signed in to the selected account, for Sign in with Apple later.
@@ -469,7 +497,6 @@ struct AddAccountView: View {
     var isFirstPage = false
     @Environment(\.dismiss) private var dismiss
     @State private var server = ServiceEndpoints.api.absoluteString
-    @State private var photographer = ""
     @State private var deviceCode = ""
     @State private var usingDeviceCode = false
     @State private var advanced = false
@@ -487,7 +514,9 @@ struct AddAccountView: View {
                 .frame(maxWidth: .infinity).padding(.top, isFirstPage ? 44 : 12)
 
                 VStack(alignment: .leading, spacing: 16) {
-                    if usingDeviceCode {
+                    if let choice = model.pendingArchiveChoice {
+                        archivePicker(choice)
+                    } else if usingDeviceCode {
                         TextField("Device code", text: $deviceCode)
                             #if os(iOS)
                             .textInputAutocapitalization(.characters)
@@ -500,31 +529,20 @@ struct AddAccountView: View {
                         primaryButton("Sign in with device code", disabled: deviceCode.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty) {
                             Task {
                                 focusedField = nil
-                                if await model.addAccount(server: server, token: "", photographer: "", facebook: false, deviceCode: deviceCode) { dismiss() }
+                                if await model.addAccount(server: server, token: "", facebook: false, deviceCode: deviceCode) { dismiss() }
                             }
                         }
                     } else {
-                        TextField("Archive name", text: $photographer)
-                            .accessibilityLabel("Photographer subdomain")
-                            #if os(iOS)
-                            .textInputAutocapitalization(.never)
-                            #endif
-                            .autocorrectionDisabled()
-                            .focused($focusedField, equals: "photographer")
-                            .padding(16).background(.white.opacity(0.07), in: RoundedRectangle(cornerRadius: 12))
-                        Text("e.g. luminx")
-                            .font(.caption).foregroundStyle(.secondary)
-                        primaryButton("Continue with Facebook", disabled: photographer.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty) {
+                        primaryButton("Continue with Facebook", disabled: false) {
                             Task {
                                 focusedField = nil
-                                if await model.addAccount(server: server, token: "", photographer: photographer.trimmingCharacters(in: .whitespacesAndNewlines), facebook: true) { dismiss() }
+                                if await model.addAccount(server: server, token: "", facebook: true) { dismiss() }
                             }
                         }
-                        AppleSignInButton(label: .signIn, disabled: photographer.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty || model.signingIn) { token, nonce in
+                        AppleSignInButton(label: .signIn, disabled: model.signingIn) { token, nonce in
                             Task {
                                 focusedField = nil
-                                if await model.addAccount(server: server, token: "", photographer: photographer.trimmingCharacters(in: .whitespacesAndNewlines),
-                                                          facebook: false, apple: (token, nonce)) { dismiss() }
+                                if await model.addAccount(server: server, token: "", facebook: false, apple: (token, nonce)) { dismiss() }
                             }
                         } onError: { model.accountError = $0 }
                     }
@@ -564,6 +582,31 @@ struct AddAccountView: View {
             }
         }
         .onAppear { model.accountError = nil }
+    }
+
+    /// The archives the person administers, shown after signing in when there is more than one.
+    private func archivePicker(_ choice: PendingArchiveChoice) -> some View {
+        VStack(alignment: .leading, spacing: 12) {
+            Text("Choose an archive").font(.headline)
+            ForEach(choice.archives) { archive in
+                Button {
+                    Task { if await model.chooseArchive(archive) { dismiss() } }
+                } label: {
+                    HStack {
+                        VStack(alignment: .leading, spacing: 2) {
+                            Text(archive.name).font(.body.weight(.semibold))
+                            Text(archive.subdomain).font(.caption).foregroundStyle(.secondary)
+                        }
+                        Spacer()
+                        Image(systemName: "chevron.right").foregroundStyle(.secondary)
+                    }
+                    .padding(16).background(.white.opacity(0.07), in: RoundedRectangle(cornerRadius: 12))
+                }
+                .buttonStyle(.plain).disabled(model.signingIn)
+                .accessibilityIdentifier("archive-" + archive.subdomain)
+            }
+            Button("Cancel") { model.pendingArchiveChoice = nil }.disabled(model.signingIn)
+        }
     }
 
     private func primaryButton(_ title: String, disabled: Bool, action: @escaping () -> Void) -> some View {
@@ -619,20 +662,20 @@ final class FacebookSignIn: NSObject, ASWebAuthenticationPresentationContextProv
         #endif
     }
 
-    func signIn(server: URL, photographer: String) async throws -> String {
+    func signIn(server: URL) async throws -> SignInOutcome {
         let verifier = UUID().uuidString + UUID().uuidString
         let state = UUID().uuidString.replacingOccurrences(of: "-", with: "")
         let challenge = Data(SHA256.hash(data: Data(verifier.utf8))).base64EncodedString()
             .replacingOccurrences(of: "+", with: "-").replacingOccurrences(of: "/", with: "_").replacingOccurrences(of: "=", with: "")
         var components = URLComponents(url: server.appendingPathComponent("auth/native"), resolvingAgainstBaseURL: false)!
-        components.queryItems = [URLQueryItem(name: "photographer", value: photographer), URLQueryItem(name: "challenge", value: challenge), URLQueryItem(name: "state", value: state)]
+        components.queryItems = [URLQueryItem(name: "challenge", value: challenge), URLQueryItem(name: "state", value: state)]
         let callback: URL = try await withCheckedThrowingContinuation { continuation in
             let session = ASWebAuthenticationSession(url: components.url!, callbackURLScheme: "lumiere-uploader") { url, error in
                 if let url { continuation.resume(returning: url) }
                 else { continuation.resume(throwing: error ?? CancellationError()) }
             }
             session.presentationContextProvider = self
-            // Reuse the existing browser login when signing into another photographer account.
+            // Reuse the existing browser login when signing in again or to another archive.
             session.prefersEphemeralWebBrowserSession = false
             self.session = session
             if !session.start() { continuation.resume(throwing: CancellationError()) }
@@ -648,16 +691,6 @@ final class FacebookSignIn: NSObject, ASWebAuthenticationPresentationContextProv
         guard let code = items.first(where: { $0.name == "code" })?.value else {
             throw HedonismClientError.unexpectedResponse("Invalid sign-in callback")
         }
-        var request = URLRequest(url: server.appendingPathComponent("auth/native/exchange"))
-        request.httpMethod = "POST"
-        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
-        request.httpBody = try JSONSerialization.data(withJSONObject: ["code": code, "verifier": verifier])
-        let (data, response) = try await URLSession.shared.data(for: request)
-        guard (response as? HTTPURLResponse)?.statusCode == 200,
-              let json = try JSONSerialization.jsonObject(with: data) as? [String: Any],
-              let token = json["token"] as? String else {
-            throw HedonismClientError.unexpectedResponse("Sign-in exchange failed")
-        }
-        return token
+        return try await ArchiveChoice.exchangeBrowserCode(server: server, code: code, verifier: verifier)
     }
 }

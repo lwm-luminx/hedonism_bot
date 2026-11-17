@@ -24,6 +24,8 @@ final class AppModel: ObservableObject {
     private var archiveSyncTask: Task<Void, Never>?
 
     @Published private(set) var signingIn = false
+    /// Set after signing in when the person administers several archives and must pick one.
+    @Published private(set) var pendingArchiveChoice: PendingArchiveChoice?
     private let browserSignIn = BrowserSignIn()
 
     private let defaults = UserDefaults.standard
@@ -75,8 +77,9 @@ final class AppModel: ObservableObject {
         return HedonismClient(serverURL: url, token: token)
     }
 
-    func signIn(photographer: String, deviceCode: String? = nil,
-                apple: (identityToken: Data, nonce: AppleSignIn.Nonce)? = nil) async {
+    /// Signs in with a device code, Sign in with Apple or Facebook (in the browser). People who
+    /// administer several archives then pick one from `pendingArchiveChoice`.
+    func signIn(deviceCode: String? = nil, apple: (identityToken: Data, nonce: AppleSignIn.Nonce)? = nil) async {
         guard !signingIn, !isUploading else { return }
         guard let server = URL(string: serverURL.trimmingCharacters(in: .whitespacesAndNewlines)),
               server.scheme == "https" || (server.scheme == "http" && ["localhost", "127.0.0.1"].contains(server.host ?? "")) else {
@@ -85,31 +88,58 @@ final class AppModel: ObservableObject {
         }
         signingIn = true
         defer { signingIn = false }
+        pendingArchiveChoice = nil
         do {
-            let credential: String
+            let outcome: SignInOutcome
             if let deviceCode {
-                credential = try await DeviceCodeSignIn.signIn(server: server, code: deviceCode)
+                outcome = .credential(try await DeviceCodeSignIn.signIn(server: server, code: deviceCode))
             } else if let apple {
-                credential = try await AppleSignIn.signIn(server: server, photographer: photographer,
-                                                          identityToken: apple.identityToken, nonce: apple.nonce)
+                outcome = try await AppleSignIn.signIn(server: server, identityToken: apple.identityToken, nonce: apple.nonce)
             } else {
-                credential = try await browserSignIn.signIn(server: server, photographer: photographer.trimmingCharacters(in: .whitespacesAndNewlines))
+                outcome = try await browserSignIn.signIn(server: server)
             }
-            let client = HedonismClient(serverURL: server, token: credential)
-            let name = try await client.photographerName()
-            let subdomain = try await client.photographerSubdomain()
-            guard server.absoluteString == serverURL.trimmingCharacters(in: .whitespacesAndNewlines) else { return }
-            guard Keychain.setToken(credential) else {
-                status = "Could not save the credential in Keychain. Please try again."
-                return
+            switch outcome {
+            case .credential(let credential):
+                try await finishSignIn(server: server, credential: credential)
+            case .chooseArchive(let selection, let archives):
+                pendingArchiveChoice = PendingArchiveChoice(server: server, selection: selection, archives: archives)
+                status = "Choose the archive to connect"
             }
-            token = credential
-            connectedAs = name
-            SharedCredentials.save(.init(server: server, subdomain: subdomain, name: name, token: credential))
-            loadArchivePaths()
-            await syncArchiveStorage()
-            status = "Connected as \(name)"
         } catch { status = error.localizedDescription }
+    }
+
+    /// Connects the archive picked after signing in.
+    func chooseArchive(_ archive: ArchiveOption) async {
+        guard let pending = pendingArchiveChoice, !signingIn else { return }
+        signingIn = true
+        defer { signingIn = false }
+        do {
+            let credential = try await ArchiveChoice.choose(server: pending.server, selection: pending.selection, subdomain: archive.subdomain)
+            pendingArchiveChoice = nil
+            try await finishSignIn(server: pending.server, credential: credential)
+        } catch { status = error.localizedDescription }
+    }
+
+    func cancelArchiveChoice() {
+        pendingArchiveChoice = nil
+        status = "Sign in to connect a photographer"
+    }
+
+    private func finishSignIn(server: URL, credential: String) async throws {
+        let client = HedonismClient(serverURL: server, token: credential)
+        let name = try await client.photographerName()
+        let subdomain = try await client.photographerSubdomain()
+        guard server.absoluteString == serverURL.trimmingCharacters(in: .whitespacesAndNewlines) else { return }
+        guard Keychain.setToken(credential) else {
+            status = "Could not save the credential in Keychain. Please try again."
+            return
+        }
+        token = credential
+        connectedAs = name
+        SharedCredentials.save(.init(server: server, subdomain: subdomain, name: name, token: credential))
+        loadArchivePaths()
+        await syncArchiveStorage()
+        status = "Connected as \(name)"
     }
 
     /// Shows a sign-in problem reported by the UI, such as a failed Sign in with Apple sheet.
@@ -302,13 +332,13 @@ final class BrowserSignIn: NSObject, ASWebAuthenticationPresentationContextProvi
         NSApp.keyWindow ?? NSApp.windows.first ?? ASPresentationAnchor()
     }
 
-    func signIn(server: URL, photographer: String) async throws -> String {
+    func signIn(server: URL) async throws -> SignInOutcome {
         let verifier = UUID().uuidString + UUID().uuidString
         let state = UUID().uuidString.replacingOccurrences(of: "-", with: "")
         let challenge = Data(SHA256.hash(data: Data(verifier.utf8))).base64EncodedString()
             .replacingOccurrences(of: "+", with: "-").replacingOccurrences(of: "/", with: "_").replacingOccurrences(of: "=", with: "")
         var components = URLComponents(url: server.appendingPathComponent("auth/native"), resolvingAgainstBaseURL: false)!
-        components.queryItems = [URLQueryItem(name: "photographer", value: photographer), URLQueryItem(name: "challenge", value: challenge), URLQueryItem(name: "state", value: state)]
+        components.queryItems = [URLQueryItem(name: "challenge", value: challenge), URLQueryItem(name: "state", value: state)]
         NSApp.activate(ignoringOtherApps: true)
         defer { session = nil }
         let callback: URL = try await withCheckedThrowingContinuation { continuation in
@@ -317,7 +347,7 @@ final class BrowserSignIn: NSObject, ASWebAuthenticationPresentationContextProvi
                 else { continuation.resume(throwing: error ?? CancellationError()) }
             }
             session.presentationContextProvider = self
-            // Reuse the existing browser login when signing into another photographer account.
+            // Reuse the existing browser login when signing in again or to another archive.
             session.prefersEphemeralWebBrowserSession = false
             self.session = session
             if !session.start() { continuation.resume(throwing: CancellationError()) }
@@ -332,16 +362,6 @@ final class BrowserSignIn: NSObject, ASWebAuthenticationPresentationContextProvi
         guard let code = items.first(where: { $0.name == "code" })?.value else {
             throw HedonismClientError.unexpectedResponse("Invalid sign-in callback")
         }
-        var request = URLRequest(url: server.appendingPathComponent("auth/native/exchange"))
-        request.httpMethod = "POST"
-        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
-        request.httpBody = try JSONSerialization.data(withJSONObject: ["code": code, "verifier": verifier])
-        let (data, response) = try await URLSession.shared.data(for: request)
-        guard (response as? HTTPURLResponse)?.statusCode == 200,
-              let json = try JSONSerialization.jsonObject(with: data) as? [String: Any],
-              let token = json["token"] as? String else {
-            throw HedonismClientError.unexpectedResponse("Sign-in exchange failed")
-        }
-        return token
+        return try await ArchiveChoice.exchangeBrowserCode(server: server, code: code, verifier: verifier)
     }
 }

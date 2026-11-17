@@ -13,9 +13,9 @@ RSpec.describe NativeLoginGrant do
   before { PhotographerAdmin.create!(user: user, photographer: photographer, role: "admin") }
 
   it "exchanges the proof for a photographer-scoped credential", :aggregate_failures do
-    account, token = described_class.exchange(code: "one-time-code", verifier: verifier)
-    expect(account.user).to eq(user)
-    expect(ServiceAccount.authenticate(token).photographer).to eq(photographer)
+    body = described_class.exchange(code: "one-time-code", verifier: verifier)
+    expect(body[:subdomain]).to eq(photographer.subdomain)
+    expect(ServiceAccount.authenticate(body[:token])).to have_attributes(user: user, photographer: photographer)
     expect(described_class.exchange(code: "one-time-code", verifier: verifier)).to be_nil
   end
 
@@ -34,8 +34,24 @@ RSpec.describe NativeLoginGrant do
   end
 
   it "invalidates issued credentials when photographer access is removed" do
-    _, token = described_class.exchange(code: "one-time-code", verifier: verifier)
+    token = described_class.exchange(code: "one-time-code", verifier: verifier)[:token]
     user.photographer_admins.destroy_all
     expect(ServiceAccount.authenticate(token)).to be_nil
+  end
+
+  context "without a photographer" do
+    before { grant.update!(photographer: nil) }
+
+    it "signs in to the person's only archive" do
+      expect(described_class.exchange(code: "one-time-code", verifier: verifier)[:subdomain]).to eq(photographer.subdomain)
+    end
+
+    it "lists the archives when the person administers several", :aggregate_failures do
+      other = create(:photographer)
+      PhotographerAdmin.create!(user: user, photographer: other, role: "admin")
+      body = described_class.exchange(code: "one-time-code", verifier: verifier)
+      expect(body[:token]).to be_nil
+      expect(body[:photographers].pluck(:subdomain)).to contain_exactly(photographer.subdomain, other.subdomain)
+    end
   end
 end
