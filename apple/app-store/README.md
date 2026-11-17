@@ -244,3 +244,21 @@ Before shipping: run the `AddAppleSubToUsers` migration, and make sure the Sign 
 capability is enabled on `host.lumiere.Chip`, `host.lumiere.ChipMac` and
 `host.lumiere.Cogsworth` (Xcode's automatic signing does this on the next archive).
 
+### On the website — 2026-11-17
+
+The admin console offers **Continue with Apple** next to Facebook. Like Facebook, it runs through
+the auth bridge on `api.<SERVICE_DOMAIN>`: `POST /auth/apple` sends the browser to Apple with the
+website's Services ID, and Apple posts the identity token back to `POST /auth/apple/callback`.
+That POST is cross-site, so the bridge context and nonce travel in a signed OAuth state rather
+than the session cookie. The same rules apply: no accounts are created, and the Apple ID must
+already be linked or match an Apple-verified email.
+
+Developer portal setup (once, team `DWVXMLB45Y`):
+
+1. Identifiers → **+** → Services IDs → identifier `host.lumiere.web` (or set
+   `APPLE_SIGN_IN_SERVICE_ID` on Heroku to another one), description "Lumière web".
+2. Edit it, enable **Sign in with Apple**, choose `host.lumiere.Chip` as the primary App ID, and add
+   domain `api.lumiere.host` with return URL `https://api.lumiere.host/auth/apple/callback`.
+3. No key or client secret is needed: the server only verifies the signed identity token and never
+   redeems the authorization code.
+

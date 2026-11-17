@@ -31,6 +31,9 @@ Rails.application.routes.draw do
   delete "auth/native/session", to: "native_accounts#destroy"
   post "auth/apple/exchange", to: "apple_accounts#exchange"
   post "auth/apple/link", to: "apple_accounts#link"
+  # Website sign-in; register https://api.<SERVICE_DOMAIN>/auth/apple/callback on the Services ID.
+  post "auth/apple", to: "apple_web_sign_ins#start"
+  post "auth/apple/callback", to: "apple_web_sign_ins#callback"
   get ".well-known/apple-app-site-association", to: "apple_app_site_associations#show", format: false
 
   post "auth/start", to: "auth_bridges#start"
