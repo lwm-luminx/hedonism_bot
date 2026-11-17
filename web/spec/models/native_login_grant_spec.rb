@@ -47,7 +47,7 @@ RSpec.describe NativeLoginGrant do
     end
 
     it "lists the archives when the person administers several", :aggregate_failures do
-      other = create(:photographer)
+      other = create(:photographer, subdomain: "second-archive")
       PhotographerAdmin.create!(user: user, photographer: other, role: "admin")
       body = described_class.exchange(code: "one-time-code", verifier: verifier)
       expect(body[:token]).to be_nil
