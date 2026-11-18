@@ -204,7 +204,6 @@ struct MenuContent: View {
 }
 
 struct SettingsView: View {
-    @State private var photographer = ""
     @State private var deviceCode = ""
     @State private var signInMethod: String?
     @State private var showSignInSettings = false
@@ -373,7 +372,9 @@ struct SettingsView: View {
                     .font(.callout).foregroundStyle(MenuBrand.muted).fixedSize(horizontal: false, vertical: true)
             }
 
-            if signInMethod == nil {
+            if let choice = model.pendingArchiveChoice {
+                archivePicker(choice)
+            } else if signInMethod == nil {
                 HStack(spacing: 12) {
                     signInOption("Apple", icon: "apple.logo", prominent: true) { signInMethod = "apple" }
                     signInOption("Facebook", icon: "person.crop.circle", prominent: true) { signInMethod = "facebook" }
@@ -383,32 +384,28 @@ struct SettingsView: View {
                 Button { signInMethod = nil } label: { Label("Back", systemImage: "chevron.left") }
                     .buttonStyle(.plain).foregroundStyle(MenuBrand.muted).disabled(model.signingIn)
                 if signInMethod == "apple" {
-                    TextField("Photographer subdomain", text: $photographer)
-                        .textFieldStyle(.roundedBorder)
-                    Text("Enter the subdomain for the photographer you administer.").font(.caption).foregroundStyle(MenuBrand.muted)
-                    let missing = photographer.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty
-                    CogsworthAppleButton(label: .signIn, disabled: missing || model.signingIn) { token, nonce in
-                        Task { await model.signIn(photographer: photographer, apple: (token, nonce)) }
+                    CogsworthAppleButton(label: .signIn, disabled: model.signingIn) { token, nonce in
+                        Task { await model.signIn(apple: (token, nonce)) }
                     } onError: { model.reportSignInError($0) }
                     Text("First time? Sign in with Facebook or a device code once, then choose Link Apple ID in Settings.")
                         .font(.caption).foregroundStyle(MenuBrand.muted).fixedSize(horizontal: false, vertical: true)
                 } else if signInMethod == "facebook" {
-                    TextField("Photographer subdomain", text: $photographer)
-                        .textFieldStyle(.roundedBorder)
-                    Text("Enter the subdomain for the photographer you administer.").font(.caption).foregroundStyle(MenuBrand.muted)
                     signInChoice("Continue with Facebook", icon: "arrow.up.right", prominent: true) {
-                        Task { await model.signIn(photographer: photographer) }
+                        Task { await model.signIn() }
                     }
-                    .disabled(photographer.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty)
+                    Text("If you administer more than one archive, you'll choose one after signing in.")
+                        .font(.caption).foregroundStyle(MenuBrand.muted).fixedSize(horizontal: false, vertical: true)
                 } else {
                     TextField("Device code", text: $deviceCode).textFieldStyle(.roundedBorder)
                     Text("Generate a one-use code in Admin → Devices, then paste it here.").font(.caption).foregroundStyle(MenuBrand.muted)
                     signInChoice("Connect with device code", icon: "link", prominent: true) {
-                        Task { await model.signIn(photographer: "", deviceCode: deviceCode) }
+                        Task { await model.signIn(deviceCode: deviceCode) }
                     }
                     .disabled(deviceCode.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty)
                 }
-                if model.signingIn { ProgressView("Signing in…").tint(MenuBrand.gold) }
+            }
+            if model.signingIn { ProgressView("Signing in…").tint(MenuBrand.gold) }
+            if signInMethod != nil || model.pendingArchiveChoice != nil {
                 Text(model.status).font(.caption).foregroundStyle(MenuBrand.muted)
                     .fixedSize(horizontal: false, vertical: true)
             }
@@ -426,6 +423,21 @@ struct SettingsView: View {
         .foregroundStyle(MenuBrand.cream)
         .background(LinearGradient(colors: [MenuBrand.surface, MenuBrand.background], startPoint: .topLeading, endPoint: .bottomTrailing))
         .preferredColorScheme(.dark)
+    }
+
+    /// The archives the person administers, shown after signing in when there is more than one.
+    private func archivePicker(_ choice: PendingArchiveChoice) -> some View {
+        VStack(alignment: .leading, spacing: 10) {
+            Text("Choose an archive").font(.headline)
+            ForEach(choice.archives) { archive in
+                signInChoice(archive.name, icon: "photo.on.rectangle", prominent: false) {
+                    Task { await model.chooseArchive(archive) }
+                }
+                .accessibilityIdentifier("archive-" + archive.subdomain)
+            }
+            Button("Cancel") { model.cancelArchiveChoice() }
+                .buttonStyle(.plain).foregroundStyle(MenuBrand.muted).disabled(model.signingIn)
+        }
     }
 
     private func signInOption(_ title: String, icon: String, prominent: Bool, action: @escaping () -> Void) -> some View {
