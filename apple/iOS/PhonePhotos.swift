@@ -19,17 +19,20 @@ enum PhoneStaging {
     /// Copies a file into the staging folder under a unique name. Shots are grouped by basename,
     /// so two library photos that are both IMG_0001 must not share one.
     static func store(_ source: URL, suggestedName: String?, type: UTType) throws -> URL {
-        let target = try destination(suggestedName: suggestedName ?? source.lastPathComponent, type: type)
+        // Keep the original's extension when the server takes it (a ProRAW file arrives as .DNG).
+        let sourceExtension = source.pathExtension.lowercased()
+        let pathExtension = PhotoFile.contentTypes[sourceExtension] != nil ? sourceExtension : nil
+        let target = try destination(suggestedName: suggestedName ?? source.lastPathComponent, type: type, pathExtension: pathExtension)
         try FileManager.default.copyItem(at: source, to: target)
         return target
     }
 
-    static func destination(suggestedName: String, type: UTType) throws -> URL {
+    static func destination(suggestedName: String, type: UTType, pathExtension: String? = nil) throws -> URL {
         try FileManager.default.createDirectory(at: folder, withIntermediateDirectories: true,
                                                 attributes: [.protectionKey: FileProtectionType.completeUntilFirstUserAuthentication])
         let base = (suggestedName as NSString).deletingPathExtension
         let name = (base.isEmpty ? "Photo" : base) + "-" + UUID().uuidString.prefix(8)
-        return folder.appendingPathComponent(name).appendingPathExtension(type.preferredFilenameExtension ?? "jpg")
+        return folder.appendingPathComponent(name).appendingPathExtension(pathExtension ?? type.preferredFilenameExtension ?? "jpg")
     }
 
     static func removeAll() {
@@ -51,7 +54,7 @@ enum PhoneStaging {
         throw CocoaError(.fileWriteUnknown)
     }
 
-    /// Re-encodes image data the server does not accept (ProRAW DNG, GIF, WebP) with its metadata intact.
+    /// Re-encodes image data the server does not accept (GIF, WebP, other cameras' RAW) as HEIC with its metadata intact.
     static func convert(_ data: Data, suggestedName: String) throws -> URL {
         guard let source = CGImageSourceCreateWithData(data as CFData, nil),
               let image = CGImageSourceCreateImageAtIndex(source, 0, nil) else { throw CocoaError(.fileReadCorruptFile) }
@@ -64,7 +67,16 @@ enum PhoneStaging {
 struct PickedPhoto: Transferable {
     let url: URL
 
+    /// Adobe DNG, which iPhone ProRAW shots and many imported RAW files use.
+    static let dng = UTType("com.adobe.raw-image") ?? .rawImage
+    /// Sony ARW, for RAW files imported into Photos from a Sony camera card.
+    static let arw = UTType("com.sony.arw-raw-image") ?? .rawImage
+
     static var transferRepresentation: some TransferRepresentation {
+        // The picker uses the first representation the photo offers, so RAW originals come
+        // before the processed HEIC/JPEG that Photos also offers for them.
+        FileRepresentation(importedContentType: dng) { PickedPhoto(url: try PhoneStaging.store($0.file, suggestedName: nil, type: dng)) }
+        FileRepresentation(importedContentType: arw) { PickedPhoto(url: try PhoneStaging.store($0.file, suggestedName: nil, type: arw)) }
         FileRepresentation(importedContentType: .heic) { PickedPhoto(url: try PhoneStaging.store($0.file, suggestedName: nil, type: .heic)) }
         FileRepresentation(importedContentType: .heif) { PickedPhoto(url: try PhoneStaging.store($0.file, suggestedName: nil, type: .heif)) }
         FileRepresentation(importedContentType: .jpeg) { PickedPhoto(url: try PhoneStaging.store($0.file, suggestedName: nil, type: .jpeg)) }
