@@ -60,11 +60,9 @@ final class MobileUploaderUITests: XCTestCase {
         let app = XCUIApplication()
         app.launch()
         if app.buttons["Add account"].exists { app.buttons["Add account"].tap() }
-        let photographer = app.textFields["Photographer subdomain"]
-        XCTAssertTrue(photographer.waitForExistence(timeout: 10))
-        photographer.tap()
-        photographer.typeText("luminx")
-        app.buttons["Continue with Facebook"].tap()
+        let facebook = app.buttons["Continue with Facebook"]
+        XCTAssertTrue(facebook.waitForExistence(timeout: 10))
+        facebook.tap()
         let springboard = XCUIApplication(bundleIdentifier: "com.apple.springboard")
         let consent = springboard.buttons["Continue"]
         if consent.waitForExistence(timeout: 3) { consent.tap() }
@@ -80,6 +78,9 @@ final class MobileUploaderUITests: XCTestCase {
                 confirmedFacebook = true
                 facebookContinue.tap()
             }
+            // People who administer several archives pick one after signing in.
+            let luminx = app.buttons["archive-luminx"]
+            if luminx.exists && luminx.isHittable { luminx.tap() }
             Thread.sleep(forTimeInterval: 1)
         }
         let screenshot = XCTAttachment(screenshot: app.screenshot())
@@ -99,7 +100,8 @@ final class MobileUploaderUITests: XCTestCase {
         app.launch()
         XCTAssertTrue(app.staticTexts["Chip"].waitForExistence(timeout: 10))
         XCTAssertFalse(app.buttons["Select card / DCIM folder"].exists)
-        XCTAssertFalse(app.buttons["Continue with Facebook"].isEnabled)
+        XCTAssertTrue(app.buttons["Continue with Facebook"].isEnabled)
+        XCTAssertFalse(app.textFields["Photographer subdomain"].exists)
         app.buttons["switchSignInMethod"].tap()
         let code = app.textFields["deviceCodeField"]
         XCTAssertTrue(code.exists)
@@ -108,7 +110,7 @@ final class MobileUploaderUITests: XCTestCase {
         code.typeText("ABCD-1234-ABCD-1234-ABCD")
         XCTAssertTrue(app.buttons["Sign in with device code"].isEnabled)
         app.buttons["switchSignInMethod"].tap()
-        XCTAssertTrue(app.textFields["Photographer subdomain"].exists)
+        XCTAssertTrue(app.buttons["Continue with Facebook"].exists)
         let screenshot = XCTAttachment(screenshot: app.screenshot())
         screenshot.lifetime = .keepAlways
         add(screenshot)
