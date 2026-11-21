@@ -27,16 +27,12 @@ final class ChipMacUITests: XCTestCase {
         XCTAssertTrue(app.staticTexts["Chip"].waitForExistence(timeout: 10))
         XCTAssertFalse(app.buttons["Select card / DCIM folder"].exists)
 
+        // No archive name up front: the archive is picked after signing in.
         let apple = element(app, "signInWithApple")
         XCTAssertTrue(apple.exists, "Sign in with Apple button is missing")
-        XCTAssertFalse(apple.isEnabled, "Sign in with Apple must wait for a subdomain")
-        XCTAssertFalse(app.buttons["Continue with Facebook"].isEnabled)
-
-        let subdomain = app.textFields["Photographer subdomain"]
-        subdomain.click()
-        subdomain.typeText("review")
-        XCTAssertTrue(apple.isEnabled, "Sign in with Apple should enable once a subdomain is entered")
+        XCTAssertTrue(apple.isEnabled, "Sign in with Apple should be ready without an archive name")
         XCTAssertTrue(app.buttons["Continue with Facebook"].isEnabled)
+        XCTAssertFalse(app.textFields["Photographer subdomain"].exists)
 
         app.buttons["switchSignInMethod"].click()
         let code = app.textFields["deviceCodeField"]

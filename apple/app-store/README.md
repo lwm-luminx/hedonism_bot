@@ -230,7 +230,7 @@ entries above that name it are historical. User access on the new records is Ful
 
 Chip (iOS and Mac) and Cogsworth offer Sign in with Apple next to Facebook and device codes,
 to satisfy guideline 4.8. The apps send Apple's identity token and a one-time nonce to
-`POST /auth/apple/exchange` with the photographer subdomain. The server
+`POST /auth/apple/exchange`. The server
 (`AppleIdentityToken`) checks Apple's signature against appleid.apple.com/auth/keys, the
 audience (the three bundle IDs, or `APPLE_SIGN_IN_CLIENT_IDS`), expiry and the nonce.
 
@@ -243,4 +243,30 @@ who hide their email sign in once with Facebook or a device code and choose **Li
 Before shipping: run the `AddAppleSubToUsers` migration, and make sure the Sign in with Apple
 capability is enabled on `host.lumiere.Chip`, `host.lumiere.ChipMac` and
 `host.lumiere.Cogsworth` (Xcode's automatic signing does this on the next archive).
+
+### On the website — 2026-11-17
+
+The admin console offers **Continue with Apple** next to Facebook. Like Facebook, it runs through
+the auth bridge on `api.<SERVICE_DOMAIN>`: `POST /auth/apple` sends the browser to Apple with the
+website's Services ID, and Apple posts the identity token back to `POST /auth/apple/callback`.
+That POST is cross-site, so the bridge context and nonce travel in a signed OAuth state rather
+than the session cookie. The same rules apply: no accounts are created, and the Apple ID must
+already be linked or match an Apple-verified email.
+
+Developer portal setup (once, team `DWVXMLB45Y`):
+
+1. Identifiers → **+** → Services IDs → identifier `host.lumiere.web` (or set
+   `APPLE_SIGN_IN_SERVICE_ID` on Heroku to another one), description "Lumière web".
+2. Edit it, enable **Sign in with Apple**, choose `host.lumiere.Chip` as the primary App ID, and add
+   domain `api.lumiere.host` with return URL `https://api.lumiere.host/auth/apple/callback`.
+3. No key or client secret is needed: the server only verifies the signed identity token and never
+   redeems the authorization code.
+
+## Choosing an archive after sign-in — 2026-11-17
+
+Chip and Cogsworth no longer ask for an archive (photographer subdomain) before Facebook or Apple
+sign-in. After sign-in the server (`ArchiveChoice`) issues a credential straight away when the person
+administers one archive. Otherwise it returns their archives and a signed selection that is valid
+for 10 minutes. The app shows a picker and posts the choice to `POST /auth/archives/select`. Device
+codes already name their archive. Older builds that still send `photographer` keep working.
 

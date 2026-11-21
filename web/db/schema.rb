@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_11_08_060000) do
+ActiveRecord::Schema[8.1].define(version: 2026_11_17_190000) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
   enable_extension "postgis"
@@ -329,7 +329,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_11_08_060000) do
     t.string "code_digest", null: false
     t.string "challenge", null: false
     t.uuid "user_id", null: false
-    t.uuid "photographer_id", null: false
+    t.uuid "photographer_id"
     t.datetime "expires_at", null: false
     t.index ["code_digest"], name: "index_native_login_grants_on_code_digest", unique: true
     t.index ["photographer_id"], name: "index_native_login_grants_on_photographer_id"

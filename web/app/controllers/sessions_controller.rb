@@ -3,6 +3,11 @@
 # Signs admins in and out with Facebook. OmniAuth handles POST /auth/facebook and hands the
 # result to #create on the callback.
 class SessionsController < ApplicationController
+  include TenantAuthReturn
+
+  # A native sign-in that hasn't picked an archive yet has no photographer on api.<SERVICE_DOMAIN>.
+  skip_before_action :set_photographer, only: %i[create failure], if: :native_login_without_archive?
+
   def show
     user = current_user
     render json: { user: user && {
@@ -47,10 +52,8 @@ class SessionsController < ApplicationController
 
   def return_to_tenant(**result)
     context = session.delete(:auth_bridge)
-    ticket = Rails.application.message_verifier(:tenant_auth).generate(context.merge(result.stringify_keys),
-                                                                     purpose: :auth_return, expires_in: 1.minute)
     reset_session
-    redirect_to "https://#{context['host']}/auth/return?#{ { ticket: ticket }.to_query }", allow_other_host: true
+    redirect_to_tenant(context, **result)
   end
 
   # A failed or cancelled native sign-in goes back to the app instead of the admin console, which
@@ -59,6 +62,11 @@ class SessionsController < ApplicationController
     login = session.delete(:native_login)
     reset_session
     redirect_to "lumiere-uploader://signin?#{ { error: error, state: login['state'] }.to_query }", allow_other_host: true
+  end
+
+  def native_login_without_archive?
+    login = session[:native_login]
+    login.is_a?(Hash) && login.key?("photographer_id") && login["photographer_id"].nil?
   end
 
   def resolve_photographer
