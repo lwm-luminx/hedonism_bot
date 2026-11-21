@@ -482,7 +482,7 @@ nvtx = [
 
 [[package]]
 name = "deepface"
-version = "0.0.104"
+version = "0.0.105"
 source = { registry = "https://pypi.org/simple" }
 dependencies = [
     { name = "gdown" },
@@ -494,9 +494,9 @@ dependencies = [
     { name = "retina-face" },
     { name = "tqdm" },
 ]
-sdist = { url = "https://files.pythonhosted.org/packages/83/a7/b6279c833bc4fdbce6d3334e6b338fc6a58d9aaf82a6a9476e0fcda9466b/deepface-0.0.104.tar.gz", hash = "sha256:5cd52868dc42959bb821fa94710acdd0c2a4c725dcadb3cbf3b43dad340b2e92", size = 204138, upload-time = "2026-11-04T18:24:57.045Z" }
+sdist = { url = "https://files.pythonhosted.org/packages/26/46/830c56d93a8f63df4958ea758dde89921f4851010bdb2770cf283a75c4a0/deepface-0.0.105.tar.gz", hash = "sha256:8c41494ffa8b5f458418cb085df287b627a637b1eea0d4631495f07a72267c45", size = 209420, upload-time = "2026-11-12T12:47:59.987Z" }
 wheels = [
-    { url = "https://files.pythonhosted.org/packages/23/44/f1b36434723735aea05a4456122c39c50b048a7a7ab9128efc4266144749/deepface-0.0.104-py3-none-any.whl", hash = "sha256:d532a57753089e3d2abd09829537bdf7c8d1a9cbb09c70af7c93003a96f2e279", size = 300240, upload-time = "2026-11-04T18:24:55.33Z" },
+    { url = "https://files.pythonhosted.org/packages/49/ee/16b451803ad7743d5fa44bb767e60df1b97f6f551fe99d93c4e09626f794/deepface-0.0.105-py3-none-any.whl", hash = "sha256:8be2073be95b7c021796d39ba415f809378307c43bcc85aa144f30d67123c35d", size = 306995, upload-time = "2026-11-12T12:47:58.563Z" },
 ]
 
 [[package]]
@@ -2356,7 +2356,7 @@ wheels = [
 
 [[package]]
 name = "transformers"
-version = "5.22.1"
+version = "5.22.2"
 source = { registry = "https://pypi.org/simple" }
 dependencies = [
     { name = "huggingface-hub" },
@@ -2369,9 +2369,9 @@ dependencies = [
     { name = "tqdm" },
     { name = "typer" },
 ]
-sdist = { url = "https://files.pythonhosted.org/packages/17/d6/a610b37bbc3450c056ea68c7f5016d06da8e787c1ac32b20ce58d18a1eb0/transformers-5.22.1.tar.gz", hash = "sha256:bed9fd76d6f43b4a1a9fc5d0c565ace7c77edbd029784f8cbcdf772cb5e924d8", size = 10381794, upload-time = "2026-10-30T07:48:03.721Z" }
+sdist = { url = "https://files.pythonhosted.org/packages/42/54/b040ac523bad74f303d032505e3464cf4794f9d51defc8981ec66001936e/transformers-5.22.2.tar.gz", hash = "sha256:55f57e5cbd7c0b500b7a706daa0ecd76567b56ca139e6e02ef0bba0437e3a763", size = 10383941, upload-time = "2026-11-06T15:42:57.587Z" }
 wheels = [
-    { url = "https://files.pythonhosted.org/packages/75/75/47ebe0e2f1b04a180000e3a49ebdf4669dbab0c63489bcecf7855c26e4f4/transformers-5.22.1-py3-none-any.whl", hash = "sha256:c940b4bf98de4f568723895f330ba1460a398bd83061b93b70238c3fe32e4389", size = 13051755, upload-time = "2026-10-30T07:47:59.888Z" },
+    { url = "https://files.pythonhosted.org/packages/ff/bb/cc0b27a3000ddcf4903d3a26983c8b4c9a36050bbaf05675f353e8bcb08c/transformers-5.22.2-py3-none-any.whl", hash = "sha256:829c2820aff91730b8ec45a4b8ff4be07f586a140b68a9073998b36fa35297dc", size = 13053178, upload-time = "2026-11-06T15:42:54.257Z" },
 ]
 
 [[package]]
