@@ -29,11 +29,39 @@ export function useSessionUser() {
   return user;
 }
 
-// Shows the Facebook sign-in screen until an admin is signed in, then renders its children.
+type Provider = "apple" | "facebook";
+
+const spinner = (
+  <svg className="h-4 w-4 animate-spin" viewBox="0 0 24 24" fill="none">
+    <circle
+      className="opacity-25"
+      cx="12"
+      cy="12"
+      r="10"
+      stroke="currentColor"
+      strokeWidth="4"
+    />
+    <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v8z" />
+  </svg>
+);
+
+const appleLogo = (
+  <svg className="h-4 w-4" viewBox="0 0 24 24" fill="currentColor">
+    <path d="M16.37 12.6c-.03-2.6 2.12-3.85 2.22-3.91-1.21-1.77-3.09-2.01-3.76-2.04-1.6-.16-3.12.94-3.93.94-.81 0-2.06-.92-3.39-.89-1.74.03-3.35 1.01-4.25 2.57-1.81 3.14-.46 7.79 1.3 10.34.86 1.25 1.89 2.65 3.23 2.6 1.3-.05 1.79-.84 3.36-.84 1.57 0 2.01.84 3.38.81 1.4-.02 2.28-1.27 3.13-2.53.99-1.45 1.4-2.85 1.42-2.92-.03-.01-2.72-1.04-2.75-4.13zM13.8 4.96c.71-.87 1.2-2.07 1.06-3.27-1.03.04-2.28.69-3.02 1.55-.66.76-1.24 1.99-1.09 3.16 1.15.09 2.33-.58 3.05-1.44z" />
+  </svg>
+);
+
+const facebookLogo = (
+  <svg className="h-4 w-4" viewBox="0 0 24 24" fill="currentColor">
+    <path d="M24 12.07C24 5.41 18.63 0 12 0S0 5.4 0 12.07C0 18.1 4.39 23.1 10.13 24v-8.44H7.08v-3.49h3.04V9.41c0-3.02 1.8-4.7 4.54-4.7 1.31 0 2.68.24 2.68.24v2.97h-1.5c-1.5 0-1.96.93-1.96 1.89v2.26h3.32l-.53 3.5h-2.8V24C19.62 23.1 24 18.1 24 12.07" />
+  </svg>
+);
+
+// Shows the sign-in screen (Apple or Facebook) until an admin is signed in, then renders its children.
 export function AuthGate({ children }: { children: ReactNode }) {
   const [user, setUser] = useState<SessionUser | null>(null);
   const [loading, setLoading] = useState(true);
-  const [signingIn, setSigningIn] = useState(false);
+  const [signingIn, setSigningIn] = useState<Provider | null>(null);
   const [error, setError] = useState<string | null>(() =>
     new URLSearchParams(window.location.search).get("auth_error"),
   );
@@ -169,8 +197,15 @@ export function AuthGate({ children }: { children: ReactNode }) {
           <form
             method="post"
             action="/auth/start"
-            onSubmit={() => {
-              setSigningIn(true);
+            onSubmit={(event) => {
+              if (signingIn) {
+                event.preventDefault();
+                return;
+              }
+              // Buttons stay enabled while submitting: a disabled submitter would drop its provider value.
+              const submitter = (event.nativeEvent as SubmitEvent)
+                .submitter as HTMLButtonElement | null;
+              setSigningIn(submitter?.value === "apple" ? "apple" : "facebook");
               setError(null);
             }}
             className="flex flex-col gap-3"
@@ -190,51 +225,33 @@ export function AuthGate({ children }: { children: ReactNode }) {
               Sign in to manage the gallery
             </p>
 
-            <button
-              type="submit"
-              disabled={signingIn}
-              className="flex w-full items-center justify-center gap-3 px-4 py-2.5 transition-opacity"
-              style={{
-                borderRadius: "var(--radius-sm)",
-                background: "#1877F2",
-                color: "#FFFFFF",
-                fontFamily: "'Inter', sans-serif",
-                fontSize: "0.9375rem",
-                opacity: signingIn ? 0.7 : 1,
-                cursor: signingIn ? "not-allowed" : "pointer",
-              }}
-            >
-              {signingIn ? (
-                <svg
-                  className="h-4 w-4 animate-spin"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                >
-                  <circle
-                    className="opacity-25"
-                    cx="12"
-                    cy="12"
-                    r="10"
-                    stroke="currentColor"
-                    strokeWidth="4"
-                  />
-                  <path
-                    className="opacity-75"
-                    fill="currentColor"
-                    d="M4 12a8 8 0 018-8v8z"
-                  />
-                </svg>
-              ) : (
-                <svg
-                  className="h-4 w-4"
-                  viewBox="0 0 24 24"
-                  fill="currentColor"
-                >
-                  <path d="M24 12.07C24 5.41 18.63 0 12 0S0 5.4 0 12.07C0 18.1 4.39 23.1 10.13 24v-8.44H7.08v-3.49h3.04V9.41c0-3.02 1.8-4.7 4.54-4.7 1.31 0 2.68.24 2.68.24v2.97h-1.5c-1.5 0-1.96.93-1.96 1.89v2.26h3.32l-.53 3.5h-2.8V24C19.62 23.1 24 18.1 24 12.07" />
-                </svg>
-              )}
-              Continue with Facebook
-            </button>
+            {(
+              [
+                ["apple", "Continue with Apple", "#000000", appleLogo],
+                ["facebook", "Continue with Facebook", "#1877F2", facebookLogo],
+              ] as const
+            ).map(([provider, label, background, logo]) => (
+              <button
+                key={provider}
+                type="submit"
+                name="provider"
+                value={provider}
+                aria-disabled={signingIn !== null}
+                className="flex w-full items-center justify-center gap-3 px-4 py-2.5 transition-opacity"
+                style={{
+                  borderRadius: "var(--radius-sm)",
+                  background,
+                  color: "#FFFFFF",
+                  fontFamily: "'Inter', sans-serif",
+                  fontSize: "0.9375rem",
+                  opacity: signingIn && signingIn !== provider ? 0.5 : 1,
+                  cursor: signingIn ? "not-allowed" : "pointer",
+                }}
+              >
+                {signingIn === provider ? spinner : logo}
+                {label}
+              </button>
+            ))}
 
             {error && (
               <p

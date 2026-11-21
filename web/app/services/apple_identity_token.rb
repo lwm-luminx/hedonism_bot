@@ -2,9 +2,10 @@
 
 require "net/http"
 
-# Verifies a Sign in with Apple identity token sent by Chip or Cogsworth. Apple signs the token
-# with one of the keys published at appleid.apple.com/auth/keys; its audience is the app's bundle
-# ID and its nonce claim is the SHA-256 of the one-time nonce the app generated for the request.
+# Verifies a Sign in with Apple identity token, from Chip or Cogsworth or from the website's sign-in.
+# Apple signs the token with one of the keys published at appleid.apple.com/auth/keys; its audience is
+# the app's bundle ID (or the website's Services ID) and its nonce claim is the SHA-256 of the one-time
+# nonce generated for the request.
 class AppleIdentityToken
   class Invalid < StandardError; end
 
@@ -12,6 +13,7 @@ class AppleIdentityToken
   KEYS_URL = URI("https://appleid.apple.com/auth/keys")
   KEYS_CACHE_KEY = "apple_sign_in/jwks"
   DEFAULT_CLIENT_IDS = %w[host.lumiere.Chip host.lumiere.ChipMac host.lumiere.Cogsworth].freeze
+  DEFAULT_WEB_CLIENT_ID = "host.lumiere.web"
 
   Claims = Data.define(:sub, :email, :email_verified, :private_email) do
     # An email Apple verified and that reaches the person directly, not a private relay address.
@@ -24,12 +26,17 @@ class AppleIdentityToken
     ENV.fetch("APPLE_SIGN_IN_CLIENT_IDS", nil)&.split(",")&.map(&:strip)&.compact_blank.presence || DEFAULT_CLIENT_IDS
   end
 
-  def self.verify(token, nonce:)
+  # The Services ID the website signs in with. Apple only accepts it with a return URL registered for it.
+  def self.web_client_id
+    ENV.fetch("APPLE_SIGN_IN_SERVICE_ID", nil).to_s.strip.presence || DEFAULT_WEB_CLIENT_ID
+  end
+
+  def self.verify(token, nonce:, audience: client_ids)
     raise Invalid, "Missing identity token" if token.blank? || nonce.blank?
 
     payload, = JWT.decode(token.to_s, nil, true,
                           algorithms: [ "RS256" ], jwks: method(:load_keys),
-                          iss: ISSUER, verify_iss: true, aud: client_ids, verify_aud: true,
+                          iss: ISSUER, verify_iss: true, aud: audience, verify_aud: true,
                           verify_iat: true, required_claims: %w[sub exp iat nonce])
     expected = Digest::SHA256.hexdigest(nonce.to_s)
     raise Invalid, "Nonce mismatch" unless ActiveSupport::SecurityUtils.secure_compare(payload["nonce"].to_s, expected)
