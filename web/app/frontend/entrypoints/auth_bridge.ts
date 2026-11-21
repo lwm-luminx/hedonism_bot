@@ -1,4 +1,4 @@
-const form = document.getElementById("facebook-signin");
+const form = document.getElementById("provider-signin");
 
 if (form instanceof HTMLFormElement) {
   // Use the CSRF-protected POST form, just as a manual button click would.
