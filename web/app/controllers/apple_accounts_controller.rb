@@ -6,19 +6,21 @@
 # No accounts are created here. These JSON endpoints authenticate with Apple's signed token and a
 # bearer credential, never browser cookies, so they are an API controller without a session.
 class AppleAccountsController < ActionController::API
-  NOT_LINKED = "This Apple ID isn't linked to an admin of that archive. Sign in with Facebook or a device " \
+  NOT_LINKED = "This Apple ID isn't linked to a Lumière admin yet. Sign in with Facebook or a device " \
                "code once, then choose Link Apple ID."
 
+  CLIENT_NAME = "Lumière app (Apple)"
+
+  # With a photographer (older app builds), signs in to that archive. Without one, returns a
+  # credential for the person's only archive or their archives to choose from (ArchiveChoice).
   def exchange
     claims = AppleIdentityToken.verify(params[:identity_token], nonce: params[:nonce])
-    target = Photographer.find_by(subdomain: params[:photographer].to_s.strip.downcase)
     user = User.from_apple(claims)
-    return render json: { error: NOT_LINKED }, status: :forbidden unless target && user&.admin_of?(target)
+    body = sign_in_response(user) if user
+    return render json: { error: exchange_error(user) }, status: :forbidden unless body
 
-    account, token = ServiceAccount.issue!(photographer: target, name: "Lumière app (Apple)")
-    account.update!(user: user)
     response.headers["Cache-Control"] = "no-store"
-    render json: { token: token, subdomain: target.subdomain, name: target.name }
+    render json: body
   rescue AppleIdentityToken::Invalid
     render json: { error: "Sign in with Apple could not be verified. Try again." }, status: :unauthorized
   end
@@ -37,5 +39,20 @@ class AppleAccountsController < ActionController::API
     head :no_content
   rescue AppleIdentityToken::Invalid
     render json: { error: "Sign in with Apple could not be verified. Try again." }, status: :unauthorized
+  end
+
+  private
+
+  def sign_in_response(user)
+    return ArchiveChoice.response_for(user, client_name: CLIENT_NAME) if params[:photographer].blank?
+
+    target = Photographer.find_by(subdomain: params[:photographer].to_s.strip.downcase)
+    ArchiveChoice.issue(user, target, client_name: CLIENT_NAME) if target && user.admin_of?(target)
+  end
+
+  def exchange_error(user)
+    return NOT_LINKED unless user
+
+    params[:photographer].present? ? "You don't administer that archive." : ArchiveChoice::NO_ARCHIVES
   end
 end

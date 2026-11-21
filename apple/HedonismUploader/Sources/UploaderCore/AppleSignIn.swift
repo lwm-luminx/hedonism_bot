@@ -19,17 +19,15 @@ public enum AppleSignIn {
         }
     }
 
-    /// Exchanges an Apple identity token for a credential for `photographer`. Returns the bearer token.
-    public static func signIn(server: URL, photographer: String, identityToken: Data, nonce: Nonce) async throws -> String {
-        let json = try await post(server.appendingPathComponent("auth/apple/exchange"), body: [
-            "identity_token": String(decoding: identityToken, as: UTF8.self),
-            "nonce": nonce.raw,
-            "photographer": photographer.trimmingCharacters(in: .whitespacesAndNewlines).lowercased(),
-        ], expecting: 200)
-        guard let token = json["token"] as? String else {
-            throw HedonismClientError.unexpectedResponse("Could not complete Sign in with Apple")
+    /// Exchanges an Apple identity token for a credential, or for the person's archives to choose from.
+    /// Older builds passed `photographer`; leave it out to let the server list the person's archives.
+    public static func signIn(server: URL, photographer: String? = nil, identityToken: Data, nonce: Nonce) async throws -> SignInOutcome {
+        var body = ["identity_token": String(decoding: identityToken, as: UTF8.self), "nonce": nonce.raw]
+        if let photographer = photographer?.trimmingCharacters(in: .whitespacesAndNewlines).lowercased(), !photographer.isEmpty {
+            body["photographer"] = photographer
         }
-        return token
+        let json = try await post(server.appendingPathComponent("auth/apple/exchange"), body: body, expecting: 200)
+        return try SignInOutcome(json: json)
     }
 
     /// Links the Apple ID to the person behind an existing credential, so it can sign in on its own later.
