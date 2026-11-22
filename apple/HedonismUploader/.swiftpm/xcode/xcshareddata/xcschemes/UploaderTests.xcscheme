@@ -17,7 +17,7 @@
                BlueprintIdentifier = "UploaderCoreTests"
                BuildableName = "UploaderCoreTests"
                BlueprintName = "UploaderCoreTests"
-               ReferencedContainer = "container:HedonismUploader">
+               ReferencedContainer = "container:">
             </BuildableReference>
          </BuildActionEntry>
          <BuildActionEntry
@@ -31,7 +31,7 @@
                BlueprintIdentifier = "DesktopServicesTests"
                BuildableName = "DesktopServicesTests"
                BlueprintName = "DesktopServicesTests"
-               ReferencedContainer = "container:HedonismUploader">
+               ReferencedContainer = "container:">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -50,7 +50,7 @@
                BlueprintIdentifier = "UploaderCoreTests"
                BuildableName = "UploaderCoreTests"
                BlueprintName = "UploaderCoreTests"
-               ReferencedContainer = "container:HedonismUploader">
+               ReferencedContainer = "container:">
             </BuildableReference>
          </TestableReference>
          <TestableReference
@@ -60,7 +60,7 @@
                BlueprintIdentifier = "DesktopServicesTests"
                BuildableName = "DesktopServicesTests"
                BlueprintName = "DesktopServicesTests"
-               ReferencedContainer = "container:HedonismUploader">
+               ReferencedContainer = "container:">
             </BuildableReference>
          </TestableReference>
       </Testables>

@@ -46,7 +46,7 @@ This version uses foreground URLSession uploads. It does not promise transfers a
 
 ## Validation
 
-Xcode Cloud runs the package's tests (UploaderCoreTests, DesktopServicesTests) on macOS for every pull request into `main`, through the shared **UploaderTests** scheme in `Chip.xcodeproj` (workflow "Uploader tests" on the Chip product). Locally:
+Xcode Cloud runs the package's tests (UploaderCoreTests, DesktopServicesTests) on macOS for every pull request into `main`, through the shared **UploaderTests** scheme in the HedonismUploader package (added to `Lumiere.xcworkspace` so Xcode Cloud sees it) (workflow "Uploader tests" on the Chip product). Locally:
 
 ```sh
 swift test --package-path apple/HedonismUploader
