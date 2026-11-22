@@ -9,6 +9,11 @@ env:
   # Link clusterkit against the system OpenBLAS instead of downloading and compiling it from source.
   CLUSTERKIT_FEATURES: openblas-system
 
+# A newer push to the same pull request cancels the older run; pushes to main always finish.
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: ${{ github.event_name == 'pull_request' }}
+
 jobs:
   scan_ruby:
     runs-on: ubuntu-24.04
