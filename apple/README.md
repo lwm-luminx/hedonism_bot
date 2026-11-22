@@ -46,6 +46,8 @@ This version uses foreground URLSession uploads. It does not promise transfers a
 
 ## Validation
 
+Xcode Cloud runs the package's tests (UploaderCoreTests, DesktopServicesTests) on macOS for every pull request into `main`, through the shared **UploaderTests** scheme in `Chip.xcodeproj` (workflow "Uploader tests" on the Chip product). Locally:
+
 ```sh
 swift test --package-path apple/HedonismUploader
 xcodebuild -project apple/Cogsworth.xcodeproj -scheme Cogsworth -destination 'platform=macOS,arch=arm64' CODE_SIGNING_ALLOWED=NO build

@@ -31,7 +31,7 @@ SCHEME="${CI_XCODE_SCHEME:-Cogsworth}"
 echo "Scheme: $SCHEME"
 
 case "$SCHEME" in
-    Chip|ChipMac|ChipUITests)
+    Chip|ChipMac|ChipUITests|UploaderTests)
         echo "Scheme $SCHEME does not require who_dis ML runtime."
         ;;
     *)
