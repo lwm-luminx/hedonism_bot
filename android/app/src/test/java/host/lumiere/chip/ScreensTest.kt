@@ -1,6 +1,8 @@
 package host.lumiere.chip
 
 import androidx.compose.ui.test.assertIsDisplayed
+import androidx.compose.ui.test.hasTestTag
+import androidx.compose.ui.test.performScrollToNode
 import androidx.compose.ui.test.assertIsEnabled
 import androidx.compose.ui.test.assertIsNotEnabled
 import androidx.compose.ui.test.junit4.createComposeRule
@@ -34,6 +36,9 @@ class ScreensTest {
         override fun pickFolder() { calls += "pickFolder" }
         override fun upload() { calls += "upload" }
     }
+    /** The upload screen is a lazy list, so items below the fold only exist once scrolled to. */
+    private fun scrollTo(tag: String) = compose.onNodeWithTag("uploadScreen").performScrollToNode(hasTestTag(tag))
+
     private val account = UploadAccount(id = "a", name = "Test Alpha", subdomain = "alpha", server = "https://api.lumiere.host")
 
     @Test fun signedOutShowsFacebookAndDeviceCode() {
@@ -63,9 +68,12 @@ class ScreensTest {
     @Test fun uploadIsDisabledUntilAFolderAndAlbum() {
         compose.setContent { ChipApp(ChipState(accounts = listOf(account), selectedId = "a"), actions) }
         compose.onNodeWithText("Test Alpha · alpha").assertIsDisplayed()
+        scrollTo("uploadButton")
         compose.onNodeWithTag("uploadButton").assertIsNotEnabled()
+        scrollTo("albumField")
         compose.onNodeWithTag("albumField").performTextInput("Pride")
         assertEquals("album Pride", calls.last())
+        scrollTo("pickFolder")
         compose.onNodeWithTag("pickFolder").performClick()
         assertEquals("pickFolder", calls.last())
     }
@@ -74,12 +82,14 @@ class ScreensTest {
         val state = ChipState(accounts = listOf(account), selectedId = "a", album = "Pride", hasFolder = true,
             files = listOf(FileRow("DSC00001.ARW", 25_000_000)))
         compose.setContent { ChipApp(state, actions) }
+        scrollTo("uploadButton")
         compose.onNodeWithTag("uploadButton").assertIsEnabled().performClick()
         assertEquals("upload", calls.last())
     }
 
     @Test fun runningShowsCancel() {
         compose.setContent { ChipApp(ChipState(accounts = listOf(account), selectedId = "a", running = true), actions) }
+        scrollTo("cancelUpload")
         compose.onNodeWithTag("cancelUpload").assertIsDisplayed()
     }
 }
