@@ -19,7 +19,7 @@ Sign in with Apple stays on Apple devices for now: on Android it would need a we
 
 ## Release
 
-`app/build.gradle.kts` signs release builds with the upload key named in `android/local.properties` (`chip.upload.*`, or the shared `hotmess.upload.*` keys): `storeFile`, `storePassword`, `keyAlias`, `keyPassword`. Pass a version code that is higher than anything in Play:
+`app/build.gradle.kts` signs release builds with the upload key named in `android/local.properties` (`chip.upload.*`, or the shared `hotmess.upload.*` keys): `storeFile` (a leading `~` is your home folder), `storePassword`, `keyAlias`, `keyPassword` (defaults to `storePassword`). On the release Mac, link the shared key's file: `ln -s ~/Sites/audience-kit/apps/hot_mess/android/local.properties android/local.properties`. Pass a version code that is higher than anything in Play:
 
 ```sh
 ./gradlew :app:bundleRelease -Pchip.versionCode=$(( $(date -u +%s) - 1767225600 ))

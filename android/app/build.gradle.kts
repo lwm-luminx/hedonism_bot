@@ -31,13 +31,16 @@ android {
     }
 
     signingConfigs {
-        val storeFile = upload("storeFile")
+        // Same rules as the Hot Mess build, so its local.properties can be linked in unchanged:
+        // a leading ~ means the home folder, and a missing keyPassword falls back to storePassword
+        // (PKCS#12 keystores use one password for both).
+        val storeFile = upload("storeFile")?.replaceFirst(Regex("^~(?=/|$)"), System.getProperty("user.home"))
         if (storeFile != null) {
             create("upload") {
                 this.storeFile = rootProject.file(storeFile).takeIf { it.exists() } ?: file(storeFile)
                 storePassword = upload("storePassword")
                 keyAlias = upload("keyAlias")
-                keyPassword = upload("keyPassword")
+                keyPassword = upload("keyPassword") ?: upload("storePassword")
             }
         }
     }
